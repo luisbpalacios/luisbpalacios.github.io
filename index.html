@@ -1016,6 +1016,38 @@ body.light .eco-tab.active { background: #F2561D; border-color: #F2561D; color: 
   transition: opacity 0.2s;
 }
 .eco-card-cta:hover { opacity: 0.85; }
+
+/* Compact grid (Todo mode) */
+.eco-cards.compact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.eco-card.compact {
+  padding: 14px 12px;
+  cursor: pointer;
+}
+.eco-card.compact .eco-card-desc,
+.eco-card.compact .eco-card-cta,
+.eco-card.compact .eco-card-cta-sec,
+.eco-card.compact .eco-card-badge {
+  display: none;
+}
+.eco-card.compact .eco-card-icon {
+  position: static;
+  font-size: 22px;
+  opacity: 1;
+  margin-bottom: 6px;
+  display: block;
+}
+.eco-card.compact .eco-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.eco-card.compact .eco-card-tag {
+  font-size: 9px;
+}
 .eco-card-cta-sec {
   display: inline-block;
   color: #F2561D;
@@ -1032,17 +1064,36 @@ body.light .eco-card-title { color: #111; }
 function ecoTab(btn, cat) {
   document.querySelectorAll('.eco-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.eco-card').forEach(c => {
-    if (cat === 'all' || c.dataset.cat === cat) {
+  const grid = document.getElementById('ecoCards');
+
+  if (cat === 'all') {
+    grid.classList.add('compact-grid');
+    document.querySelectorAll('.eco-card').forEach(c => {
       c.classList.remove('hidden');
-      c.style.animation = 'none';
-      c.offsetHeight;
-      c.style.animation = 'ecoFadeIn 0.3s ease';
-    } else {
-      c.classList.add('hidden');
-    }
-  });
+      c.classList.add('compact');
+    });
+  } else {
+    grid.classList.remove('compact-grid');
+    document.querySelectorAll('.eco-card').forEach(c => {
+      c.classList.remove('compact');
+      if (c.dataset.cat === cat) {
+        c.classList.remove('hidden');
+        c.style.animation = 'none';
+        c.offsetHeight;
+        c.style.animation = 'ecoFadeIn 0.3s ease';
+      } else {
+        c.classList.add('hidden');
+      }
+    });
+  }
 }
+
+// Init: start in compact "all" mode
+(function() {
+  const grid = document.getElementById('ecoCards');
+  grid.classList.add('compact-grid');
+  document.querySelectorAll('.eco-card').forEach(c => c.classList.add('compact'));
+})();
 </script>
 
 
