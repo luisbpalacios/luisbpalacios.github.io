@@ -865,236 +865,178 @@ body.light .events-title { color: #111; }
 <!-- COMUNIDAD -->
 <div class="section-title" data-i18n="sec-ecosystem">Únete al Ecosistema</div>
 
-<div class="eco-wrap">
-  <!-- Tab Pills -->
-  <div class="eco-tabs">
-    <button class="eco-tab active" onclick="ecoTab(this,'all')" data-i18n-tab="tab-all">Todo</button>
-    <button class="eco-tab" onclick="ecoTab(this,'comunidad')" data-i18n-tab="tab-comm">Comunidad</button>
-    <button class="eco-tab" onclick="ecoTab(this,'trading')" data-i18n-tab="tab-trading">Trading</button>
-    <button class="eco-tab" onclick="ecoTab(this,'defi')" data-i18n-tab="tab-defi">DeFi</button>
-    <button class="eco-tab" onclick="ecoTab(this,'ia')" data-i18n-tab="tab-ia">IA</button>
+<div class="flip-grid">
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🔥</div>
+        <div class="flip-tag" data-i18n="comm-tag">Comunidad</div>
+        <div class="flip-title" data-i18n="comm-title">Crypto Community</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="comm-tag">Comunidad</div>
+        <div class="flip-back-title" data-i18n="comm-title">Crypto Community</div>
+        <div class="flip-back-desc" data-i18n="comm-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete y empieza a entender cómo se mueve el dinero on-chain.</div>
+        <a href="#" class="flip-cta" data-i18n="comm-cta" onclick="event.stopPropagation()">Unirse Gratis →</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Cards -->
-  <div class="eco-cards" id="ecoCards">
-
-    <div class="eco-card" data-cat="comunidad">
-      <div class="eco-card-icon">🔥</div>
-      <div class="eco-card-badge" data-i18n="comm-badge">🔥 Gratis</div>
-      <div class="eco-card-tag" data-i18n="comm-tag">Comunidad</div>
-      <div class="eco-card-title" data-i18n="comm-title">Crypto Community</div>
-      <div class="eco-card-desc" data-i18n="comm-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.</div>
-      <a href="#" class="eco-card-cta" data-i18n="comm-cta">Unirse Gratis →</a>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">⚡</div>
+        <div class="flip-tag" data-i18n="sig-tag">Señales</div>
+        <div class="flip-title" data-i18n="sig-title">Trading Signals</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="sig-tag">Señales</div>
+        <div class="flip-back-title" data-i18n="sig-title">Trading Signals</div>
+        <div class="flip-back-desc" data-i18n="sig-desc">Señales DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
+        <a href="#" class="flip-cta" data-i18n="sig-cta" onclick="event.stopPropagation()">Acceder →</a>
+      </div>
     </div>
-
-    <div class="eco-card" data-cat="trading">
-      <div class="eco-card-icon">⚡</div>
-      <div class="eco-card-badge vip" data-i18n="sig-badge">⚡ VIP</div>
-      <div class="eco-card-tag" data-i18n="sig-tag">Señales</div>
-      <div class="eco-card-title" data-i18n="sig-title">Trading Signals</div>
-      <div class="eco-card-desc" data-i18n="sig-desc">Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
-      <a href="#" class="eco-card-cta" data-i18n="sig-cta">Acceder a Señales →</a>
-      <a href="#" class="eco-card-cta-sec" data-i18n="sig-results">Ver resultados</a>
-    </div>
-
-    <div class="eco-card" data-cat="defi">
-      <div class="eco-card-icon">🌊</div>
-      <div class="eco-card-tag" data-i18n="pools-tag">Pools de Liquidez</div>
-      <div class="eco-card-title" data-i18n="pools-title">Ingresos Pasivos On-Chain</div>
-      <div class="eco-card-desc" data-i18n="pools-desc">Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
-      <a href="#" class="eco-card-cta" data-i18n="pools-cta">Ver Estrategias →</a>
-    </div>
-
-    <div class="eco-card" data-cat="comunidad">
-      <div class="eco-card-icon">🎯</div>
-      <div class="eco-card-tag" data-i18n="consult-tag">Consultoría</div>
-      <div class="eco-card-title" data-i18n="consult-title">1 on 1 con Luis</div>
-      <div class="eco-card-desc" data-i18n="consult-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
-      <a href="#" class="eco-card-cta" data-i18n="consult-cta">Agendar Sesión →</a>
-    </div>
-
-    <div class="eco-card" data-cat="ia">
-      <div class="eco-card-icon">🤖</div>
-      <div class="eco-card-tag" data-i18n="ab-tag">AI para Negocios</div>
-      <div class="eco-card-title" data-i18n="ab-title">AgentBase.mx</div>
-      <div class="eco-card-desc" data-i18n="ab-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
-      <a href="https://agentbase.mx?ref=15E60F42" class="eco-card-cta" data-i18n="ab-cta">Conocer más →</a>
-      <a href="#" class="eco-card-cta-sec" data-i18n="ab-cta2">Prueba gratis</a>
-    </div>
-
   </div>
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🌊</div>
+        <div class="flip-tag" data-i18n="pools-tag">Pools de Liquidez</div>
+        <div class="flip-title" data-i18n="pools-title">Ingresos Pasivos</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="pools-tag">Pools de Liquidez</div>
+        <div class="flip-back-title" data-i18n="pools-title">Ingresos Pasivos</div>
+        <div class="flip-back-desc" data-i18n="pools-desc">Genera rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
+        <a href="#" class="flip-cta" data-i18n="pools-cta" onclick="event.stopPropagation()">Ver Estrategias →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🎯</div>
+        <div class="flip-tag" data-i18n="consult-tag">Consultoría</div>
+        <div class="flip-title" data-i18n="consult-title">1 on 1 con Luis</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="consult-tag">Consultoría</div>
+        <div class="flip-back-title" data-i18n="consult-title">1 on 1 con Luis</div>
+        <div class="flip-back-desc" data-i18n="consult-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
+        <a href="#" class="flip-cta" data-i18n="consult-cta" onclick="event.stopPropagation()">Agendar →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card flip-wide" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🤖</div>
+        <div class="flip-tag" data-i18n="ab-tag">AI para Negocios</div>
+        <div class="flip-title" data-i18n="ab-title">AgentBase.mx</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="ab-tag">AI para Negocios</div>
+        <div class="flip-back-title" data-i18n="ab-title">AgentBase.mx</div>
+        <div class="flip-back-desc" data-i18n="ab-desc">IA mexicana que responde WhatsApp 24/7. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
+        <a href="https://agentbase.mx?ref=15E60F42" class="flip-cta" data-i18n="ab-cta" onclick="event.stopPropagation()">Conocer más →</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <style>
-.eco-wrap { max-width: 480px; margin: 0 auto 8px; padding: 0 16px; }
-
-/* Tabs */
-.eco-tabs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  margin-bottom: 16px;
-  scrollbar-width: none;
-}
-.eco-tabs::-webkit-scrollbar { display: none; }
-.eco-tab {
-  flex-shrink: 0;
-  background: #1A1A1A;
-  border: 1px solid #333;
-  color: #8C8C8C;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
-}
-.eco-tab.active, .eco-tab:hover {
-  background: #F2561D;
-  border-color: #F2561D;
-  color: #fff;
-}
-body.light .eco-tab { background: #eee; border-color: #ddd; color: #666; }
-body.light .eco-tab.active { background: #F2561D; border-color: #F2561D; color: #fff; }
-
-/* Cards */
-.eco-cards { display: flex; flex-direction: column; gap: 12px; }
-
-.eco-card {
-  background: #111;
-  border: 1px solid #222;
-  border-radius: 16px;
-  padding: 18px 16px;
-  animation: ecoFadeIn 0.3s ease;
-  transition: border-color 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.eco-card:hover { border-color: #F2561D44; }
-.eco-card.hidden { display: none; }
-
-@keyframes ecoFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.eco-card-icon {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  font-size: 28px;
-  opacity: 0.15;
-}
-.eco-card-badge {
-  display: inline-block;
-  background: rgba(242,86,29,0.15);
-  color: #F2561D;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 6px;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-}
-.eco-card-badge.vip { background: rgba(234,179,8,0.15); color: #eab308; }
-.eco-card-tag { font-size: 10px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-.eco-card-title { font-size: 17px; font-weight: 900; color: #F4F4F4; margin-bottom: 8px; }
-.eco-card-desc { font-size: 12px; color: #8C8C8C; line-height: 1.6; margin-bottom: 14px; }
-.eco-card-cta {
-  display: inline-block;
-  background: #F2561D;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 8px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  margin-right: 8px;
-  transition: opacity 0.2s;
-}
-.eco-card-cta:hover { opacity: 0.85; }
-
-/* Compact grid (Todo mode) */
-.eco-cards.compact-grid {
+.flip-grid {
+  max-width: 480px;
+  margin: 0 auto 8px;
+  padding: 0 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
-.eco-card.compact {
-  padding: 14px 12px;
+.flip-wide { grid-column: span 2; }
+
+.flip-card {
+  perspective: 1000px;
   cursor: pointer;
+  height: 160px;
 }
-.eco-card.compact .eco-card-desc,
-.eco-card.compact .eco-card-cta,
-.eco-card.compact .eco-card-cta-sec,
-.eco-card.compact .eco-card-badge {
-  display: none;
+.flip-wide { height: 130px; }
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.eco-card.compact .eco-card-icon {
-  position: static;
-  font-size: 22px;
-  opacity: 1;
-  margin-bottom: 6px;
-  display: block;
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+.flip-front, .flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 14px 12px;
 }
-.eco-card.compact .eco-card-title {
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 2px;
+
+/* FRONT */
+.flip-front {
+  background: #111;
+  border: 1px solid #222;
 }
-.eco-card.compact .eco-card-tag {
-  font-size: 9px;
+.flip-card:hover .flip-front { border-color: #F2561D44; }
+.flip-icon { font-size: 30px; margin-bottom: 8px; }
+.flip-tag { font-size: 9px; font-weight: 700; color: #F2561D; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.flip-title { font-size: 14px; font-weight: 900; color: #F4F4F4; line-height: 1.2; }
+.flip-hint { font-size: 9px; color: #444; margin-top: 8px; }
+
+/* BACK */
+.flip-back {
+  background: linear-gradient(135deg, #1a0800, #1a1a1a);
+  border: 1px solid #F2561D66;
+  transform: rotateY(180deg);
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px 14px 10px;
 }
-.eco-card-cta-sec {
+.flip-back-tag { font-size: 9px; font-weight: 700; color: #F2561D; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+.flip-back-title { font-size: 13px; font-weight: 900; color: #F4F4F4; margin-bottom: 6px; line-height: 1.2; }
+.flip-back-desc { font-size: 10px; color: #8C8C8C; line-height: 1.5; margin-bottom: 10px; flex: 1; }
+.flip-cta {
   display: inline-block;
-  color: #F2561D;
-  font-size: 12px;
-  font-weight: 700;
+  background: #F2561D;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
   text-decoration: none;
-  padding: 8px 0;
+  transition: opacity 0.2s;
 }
-body.light .eco-card { background: #fff; border-color: #eee; }
-body.light .eco-card-title { color: #111; }
+.flip-cta:hover { opacity: 0.85; }
+
+body.light .flip-front { background: #fff; border-color: #eee; }
+body.light .flip-title { color: #111; }
+body.light .flip-back { background: linear-gradient(135deg, #fff5f0, #fff); border-color: #F2561D44; }
+body.light .flip-back-title { color: #111; }
 </style>
-
-<script>
-function ecoTab(btn, cat) {
-  document.querySelectorAll('.eco-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  const grid = document.getElementById('ecoCards');
-
-  if (cat === 'all') {
-    grid.classList.add('compact-grid');
-    document.querySelectorAll('.eco-card').forEach(c => {
-      c.classList.remove('hidden');
-      c.classList.add('compact');
-    });
-  } else {
-    grid.classList.remove('compact-grid');
-    document.querySelectorAll('.eco-card').forEach(c => {
-      c.classList.remove('compact');
-      if (c.dataset.cat === cat) {
-        c.classList.remove('hidden');
-        c.style.animation = 'none';
-        c.offsetHeight;
-        c.style.animation = 'ecoFadeIn 0.3s ease';
-      } else {
-        c.classList.add('hidden');
-      }
-    });
-  }
-}
-
-// Init: start in compact "all" mode
-(function() {
-  const grid = document.getElementById('ecoCards');
-  grid.classList.add('compact-grid');
-  document.querySelectorAll('.eco-card').forEach(c => c.classList.add('compact'));
-})();
-</script>
 
 
 <!-- PROTOCOLOS -->
@@ -1225,6 +1167,7 @@ const translations = {
   'sig-ai-desc': { en: 'Artificial intelligence platform for trading and crypto signals. Sign up with my link and start trading with AI on your side.', es: 'Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.' },
   'sig-ai-cta': { en: 'Register →', es: 'Registrarse →' },
   // Disclaimer
+  'flip-hint': { en: 'Tap to learn more', es: 'Toca para ver más' },
   'sec-events': { en: 'Upcoming Events 🗓️', es: 'Próximos Eventos 🗓️' },
   'events-title': { en: 'Masterclasses, meetups and live workshops', es: 'Masterclasses, meetups y talleres en vivo' },
   'events-sub': { en: 'Crypto, DeFi, AI and Web3 — learn from those already inside.', es: 'Crypto, DeFi, IA y Web3 — aprende con quienes ya están dentro.' },
