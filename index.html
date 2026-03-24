@@ -437,30 +437,22 @@
 <!-- CALCULATOR -->
 <div class="section-title">Inversión Tradicional vs DeFi 💰</div>
 <div class="calc-wrap">
-
-  <div class="calc-disclaimer">📊 Inversión inicial: <strong>$5,000 USD</strong></div>
-
-  <div class="period-selector">
-    <button class="period-btn active" onclick="updateChart(1)">1 Año</button>
-    <button class="period-btn" onclick="updateChart(3)">3 Años</button>
-    <button class="period-btn" onclick="updateChart(5)">5 Años</button>
-    <button class="period-btn" onclick="updateChart(10)">10 Años</button>
-  </div>
+  <div class="calc-disclaimer">Comparativa a 1 año con <strong>$5,000 USD</strong></div>
 
   <div class="compare-cards">
     <div class="compare-card defi-card">
       <div class="compare-label">🔥 DeFi</div>
-      <div class="compare-subtitle">hasta 30% mensual</div>
-      <div class="compare-value" id="defiValue">$116,490</div>
-      <div class="compare-gain" id="defiGain">+$111,490 ganancia</div>
-      <div class="compare-mult" id="defiMult">23.3x tu dinero</div>
+      <div class="compare-subtitle">~120% anual</div>
+      <div class="compare-value">$11,000</div>
+      <div class="compare-gain">+$6,000 ganancia</div>
+      <div class="compare-mult">2.2x tu dinero</div>
     </div>
     <div class="compare-card trad-card">
       <div class="compare-label">🏦 Tradicional</div>
-      <div class="compare-subtitle">10% anual</div>
-      <div class="compare-value trad-value" id="tradValue">$5,500</div>
-      <div class="compare-gain trad-gain" id="tradGain">+$500 ganancia</div>
-      <div class="compare-mult trad-mult" id="tradMult">1.1x tu dinero</div>
+      <div class="compare-subtitle">~10% anual</div>
+      <div class="compare-value trad-value">$5,500</div>
+      <div class="compare-gain trad-gain">+$500 ganancia</div>
+      <div class="compare-mult trad-mult">1.1x tu dinero</div>
     </div>
   </div>
 
@@ -468,163 +460,49 @@
     <div class="bar-row">
       <span class="bar-label">DeFi</span>
       <div class="bar-track">
-        <div class="bar-fill defi-bar" id="defiBar" style="width:100%"></div>
+        <div class="bar-fill defi-bar" style="width:100%"></div>
       </div>
-      <span class="bar-end" id="defiBarLabel">$116K</span>
+      <span class="bar-end">$11,000</span>
     </div>
     <div class="bar-row">
       <span class="bar-label">Trad.</span>
       <div class="bar-track">
-        <div class="bar-fill trad-bar" id="tradBar" style="width:1%"></div>
+        <div class="bar-fill trad-bar" style="width:50%"></div>
       </div>
-      <span class="bar-end trad-end" id="tradBarLabel">$5.5K</span>
+      <span class="bar-end trad-end">$5,500</span>
     </div>
   </div>
 
-  <div class="calc-note">⚠️ Los rendimientos DeFi son variables y no están garantizados. Resultados históricos no garantizan resultados futuros. DYOR.</div>
+  <div class="calc-note">⚠️ Los rendimientos DeFi son variables y no están garantizados. DYOR.</div>
 </div>
 
 <style>
-.calc-wrap {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 16px 8px;
-}
-.calc-disclaimer {
-  text-align: center;
-  font-size: 14px;
-  color: #BFBFBF;
-  margin-bottom: 16px;
-}
+.calc-wrap { max-width: 480px; margin: 0 auto; padding: 0 16px 8px; }
+.calc-disclaimer { text-align: center; font-size: 14px; color: #BFBFBF; margin-bottom: 20px; }
 .calc-disclaimer strong { color: #F2561D; }
-
-.period-selector {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-.period-btn {
-  background: #1A1A1A;
-  border: 1px solid #333;
-  color: #8C8C8C;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-.period-btn.active, .period-btn:hover {
-  background: #F2561D;
-  border-color: #F2561D;
-  color: #fff;
-}
-
-.compare-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.compare-card {
-  border-radius: 14px;
-  padding: 16px 12px;
-  text-align: center;
-  border: 2px solid transparent;
-}
-.defi-card {
-  background: linear-gradient(135deg, #1a0a00, #2d1500);
-  border-color: #F2561D;
-  box-shadow: 0 0 20px rgba(242, 86, 29, 0.2);
-}
-.trad-card {
-  background: #1A1A1A;
-  border-color: #333;
-}
-.compare-label {
-  font-size: 13px;
-  font-weight: 800;
-  color: #F2561D;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
-}
+.compare-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.compare-card { border-radius: 14px; padding: 16px 12px; text-align: center; border: 2px solid transparent; }
+.defi-card { background: linear-gradient(135deg, #1a0a00, #2d1500); border-color: #F2561D; box-shadow: 0 0 20px rgba(242,86,29,0.2); }
+.trad-card { background: #1A1A1A; border-color: #333; }
+.compare-label { font-size: 13px; font-weight: 800; color: #F2561D; margin-bottom: 2px; }
 .trad-card .compare-label { color: #8C8C8C; }
-.compare-subtitle {
-  font-size: 10px;
-  color: #666;
-  margin-bottom: 10px;
-}
-.compare-value {
-  font-size: 20px;
-  font-weight: 900;
-  color: #F2561D;
-  margin-bottom: 4px;
-  line-height: 1.1;
-}
-.trad-value { color: #8C8C8C; font-size: 17px; }
-.compare-gain {
-  font-size: 11px;
-  color: #4ade80;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
+.compare-subtitle { font-size: 10px; color: #666; margin-bottom: 10px; }
+.compare-value { font-size: 22px; font-weight: 900; color: #F2561D; margin-bottom: 4px; }
+.trad-value { color: #8C8C8C; font-size: 18px; }
+.compare-gain { font-size: 11px; color: #4ade80; font-weight: 600; margin-bottom: 4px; }
 .trad-gain { color: #6b7280; }
-.compare-mult {
-  font-size: 11px;
-  color: #D9704A;
-  font-weight: 700;
-}
+.compare-mult { font-size: 12px; color: #D9704A; font-weight: 700; }
 .trad-mult { color: #555; }
-
-.bar-chart-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.bar-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.bar-label {
-  width: 36px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #8C8C8C;
-  text-align: right;
-  flex-shrink: 0;
-}
-.bar-track {
-  flex: 1;
-  background: #1A1A1A;
-  border-radius: 4px;
-  height: 20px;
-  overflow: hidden;
-}
-.bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.6s ease;
-}
+.bar-chart-wrap { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.bar-row { display: flex; align-items: center; gap: 8px; }
+.bar-label { width: 36px; font-size: 11px; font-weight: 700; color: #8C8C8C; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; background: #1A1A1A; border-radius: 4px; height: 24px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; }
 .defi-bar { background: linear-gradient(90deg, #F2561D, #D9704A); }
 .trad-bar { background: #444; }
-.bar-end {
-  width: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #F2561D;
-  flex-shrink: 0;
-}
+.bar-end { width: 55px; font-size: 11px; font-weight: 700; color: #F2561D; flex-shrink: 0; }
 .trad-end { color: #666; }
-.calc-note {
-  font-size: 10px;
-  color: #444;
-  text-align: center;
-  line-height: 1.5;
-}
+.calc-note { font-size: 10px; color: #444; text-align: center; line-height: 1.5; }
 </style>
 
 <script>
