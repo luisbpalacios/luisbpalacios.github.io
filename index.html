@@ -27,6 +27,39 @@
       min-height: 100vh;
     }
 
+
+    /* LIGHT MODE */
+    body.light {
+      --bg: #F4F4F4;
+      --dark: #F4F4F4;
+      --dark-2: #E8E8E8;
+      --dark-3: #FFFFFF;
+      --dark-4: #ECECEC;
+      color: #111;
+    }
+    body.light .card { border-color: #ddd; background: #fff; }
+    body.light .card-desc { color: #444; }
+    body.light .card-tag { color: #F2561D; }
+    body.light .stats { border-color: #ddd; }
+    body.light .stat-label { color: #666; }
+    body.light .stat-number { color: #F2561D; }
+    body.light .section-title { color: #888; }
+    body.light .handle { color: #F2561D; }
+    body.light .tagline { color: #333; }
+    body.light .name { color: #111; }
+    body.light .badge { background: #eee; border-color: #ddd; color: #444; }
+    body.light .social-icon { background: #eee; border-color: #ddd; color: #444; }
+    body.light .ticker-wrap { background: #F2561D; }
+    body.light .bar-track { background: #E0E0E0; }
+    body.light .calc-wrap { color: #111; }
+    body.light .calc-disclaimer { color: #444; }
+    body.light .compare-card.trad-card { background: #eee; border-color: #ccc; }
+    body.light .calc-note { color: #999; }
+    body.light .carousel { background: #eee; }
+    body.light .disclaimer { color: #888; }
+    body.light .footer { border-color: #ddd; color: #999; }
+    body.light .chart-container { background: #fff; border: 1px solid #eee; }
+
     /* TICKER */
     .ticker-wrap {
       background: var(--orange);
@@ -125,6 +158,35 @@
       border-radius: 20px;
       letter-spacing: 0.5px;
     }
+
+
+    /* TOP CONTROLS */
+    .top-controls {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+    }
+    .ctrl-btn {
+      background: rgba(20,20,20,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid #333;
+      color: #BFBFBF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .ctrl-btn:hover { border-color: #F2561D; color: #F2561D; }
+    body.light .ctrl-btn { background: rgba(255,255,255,0.9); border-color: #ddd; color: #444; }
+    body.light .ctrl-btn:hover { border-color: #F2561D; color: #F2561D; }
 
     /* SOCIAL ICONS (hero) */
     .social-icons {
@@ -377,6 +439,11 @@
   </style>
 </head>
 <body>
+<div class="top-controls">
+  <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">EN</button>
+  <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+</div>
+<div style="height:42px"></div>
 
 <!-- TICKER -->
 <div class="ticker-wrap">
@@ -421,7 +488,7 @@
 <div class="stats">
   <div class="stat">
     <div class="stat-number">5+</div>
-    <div class="stat-label">Años en Crypto</div>
+    <div class="stat-label"><span data-i18n="stat-years-label">Años en Crypto</span></div>
   </div>
   <div class="stat">
     <div class="stat-number">24/7</div>
@@ -429,30 +496,30 @@
   </div>
   <div class="stat">
     <div class="stat-number">DeFi</div>
-    <div class="stat-label">Especialidad</div>
+    <div class="stat-label"><span data-i18n="stat-defi-label">Especialidad</span></div>
   </div>
 </div>
 
 
 <!-- CALCULATOR -->
-<div class="section-title">DeFi vs Inversión Tradicional 💰</div>
+<div class="section-title"><span data-i18n="sec-calc">DeFi vs Inversión Tradicional 💰</span></div>
 <div class="calc-wrap">
-  <div class="calc-disclaimer">Comparativa a 1 año con <strong>$5,000 USD</strong></div>
+  <div class="calc-disclaimer"><span data-i18n="calc-disclaimer">Comparativa a 1 año con <strong>$5,000 USD</strong></span></div>
 
   <div class="compare-cards">
     <div class="compare-card defi-card">
       <div class="compare-label">🔥 DeFi</div>
-      <div class="compare-subtitle">~120% anual</div>
+      <div class="compare-subtitle"><span data-i18n="defi-subtitle">~120% anual</span></div>
       <div class="compare-value">$11,000</div>
-      <div class="compare-gain">+$6,000 ganancia</div>
-      <div class="compare-mult">2.2x tu dinero</div>
+      <div class="compare-gain"><span data-i18n="defi-gain">+$6,000 ganancia</span></div>
+      <div class="compare-mult"><span data-i18n="defi-mult">2.2x tu dinero</span></div>
     </div>
     <div class="compare-card trad-card">
       <div class="compare-label">🏦 Tradicional</div>
-      <div class="compare-subtitle">~10% anual</div>
+      <div class="compare-subtitle"><span data-i18n="trad-subtitle">~10% anual</span></div>
       <div class="compare-value trad-value">$5,500</div>
-      <div class="compare-gain trad-gain">+$500 ganancia</div>
-      <div class="compare-mult trad-mult">1.1x tu dinero</div>
+      <div class="compare-gain trad-gain"><span data-i18n="trad-gain">+$500 ganancia</span></div>
+      <div class="compare-mult trad-mult"><span data-i18n="trad-mult">1.1x tu dinero</span></div>
     </div>
   </div>
 
@@ -636,7 +703,7 @@ function updateChart(years) {
 
 
 <!-- GAINS CAROUSEL -->
-<div class="section-title">Resultados Reales 📈</div>
+<div class="section-title"><span data-i18n="sec-results">Resultados Reales 📈</span></div>
 <div class="carousel-wrap">
   <div class="carousel" id="gainsCarousel">
     <img src="gains_1.jpg" alt="Trade result 1">
@@ -733,7 +800,7 @@ function updateChart(years) {
 </script>
 
 <!-- COMUNIDAD -->
-<div class="section-title">Únete al Ecosistema</div>
+<div class="section-title"><span data-i18n="sec-ecosystem">Únete al Ecosistema</span></div>
 
 <div class="cards">
 
@@ -780,7 +847,7 @@ function updateChart(years) {
 </div>
 
 <!-- PROTOCOLOS -->
-<div class="section-title">Protocolos Recomendados</div>
+<div class="section-title"><span data-i18n="sec-protocols">Protocolos Recomendados</span></div>
 
 <div class="cards">
 
@@ -822,6 +889,104 @@ function updateChart(years) {
 <div class="footer">
   Construido con 💛 por <span>Vera</span> · Web3 Collective · 2026
 </div>
+
+
+<script>
+// Theme
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById('themeBtn');
+  body.classList.toggle('light');
+  btn.textContent = body.classList.contains('light') ? '🌙' : '☀️';
+  localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+}
+
+// Language
+const translations = {
+  'tagline': { en: '"Not waiting for the bull run — already in it."', es: '"Not waiting for the bull run — already in it."' },
+  'badge-defi': { en: '💎 DeFi Strategist', es: '💎 DeFi Strategist' },
+  'badge-ai': { en: '🤖 AI + Crypto', es: '🤖 AI + Crypto' },
+  'badge-web3': { en: '⛓️ Web3', es: '⛓️ Web3' },
+  'badge-pools': { en: '🌊 Liquidity Pools', es: '🌊 Liquidity Pools' },
+  'stat-years-label': { en: 'Years in Crypto', es: 'Años en Crypto' },
+  'stat-onchain-label': { en: '24/7 On-Chain', es: '24/7 On-Chain' },
+  'stat-defi-label': { en: 'Specialty', es: 'Especialidad' },
+  'sec-results': { en: 'Real Results 📈', es: 'Resultados Reales 📈' },
+  'sec-calc': { en: 'DeFi vs Traditional Investment 💰', es: 'DeFi vs Inversión Tradicional 💰' },
+  'sec-ecosystem': { en: 'Join the Ecosystem', es: 'Únete al Ecosistema' },
+  'sec-protocols': { en: 'Recommended Protocols', es: 'Protocolos Recomendados' },
+  'calc-disclaimer': { en: '1-year comparison with <strong>$5,000 USD</strong>', es: 'Comparativa a 1 año con <strong>$5,000 USD</strong>' },
+  'defi-label': { en: '🔥 DeFi', es: '🔥 DeFi' },
+  'defi-subtitle': { en: '~120% annual', es: '~120% anual' },
+  'defi-gain': { en: '+$6,000 profit', es: '+$6,000 ganancia' },
+  'defi-mult': { en: '2.2x your money', es: '2.2x tu dinero' },
+  'trad-label': { en: '🏦 Traditional', es: '🏦 Tradicional' },
+  'trad-subtitle': { en: '~10% annual', es: '~10% anual' },
+  'trad-gain': { en: '+$500 profit', es: '+$500 ganancia' },
+  'trad-mult': { en: '1.1x your money', es: '1.1x tu dinero' },
+  'calc-note': { en: '⚠️ DeFi returns are variable and not guaranteed. Past performance does not guarantee future results. DYOR.', es: '⚠️ Los rendimientos DeFi son variables y no están garantizados. DYOR.' },
+  'disclaimer': { en: '⚠️ Nothing on this page is financial advice. Trading and DeFi carry significant risk — you can lose your investment. Always do your own research (DYOR).', es: '⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).' },
+  'comm-tag': { en: 'Community', es: 'Comunidad' },
+  'comm-title': { en: 'Crypto Community', es: 'Crypto Community' },
+  'comm-desc': { en: 'Market analysis, DeFi opportunities, signals and strategies. Join the community and start understanding how money moves on-chain.', es: 'Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.' },
+  'comm-cta': { en: 'Join Free →', es: 'Unirse Gratis →' },
+  'sig-tag': { en: 'Signals', es: 'Señales' },
+  'sig-title': { en: 'Trading Signals', es: 'Trading Signals' },
+  'sig-desc': { en: 'Real-time DeFi trading signals. Entries, exits, risk management. For those who want results, not noise.', es: 'Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.' },
+  'sig-cta': { en: 'Access Signals →', es: 'Acceder a Señales →' },
+  'sig-results': { en: 'See results', es: 'Ver resultados' },
+  'pools-tag': { en: 'Liquidity Pools', es: 'Pools de Liquidez' },
+  'pools-title': { en: 'Passive On-Chain Income', es: 'Ingresos Pasivos On-Chain' },
+  'pools-desc': { en: 'Learn to generate real yields with liquidity pools on Solana and EVM. Risk-managed strategies, not blind speculation.', es: 'Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.' },
+  'pools-cta': { en: 'See Strategies →', es: 'Ver Estrategias →' },
+  'consult-tag': { en: 'Consulting', es: 'Consultoría' },
+  'consult-title': { en: '1 on 1 with Luis', es: '1 on 1 con Luis' },
+  'consult-desc': { en: 'Private session to review your portfolio, DeFi strategy or crypto business. Direct, no fluff, concrete results.', es: 'Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.' },
+  'consult-cta': { en: 'Book Session →', es: 'Agendar Sesión →' },
+  'ab-tag': { en: 'AI for Business', es: 'AI para Negocios' },
+  'ab-title': { en: 'AgentBase.mx', es: 'AgentBase.mx' },
+  'ab-desc': { en: 'Mexican AI that answers WhatsApp 24/7 for your business. Quotes, appointments, invoices — while you sleep, your AI sells.', es: 'IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, facturas — mientras duermes, tu IA vende.' },
+  'ab-cta': { en: 'Learn more →', es: 'Conocer más →' },
+  'ab-cta2': { en: 'Free trial', es: 'Prueba gratis' },
+  'jup-tag': { en: 'DEX / Swap', es: 'DEX / Swap' },
+  'jup-badge': { en: '🪐 DEX #1 Solana', es: '🪐 DEX #1 Solana' },
+  'jup-title': { en: 'Jupiter DEX', es: 'Jupiter DEX' },
+  'jup-desc': { en: 'The best swap aggregator on Solana. Best prices, optimized routes, no KYC. Sign up with my link and start trading on-chain.', es: 'El mejor agregador de swaps en Solana. Mejores precios, rutas optimizadas, sin KYC. Regístrate con mi link y empieza a operar on-chain.' },
+  'jup-cta': { en: 'Open Jupiter →', es: 'Abrir Jupiter →' },
+  'weex-tag': { en: 'Futures Exchange', es: 'Futures Exchange' },
+  'weex-badge': { en: '⚡ 400x Leverage', es: '⚡ 400x Leverage' },
+  'weex-title': { en: 'WEEX Exchange', es: 'WEEX Exchange' },
+  'weex-desc': { en: 'Crypto futures trading with up to 400x leverage. No KYC. Sign up with my code and get exclusive VIP signals.', es: 'Trading de futuros crypto con hasta 400x leverage. Sin KYC. Regístrate con mi código y accede a señales VIP exclusivas.' },
+  'weex-cta': { en: 'Register on WEEX →', es: 'Registrarse en WEEX →' },
+  'sig-ai-tag': { en: 'AI for Trading', es: 'IA para Trading' },
+  'sig-ai-title': { en: 'Signara AI', es: 'Signara IA' },
+  'sig-ai-desc': { en: 'Artificial intelligence platform for trading and crypto signals. Sign up with my link and start trading with AI on your side.', es: 'Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.' },
+  'sig-ai-cta': { en: 'Register →', es: 'Registrarse →' },
+  'footer': { en: 'Built with 💛 by <span>Vera</span> · Web3 Collective · 2026', es: 'Construido con 💛 por <span>Vera</span> · Web3 Collective · 2026' }
+};
+
+let currentLang = 'es';
+
+function toggleLang() {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  document.getElementById('langBtn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[key] && translations[key][currentLang]) {
+      el.innerHTML = translations[key][currentLang];
+    }
+  });
+  localStorage.setItem('lang', currentLang);
+}
+
+// On load
+(function() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') { document.body.classList.add('light'); document.getElementById('themeBtn').textContent = '🌙'; }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang === 'en') { currentLang = 'es'; toggleLang(); }
+})();
+</script>
 
 </body>
 </html>
