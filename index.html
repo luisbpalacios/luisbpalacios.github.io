@@ -799,6 +799,69 @@ function updateChart(years) {
 })();
 </script>
 
+
+<!-- EVENTOS LUMA -->
+<div class="section-title" data-i18n="sec-events">Próximos Eventos 🗓️</div>
+<div class="events-wrap">
+  <div class="events-inner">
+    <div class="events-icon">🎤</div>
+    <div class="events-text">
+      <div class="events-title" data-i18n="events-title">Masterclasses, meetups y talleres en vivo</div>
+      <div class="events-sub" data-i18n="events-sub">Crypto, DeFi, IA y Web3 — aprende con quienes ya están dentro.</div>
+    </div>
+    <a href="https://lu.ma/user/web3collective" target="_blank" class="events-btn" data-i18n="events-cta">Ver Eventos →</a>
+  </div>
+</div>
+
+<style>
+.events-wrap {
+  max-width: 480px;
+  margin: 0 auto 8px;
+  padding: 0 16px;
+}
+.events-inner {
+  background: linear-gradient(135deg, #1a0a00, #1a1a1a);
+  border: 1px solid #F2561D44;
+  border-radius: 16px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.events-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+.events-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #F4F4F4;
+  margin-bottom: 4px;
+}
+.events-sub {
+  font-size: 12px;
+  color: #8C8C8C;
+  line-height: 1.5;
+}
+.events-btn {
+  display: inline-block;
+  background: #F2561D;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s;
+}
+.events-btn:hover { opacity: 0.85; }
+body.light .events-inner { background: #fff; border-color: #F2561D44; }
+body.light .events-title { color: #111; }
+</style>
+
 <!-- COMUNIDAD -->
 <div class="section-title"><span data-i18n="sec-ecosystem">Únete al Ecosistema</span></div>
 
@@ -974,6 +1037,10 @@ const translations = {
   'sig-ai-desc': { en: 'Artificial intelligence platform for trading and crypto signals. Sign up with my link and start trading with AI on your side.', es: 'Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.' },
   'sig-ai-cta': { en: 'Register →', es: 'Registrarse →' },
   // Disclaimer
+  'sec-events': { en: 'Upcoming Events 🗓️', es: 'Próximos Eventos 🗓️' },
+  'events-title': { en: 'Masterclasses, meetups and live workshops', es: 'Masterclasses, meetups y talleres en vivo' },
+  'events-sub': { en: 'Crypto, DeFi, AI and Web3 — learn from those already inside.', es: 'Crypto, DeFi, IA y Web3 — aprende con quienes ya están dentro.' },
+  'events-cta': { en: 'See Events →', es: 'Ver Eventos →' },
   'disclaimer': { en: '⚠️ Nothing on this page is financial advice. Trading and DeFi carry significant risk — you can lose your investment. Always do your own research (DYOR).', es: '⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).' }
 };
 
