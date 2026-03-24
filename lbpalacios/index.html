@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luis Palacios — @lbpalacios_</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #F2561D;
+      --coral: #D9704A;
+      --gray-light: #BFBFBF;
+      --gray: #8C8C8C;
+      --dark: #0D0D0D;
+      --dark-2: #141414;
+      --dark-3: #1A1A1A;
+      --dark-4: #222222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+
+    /* LIGHT MODE */
+    body.light {
+      --bg: #F4F4F4;
+      --dark: #F4F4F4;
+      --dark-2: #E8E8E8;
+      --dark-3: #FFFFFF;
+      --dark-4: #ECECEC;
+      color: #111;
+    }
+    body.light .card { border-color: #ddd; background: #fff; }
+    body.light .card-desc { color: #444; }
+    body.light .card-tag { color: #F2561D; }
+    body.light .stats { border-color: #ddd; }
+    body.light .stat-label { color: #666; }
+    body.light .stat-number { color: #F2561D; }
+    body.light .section-title { color: #888; }
+    body.light .handle { color: #F2561D; }
+    body.light .tagline { color: #333; }
+    body.light .name { color: #111; }
+    body.light .badge { background: #eee; border-color: #ddd; color: #444; }
+    body.light .social-icon { background: #eee; border-color: #ddd; color: #444; }
+    body.light .ticker-wrap { background: #F2561D; }
+    body.light .bar-track { background: #E0E0E0; }
+    body.light .calc-wrap { color: #111; }
+    body.light .calc-disclaimer { color: #444; }
+    body.light .compare-card.trad-card { background: #eee; border-color: #ccc; }
+    body.light .calc-note { color: #999; }
+    body.light .carousel { background: #eee; }
+    body.light .disclaimer { color: #888; }
+    body.light .footer { border-color: #ddd; color: #999; }
+    body.light .chart-container { background: #fff; border: 1px solid #eee; }
+
+    /* TICKER */
+    .ticker-wrap {
+      background: var(--orange);
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #000;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 32px;
+      text-align: center;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--orange);
+      display: block;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.6; }
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .handle {
+      font-size: 14px;
+      color: var(--orange);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--gray-light);
+      max-width: 340px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .role-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .badge {
+      background: var(--dark-3);
+      border: 1px solid #333;
+      color: var(--gray-light);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+
+    /* TOP CONTROLS */
+    .top-controls {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+    }
+    .ctrl-btn {
+      background: rgba(20,20,20,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid #333;
+      color: #BFBFBF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .ctrl-btn:hover { border-color: #F2561D; color: #F2561D; }
+    body.light .ctrl-btn { background: rgba(255,255,255,0.9); border-color: #ddd; color: #444; }
+    body.light .ctrl-btn:hover { border-color: #F2561D; color: #F2561D; }
+
+    /* SOCIAL ICONS (hero) */
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 16px 0 4px;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .social-icon:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 24px 20px;
+      border-top: 1px solid #1f1f1f;
+      border-bottom: 1px solid #1f1f1f;
+      margin: 0 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 36px 0 16px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--coral));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--gray-light);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .card-cta:hover { background: var(--coral); }
+
+    .card-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--gray-light);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      text-decoration: none;
+      margin-left: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .card-cta-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* SOCIAL LINKS */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 32px 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      color: var(--gray-light);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+
+    /* GAINS */
+    .gains-wrap {
+      padding: 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .gains-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tweet-card {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .tweet-card .twitter-tweet {
+      margin: 0 auto !important;
+    }
+    /* DISCLAIMER */
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray);
+      padding: 16px 20px 40px;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 11px;
+      color: #444;
+    }
+
+    .footer span { color: var(--orange); }
+  </style>
+</head>
+<body>
+<div class="top-controls">
+  <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">EN</button>
+  <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+</div>
+<div style="height:42px"></div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <span class="ticker">
+    🔥 DeFi Strategist &nbsp;•&nbsp; Crypto Investor &nbsp;•&nbsp; Web3 Collective &nbsp;•&nbsp; AgentBase &nbsp;•&nbsp; Liquidity Pools &nbsp;•&nbsp; AI + Crypto &nbsp;•&nbsp; @lbpalacios_ &nbsp;•&nbsp; Building On-Chain Wealth &nbsp;•&nbsp; 🔥 DeFi Strategist &nbsp;•&nbsp; Crypto Investor &nbsp;•&nbsp; Web3 Collective &nbsp;•&nbsp; AgentBase &nbsp;•&nbsp; Liquidity Pools &nbsp;•&nbsp; AI + Crypto &nbsp;•&nbsp; @lbpalacios_
+  </span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <img src="luis_profile.jpg" alt="Luis Palacios" class="avatar">
+  </div>
+
+  <div class="name">Luis Palacios</div>
+  <div class="handle">@lbpalacios_</div>
+  <div class="tagline">"Not waiting for the bull run — already in it."</div>
+
+  <!-- Social Icons -->
+  <div class="social-icons">
+    <a href="https://www.instagram.com/lbpalacios_/" class="social-icon" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@lbpalacios_" class="social-icon" title="TikTok">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+    </a>
+    <a href="https://x.com/lbpalacios_" class="social-icon" title="X / Twitter">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+  </div>
+
+  <div class="role-badges">
+    <span class="badge" data-i18n="badge-defi">💎 DeFi Strategist</span>
+    <span class="badge" data-i18n="badge-ai">🤖 AI + Crypto</span>
+    <span class="badge" data-i18n="badge-web3">⛓️ Web3</span>
+    <span class="badge" data-i18n="badge-pools">🌊 Liquidity Pools</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">+7</div>
+    <div class="stat-label"><span data-i18n="stat-years-label">Años en Crypto</span></div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label" data-i18n="stat-onchain-label">On-Chain</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">DeFi</div>
+    <div class="stat-label"><span data-i18n="stat-defi-label">Especialidad</span></div>
+  </div>
+</div>
+
+
+<!-- CALCULATOR -->
+<div class="section-title"><span data-i18n="sec-calc">DeFi vs Inversión Tradicional 💰</span></div>
+<div class="calc-wrap">
+  <div class="calc-disclaimer"><span data-i18n="calc-disclaimer">Comparativa a 1 año con <strong>$5,000 USD</strong></span></div>
+
+  <div class="compare-cards">
+    <div class="compare-card defi-card">
+      <div class="compare-label" data-i18n="defi-label">🔥 DeFi</div>
+      <div class="compare-subtitle"><span data-i18n="defi-subtitle">~120% anual</span></div>
+      <div class="compare-value">$11,000</div>
+      <div class="compare-gain"><span data-i18n="defi-gain">+$6,000 ganancia</span></div>
+      <div class="compare-mult"><span data-i18n="defi-mult">2.2x tu dinero</span></div>
+    </div>
+    <div class="compare-card trad-card">
+      <div class="compare-label" data-i18n="trad-label">🏦 Tradicional</div>
+      <div class="compare-subtitle"><span data-i18n="trad-subtitle">~10% anual</span></div>
+      <div class="compare-value trad-value">$5,500</div>
+      <div class="compare-gain trad-gain"><span data-i18n="trad-gain">+$500 ganancia</span></div>
+      <div class="compare-mult trad-mult"><span data-i18n="trad-mult">1.1x tu dinero</span></div>
+    </div>
+  </div>
+
+  <div class="bar-chart-wrap">
+    <div class="bar-row">
+      <span class="bar-label">DeFi</span>
+      <div class="bar-track">
+        <div class="bar-fill defi-bar" style="width:100%"></div>
+      </div>
+      <span class="bar-end">$11,000</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Trad.</span>
+      <div class="bar-track">
+        <div class="bar-fill trad-bar" style="width:50%"></div>
+      </div>
+      <span class="bar-end trad-end">$5,500</span>
+    </div>
+  </div>
+
+
+  <!-- CHART -->
+  <div class="chart-container">
+    <canvas id="compareChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+  (function() {
+    const ctx = document.getElementById('compareChart').getContext('2d');
+    const labels = ['Inicio','Mes 1','Mes 2','Mes 3','Mes 4','Mes 5','Mes 6','Mes 7','Mes 8','Mes 9','Mes 10','Mes 11','Mes 12'];
+    const defiData = [5000.0, 5339.56, 5702.17, 6089.42, 6502.96, 6944.58, 7416.2, 7919.84, 8457.69, 9032.06, 9645.44, 10300.48, 11000.0];
+    const tradData  = [5000.0, 5039.87, 5080.06, 5120.57, 5161.4, 5202.56, 5244.04, 5285.86, 5328.01, 5370.5, 5413.32, 5456.49, 5500.0];
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: '🔥 DeFi ~120% anual',
+            data: defiData,
+            borderColor: '#F2561D',
+            backgroundColor: 'rgba(242,86,29,0.15)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#F2561D',
+            pointRadius: 3,
+            pointHoverRadius: 6
+          },
+          {
+            label: '🏦 Tradicional ~10% anual',
+            data: tradData,
+            borderColor: '#555',
+            backgroundColor: 'rgba(85,85,85,0.08)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2,
+            pointBackgroundColor: '#555',
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            borderDash: [6,3]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#BFBFBF',
+              font: { size: 11, weight: '600' },
+              usePointStyle: true,
+              pointStyleWidth: 10
+            }
+          },
+          tooltip: {
+            backgroundColor: '#111',
+            borderColor: '#F2561D',
+            borderWidth: 1,
+            titleColor: '#F2561D',
+            bodyColor: '#BFBFBF',
+            callbacks: {
+              label: function(ctx) {
+                return ' ' + ctx.dataset.label.split(' ')[0] + ' ' + ctx.dataset.label.split(' ')[1] + ': $' + ctx.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0});
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#666', font: { size: 10 } },
+            grid: { color: '#1f1f1f' }
+          },
+          y: {
+            ticks: {
+              color: '#666',
+              font: { size: 10 },
+              callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(1)+'K' : v)
+            },
+            grid: { color: '#1f1f1f' }
+          }
+        }
+      }
+    });
+  })();
+  </script>
+
+  <div class="calc-note" data-i18n="calc-note">⚠️ Los rendimientos DeFi son variables y no están garantizados. DYOR.</div>
+</div>
+
+<style>
+.calc-wrap { max-width: 480px; margin: 0 auto; padding: 0 16px 8px; }
+.calc-disclaimer { text-align: center; font-size: 14px; color: #BFBFBF; margin-bottom: 20px; }
+.calc-disclaimer strong { color: #F2561D; }
+.compare-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.compare-card { border-radius: 14px; padding: 16px 12px; text-align: center; border: 2px solid transparent; }
+.defi-card { background: linear-gradient(135deg, #1a0a00, #2d1500); border-color: #F2561D; box-shadow: 0 0 20px rgba(242,86,29,0.2); }
+.trad-card { background: #1A1A1A; border-color: #333; }
+.compare-label { font-size: 13px; font-weight: 800; color: #F2561D; margin-bottom: 2px; }
+.trad-card .compare-label { color: #8C8C8C; }
+.compare-subtitle { font-size: 10px; color: #666; margin-bottom: 10px; }
+.compare-value { font-size: 22px; font-weight: 900; color: #F2561D; margin-bottom: 4px; }
+.trad-value { color: #8C8C8C; font-size: 18px; }
+.compare-gain { font-size: 11px; color: #4ade80; font-weight: 600; margin-bottom: 4px; }
+.trad-gain { color: #6b7280; }
+.compare-mult { font-size: 12px; color: #D9704A; font-weight: 700; }
+.trad-mult { color: #555; }
+.bar-chart-wrap { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.bar-row { display: flex; align-items: center; gap: 8px; }
+.bar-label { width: 36px; font-size: 11px; font-weight: 700; color: #8C8C8C; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; background: #1A1A1A; border-radius: 4px; height: 24px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; }
+.defi-bar { background: linear-gradient(90deg, #F2561D, #D9704A); }
+.trad-bar { background: #444; }
+.bar-end { width: 55px; font-size: 11px; font-weight: 700; color: #F2561D; flex-shrink: 0; }
+.trad-end { color: #666; }
+.calc-note { font-size: 10px; color: #444; text-align: center; line-height: 1.5; }
+</style>
+
+<script>
+const data = {
+  1:  { defi: 116490,           trad: 5500,  defiG: 111490,         tradG: 500,   defiM: "23.3x",    tradM: "1.1x" },
+  3:  { defi: 63231093,         trad: 6655,  defiG: 63226093,       tradG: 1655,  defiM: "12,646x",  tradM: "1.3x" },
+  5:  { defi: 34321885864,      trad: 8053,  defiG: 34321880864,    tradG: 3053,  defiM: "6,864,377x", tradM: "1.6x" },
+  10: { defi: 235598369848492,  trad: 12969, defiG: 235598369843492,tradG: 7969,  defiM: "47 Trillones x", tradM: "2.6x" }
+};
+
+function fmt(n) {
+  if (n >= 1e12) return '$' + (n/1e12).toFixed(1) + 'T';
+  if (n >= 1e9)  return '$' + (n/1e9).toFixed(1) + 'B';
+  if (n >= 1e6)  return '$' + (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3)  return '$' + (n/1e3).toFixed(1) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function updateChart(years) {
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const d = data[years];
+  document.getElementById('defiValue').textContent = fmt(d.defi);
+  document.getElementById('defiGain').textContent = '+' + fmt(d.defiG) + ' ganancia';
+  document.getElementById('defiMult').textContent = d.defiM + ' tu dinero';
+  document.getElementById('tradValue').textContent = fmt(d.trad);
+  document.getElementById('tradGain').textContent = '+' + fmt(d.tradG) + ' ganancia';
+  document.getElementById('tradMult').textContent = d.tradM + ' tu dinero';
+
+  // Bar widths (DeFi always 100%, trad proportional on log scale)
+  const logDefi = Math.log10(d.defi);
+  const logTrad = Math.log10(d.trad);
+  const logMin = Math.log10(5000);
+  const tradPct = Math.max(2, ((logTrad - logMin) / (logDefi - logMin)) * 100);
+  document.getElementById('defiBar').style.width = '100%';
+  document.getElementById('tradBar').style.width = tradPct + '%';
+  document.getElementById('defiBarLabel').textContent = fmt(d.defi);
+  document.getElementById('tradBarLabel').textContent = fmt(d.trad);
+}
+</script>
+
+
+<!-- GAINS CAROUSEL -->
+<div class="section-title"><span data-i18n="sec-results">Resultados Reales 📈</span></div>
+<div class="carousel-wrap">
+  <div class="carousel" id="gainsCarousel">
+    <img src="gains_1.jpg" alt="Trade result 1">
+    <img src="gains_2.jpg" alt="Trade result 2">
+    <img src="gains_3.jpg" alt="Trade result 3">
+    <img src="gains_4.jpg" alt="Trade result 4">
+    <img src="gains_5.jpg" alt="Trade result 5">
+    <img src="gains_6.jpg" alt="Trade result 6">
+    <img src="gains_7.jpg" alt="Trade result 7">
+    <img src="gains_8.jpg" alt="Trade result 8">
+    <img src="gains_9.jpg" alt="Trade result 9">
+    <img src="gains_10.jpg" alt="Trade result 10">
+    <img src="gains_11.jpg" alt="Trade result 11">
+    <img src="gains_12.jpg" alt="Trade result 12">
+    <img src="gains_13.jpg" alt="Trade result 13">
+    <img src="gains_14.jpg" alt="Trade result 14">
+    <img src="gains_15.jpg" alt="Trade result 15">
+    <img src="gains_16.jpg" alt="Trade result 16">
+    <img src="gains_17.jpg" alt="Trade result 17">
+    <img src="gains_18.jpg" alt="Trade result 18">
+    <img src="gains_19.jpg" alt="Trade result 19">
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+<style>
+  .carousel-wrap {
+    max-width: 480px;
+    margin: 0 auto 8px;
+    padding: 0 16px;
+    position: relative;
+  }
+  .carousel {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 16/9;
+  }
+  .carousel img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .carousel img.active {
+    opacity: 1;
+  }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #444;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .dot.active { background: #F2561D; }
+</style>
+
+<script>
+(function() {
+  const imgs = document.querySelectorAll('#gainsCarousel img');
+  const dotsWrap = document.getElementById('carouselDots');
+  let current = 0;
+  
+  // Create dots
+  imgs.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsWrap.appendChild(dot);
+  });
+  
+  // Show first
+  imgs[0].classList.add('active');
+  
+  function goTo(n) {
+    imgs[current].classList.remove('active');
+    dotsWrap.children[current].classList.remove('active');
+    current = n % imgs.length;
+    imgs[current].classList.add('active');
+    dotsWrap.children[current].classList.add('active');
+  }
+  
+  setInterval(() => goTo(current + 1), 3000);
+})();
+</script>
+
+
+<!-- EVENTOS LUMA -->
+<div class="section-title" data-i18n="sec-events">Próximos Eventos 🗓️</div>
+<div class="events-wrap">
+  <div class="events-inner">
+    <div class="events-icon">🎤</div>
+    <div class="events-text">
+      <div class="events-title" data-i18n="events-title">Masterclasses, meetups y talleres en vivo</div>
+      <div class="events-sub" data-i18n="events-sub">Crypto, DeFi, IA y Web3 — aprende con quienes ya están dentro.</div>
+    </div>
+    <a href="https://lu.ma/user/web3collective" target="_blank" class="events-btn" data-i18n="events-cta">Ver Eventos →</a>
+  </div>
+</div>
+
+<style>
+.events-wrap {
+  max-width: 480px;
+  margin: 0 auto 8px;
+  padding: 0 16px;
+}
+.events-inner {
+  background: linear-gradient(135deg, #1a0a00, #1a1a1a);
+  border: 1px solid #F2561D44;
+  border-radius: 16px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.events-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+.events-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #F4F4F4;
+  margin-bottom: 4px;
+}
+.events-sub {
+  font-size: 12px;
+  color: #8C8C8C;
+  line-height: 1.5;
+}
+.events-btn {
+  display: inline-block;
+  background: #F2561D;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s;
+}
+.events-btn:hover { opacity: 0.85; }
+body.light .events-inner { background: #fff; border-color: #F2561D44; }
+body.light .events-title { color: #111; }
+</style>
+
+<!-- COMUNIDAD -->
+<div class="section-title" data-i18n="sec-ecosystem">Únete al Ecosistema</div>
+
+<div class="flip-grid">
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🔥</div>
+        <div class="flip-tag" data-i18n="comm-tag">Comunidad</div>
+        <div class="flip-title" data-i18n="comm-title">Crypto Community</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="comm-tag">Comunidad</div>
+        <div class="flip-back-title" data-i18n="comm-title">Crypto Community</div>
+        <div class="flip-back-desc" data-i18n="comm-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete y empieza a entender cómo se mueve el dinero on-chain.</div>
+        <a href="#" class="flip-cta" data-i18n="comm-cta" onclick="event.stopPropagation()">Unirse Gratis →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">⚡</div>
+        <div class="flip-tag" data-i18n="sig-tag">Señales</div>
+        <div class="flip-title" data-i18n="sig-title">Trading Signals</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="sig-tag">Señales</div>
+        <div class="flip-back-title" data-i18n="sig-title">Trading Signals</div>
+        <div class="flip-back-desc" data-i18n="sig-desc">Señales DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
+        <a href="#" class="flip-cta" data-i18n="sig-cta" onclick="event.stopPropagation()">Acceder →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🌊</div>
+        <div class="flip-tag" data-i18n="pools-tag">Pools de Liquidez</div>
+        <div class="flip-title" data-i18n="pools-title">Ingresos Pasivos</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="pools-tag">Pools de Liquidez</div>
+        <div class="flip-back-title" data-i18n="pools-title">Ingresos Pasivos</div>
+        <div class="flip-back-desc" data-i18n="pools-desc">Genera rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
+        <a href="https://luisbpalacios.github.io/estrategias" target="_blank" class="flip-cta" data-i18n="pools-cta" onclick="event.stopPropagation()">Ver Estrategias →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🎯</div>
+        <div class="flip-tag" data-i18n="consult-tag">Consultoría</div>
+        <div class="flip-title" data-i18n="consult-title">1 on 1 con Luis</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="consult-tag">Consultoría</div>
+        <div class="flip-back-title" data-i18n="consult-title">1 on 1 con Luis</div>
+        <div class="flip-back-desc" data-i18n="consult-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
+        <a href="#" class="flip-cta" data-i18n="consult-cta" onclick="event.stopPropagation()">Agendar →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card flip-wide" onclick="this.classList.toggle('flipped')">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🤖</div>
+        <div class="flip-tag" data-i18n="ab-tag">AI para Negocios</div>
+        <div class="flip-title" data-i18n="ab-title">AgentBase.mx</div>
+        <div class="flip-hint" data-i18n="flip-hint">Toca para ver más</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-tag" data-i18n="ab-tag">AI para Negocios</div>
+        <div class="flip-back-title" data-i18n="ab-title">AgentBase.mx</div>
+        <div class="flip-back-desc" data-i18n="ab-desc">IA mexicana que responde WhatsApp 24/7. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
+        <a href="https://agentbase.mx?ref=15E60F42" class="flip-cta" data-i18n="ab-cta" onclick="event.stopPropagation()">Conocer más →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.flip-grid {
+  max-width: 480px;
+  margin: 0 auto 8px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.flip-wide { grid-column: span 2; }
+
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+  height: 160px;
+}
+.flip-wide { height: 130px; }
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+.flip-front, .flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 14px 12px;
+}
+
+/* FRONT */
+.flip-front {
+  background: #111;
+  border: 1px solid #222;
+}
+.flip-card:hover .flip-front { border-color: #F2561D44; }
+.flip-icon { font-size: 30px; margin-bottom: 8px; }
+.flip-tag { font-size: 9px; font-weight: 700; color: #F2561D; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.flip-title { font-size: 14px; font-weight: 900; color: #F4F4F4; line-height: 1.2; }
+.flip-hint { font-size: 9px; color: #444; margin-top: 8px; }
+
+/* BACK */
+.flip-back {
+  background: linear-gradient(135deg, #1a0800, #1a1a1a);
+  border: 1px solid #F2561D66;
+  transform: rotateY(180deg);
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  padding: 14px 14px 10px;
+}
+.flip-back-tag { font-size: 9px; font-weight: 700; color: #F2561D; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+.flip-back-title { font-size: 13px; font-weight: 900; color: #F4F4F4; margin-bottom: 6px; line-height: 1.2; }
+.flip-back-desc { font-size: 10px; color: #8C8C8C; line-height: 1.5; margin-bottom: 10px; flex: 1; }
+.flip-cta {
+  display: inline-block;
+  background: #F2561D;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.flip-cta:hover { opacity: 0.85; }
+
+body.light .flip-front { background: #fff; border-color: #eee; }
+body.light .flip-title { color: #111; }
+body.light .flip-back { background: linear-gradient(135deg, #fff5f0, #fff); border-color: #F2561D44; }
+body.light .flip-back-title { color: #111; }
+</style>
+
+
+<!-- PROTOCOLOS -->
+<div class="section-title"><span data-i18n="sec-protocols">Protocolos Recomendados</span></div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-badge">🪐 DEX #1 Solana</div>
+    <div class="card-tag" data-i18n="jup-tag">DEX / Swap</div>
+    <div class="card-title" data-i18n="jup-title">Jupiter DEX</div>
+    <div class="card-desc" data-i18n="jup-desc">El mejor agregador de swaps en Solana. Mejores precios, rutas optimizadas, sin KYC. Regístrate con mi link y empieza a operar on-chain.</div>
+    <a href="https://jup.ag/?ref=657vuu9g602y" class="card-cta" data-i18n="jup-cta">Abrir Jupiter →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-badge">⚡ 400x Leverage</div>
+    <div class="card-tag" data-i18n="weex-tag">Futures Exchange</div>
+    <div class="card-title" data-i18n="weex-title">WEEX Exchange</div>
+    <div class="card-desc" data-i18n="weex-desc">Trading de futuros crypto con hasta 400x leverage. Sin KYC. Regístrate con mi código y accede a señales VIP exclusivas.</div>
+    <a href="https://www.weex.com/en/register?vipCode=fzog" class="card-cta" data-i18n="weex-cta">Registrarse en WEEX →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">AI para Negocios</div>
+    <div class="card-title">AgentBase.mx</div>
+    <div class="card-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
+    <a href="https://agentbase.mx?ref=15E60F42" class="card-cta">Conocer más →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-tag" data-i18n="sig-ai-tag">IA para Trading</div>
+    <div class="card-title" data-i18n="sig-ai-title">Signara IA</div>
+    <div class="card-desc" data-i18n="sig-ai-desc">Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.</div>
+    <a href="https://signara.ai/register?ref=LBPALA-3499CABA" class="card-cta" data-i18n="sig-ai-cta">Registrarse →</a>
+  </div>
+
+</div>
+<div class="disclaimer" data-i18n="disclaimer">
+  ⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).
+</div>
+
+<div class="footer">
+  Construido con 💛 por <span>Vera</span> · Web3 Collective · 2026
+</div>
+
+
+<script>
+// Theme
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById('themeBtn');
+  body.classList.toggle('light');
+  btn.textContent = body.classList.contains('light') ? '🌙' : '☀️';
+  localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+}
+
+// Language
+const translations = {
+  // Badges
+  'badge-defi': { en: '💎 DeFi Strategist', es: '💎 DeFi Strategist' },
+  'badge-ai': { en: '🤖 AI + Crypto', es: '🤖 AI + Crypto' },
+  'badge-web3': { en: '⛓️ Web3', es: '⛓️ Web3' },
+  'badge-pools': { en: '🌊 Liquidity Pools', es: '🌊 Liquidity Pools' },
+  // Stats
+  'stat-years-label': { en: 'Years in Crypto', es: 'Años en Crypto' },
+  'stat-onchain-label': { en: 'On-Chain', es: 'On-Chain' },
+  'stat-defi-label': { en: 'Specialty', es: 'Especialidad' },
+  // Section titles
+  'sec-results': { en: 'Real Results 📈', es: 'Resultados Reales 📈' },
+  'sec-calc': { en: 'DeFi vs Traditional Investment 💰', es: 'DeFi vs Inversión Tradicional 💰' },
+  'sec-ecosystem': { en: 'Join the Ecosystem', es: 'Únete al Ecosistema' },
+  'sec-protocols': { en: 'Recommended Protocols', es: 'Protocolos Recomendados' },
+  // Calculator
+  'calc-disclaimer': { en: '1-year comparison with <strong>$5,000 USD</strong>', es: 'Comparativa a 1 año con <strong>$5,000 USD</strong>' },
+  'defi-label': { en: '🔥 DeFi', es: '🔥 DeFi' },
+  'defi-subtitle': { en: '~120% annual', es: '~120% anual' },
+  'defi-gain': { en: '+$6,000 profit', es: '+$6,000 ganancia' },
+  'defi-mult': { en: '2.2x your money', es: '2.2x tu dinero' },
+  'trad-label': { en: '🏦 Traditional', es: '🏦 Tradicional' },
+  'trad-subtitle': { en: '~10% annual', es: '~10% anual' },
+  'trad-gain': { en: '+$500 profit', es: '+$500 ganancia' },
+  'trad-mult': { en: '1.1x your money', es: '1.1x tu dinero' },
+  'calc-note': { en: '⚠️ DeFi returns are variable and not guaranteed. Past results do not guarantee future performance. DYOR.', es: '⚠️ Los rendimientos DeFi son variables y no están garantizados. DYOR.' },
+  // Community cards
+  'comm-badge': { en: '🔥 Free', es: '🔥 Gratis' },
+  'comm-tag': { en: 'Community', es: 'Comunidad' },
+  'comm-title': { en: 'Crypto Community', es: 'Crypto Community' },
+  'comm-desc': { en: 'Market analysis, DeFi opportunities, signals and strategies. Join the community and start understanding how money moves on-chain.', es: 'Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.' },
+  'comm-cta': { en: 'Join Free →', es: 'Unirse Gratis →' },
+  // Signals
+  'sig-badge': { en: '⚡ VIP', es: '⚡ VIP' },
+  'sig-tag': { en: 'Signals', es: 'Señales' },
+  'sig-title': { en: 'Trading Signals', es: 'Trading Signals' },
+  'sig-desc': { en: 'Real-time DeFi trading signals. Entries, exits, risk management. For those who want results, not noise.', es: 'Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.' },
+  'sig-cta': { en: 'Access Signals →', es: 'Acceder a Señales →' },
+  'sig-results': { en: 'See results', es: 'Ver resultados' },
+  // Pools
+  'pools-tag': { en: 'Liquidity Pools', es: 'Pools de Liquidez' },
+  'pools-title': { en: 'Passive On-Chain Income', es: 'Ingresos Pasivos On-Chain' },
+  'pools-desc': { en: 'Learn to generate real yields with liquidity pools on Solana and EVM. Risk-managed strategies, not blind speculation.', es: 'Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.' },
+  'pools-cta': { en: 'See Strategies →', es: 'Ver Estrategias →' },
+  // Consulting
+  'consult-tag': { en: 'Consulting', es: 'Consultoría' },
+  'consult-title': { en: '1 on 1 with Luis', es: '1 on 1 con Luis' },
+  'consult-desc': { en: 'Private session to review your portfolio, DeFi strategy or crypto business. Direct, no fluff, concrete results.', es: 'Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.' },
+  'consult-cta': { en: 'Book Session →', es: 'Agendar Sesión →' },
+  // AgentBase
+  'ab-tag': { en: 'AI for Business', es: 'AI para Negocios' },
+  'ab-title': { en: 'AgentBase.mx', es: 'AgentBase.mx' },
+  'ab-desc': { en: 'Mexican AI that answers WhatsApp 24/7 for your business. Quotes, appointments, sales — while you sleep, your AI works.', es: 'IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.' },
+  'ab-desc2': { en: 'Mexican AI that answers WhatsApp 24/7 for your business. Quotes, appointments, invoices — while you sleep, your AI sells.', es: 'IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, facturas — mientras duermes, tu IA vende.' },
+  'ab-cta': { en: 'Learn more →', es: 'Conocer más →' },
+  'ab-cta2': { en: 'Free trial', es: 'Prueba gratis' },
+  // Jupiter
+  'jup-tag': { en: 'DEX / Swap', es: 'DEX / Swap' },
+  'jup-title': { en: 'Jupiter DEX', es: 'Jupiter DEX' },
+  'jup-desc': { en: 'The best swap aggregator on Solana. Best prices, optimized routes, no KYC. Sign up with my link and start trading on-chain.', es: 'El mejor agregador de swaps en Solana. Mejores precios, rutas optimizadas, sin KYC. Regístrate con mi link y empieza a operar on-chain.' },
+  'jup-cta': { en: 'Open Jupiter →', es: 'Abrir Jupiter →' },
+  // WEEX
+  'weex-tag': { en: 'Futures Exchange', es: 'Futures Exchange' },
+  'weex-title': { en: 'WEEX Exchange', es: 'WEEX Exchange' },
+  'weex-desc': { en: 'Crypto futures trading with up to 400x leverage. No KYC. Sign up with my code and get exclusive VIP signals.', es: 'Trading de futuros crypto con hasta 400x leverage. Sin KYC. Regístrate con mi código y accede a señales VIP exclusivas.' },
+  'weex-cta': { en: 'Register on WEEX →', es: 'Registrarse en WEEX →' },
+  // Signara
+  'sig-ai-tag': { en: 'AI for Trading', es: 'IA para Trading' },
+  'sig-ai-title': { en: 'Signara AI', es: 'Signara IA' },
+  'sig-ai-desc': { en: 'Artificial intelligence platform for trading and crypto signals. Sign up with my link and start trading with AI on your side.', es: 'Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.' },
+  'sig-ai-cta': { en: 'Register →', es: 'Registrarse →' },
+  // Disclaimer
+  'flip-hint': { en: 'Tap to learn more', es: 'Toca para ver más' },
+  'sec-events': { en: 'Upcoming Events 🗓️', es: 'Próximos Eventos 🗓️' },
+  'events-title': { en: 'Masterclasses, meetups and live workshops', es: 'Masterclasses, meetups y talleres en vivo' },
+  'events-sub': { en: 'Crypto, DeFi, AI and Web3 — learn from those already inside.', es: 'Crypto, DeFi, IA y Web3 — aprende con quienes ya están dentro.' },
+  'events-cta': { en: 'See Events →', es: 'Ver Eventos →' },
+  'disclaimer': { en: '⚠️ Nothing on this page is financial advice. Trading and DeFi carry significant risk — you can lose your investment. Always do your own research (DYOR).', es: '⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).' }
+};
+
+let currentLang = 'es';
+
+function toggleLang() {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  document.getElementById('langBtn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[key] && translations[key][currentLang]) {
+      el.innerHTML = translations[key][currentLang];
+    }
+  });
+  localStorage.setItem('lang', currentLang);
+}
+
+// On load
+(function() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') { document.body.classList.add('light'); document.getElementById('themeBtn').textContent = '🌙'; }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang === 'en') { currentLang = 'es'; toggleLang(); }
+})();
+</script>
+
+</body>
+</html>
