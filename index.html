@@ -473,6 +473,95 @@
     </div>
   </div>
 
+
+  <!-- CHART -->
+  <div class="chart-container">
+    <canvas id="compareChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+  (function() {
+    const ctx = document.getElementById('compareChart').getContext('2d');
+    const labels = ['Inicio','Mes 1','Mes 2','Mes 3','Mes 4','Mes 5','Mes 6','Mes 7','Mes 8','Mes 9','Mes 10','Mes 11','Mes 12'];
+    const defiData = [5000.0, 5339.56, 5702.17, 6089.42, 6502.96, 6944.58, 7416.2, 7919.84, 8457.69, 9032.06, 9645.44, 10300.48, 11000.0];
+    const tradData  = [5000.0, 5039.87, 5080.06, 5120.57, 5161.4, 5202.56, 5244.04, 5285.86, 5328.01, 5370.5, 5413.32, 5456.49, 5500.0];
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: '🔥 DeFi ~120% anual',
+            data: defiData,
+            borderColor: '#F2561D',
+            backgroundColor: 'rgba(242,86,29,0.15)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#F2561D',
+            pointRadius: 3,
+            pointHoverRadius: 6
+          },
+          {
+            label: '🏦 Tradicional ~10% anual',
+            data: tradData,
+            borderColor: '#555',
+            backgroundColor: 'rgba(85,85,85,0.08)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2,
+            pointBackgroundColor: '#555',
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            borderDash: [6,3]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#BFBFBF',
+              font: { size: 11, weight: '600' },
+              usePointStyle: true,
+              pointStyleWidth: 10
+            }
+          },
+          tooltip: {
+            backgroundColor: '#111',
+            borderColor: '#F2561D',
+            borderWidth: 1,
+            titleColor: '#F2561D',
+            bodyColor: '#BFBFBF',
+            callbacks: {
+              label: function(ctx) {
+                return ' ' + ctx.dataset.label.split(' ')[0] + ' ' + ctx.dataset.label.split(' ')[1] + ': $' + ctx.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0});
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#666', font: { size: 10 } },
+            grid: { color: '#1f1f1f' }
+          },
+          y: {
+            ticks: {
+              color: '#666',
+              font: { size: 10 },
+              callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(1)+'K' : v)
+            },
+            grid: { color: '#1f1f1f' }
+          }
+        }
+      }
+    });
+  })();
+  </script>
+
   <div class="calc-note">⚠️ Los rendimientos DeFi son variables y no están garantizados. DYOR.</div>
 </div>
 
