@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luis Palacios — @lbpalacios_</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #F2561D;
+      --coral: #D9704A;
+      --gray-light: #BFBFBF;
+      --gray: #8C8C8C;
+      --dark: #0D0D0D;
+      --dark-2: #141414;
+      --dark-3: #1A1A1A;
+      --dark-4: #222222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      background: var(--orange);
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #000;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 32px;
+      text-align: center;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--orange);
+      display: block;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.6; }
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .handle {
+      font-size: 14px;
+      color: var(--orange);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--gray-light);
+      max-width: 340px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .role-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .badge {
+      background: var(--dark-3);
+      border: 1px solid #333;
+      color: var(--gray-light);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 24px 20px;
+      border-top: 1px solid #1f1f1f;
+      border-bottom: 1px solid #1f1f1f;
+      margin: 0 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 36px 0 16px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--coral));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--gray-light);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .card-cta:hover { background: var(--coral); }
+
+    .card-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--gray-light);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      text-decoration: none;
+      margin-left: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .card-cta-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* SOCIAL LINKS */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 32px 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      color: var(--gray-light);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* DISCLAIMER */
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray);
+      padding: 16px 20px 40px;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 11px;
+      color: #444;
+    }
+
+    .footer span { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <span class="ticker">
+    🔥 DeFi Strategist &nbsp;•&nbsp; Crypto Investor &nbsp;•&nbsp; Web3 Collective &nbsp;•&nbsp; AgentBase &nbsp;•&nbsp; Liquidity Pools &nbsp;•&nbsp; AI + Crypto &nbsp;•&nbsp; @lbpalacios_ &nbsp;•&nbsp; Building On-Chain Wealth &nbsp;•&nbsp; 🔥 DeFi Strategist &nbsp;•&nbsp; Crypto Investor &nbsp;•&nbsp; Web3 Collective &nbsp;•&nbsp; AgentBase &nbsp;•&nbsp; Liquidity Pools &nbsp;•&nbsp; AI + Crypto &nbsp;•&nbsp; @lbpalacios_
+  </span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <img src="luis_profile.jpg" alt="Luis Palacios" class="avatar">
+  </div>
+
+  <div class="name">Luis Palacios</div>
+  <div class="handle">@lbpalacios_</div>
+  <div class="tagline">"Not waiting for the bull run — already in it."</div>
+
+  <div class="role-badges">
+    <span class="badge">💎 DeFi Strategist</span>
+    <span class="badge">🤖 AI + Crypto</span>
+    <span class="badge">⛓️ Web3</span>
+    <span class="badge">🌊 Liquidity Pools</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">5+</div>
+    <div class="stat-label">Años en Crypto</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">On-Chain</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">DeFi</div>
+    <div class="stat-label">Especialidad</div>
+  </div>
+</div>
+
+<!-- COMUNIDAD -->
+<div class="section-title">Únete al Ecosistema</div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-badge">🔥 Gratis</div>
+    <div class="card-tag">Comunidad</div>
+    <div class="card-title">Crypto Community</div>
+    <div class="card-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.</div>
+    <a href="#" class="card-cta">Unirse Gratis →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-badge">⚡ VIP</div>
+    <div class="card-tag">Señales</div>
+    <div class="card-title">Trading Signals</div>
+    <div class="card-desc">Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
+    <a href="#" class="card-cta">Acceder a Señales →</a>
+    <a href="#" class="card-cta-secondary">Ver resultados</a>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">Pools de Liquidez</div>
+    <div class="card-title">Ingresos Pasivos On-Chain</div>
+    <div class="card-desc">Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
+    <a href="#" class="card-cta">Ver Estrategias →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">Consultoría</div>
+    <div class="card-title">1 on 1 con Luis</div>
+    <div class="card-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
+    <a href="#" class="card-cta">Agendar Sesión →</a>
+  </div>
+
+  <!-- AgentBase -->
+  <div class="card">
+    <div class="card-tag">AI para Negocios</div>
+    <div class="card-title">AgentBase.mx</div>
+    <div class="card-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
+    <a href="https://agentbase.mx" class="card-cta">Conocer más →</a>
+    <a href="#" class="card-cta-secondary">Prueba gratis</a>
+  </div>
+
+</div>
+
+<!-- PROTOCOLOS -->
+<div class="section-title">Protocolos Recomendados</div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-tag">Exchange</div>
+    <div class="card-title">Registro con mi link</div>
+    <div class="card-desc">Accede a los mejores exchanges y protocolos DeFi con mi link de referido y obtén beneficios exclusivos.</div>
+    <a href="#" class="card-cta">Ver Protocolos →</a>
+  </div>
+
+</div>
+
+<!-- SOCIAL -->
+<div class="section-title">Sígueme</div>
+
+<div class="social-links">
+  <a href="https://www.instagram.com/lbpalacios_/" class="social-link">📸 Instagram</a>
+  <a href="https://www.tiktok.com/@lbpalacios_" class="social-link">🎵 TikTok</a>
+  <a href="https://x.com/lbpalacios_" class="social-link">🐦 Twitter / X</a>
+  <a href="#" class="social-link">✈️ Telegram</a>
+</div>
+
+<div class="disclaimer">
+  ⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).
+</div>
+
+<div class="footer">
+  Construido con 💛 por <span>Vera</span> · Web3 Collective · 2026
+</div>
+
+</body>
+</html>
