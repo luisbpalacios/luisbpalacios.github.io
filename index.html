@@ -863,51 +863,188 @@ body.light .events-title { color: #111; }
 </style>
 
 <!-- COMUNIDAD -->
-<div class="section-title"><span data-i18n="sec-ecosystem">Únete al Ecosistema</span></div>
+<div class="section-title" data-i18n="sec-ecosystem">Únete al Ecosistema</div>
 
-<div class="cards">
-
-  <div class="card">
-    <div class="card-badge" data-i18n="comm-badge">🔥 Gratis</div>
-    <div class="card-tag" data-i18n="comm-tag">Comunidad</div>
-    <div class="card-title" data-i18n="comm-title">Crypto Community</div>
-    <div class="card-desc" data-i18n="comm-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.</div>
-    <a href="#" class="card-cta" data-i18n="comm-cta">Unirse Gratis →</a>
+<div class="eco-wrap">
+  <!-- Tab Pills -->
+  <div class="eco-tabs">
+    <button class="eco-tab active" onclick="ecoTab(this,'all')" data-i18n-tab="tab-all">Todo</button>
+    <button class="eco-tab" onclick="ecoTab(this,'comunidad')" data-i18n-tab="tab-comm">Comunidad</button>
+    <button class="eco-tab" onclick="ecoTab(this,'trading')" data-i18n-tab="tab-trading">Trading</button>
+    <button class="eco-tab" onclick="ecoTab(this,'defi')" data-i18n-tab="tab-defi">DeFi</button>
+    <button class="eco-tab" onclick="ecoTab(this,'ia')" data-i18n-tab="tab-ia">IA</button>
   </div>
 
-  <div class="card">
-    <div class="card-badge" data-i18n="sig-badge">⚡ VIP</div>
-    <div class="card-tag" data-i18n="sig-tag">Señales</div>
-    <div class="card-title" data-i18n="sig-title">Trading Signals</div>
-    <div class="card-desc" data-i18n="sig-desc">Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
-    <a href="#" class="card-cta" data-i18n="sig-cta">Acceder a Señales →</a>
-    <a href="#" class="card-cta-secondary" data-i18n="sig-results">Ver resultados</a>
-  </div>
+  <!-- Cards -->
+  <div class="eco-cards" id="ecoCards">
 
-  <div class="card">
-    <div class="card-tag" data-i18n="pools-tag">Pools de Liquidez</div>
-    <div class="card-title" data-i18n="pools-title">Ingresos Pasivos On-Chain</div>
-    <div class="card-desc" data-i18n="pools-desc">Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
-    <a href="#" class="card-cta" data-i18n="pools-cta">Ver Estrategias →</a>
-  </div>
+    <div class="eco-card" data-cat="comunidad">
+      <div class="eco-card-icon">🔥</div>
+      <div class="eco-card-badge" data-i18n="comm-badge">🔥 Gratis</div>
+      <div class="eco-card-tag" data-i18n="comm-tag">Comunidad</div>
+      <div class="eco-card-title" data-i18n="comm-title">Crypto Community</div>
+      <div class="eco-card-desc" data-i18n="comm-desc">Análisis de mercado, oportunidades DeFi, señales y estrategias. Únete a la comunidad y empieza a entender cómo se mueve el dinero on-chain.</div>
+      <a href="#" class="eco-card-cta" data-i18n="comm-cta">Unirse Gratis →</a>
+    </div>
 
-  <div class="card">
-    <div class="card-tag" data-i18n="consult-tag">Consultoría</div>
-    <div class="card-title" data-i18n="consult-title">1 on 1 con Luis</div>
-    <div class="card-desc" data-i18n="consult-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
-    <a href="#" class="card-cta" data-i18n="consult-cta">Agendar Sesión →</a>
-  </div>
+    <div class="eco-card" data-cat="trading">
+      <div class="eco-card-icon">⚡</div>
+      <div class="eco-card-badge vip" data-i18n="sig-badge">⚡ VIP</div>
+      <div class="eco-card-tag" data-i18n="sig-tag">Señales</div>
+      <div class="eco-card-title" data-i18n="sig-title">Trading Signals</div>
+      <div class="eco-card-desc" data-i18n="sig-desc">Señales de trading DeFi en tiempo real. Entradas, salidas, gestión de riesgo. Para quienes quieren resultados, no ruido.</div>
+      <a href="#" class="eco-card-cta" data-i18n="sig-cta">Acceder a Señales →</a>
+      <a href="#" class="eco-card-cta-sec" data-i18n="sig-results">Ver resultados</a>
+    </div>
 
-  <!-- AgentBase -->
-  <div class="card">
-    <div class="card-tag" data-i18n="ab-tag">AI para Negocios</div>
-    <div class="card-title" data-i18n="ab-title">AgentBase.mx</div>
-    <div class="card-desc" data-i18n="ab-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
-    <a href="https://agentbase.mx" class="card-cta" data-i18n="ab-cta">Conocer más →</a>
-    <a href="#" class="card-cta-secondary" data-i18n="ab-cta2">Prueba gratis</a>
-  </div>
+    <div class="eco-card" data-cat="defi">
+      <div class="eco-card-icon">🌊</div>
+      <div class="eco-card-tag" data-i18n="pools-tag">Pools de Liquidez</div>
+      <div class="eco-card-title" data-i18n="pools-title">Ingresos Pasivos On-Chain</div>
+      <div class="eco-card-desc" data-i18n="pools-desc">Aprende a generar rendimientos reales con liquidity pools en Solana y EVM. Estrategias con gestión de riesgo, no especulación ciega.</div>
+      <a href="#" class="eco-card-cta" data-i18n="pools-cta">Ver Estrategias →</a>
+    </div>
 
+    <div class="eco-card" data-cat="comunidad">
+      <div class="eco-card-icon">🎯</div>
+      <div class="eco-card-tag" data-i18n="consult-tag">Consultoría</div>
+      <div class="eco-card-title" data-i18n="consult-title">1 on 1 con Luis</div>
+      <div class="eco-card-desc" data-i18n="consult-desc">Sesión privada para revisar tu portafolio, estrategia DeFi o negocio crypto. Directo, sin rodeos, resultados concretos.</div>
+      <a href="#" class="eco-card-cta" data-i18n="consult-cta">Agendar Sesión →</a>
+    </div>
+
+    <div class="eco-card" data-cat="ia">
+      <div class="eco-card-icon">🤖</div>
+      <div class="eco-card-tag" data-i18n="ab-tag">AI para Negocios</div>
+      <div class="eco-card-title" data-i18n="ab-title">AgentBase.mx</div>
+      <div class="eco-card-desc" data-i18n="ab-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
+      <a href="https://agentbase.mx?ref=15E60F42" class="eco-card-cta" data-i18n="ab-cta">Conocer más →</a>
+      <a href="#" class="eco-card-cta-sec" data-i18n="ab-cta2">Prueba gratis</a>
+    </div>
+
+  </div>
 </div>
+
+<style>
+.eco-wrap { max-width: 480px; margin: 0 auto 8px; padding: 0 16px; }
+
+/* Tabs */
+.eco-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+  scrollbar-width: none;
+}
+.eco-tabs::-webkit-scrollbar { display: none; }
+.eco-tab {
+  flex-shrink: 0;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #8C8C8C;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.eco-tab.active, .eco-tab:hover {
+  background: #F2561D;
+  border-color: #F2561D;
+  color: #fff;
+}
+body.light .eco-tab { background: #eee; border-color: #ddd; color: #666; }
+body.light .eco-tab.active { background: #F2561D; border-color: #F2561D; color: #fff; }
+
+/* Cards */
+.eco-cards { display: flex; flex-direction: column; gap: 12px; }
+
+.eco-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 16px;
+  padding: 18px 16px;
+  animation: ecoFadeIn 0.3s ease;
+  transition: border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.eco-card:hover { border-color: #F2561D44; }
+.eco-card.hidden { display: none; }
+
+@keyframes ecoFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.eco-card-icon {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 28px;
+  opacity: 0.15;
+}
+.eco-card-badge {
+  display: inline-block;
+  background: rgba(242,86,29,0.15);
+  color: #F2561D;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+.eco-card-badge.vip { background: rgba(234,179,8,0.15); color: #eab308; }
+.eco-card-tag { font-size: 10px; color: #555; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.eco-card-title { font-size: 17px; font-weight: 900; color: #F4F4F4; margin-bottom: 8px; }
+.eco-card-desc { font-size: 12px; color: #8C8C8C; line-height: 1.6; margin-bottom: 14px; }
+.eco-card-cta {
+  display: inline-block;
+  background: #F2561D;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-right: 8px;
+  transition: opacity 0.2s;
+}
+.eco-card-cta:hover { opacity: 0.85; }
+.eco-card-cta-sec {
+  display: inline-block;
+  color: #F2561D;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 8px 0;
+}
+body.light .eco-card { background: #fff; border-color: #eee; }
+body.light .eco-card-title { color: #111; }
+</style>
+
+<script>
+function ecoTab(btn, cat) {
+  document.querySelectorAll('.eco-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.eco-card').forEach(c => {
+    if (cat === 'all' || c.dataset.cat === cat) {
+      c.classList.remove('hidden');
+      c.style.animation = 'none';
+      c.offsetHeight;
+      c.style.animation = 'ecoFadeIn 0.3s ease';
+    } else {
+      c.classList.add('hidden');
+    }
+  });
+}
+</script>
+
 
 <!-- PROTOCOLOS -->
 <div class="section-title"><span data-i18n="sec-protocols">Protocolos Recomendados</span></div>
