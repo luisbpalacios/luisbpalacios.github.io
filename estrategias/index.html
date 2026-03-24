@@ -134,6 +134,7 @@
     .level-basico { background: #4CAF5022; color: #4CAF50; }
     .level-intermedio { background: #F2561D22; color: var(--orange); }
     .level-avanzado { background: #E040FB22; color: #E040FB; }
+    .level-futuros { background: #FFD70022; color: #FFD700; }
 
     .card-name {
       font-size: 1.05rem;
@@ -378,6 +379,39 @@
     <div class="card-arrow">→</div>
   </div>
 
+  <!-- CARD 6 -->
+  <div class="strat-card" onclick="openModal('s6')">
+    <div class="card-icon">📏</div>
+    <div class="card-level level-futuros">Futuros</div>
+    <div class="card-name">Regla del 1% por Operación</div>
+    <div class="card-short">Nunca arriesgas más del 1% de tu capital en un solo trade. El tamaño de posición se calcula desde el stop loss.</div>
+    <div class="card-apr">Control total</div>
+    <div class="card-apr-label">gestión de riesgo</div>
+    <div class="card-arrow">→</div>
+  </div>
+
+  <!-- CARD 7 -->
+  <div class="strat-card" onclick="openModal('s7')">
+    <div class="card-icon">⚖️</div>
+    <div class="card-level level-futuros">Futuros</div>
+    <div class="card-name">Stop Loss Técnico + Ratio 1:3</div>
+    <div class="card-short">Solo entras si la ganancia potencial es mínimo 3 veces el riesgo. SL en niveles técnicos reales, no en números redondos.</div>
+    <div class="card-apr">1:3 mínimo</div>
+    <div class="card-apr-label">ratio riesgo/recompensa</div>
+    <div class="card-arrow">→</div>
+  </div>
+
+  <!-- CARD 8 -->
+  <div class="strat-card" onclick="openModal('s8')">
+    <div class="card-icon">🛡️</div>
+    <div class="card-level level-futuros">Futuros</div>
+    <div class="card-name">Cobertura con Futuros Inversos</div>
+    <div class="card-short">Protege tu holding en spot abriendo una posición corta en futuros durante alta volatilidad. Sin vender el activo.</div>
+    <div class="card-apr">Hedge</div>
+    <div class="card-apr-label">protección de capital</div>
+    <div class="card-arrow">→</div>
+  </div>
+
 </div>
 
 <!-- MODALS -->
@@ -465,6 +499,51 @@ const strategies = {
       'Rango amplio = menos rebalanceo (mensual)',
       'Comisiones de uno de los pools con mayor volumen en DeFi',
       'Buena estrategia para perfiles de mediano plazo'
+    ]
+  },
+  s6: {
+    icon: '📏',
+    level: 'Futuros',
+    levelClass: 'level-futuros',
+    name: 'Regla del 1% por Operación',
+    apr: 'Control Total',
+    tags: ['Futuros', 'Position Sizing', 'Stop Loss', 'Gestión de Riesgo'],
+    desc: 'Nunca arriesgas más del 1-2% de tu capital total en una sola operación. El tamaño de posición se calcula a partir de la distancia al stop loss. Ejemplo: capital de $5,000 → máximo $100 en riesgo por trade → si tu SL está a 5% del precio de entrada, tu posición es de $2,000 con ese stop. El apalancamiento se ajusta para llegar al tamaño correcto sin superar el riesgo definido. Con esta regla puedes sobrevivir rachas de 20, 30 o 50 pérdidas consecutivas y seguir en el juego.',
+    pros: [
+      'Sobrevives rachas largas de pérdidas sin liquidarte',
+      'Elimina las decisiones emocionales sobre tamaño de posición',
+      'Funciona con cualquier activo y en cualquier temporalidad',
+      'Es la base de toda gestión de riesgo profesional'
+    ]
+  },
+  s7: {
+    icon: '⚖️',
+    level: 'Futuros',
+    levelClass: 'level-futuros',
+    name: 'Stop Loss Técnico + Ratio 1:3',
+    apr: '1:3 mínimo',
+    tags: ['Futuros', 'Análisis Técnico', 'Risk/Reward', 'Disciplina'],
+    desc: 'Solo entras a una operación si la ganancia potencial es al menos 3 veces el riesgo que tomas. El stop loss siempre va en un nivel técnico real — debajo de un soporte, arriba de una resistencia — nunca en un número redondo. Si tu riesgo es $200, el take profit mínimo debe ser $600. La matemática detrás: con ratio 1:3 puedes perder el 60% de tus trades y seguir siendo rentable. La disciplina está en rechazar entradas que no cumplan el ratio, aunque el setup se vea "seguro".',
+    pros: [
+      'Puedes ser rentable ganando menos del 50% de tus operaciones',
+      'Elimina trades de baja calidad por pura disciplina matemática',
+      'SL técnico reduce probabilidad de stop hunts en zonas obvias',
+      'Fuerza a planificar la salida antes de entrar'
+    ]
+  },
+  s8: {
+    icon: '🛡️',
+    level: 'Futuros',
+    levelClass: 'level-futuros',
+    name: 'Cobertura con Futuros Inversos',
+    apr: 'Hedge',
+    tags: ['Futuros', 'Hedging', 'Spot + Derivados', 'Institucional'],
+    desc: 'Cuando tienes posiciones en spot (BTC, ETH, SOL) y el mercado entra en zona de alta incertidumbre, abres una posición corta en futuros proporcional a tu holding. Esto neutraliza el movimiento del precio: si baja, la corta gana lo que pierde el spot. Cuando pasa la volatilidad, cierras la cobertura y el activo vuelve a moverse libremente a tu favor. No vendes el activo, no pagas impuestos por venta y mantienes el upside cuando el mercado se normalice. Estrategia favorita de traders institucionales y holders de largo plazo.',
+    pros: [
+      'Protege holdings sin necesidad de vender el activo',
+      'Evita el impacto fiscal de cerrar posiciones en spot',
+      'Mantiene el upside cuando la volatilidad termina',
+      'Permite dormir tranquilo en mercados de alta incertidumbre'
     ]
   }
 };
