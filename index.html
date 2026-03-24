@@ -677,6 +677,150 @@ function updateChart(years) {
 </script>
 
 
+<!-- YIELD CALCULATOR -->
+<div class="section-title"><span data-i18n="sec-yieldcalc">Calculadora de Rendimientos 🧮</span></div>
+<style>
+.yield-calc-wrap {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  padding: 0 16px;
+}
+.yield-input-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.yield-input-row label {
+  font-size: 0.85rem;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.yield-input-row input[type=range] {
+  flex: 1;
+  min-width: 160px;
+  accent-color: #F2561D;
+}
+.yield-capital-display {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #F2561D;
+  min-width: 90px;
+  text-align: right;
+}
+.yield-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 480px) {
+  .yield-cards { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .yield-card { padding: 14px 10px; }
+  .yield-card-monthly { font-size: 1.1rem; }
+}
+.yield-card {
+  background: var(--dark-3);
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.yield-card:hover { border-color: #F2561D; }
+body.light .yield-card { background: #fff; border-color: #ddd; }
+.yield-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.yield-card.conservador .yield-card-label { color: #4CAF50; }
+.yield-card.moderado .yield-card-label { color: #F2561D; }
+.yield-card.agresivo .yield-card-label { color: #E040FB; }
+.yield-card-apr {
+  font-size: 0.78rem;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+.yield-card-monthly {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+body.light .yield-card-monthly { color: #111; }
+.yield-card-monthly-label {
+  font-size: 0.72rem;
+  color: var(--gray);
+  margin-bottom: 14px;
+}
+.yield-card-annual {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #F2561D;
+}
+.yield-card-annual-label {
+  font-size: 0.72rem;
+  color: var(--gray);
+}
+.yield-disclaimer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--gray);
+  margin-top: 18px;
+}
+</style>
+<div class="yield-calc-wrap">
+  <div class="yield-input-row">
+    <label data-i18n="calc-label">Capital a invertir (USD)</label>
+    <input type="range" id="yieldSlider" min="500" max="50000" step="500" value="5000" oninput="updateYield()">
+    <div class="yield-capital-display" id="yieldCapitalDisplay">$5,000</div>
+  </div>
+  <div class="yield-cards">
+    <div class="yield-card conservador">
+      <div class="yield-card-label" data-i18n="calc-cons">Conservador</div>
+      <div class="yield-card-apr">~80% APR</div>
+      <div class="yield-card-monthly" id="cons-monthly">$333</div>
+      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
+      <div class="yield-card-annual" id="cons-annual">$4,000</div>
+      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
+    </div>
+    <div class="yield-card moderado">
+      <div class="yield-card-label" data-i18n="calc-mod">Moderado</div>
+      <div class="yield-card-apr">~150% APR</div>
+      <div class="yield-card-monthly" id="mod-monthly">$625</div>
+      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
+      <div class="yield-card-annual" id="mod-annual">$7,500</div>
+      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
+    </div>
+    <div class="yield-card agresivo">
+      <div class="yield-card-label" data-i18n="calc-agr">Agresivo</div>
+      <div class="yield-card-apr">~300% APR</div>
+      <div class="yield-card-monthly" id="agr-monthly">$1,250</div>
+      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
+      <div class="yield-card-annual" id="agr-annual">$15,000</div>
+      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
+    </div>
+  </div>
+  <div class="yield-disclaimer" data-i18n="calc-disclaimer">* Estimaciones basadas en rendimientos históricos de pools DeFi. No son garantía de retorno. DeFi implica riesgos.</div>
+</div>
+<script>
+function updateYield() {
+  const capital = parseInt(document.getElementById('yieldSlider').value);
+  const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+  document.getElementById('yieldCapitalDisplay').textContent = fmt(capital);
+  document.getElementById('cons-monthly').textContent = fmt(capital * 0.80 / 12);
+  document.getElementById('cons-annual').textContent = fmt(capital * 0.80);
+  document.getElementById('mod-monthly').textContent = fmt(capital * 1.50 / 12);
+  document.getElementById('mod-annual').textContent = fmt(capital * 1.50);
+  document.getElementById('agr-monthly').textContent = fmt(capital * 3.00 / 12);
+  document.getElementById('agr-annual').textContent = fmt(capital * 3.00);
+}
+updateYield();
+</script>
+
 <!-- GAINS CAROUSEL -->
 <div class="section-title"><span data-i18n="sec-results">Resultados Reales 📈</span></div>
 <div class="carousel-wrap">
@@ -836,148 +980,6 @@ function updateChart(years) {
 body.light .events-inner { background: #fff; border-color: #F2561D44; }
 body.light .events-title { color: #111; }
 </style>
-
-<!-- YIELD CALCULATOR -->
-<div class="section-title"><span data-i18n="sec-yieldcalc">Calculadora de Rendimientos 🧮</span></div>
-<style>
-.yield-calc-wrap {
-  max-width: 720px;
-  margin: 0 auto 56px;
-  padding: 0 16px;
-}
-.yield-input-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-}
-.yield-input-row label {
-  font-size: 0.85rem;
-  color: var(--gray);
-  white-space: nowrap;
-}
-.yield-input-row input[type=range] {
-  flex: 1;
-  min-width: 160px;
-  accent-color: #F2561D;
-}
-.yield-capital-display {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #F2561D;
-  min-width: 90px;
-  text-align: right;
-}
-.yield-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-@media (max-width: 600px) {
-  .yield-cards { grid-template-columns: 1fr; }
-}
-.yield-card {
-  background: var(--dark-3);
-  border: 1px solid #2a2a2a;
-  border-radius: 14px;
-  padding: 22px 18px;
-  text-align: center;
-  transition: border-color 0.2s;
-}
-.yield-card:hover { border-color: #F2561D; }
-body.light .yield-card { background: #fff; border-color: #ddd; }
-.yield-card-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.yield-card.conservador .yield-card-label { color: #4CAF50; }
-.yield-card.moderado .yield-card-label { color: #F2561D; }
-.yield-card.agresivo .yield-card-label { color: #E040FB; }
-.yield-card-apr {
-  font-size: 0.78rem;
-  color: var(--gray);
-  margin-bottom: 16px;
-}
-.yield-card-monthly {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 4px;
-}
-body.light .yield-card-monthly { color: #111; }
-.yield-card-monthly-label {
-  font-size: 0.72rem;
-  color: var(--gray);
-  margin-bottom: 14px;
-}
-.yield-card-annual {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #F2561D;
-}
-.yield-card-annual-label {
-  font-size: 0.72rem;
-  color: var(--gray);
-}
-.yield-disclaimer {
-  text-align: center;
-  font-size: 0.72rem;
-  color: var(--gray);
-  margin-top: 18px;
-}
-</style>
-<div class="yield-calc-wrap">
-  <div class="yield-input-row">
-    <label data-i18n="calc-label">Capital a invertir (USD)</label>
-    <input type="range" id="yieldSlider" min="500" max="50000" step="500" value="5000" oninput="updateYield()">
-    <div class="yield-capital-display" id="yieldCapitalDisplay">$5,000</div>
-  </div>
-  <div class="yield-cards">
-    <div class="yield-card conservador">
-      <div class="yield-card-label" data-i18n="calc-cons">Conservador</div>
-      <div class="yield-card-apr">~80% APR</div>
-      <div class="yield-card-monthly" id="cons-monthly">$333</div>
-      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
-      <div class="yield-card-annual" id="cons-annual">$4,000</div>
-      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
-    </div>
-    <div class="yield-card moderado">
-      <div class="yield-card-label" data-i18n="calc-mod">Moderado</div>
-      <div class="yield-card-apr">~150% APR</div>
-      <div class="yield-card-monthly" id="mod-monthly">$625</div>
-      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
-      <div class="yield-card-annual" id="mod-annual">$7,500</div>
-      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
-    </div>
-    <div class="yield-card agresivo">
-      <div class="yield-card-label" data-i18n="calc-agr">Agresivo</div>
-      <div class="yield-card-apr">~300% APR</div>
-      <div class="yield-card-monthly" id="agr-monthly">$1,250</div>
-      <div class="yield-card-monthly-label" data-i18n="calc-monthly">al mes</div>
-      <div class="yield-card-annual" id="agr-annual">$15,000</div>
-      <div class="yield-card-annual-label" data-i18n="calc-annual">al año</div>
-    </div>
-  </div>
-  <div class="yield-disclaimer" data-i18n="calc-disclaimer">* Estimaciones basadas en rendimientos históricos de pools DeFi. No son garantía de retorno. DeFi implica riesgos.</div>
-</div>
-<script>
-function updateYield() {
-  const capital = parseInt(document.getElementById('yieldSlider').value);
-  const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
-  document.getElementById('yieldCapitalDisplay').textContent = fmt(capital);
-  document.getElementById('cons-monthly').textContent = fmt(capital * 0.80 / 12);
-  document.getElementById('cons-annual').textContent = fmt(capital * 0.80);
-  document.getElementById('mod-monthly').textContent = fmt(capital * 1.50 / 12);
-  document.getElementById('mod-annual').textContent = fmt(capital * 1.50);
-  document.getElementById('agr-monthly').textContent = fmt(capital * 3.00 / 12);
-  document.getElementById('agr-annual').textContent = fmt(capital * 3.00);
-}
-updateYield();
-</script>
 
 <!-- COMO EMPIEZO -->
 <div class="section-title"><span data-i18n="sec-howstart">¿Cómo Empiezo? 🚀</span></div>
