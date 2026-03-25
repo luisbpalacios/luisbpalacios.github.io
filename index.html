@@ -896,6 +896,218 @@ body.light .events-inner { background: #fff; border-color: #F2561D44; }
 body.light .events-title { color: #111; }
 </style>
 
+<!-- MANUALES -->
+<div class="section-title">📚 Manuales de Trading</div>
+<style>
+.manuals-grid {
+  max-width: 800px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 560px) { .manuals-grid { grid-template-columns: 1fr; } }
+.manual-card {
+  background: var(--dark-3);
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+  padding: 28px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.manual-card.premium {
+  border-color: #F2561D;
+  background: linear-gradient(160deg, #1a120a, #0d0d0d);
+}
+.manual-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+}
+.manual-badge.free { background: rgba(76,175,80,0.15); color: #4CAF50; }
+.manual-badge.paid { background: rgba(242,86,29,0.15); color: #F2561D; }
+.manual-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+}
+.manual-desc {
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+.manual-includes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.manual-include-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #ccc;
+}
+.manual-include-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.free .manual-include-dot { background: #4CAF50; }
+.premium .manual-include-dot { background: #F2561D; }
+.manual-price {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #F2561D;
+}
+.manual-price.gratis { color: #4CAF50; font-size: 1.4rem; }
+.manual-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+  text-align: center;
+}
+.manual-cta.free-cta { background: #4CAF50; color: #fff; }
+.manual-cta.paid-cta { background: #F2561D; color: #fff; }
+.manual-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+.wallet-wrap {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.wallet-label {
+  font-size: 0.68rem;
+  color: var(--gray);
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.wallet-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wallet-addr {
+  font-size: 0.7rem;
+  color: #aaa;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: monospace;
+}
+.wallet-copy-btn {
+  background: #222;
+  border: 1px solid #333;
+  color: #aaa;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.wallet-copy-btn:hover { background: #F2561D; color: #fff; border-color: #F2561D; }
+.wallet-qr-btn {
+  background: #222;
+  border: 1px solid #333;
+  color: #aaa;
+  font-size: 0.9rem;
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.wallet-qr-btn:hover { background: #F2561D; color: #fff; border-color: #F2561D; }
+.wallet-network {
+  font-size: 0.65rem;
+  color: #9945FF;
+  margin-top: 5px;
+  font-weight: 600;
+}
+</style>
+<div class="manuals-grid">
+
+  <div class="manual-card free">
+    <div class="manual-badge free">Gratis</div>
+    <div class="manual-title">Manual Básico de Gestión de Riesgo</div>
+    <div class="manual-desc">Las reglas esenciales para empezar a operar futuros sin destruir tu capital en las primeras semanas.</div>
+    <div class="manual-includes">
+      <div class="manual-include-item"><div class="manual-include-dot"></div>5 reglas de oro del trading</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Checklist pre-trade</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Tabla de apalancamiento</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Los errores más comunes</div>
+    </div>
+    <div class="manual-price gratis">GRATIS</div>
+    <a href="https://wa.me/5214445752667?text=Hola%20Luis%2C%20quiero%20el%20manual%20básico%20de%20gestión%20de%20riesgo%20gratuito" target="_blank" class="manual-cta free-cta">📲 Obtener Manual Gratis</a>
+  </div>
+
+  <div class="manual-card premium">
+    <div class="manual-badge paid">⭐ Premium</div>
+    <div class="manual-title">Manual Completo de Gestión de Riesgo</div>
+    <div class="manual-desc">Guía profesional con estrategias avanzadas, ejemplos reales y todo lo que necesitas para operar con disciplina.</div>
+    <div class="manual-includes">
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Todo el contenido básico</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Gestión avanzada de capital</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Estrategias de entrada y salida</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Psicología del trader</div>
+      <div class="manual-include-item"><div class="manual-include-dot"></div>Casos reales con resultados</div>
+    </div>
+    <div class="manual-price" id="manual-price-display">$XX USDC</div>
+    <div class="wallet-wrap">
+      <div class="wallet-label">🔵 Pagar en Solana (USDC)</div>
+      <div class="wallet-row">
+        <div class="wallet-addr" id="sol-addr">ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd</div>
+        <button class="wallet-copy-btn" onclick="copyWallet()">📋 Copiar</button>
+        <button class="wallet-qr-btn" onclick="showQR('solana:ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd', 'Wallet Solana — Luis Palacios')" title="Ver QR">⬛</button>
+      </div>
+      <div class="wallet-network">Red: Solana · Enviar USDC · Después comparte el TX por WhatsApp</div>
+    </div>
+    <a href="https://wa.me/5214445752667?text=Hola%20Luis%2C%20ya%20envié%20el%20pago%20por%20el%20manual%20completo%20en%20USDC%20a%20tu%20wallet%20de%20Solana.%20Mi%20TX%20es%3A%20" target="_blank" class="manual-cta paid-cta">✅ Ya pagué — Enviar TX</a>
+  </div>
+
+</div>
+<script>
+function copyWallet() {
+  const addr = 'ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd';
+  navigator.clipboard.writeText(addr).then(() => {
+    const btn = document.querySelector('.wallet-copy-btn');
+    btn.textContent = '✓ Copiado';
+    btn.style.background = '#4CAF50';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#4CAF50';
+    setTimeout(() => {
+      btn.textContent = '📋 Copiar';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  });
+}
+</script>
+
 <!-- COMUNIDAD -->
 <div class="section-title" data-i18n="sec-ecosystem">Únete al Ecosistema</div>
 
