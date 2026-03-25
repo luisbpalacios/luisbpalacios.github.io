@@ -1011,6 +1011,90 @@ body.light .flip-front { background: #fff; border-color: #eee; }
 body.light .flip-title { color: #111; }
 body.light .flip-back { background: linear-gradient(135deg, #fff5f0, #fff); border-color: #F2561D44; }
 body.light .flip-back-title { color: #111; }
+
+/* QR BUTTON + MODAL */
+.card-cta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.card-qr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.card-qr-btn:hover { border-color: #F2561D; background: #2a1a14; }
+body.light .card-qr-btn { background: #eee; border-color: #ccc; }
+body.light .card-qr-btn:hover { border-color: #F2561D; background: #fde8e0; }
+
+.qr-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.qr-overlay.active { display: flex; }
+.qr-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 28px 24px;
+  text-align: center;
+  position: relative;
+  max-width: 280px;
+  width: 100%;
+  animation: slideUp 0.2s ease;
+}
+.qr-box-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+.qr-box-hint {
+  font-size: 0.72rem;
+  color: #888;
+  margin-bottom: 16px;
+}
+.qr-canvas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.qr-canvas-wrap canvas { border-radius: 8px; }
+.qr-close-btn {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: #eee;
+  border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #555;
+}
+.qr-close-btn:hover { background: #F2561D; color: #fff; }
+.qr-link {
+  font-size: 0.68rem;
+  color: #aaa;
+  word-break: break-all;
+}
+
 </style>
 
 
@@ -1024,7 +1108,7 @@ body.light .flip-back-title { color: #111; }
     <div class="card-tag" data-i18n="jup-tag">DEX / Swap</div>
     <div class="card-title" data-i18n="jup-title">Jupiter DEX</div>
     <div class="card-desc" data-i18n="jup-desc">El mejor agregador de swaps en Solana. Mejores precios, rutas optimizadas, sin KYC. Regístrate con mi link y empieza a operar on-chain.</div>
-    <a href="https://jup.ag/?ref=657vuu9g602y" class="card-cta" data-i18n="jup-cta">Abrir Jupiter →</a>
+    <div class="card-cta-wrap"><a href="https://jup.ag/?ref=657vuu9g602y" class="card-cta" data-i18n="jup-cta">Abrir Jupiter →</a><button class="card-qr-btn" onclick="showQR('https://jup.ag/?ref=657vuu9g602y', 'Jupiter DEX')" title="Ver QR">&#x2317;</button></div>
   </div>
 
   <div class="card">
@@ -1032,21 +1116,21 @@ body.light .flip-back-title { color: #111; }
     <div class="card-tag" data-i18n="weex-tag">Futures Exchange</div>
     <div class="card-title" data-i18n="weex-title">WEEX Exchange</div>
     <div class="card-desc" data-i18n="weex-desc">Trading de futuros crypto con hasta 400x leverage. Sin KYC. Regístrate con mi código y accede a señales VIP exclusivas.</div>
-    <a href="https://www.weex.com/en/register?vipCode=fzog" class="card-cta" data-i18n="weex-cta">Registrarse en WEEX →</a>
+    <div class="card-cta-wrap"><a href="https://www.weex.com/en/register?vipCode=fzog" class="card-cta" data-i18n="weex-cta">Registrarse en WEEX →</a><button class="card-qr-btn" onclick="showQR('https://www.weex.com/en/register?vipCode=fzog', 'WEEX Exchange')" title="Ver QR">&#x2317;</button></div>
   </div>
 
   <div class="card">
     <div class="card-tag">AI para Negocios</div>
     <div class="card-title">Nativa IA</div>
     <div class="card-desc">IA mexicana que responde WhatsApp 24/7 para tu negocio. Cotizaciones, citas, ventas — mientras duermes, tu IA trabaja.</div>
-    <a href="https://agentbase.mx?ref=15E60F42" class="card-cta">Conocer más →</a>
+    <div class="card-cta-wrap"><a href="https://agentbase.mx?ref=15E60F42" class="card-cta">Conocer más →</a><button class="card-qr-btn" onclick="showQR('https://agentbase.mx?ref=15E60F42', 'Nativa IA')" title="Ver QR">&#x2317;</button></div>
   </div>
 
   <div class="card">
     <div class="card-tag" data-i18n="sig-ai-tag">IA para Trading</div>
     <div class="card-title" data-i18n="sig-ai-title">Signara IA</div>
     <div class="card-desc" data-i18n="sig-ai-desc">Plataforma de inteligencia artificial para trading y señales cripto. Regístrate con mi link y empieza a operar con IA de tu lado.</div>
-    <a href="https://signara.ai/register?ref=LBPALA-3499CABA" class="card-cta" data-i18n="sig-ai-cta">Registrarse →</a>
+    <div class="card-cta-wrap"><a href="https://signara.ai/register?ref=LBPALA-3499CABA" class="card-cta" data-i18n="sig-ai-cta">Registrarse →</a><button class="card-qr-btn" onclick="showQR('https://signara.ai/register?ref=LBPALA-3499CABA', 'Signara IA')" title="Ver QR">&#x2317;</button></div>
   </div>
 
 </div>
@@ -1171,6 +1255,45 @@ function toggleLang() {
   const savedLang = localStorage.getItem('lang');
   if (savedLang === 'en') { currentLang = 'es'; toggleLang(); }
 })();
+</script>
+
+
+<!-- QR MODAL -->
+<div class="qr-overlay" id="qr-overlay" onclick="closeQR(event)">
+  <div class="qr-box">
+    <button class="qr-close-btn" onclick="closeQRBtn()">✕</button>
+    <div class="qr-box-title" id="qr-title">Jupiter DEX</div>
+    <div class="qr-box-hint">Escanea para abrir con tu celular</div>
+    <div class="qr-canvas-wrap" id="qr-canvas-wrap"></div>
+    <div class="qr-link" id="qr-link-text"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+let qrInstance = null;
+function showQR(url, title) {
+  document.getElementById('qr-title').textContent = title;
+  document.getElementById('qr-link-text').textContent = url;
+  const wrap = document.getElementById('qr-canvas-wrap');
+  wrap.innerHTML = '';
+  qrInstance = new QRCode(wrap, {
+    text: url,
+    width: 200,
+    height: 200,
+    colorDark: '#000',
+    colorLight: '#fff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+  document.getElementById('qr-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeQR(e) {
+  if (e.target === document.getElementById('qr-overlay')) closeQRBtn();
+}
+function closeQRBtn() {
+  document.getElementById('qr-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
 </script>
 
 </body>
