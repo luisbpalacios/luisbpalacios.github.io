@@ -303,10 +303,11 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
       <span class="glosario-counter" id="glos-counter">30 términos</span>
     </div>
 
-    <div class="glosario-grid" id="glos-grid">
-      <!-- JS rendered -->
+    <div class="glos-chips" id="glos-grid"></div>
+    <div class="glosario-empty" id="glos-empty" style="display:none;">Sin resultados.</div>
+    <div class="glos-panel" id="glos-panel">
+      <div class="glos-panel-hint">👆 Toca un término para ver su definición</div>
     </div>
-    <div class="glosario-empty" id="glos-empty" style="display:none;">Sin resultados para esa búsqueda.</div>
   </div>
 
   <!-- CTA UPGRADE -->
@@ -329,103 +330,93 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
 </div>
 
 <style>
-.glosario-search-wrap{display:flex;align-items:center;gap:10px;background:var(--dark-3);border:1px solid #222;border-radius:14px;padding:12px 18px;margin-bottom:20px;transition:border-color 0.2s;}
+<style>
+.glosario-search-wrap{display:flex;align-items:center;gap:10px;background:var(--dark-3);border:1px solid #222;border-radius:12px;padding:11px 16px;margin-bottom:16px;transition:border-color 0.2s;}
 .glosario-search-wrap:focus-within{border-color:rgba(242,86,29,0.4);}
-.glosario-search-icon{font-size:1rem;flex-shrink:0;}
-.glosario-search{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:500;}
+.glosario-search{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:500;}
 .glosario-search::placeholder{color:#444;}
-.glosario-counter{font-size:0.72rem;font-weight:700;color:var(--gray);white-space:nowrap;flex-shrink:0;}
-.glosario-grid{display:flex;flex-direction:column;gap:8px;}
-.glos-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color 0.2s;}
-.glos-card:hover{border-color:#333;}
-.glos-card.open{border-color:rgba(242,86,29,0.35);}
-.glos-header{display:flex;align-items:center;gap:12px;padding:14px 18px;}
-.glos-cat{font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:5px;flex-shrink:0;}
-.cat-ordenes{background:rgba(33,150,243,0.12);color:#42a5f5;}
-.cat-posicion{background:rgba(242,86,29,0.1);color:#F2561D;}
-.cat-capital{background:rgba(76,175,80,0.1);color:#4CAF50;}
-.cat-psico{background:rgba(156,39,176,0.1);color:#CE93D8;}
-.cat-mercado{background:rgba(255,193,7,0.1);color:#FFD54F;}
-.glos-term{flex:1;font-size:0.88rem;font-weight:700;color:#fff;}
-.glos-arrow{font-size:1rem;color:#444;transition:transform 0.25s,color 0.2s;flex-shrink:0;}
-.glos-card.open .glos-arrow{transform:rotate(90deg);color:#F2561D;}
-.glos-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s;}
-.glos-card.open .glos-body{max-height:200px;padding:0 18px 16px;}
-.glos-def{font-size:0.82rem;color:#999;line-height:1.7;border-top:1px solid #1a1a1a;padding-top:12px;}
-.glosario-empty{text-align:center;padding:32px;color:var(--gray);font-size:0.85rem;}
+.glosario-counter{font-size:0.7rem;font-weight:700;color:var(--gray);white-space:nowrap;}
+.glos-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.glos-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:var(--dark-3);border:1px solid #222;cursor:pointer;transition:all 0.15s;user-select:none;}
+.glos-chip:hover{border-color:#444;background:#222;}
+.glos-chip.active{background:rgba(242,86,29,0.12);border-color:rgba(242,86,29,0.5);}
+.glos-chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.dot-ordenes{background:#42a5f5;}.dot-posicion{background:#F2561D;}.dot-capital{background:#4CAF50;}.dot-psico{background:#CE93D8;}.dot-mercado{background:#FFD54F;}
+.glos-chip-label{font-size:0.78rem;font-weight:600;color:#ccc;}
+.glos-chip.active .glos-chip-label{color:#fff;}
+.glos-panel{background:var(--dark-3);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;min-height:88px;transition:opacity 0.2s;}
+.glos-panel-hint{font-size:0.82rem;color:#444;text-align:center;padding:16px 0;}
+.glos-panel-cat{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.cat-ordenes{color:#42a5f5;}.cat-posicion{color:#F2561D;}.cat-capital{color:#4CAF50;}.cat-psico{color:#CE93D8;}.cat-mercado{color:#FFD54F;}
+.glos-panel-term{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.glos-panel-def{font-size:0.84rem;color:#aaa;line-height:1.75;}
+.glosario-empty{font-size:0.8rem;color:#444;padding:8px 2px;}
 </style>
 <script>
-const glosTerms = [
-  {term:'Long',cat:'posicion',catLabel:'Posición',def:'Apuesta a que el precio subirá. Compras un contrato esperando venderlo más caro. Si el precio sube, ganas; si baja, pierdes.'},
+const glosTerms=[
+  {term:'Long',cat:'posicion',catLabel:'Posición',def:'Apuesta a que el precio subirá. Compras un contrato esperando venderlo más caro. Si sube, ganas; si baja, pierdes.'},
   {term:'Short',cat:'posicion',catLabel:'Posición',def:'Apuesta a que el precio bajará. Vendes un contrato que no tienes, esperando recomprarlo más barato. Si baja, ganas; si sube, pierdes.'},
-  {term:'Liquidación',cat:'posicion',catLabel:'Posición',def:'Cuando el mercado cierra tu posición forzosamente porque ya no tienes margen suficiente para sostenerla. Pierdes todo el margen depositado.'},
+  {term:'Liquidación',cat:'posicion',catLabel:'Posición',def:'El mercado cierra tu posición forzosamente porque ya no tienes margen suficiente. Pierdes todo el margen depositado.'},
+  {term:'Entry',cat:'posicion',catLabel:'Posición',def:'Precio exacto al que entras a una operación. Definirlo antes de operar (no en el momento del FOMO) es parte clave del plan.'},
+  {term:'Scalping',cat:'posicion',catLabel:'Posición',def:'Estrategia de operaciones muy cortas (segundos a minutos) buscando ganancias pequeñas repetidas. Requiere alta concentración y comisiones bajas.'},
+  {term:'Hedge',cat:'posicion',catLabel:'Posición',def:'Posición opuesta a la que tienes para reducir riesgo. Si tienes un long, abrir un short parcial te protege de caídas. Cobertura.'},
   {term:'Margen',cat:'capital',catLabel:'Capital',def:'El dinero que depositas como garantía para abrir una posición apalancada. No es el valor total del contrato, solo una fracción.'},
-  {term:'Apalancamiento',cat:'capital',catLabel:'Capital',def:'Multiplicador que amplifica el tamaño de tu posición. Con 10x y $100 controlas $1,000. Amplifica ganancias y pérdidas por igual.'},
-  {term:'Stop Loss (SL)',cat:'ordenes',catLabel:'Órdenes',def:'Orden que cierra tu posición automáticamente cuando el precio llega a un nivel de pérdida que definiste. Tu red de seguridad.'},
-  {term:'Take Profit (TP)',cat:'ordenes',catLabel:'Órdenes',def:'Orden que cierra tu posición automáticamente cuando el precio llega a tu objetivo de ganancia. Asegura la utilidad sin que tengas que estar mirando.'},
-  {term:'PnL',cat:'capital',catLabel:'Capital',def:'Profit and Loss — ganancia o pérdida de una posición. PnL no realizado = posición abierta. PnL realizado = posición ya cerrada.'},
-  {term:'Funding Rate',cat:'mercado',catLabel:'Mercado',def:'Comisión periódica entre traders de futuros perpetuos. Si es positiva, los longs pagan a los shorts. Si es negativa, los shorts pagan a los longs. Indica el sentimiento del mercado.'},
-  {term:'Perpetuo',cat:'mercado',catLabel:'Mercado',def:'Contrato de futuros sin fecha de vencimiento. El más usado en crypto. Mantiene el precio cercano al spot gracias al funding rate.'},
-  {term:'Open Interest',cat:'mercado',catLabel:'Mercado',def:'Total de contratos abiertos en el mercado. Un OI alto indica mucho dinero comprometido. Subidas de precio con OI creciente confirman tendencia.'},
-  {term:'Ratio Riesgo/Recompensa',cat:'capital',catLabel:'Capital',def:'Relación entre lo que arriesgas y lo que puedes ganar. Un ratio 1:2 significa que por cada $1 que arriesgas, buscas ganar $2.'},
-  {term:'FOMO',cat:'psico',catLabel:'Psicología',def:'Fear Of Missing Out — miedo a perderse el movimiento. Te impulsa a entrar tarde, en malos puntos, sin análisis. Una de las principales causas de pérdidas.'},
-  {term:'FUD',cat:'psico',catLabel:'Psicología',def:'Fear, Uncertainty and Doubt — miedo, incertidumbre y duda. Noticias o rumores que generan pánico y venta masiva, muchas veces artificialmente.'},
-  {term:'Liquidez',cat:'mercado',catLabel:'Mercado',def:'Facilidad con la que puedes comprar o vender sin mover el precio. Alta liquidez = spreads pequeños y ejecución rápida.'},
+  {term:'Apalancamiento',cat:'capital',catLabel:'Capital',def:'Multiplicador que amplifica tu posición. Con 10x y $100 controlas $1,000. Amplifica ganancias y pérdidas por igual.'},
+  {term:'PnL',cat:'capital',catLabel:'Capital',def:'Profit and Loss — ganancia o pérdida. PnL no realizado = posición abierta. PnL realizado = posición ya cerrada.'},
+  {term:'Ratio R/R',cat:'capital',catLabel:'Capital',def:'Relación entre lo que arriesgas y lo que puedes ganar. Un ratio 1:2 = por cada $1 que arriesgas, buscas ganar $2.'},
+  {term:'Drawdown',cat:'capital',catLabel:'Capital',def:'Caída porcentual desde el máximo de tu capital. Un drawdown del 50% significa que necesitas ganar 100% para recuperarte.'},
+  {term:'Stop Loss (SL)',cat:'ordenes',catLabel:'Órdenes',def:'Orden que cierra tu posición automáticamente cuando el precio llega al nivel de pérdida que definiste. Tu red de seguridad.'},
+  {term:'Take Profit (TP)',cat:'ordenes',catLabel:'Órdenes',def:'Orden que cierra tu posición automáticamente cuando el precio llega a tu objetivo de ganancia. Asegura la utilidad.'},
   {term:'Market Order',cat:'ordenes',catLabel:'Órdenes',def:'Orden que se ejecuta inmediatamente al precio de mercado actual. Garantiza ejecución pero no el precio exacto.'},
-  {term:'Limit Order',cat:'ordenes',catLabel:'Órdenes',def:'Orden que se ejecuta solo si el precio llega al nivel que especificaste. Controlas el precio de entrada pero no garantizas ejecución.'},
+  {term:'Limit Order',cat:'ordenes',catLabel:'Órdenes',def:'Orden que se ejecuta solo si el precio llega al nivel que especificaste. Controlas el precio pero no garantizas ejecución.'},
+  {term:'Funding Rate',cat:'mercado',catLabel:'Mercado',def:'Comisión periódica entre traders de futuros perpetuos. Si es positiva, longs pagan a shorts. Indica el sentimiento del mercado.'},
+  {term:'Perpetuo',cat:'mercado',catLabel:'Mercado',def:'Contrato de futuros sin fecha de vencimiento. El más usado en crypto. El funding rate mantiene el precio cercano al spot.'},
+  {term:'Open Interest',cat:'mercado',catLabel:'Mercado',def:'Total de contratos abiertos en el mercado. OI alto con precio subiendo confirma tendencia alcista fuerte.'},
+  {term:'Liquidez',cat:'mercado',catLabel:'Mercado',def:'Facilidad para comprar o vender sin mover el precio. Alta liquidez = spreads pequeños y ejecución rápida.'},
   {term:'Spread',cat:'mercado',catLabel:'Mercado',def:'Diferencia entre el precio de compra (ask) y el de venta (bid). Es el costo implícito de cada operación.'},
-  {term:'Volatilidad',cat:'mercado',catLabel:'Mercado',def:'Velocidad e intensidad con la que se mueve el precio. Alta volatilidad = movimientos grandes y rápidos. Las altcoins son muy volátiles.'},
-  {term:'Soporte',cat:'mercado',catLabel:'Mercado',def:'Nivel de precio donde históricamente la demanda ha frenado la caída. Es un punto clave para colocar stop loss.'},
-  {term:'Resistencia',cat:'mercado',catLabel:'Mercado',def:'Nivel de precio donde históricamente la oferta ha frenado el alza. Es un punto común para tomar ganancias.'},
-  {term:'Tendencia (Trend)',cat:'mercado',catLabel:'Mercado',def:'Dirección general del precio: alcista (uptrend), bajista (downtrend) o lateral (sideways). Operar a favor de la tendencia aumenta las probabilidades.'},
-  {term:'Revenge Trading',cat:'psico',catLabel:'Psicología',def:'Operar impulsivamente después de una pérdida para "recuperar". Las decisiones tomadas desde el enojo casi siempre resultan en más pérdidas.'},
-  {term:'Overtrading',cat:'psico',catLabel:'Psicología',def:'Operar en exceso por aburrimiento o ansiedad. Más operaciones no significa más ganancias — la calidad del setup importa más que la cantidad.'},
-  {term:'Drawdown',cat:'capital',catLabel:'Capital',def:'Caída porcentual desde el punto máximo de tu capital. Un drawdown del 50% significa que necesitas ganar el 100% para recuperarte.'},
-  {term:'Entry',cat:'posicion',catLabel:'Posición',def:'Precio exacto al que entras a una operación. Definirlo antes de operar (no en el momento del FOMO) es parte clave del plan de trading.'},
-  {term:'Scalping',cat:'posicion',catLabel:'Posición',def:'Estrategia de trading con operaciones muy cortas (segundos a minutos) buscando ganancias pequeñas repetidas. Requiere alta concentración y comisiones bajas.'},
-  {term:'Hedge',cat:'posicion',catLabel:'Posición',def:'Posición opuesta a la que tienes para reducir el riesgo. Si tienes un long, abrir un short parcial te protege de caídas. Cobertura.'},
-  {term:'Breakout',cat:'mercado',catLabel:'Mercado',def:'Cuando el precio rompe un nivel clave de soporte o resistencia con volumen. Señal de que puede continuar en esa dirección.'},
-  {term:'Candle / Vela',cat:'mercado',catLabel:'Mercado',def:'Representación gráfica del precio en un periodo de tiempo. Muestra apertura, cierre, máximo y mínimo. La base de todo análisis técnico.'},
+  {term:'Volatilidad',cat:'mercado',catLabel:'Mercado',def:'Velocidad e intensidad con la que se mueve el precio. Las altcoins son extremadamente volátiles — pueden moverse 20-40% en horas.'},
+  {term:'Soporte',cat:'mercado',catLabel:'Mercado',def:'Nivel de precio donde la demanda ha frenado la caída históricamente. Punto clave para colocar stop loss.'},
+  {term:'Resistencia',cat:'mercado',catLabel:'Mercado',def:'Nivel de precio donde la oferta ha frenado el alza históricamente. Punto común para tomar ganancias.'},
+  {term:'Tendencia',cat:'mercado',catLabel:'Mercado',def:'Dirección general del precio: alcista (uptrend), bajista (downtrend) o lateral (sideways). Operar a favor de la tendencia sube las probabilidades.'},
+  {term:'Breakout',cat:'mercado',catLabel:'Mercado',def:'Cuando el precio rompe un nivel clave de soporte o resistencia con volumen. Señal de posible continuación en esa dirección.'},
+  {term:'Candle / Vela',cat:'mercado',catLabel:'Mercado',def:'Representación gráfica del precio en un periodo. Muestra apertura, cierre, máximo y mínimo. La base del análisis técnico.'},
+  {term:'FOMO',cat:'psico',catLabel:'Psicología',def:'Fear Of Missing Out — miedo a perderse el movimiento. Te impulsa a entrar tarde y sin análisis. Una de las principales causas de pérdidas.'},
+  {term:'FUD',cat:'psico',catLabel:'Psicología',def:'Fear, Uncertainty and Doubt — miedo e incertidumbre. Noticias que generan pánico y ventas masivas, muchas veces artificialmente.'},
+  {term:'Revenge Trading',cat:'psico',catLabel:'Psicología',def:'Operar impulsivamente después de una pérdida para recuperar. Las decisiones desde el enojo casi siempre resultan en más pérdidas.'},
+  {term:'Overtrading',cat:'psico',catLabel:'Psicología',def:'Operar en exceso por aburrimiento o ansiedad. Más operaciones no significa más ganancias — la calidad del setup importa más.'},
 ];
-
-const catClass = {ordenes:'cat-ordenes',posicion:'cat-posicion',capital:'cat-capital',psico:'cat-psico',mercado:'cat-mercado'};
-
-function renderGlos(terms) {
-  const grid = document.getElementById('glos-grid');
-  const empty = document.getElementById('glos-empty');
-  const counter = document.getElementById('glos-counter');
-  if (!terms.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    counter.textContent = '0 términos';
-    return;
-  }
-  empty.style.display = 'none';
-  counter.textContent = terms.length + (terms.length === 30 ? ' términos' : ' de 30');
-  grid.innerHTML = terms.map((t,i) => `
-    <div class="glos-card" onclick="toggleGlos(this)">
-      <div class="glos-header">
-        <span class="glos-cat ${catClass[t.cat]}">${t.catLabel}</span>
-        <span class="glos-term">${t.term}</span>
-        <span class="glos-arrow">›</span>
-      </div>
-      <div class="glos-body"><div class="glos-def">${t.def}</div></div>
-    </div>`).join('');
+const catClass={ordenes:'cat-ordenes',posicion:'cat-posicion',capital:'cat-capital',psico:'cat-psico',mercado:'cat-mercado'};
+const dotClass={ordenes:'dot-ordenes',posicion:'dot-posicion',capital:'dot-capital',psico:'dot-psico',mercado:'dot-mercado'};
+function renderGlos(terms){
+  const grid=document.getElementById('glos-grid');
+  const counter=document.getElementById('glos-counter');
+  const empty=document.getElementById('glos-empty');
+  grid.innerHTML='';
+  showPanel(null);
+  if(!terms.length){empty.style.display='block';counter.textContent='0 términos';return;}
+  empty.style.display='none';
+  counter.textContent=terms.length===30?'30 términos':terms.length+' de 30';
+  terms.forEach(t=>{
+    const chip=document.createElement('div');
+    chip.className='glos-chip';
+    chip.innerHTML=`<span class="glos-chip-dot ${dotClass[t.cat]}"></span><span class="glos-chip-label">${t.term}</span>`;
+    chip.onclick=()=>{document.querySelectorAll('.glos-chip.active').forEach(c=>c.classList.remove('active'));chip.classList.add('active');showPanel(t);};
+    grid.appendChild(chip);
+  });
 }
-
-function toggleGlos(card) {
-  const isOpen = card.classList.contains('open');
-  document.querySelectorAll('.glos-card.open').forEach(c => c.classList.remove('open'));
-  if (!isOpen) card.classList.add('open');
+function showPanel(t){
+  const p=document.getElementById('glos-panel');
+  if(!t){p.innerHTML='<div class="glos-panel-hint">👆 Toca un término para ver su definición</div>';return;}
+  p.innerHTML=`<div class="glos-panel-cat ${catClass[t.cat]}">${t.catLabel}</div><div class="glos-panel-term">${t.term}</div><div class="glos-panel-def">${t.def}</div>`;
 }
-
-function filterGlos() {
-  const q = document.getElementById('glos-search').value.toLowerCase().trim();
-  const filtered = q ? glosTerms.filter(t => t.term.toLowerCase().includes(q) || t.def.toLowerCase().includes(q) || t.catLabel.toLowerCase().includes(q)) : glosTerms;
+function filterGlos(){
+  const q=document.getElementById('glos-search').value.toLowerCase().trim();
+  const filtered=q?glosTerms.filter(t=>t.term.toLowerCase().includes(q)||t.def.toLowerCase().includes(q)):glosTerms;
   renderGlos(filtered);
+  if(filtered.length===1){const chip=document.querySelector('.glos-chip');if(chip){chip.classList.add('active');showPanel(filtered[0]);}}
 }
-
 renderGlos(glosTerms);
+</script>
 </script>
 
 <div class="page-footer">
