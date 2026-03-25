@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Básico de Gestión de Riesgo — Luis B. Palacios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--orange:#F2561D;--dark:#0D0D0D;--dark-2:#141414;--dark-3:#1A1A1A;--dark-4:#222;--gray:#888;--green:#4CAF50;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height:100vh;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #1a1a1a;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.nav-back{display:flex;align-items:center;gap:8px;color:var(--gray);font-size:0.82rem;font-weight:600;text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:#fff;}
+.nav-badge{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;background:rgba(76,175,80,0.12);color:var(--green);border:1px solid rgba(76,175,80,0.3);padding:4px 12px;border-radius:20px;}
+
+/* HERO */
+.hero{max-width:740px;margin:0 auto;padding:64px 24px 48px;text-align:center;}
+.hero-tag{display:inline-block;background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.3);color:var(--green);font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:24px;}
+.hero-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:16px;}
+.hero-title span{color:var(--green);}
+.hero-desc{font-size:1rem;color:var(--gray);line-height:1.7;max-width:520px;margin:0 auto 32px;}
+.hero-author{display:flex;align-items:center;justify-content:center;gap:12px;}
+.hero-author-dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F2561D,#ff8c42);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;}
+.hero-author-info{text-align:left;}
+.hero-author-name{font-size:0.85rem;font-weight:700;color:#fff;}
+.hero-author-sub{font-size:0.72rem;color:var(--gray);}
+.hero-divider{width:60px;height:3px;background:var(--green);border-radius:2px;margin:40px auto 0;}
+
+/* CONTENIDO */
+.content{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+
+/* SECCIÓN */
+.section{margin-bottom:56px;}
+.section-tag{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.section-title{font-size:1.6rem;font-weight:900;letter-spacing:-0.4px;margin-bottom:8px;line-height:1.2;}
+.section-title span{color:var(--green);}
+.section-intro{font-size:0.88rem;color:var(--gray);line-height:1.75;margin-bottom:28px;}
+
+/* REGLAS */
+.rules{display:flex;flex-direction:column;gap:12px;}
+.rule{display:flex;align-items:flex-start;gap:16px;background:var(--dark-3);border:1px solid #222;border-left:3px solid var(--green);border-radius:14px;padding:18px 20px;}
+.rule-num{font-size:1.8rem;font-weight:900;color:rgba(76,175,80,0.15);line-height:1;flex-shrink:0;width:36px;}
+.rule-title{font-size:0.92rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.rule-title span{color:var(--green);}
+.rule-desc{font-size:0.8rem;color:#888;line-height:1.65;}
+
+/* TABLA APALANCAMIENTO */
+.lev-table-wrap{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);padding:14px 20px;text-align:left;border-bottom:1px solid #222;}
+td{padding:14px 20px;font-size:0.85rem;border-bottom:1px solid #161616;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
+.lev-x{font-weight:800;color:#fff;}
+.tag-safe{background:rgba(76,175,80,0.1);color:#4CAF50;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;}
+.tag-warn{background:rgba(255,152,0,0.1);color:#FF9800;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;}
+.tag-danger{background:rgba(242,86,29,0.1);color:#F2561D;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;}
+.tag-critical{background:rgba(244,67,54,0.1);color:#f44336;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;}
+.move-safe{color:#4CAF50;font-weight:700;}
+.move-warn{color:#FF9800;font-weight:700;}
+.move-danger{color:#F2561D;font-weight:700;}
+.move-critical{color:#f44336;font-weight:700;}
+
+/* EJEMPLOS */
+.examples{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:540px){.examples{grid-template-columns:1fr;}}
+.ex-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px 20px;}
+.ex-label{font-size:0.68rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px;}
+.ex-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #1a1a1a;font-size:0.8rem;}
+.ex-row:last-child{border-bottom:none;}
+.ex-row-label{color:var(--gray);}
+.ex-row-val{font-weight:700;color:#fff;}
+.ex-row-val.green{color:#4CAF50;}
+.ex-row-val.red{color:#F2561D;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:10px;}
+.check-item{display:flex;align-items:center;gap:14px;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:12px;padding:14px 18px;}
+.check-box{width:22px;height:22px;border:2px solid #333;border-radius:6px;flex-shrink:0;}
+.check-text{font-size:0.83rem;color:#ccc;font-weight:500;flex:1;}
+.check-cat{font-size:0.65rem;font-weight:800;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0;}
+.cat-analysis{background:rgba(76,175,80,0.1);color:#4CAF50;}
+.cat-risk{background:rgba(255,152,0,0.1);color:#FF9800;}
+.cat-capital{background:rgba(242,86,29,0.1);color:#F2561D;}
+.cat-mental{background:rgba(156,39,176,0.1);color:#CE93D8;}
+
+/* ERRORES */
+.errors{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:540px){.errors{grid-template-columns:1fr;}}
+.err-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px;}
+.err-card.full{grid-column:1/-1;}
+.err-num{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F2561D;margin-bottom:8px;}
+.err-title{font-size:0.88rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.err-desc{font-size:0.78rem;color:#777;line-height:1.65;}
+.err-fix{margin-top:10px;font-size:0.75rem;font-weight:700;color:#4CAF50;}
+
+/* ALERT BOX */
+.alert{background:rgba(242,86,29,0.06);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;}
+.alert-icon{font-size:1.4rem;flex-shrink:0;}
+.alert-title{font-size:0.78rem;font-weight:800;color:#F2561D;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.alert-text{font-size:0.82rem;color:#aaa;line-height:1.7;}
+
+/* CTA UPGRADE */
+.upgrade-box{background:linear-gradient(135deg,#1a120a,#0d0d0d);border:1.5px solid rgba(242,86,29,0.4);border-radius:20px;padding:40px 32px;text-align:center;position:relative;overflow:hidden;margin-top:64px;}
+.upgrade-glow{position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.1),transparent 65%);pointer-events:none;}
+.upgrade-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:#F2561D;font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;}
+.upgrade-title{font-size:1.5rem;font-weight:900;line-height:1.2;margin-bottom:10px;}
+.upgrade-title span{color:#F2561D;}
+.upgrade-desc{font-size:0.85rem;color:var(--gray);line-height:1.7;max-width:420px;margin:0 auto 24px;}
+.upgrade-list{display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto 28px;text-align:left;}
+.upgrade-list-item{display:flex;align-items:center;gap:10px;font-size:0.82rem;color:#ccc;}
+.upgrade-list-item::before{content:'›';color:#F2561D;font-weight:900;font-size:1rem;flex-shrink:0;}
+.upgrade-price{font-size:2rem;font-weight:900;color:#F2561D;margin-bottom:20px;}
+.upgrade-price sup{font-size:1rem;vertical-align:super;}
+.upgrade-cta{display:inline-block;background:#F2561D;color:#fff;font-size:0.9rem;font-weight:800;padding:14px 36px;border-radius:50px;text-decoration:none;transition:opacity 0.2s,transform 0.15s;box-shadow:0 6px 24px rgba(242,86,29,0.3);}
+.upgrade-cta:hover{opacity:0.88;transform:translateY(-2px);}
+
+/* FOOTER */
+.page-footer{border-top:1px solid #1a1a1a;padding:24px;text-align:center;font-size:0.75rem;color:#444;margin-top:40px;}
+.page-footer a{color:#F2561D;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-back">← luisbpalacios.github.io</a>
+  <span class="nav-badge">Manual Gratuito</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">📚 Manual Básico · Edición 2025</div>
+  <h1 class="hero-title">Gestión de Riesgo en<br><span>Futuros de Altcoins</span></h1>
+  <p class="hero-desc">Las reglas esenciales para empezar a operar sin destruir tu capital en las primeras semanas. Gratis, sin registro.</p>
+  <div class="hero-author">
+    <div class="hero-author-dot">LP</div>
+    <div class="hero-author-info">
+      <div class="hero-author-name">Luis B. Palacios</div>
+      <div class="hero-author-sub">Crypto Investor & DeFi Strategist</div>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- 5 REGLAS -->
+  <div class="section">
+    <div class="section-tag">El núcleo del manual</div>
+    <div class="section-title">Las <span>5 Reglas</span> de Oro</div>
+    <p class="section-intro">Son simples. El problema no es aprenderlas — es respetarlas cuando el mercado te presiona emocionalmente. Quémalas en tu cabeza antes de abrir cualquier operación.</p>
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div>
+          <div class="rule-title">Nunca arriesgues más del <span>2%</span> de tu capital por operación</div>
+          <div class="rule-desc">Con $1,000 de capital, tu riesgo máximo por trade es $20. Con esta regla puedes perder 50 operaciones seguidas y aún conservar $900 para operar.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div>
+          <div class="rule-title">Siempre pon <span>stop loss</span> antes de entrar</div>
+          <div class="rule-desc">Define tu salida de pérdida ANTES de abrir la posición. Nunca operes sin ella. Y nunca la muevas en tu contra para "darle más espacio".</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div>
+          <div class="rule-title">Solo entra a trades con ratio mínimo <span>1:2</span></div>
+          <div class="rule-desc">Si arriesgas $20, solo operas donde puedes ganar $40 o más. Con este ratio puedes perder el 60% de tus operaciones y seguir siendo rentable.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div>
+          <div class="rule-title">Usa máximo <span>5x</span> de apalancamiento</div>
+          <div class="rule-desc">Las altcoins se mueven 5-15% en un solo día. Con 10x o más, una corrección normal te liquida antes de que el precio rebote.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05</div>
+        <div>
+          <div class="rule-title">Si pierdes <span>2 operaciones seguidas</span>, para el día</div>
+          <div class="rule-desc">Las malas rachas se combaten descansando, no operando más. El mercado siempre estará mañana.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APALANCAMIENTO -->
+  <div class="section">
+    <div class="section-tag">El arma de doble filo</div>
+    <div class="section-title">Tabla de <span>Apalancamiento</span></div>
+    <p class="section-intro">Esta tabla muestra cuánto margen tiene el mercado para moverte en tu contra antes de liquidarte completamente. Memorízala.</p>
+    <div class="lev-table-wrap" style="margin-bottom:20px;">
+      <table>
+        <thead>
+          <tr><th>Apalancamiento</th><th>Te liquida con</th><th>Nivel</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="lev-x">2x</td><td><span class="move-safe">-50%</span></td><td><span class="tag-safe">Recomendado</span></td></tr>
+          <tr><td class="lev-x">3x</td><td><span class="move-safe">-33%</span></td><td><span class="tag-safe">Recomendado</span></td></tr>
+          <tr><td class="lev-x">5x</td><td><span class="move-warn">-20%</span></td><td><span class="tag-warn">Máximo sugerido</span></td></tr>
+          <tr><td class="lev-x">10x</td><td><span class="move-danger">-10%</span></td><td><span class="tag-danger">Evitar al inicio</span></td></tr>
+          <tr><td class="lev-x">20x</td><td><span class="move-critical">-5%</span></td><td><span class="tag-critical">Muy peligroso</span></td></tr>
+          <tr><td class="lev-x">50x</td><td><span class="move-critical">-2%</span></td><td><span class="tag-critical">Extremo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="examples">
+      <div class="ex-card">
+        <div class="ex-label">Ejemplo — Long en SOL</div>
+        <div class="ex-row"><span class="ex-row-label">Entrada</span><span class="ex-row-val">$130</span></div>
+        <div class="ex-row"><span class="ex-row-label">Stop loss</span><span class="ex-row-val red">$118 (-9.2%)</span></div>
+        <div class="ex-row"><span class="ex-row-label">Riesgo máx (2%)</span><span class="ex-row-val">$20 de $1,000</span></div>
+        <div class="ex-row"><span class="ex-row-label">Posición</span><span class="ex-row-val green">1.67 SOL</span></div>
+      </div>
+      <div class="ex-card">
+        <div class="ex-label">Ejemplo — Long en ETH</div>
+        <div class="ex-row"><span class="ex-row-label">Entrada</span><span class="ex-row-val">$2,000</span></div>
+        <div class="ex-row"><span class="ex-row-label">Stop loss</span><span class="ex-row-val red">$1,900 (-5%)</span></div>
+        <div class="ex-row"><span class="ex-row-label">Take profit</span><span class="ex-row-val green">$2,200 (+10%)</span></div>
+        <div class="ex-row"><span class="ex-row-label">Ratio</span><span class="ex-row-val green">1:2 ✓</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <div class="section-tag">Antes de cada operación</div>
+    <div class="section-title"><span>7 Preguntas</span> que salvan tu capital</div>
+    <p class="section-intro">Si una sola respuesta es "no" — no entres. Sin excepciones.</p>
+    <div class="checklist">
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿Identifiqué claramente el setup y la razón de mi entrada?</div><span class="check-cat cat-analysis">Análisis</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿Ya definí exactamente dónde va mi stop loss?</div><span class="check-cat cat-risk">Riesgo</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿El ratio riesgo/recompensa es mínimo 1:2?</div><span class="check-cat cat-capital">Capital</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿El tamaño de posición respeta mi regla del 1-2% de capital?</div><span class="check-cat cat-capital">Capital</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿Estoy entrando desde el análisis y no por FOMO o impulso?</div><span class="check-cat cat-mental">Psicología</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿El apalancamiento que usaré es 5x o menos?</div><span class="check-cat cat-risk">Riesgo</span></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">¿Puedo perder este dinero sin que afecte mi vida cotidiana?</div><span class="check-cat cat-mental">Mental</span></div>
+    </div>
+    <div class="alert" style="margin-top:20px;">
+      <div class="alert-icon">💡</div>
+      <div>
+        <div class="alert-title">Consejo de Luis</div>
+        <div class="alert-text">La mayoría de traders pierde no porque no sepa análisis técnico, sino porque ignora estas preguntas cuando el mercado se mueve rápido y el FOMO los domina. La disciplina no es un talento — es un hábito que se construye trade a trade.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERRORES -->
+  <div class="section">
+    <div class="section-tag">Lo que destruye a los principiantes</div>
+    <div class="section-title">Los <span>5 Errores</span> más comunes</div>
+    <p class="section-intro">No los cometas tú. Aprende de los errores que ya destruyeron la cuenta de miles de traders antes que tú.</p>
+    <div class="errors">
+      <div class="err-card">
+        <div class="err-num">Error 01</div>
+        <div class="err-title">Operar sin Stop Loss</div>
+        <div class="err-desc">"El precio va a volver" es la frase favorita de quienes pierden todo. A veces vuelve. A veces no. El SL existe para cuando no vuelve.</div>
+        <div class="err-fix">✓ SL siempre, antes de abrir.</div>
+      </div>
+      <div class="err-card">
+        <div class="err-num">Error 02</div>
+        <div class="err-title">Apalancamiento alto desde el inicio</div>
+        <div class="err-desc">10x o 20x desde el primer día destruye la cuenta antes de que puedas aprender. El mercado siempre te cobra la colegiatura.</div>
+        <div class="err-fix">✓ Empieza con 2x-3x máximo.</div>
+      </div>
+      <div class="err-card">
+        <div class="err-num">Error 03</div>
+        <div class="err-title">Promediar a la baja</div>
+        <div class="err-desc">Agregar posición cuando el precio baja en tu contra aumenta el riesgo exponencialmente. Si el análisis estuvo mal, no lo dobles.</div>
+        <div class="err-fix">✓ Acepta el stop y sal.</div>
+      </div>
+      <div class="err-card">
+        <div class="err-num">Error 04</div>
+        <div class="err-title">Operar sin plan</div>
+        <div class="err-desc">"Entro aquí y veo qué pasa" no es trading, es apuesta. Siempre debes saber tu entry, SL, TP y tamaño antes de entrar.</div>
+        <div class="err-fix">✓ Usa el checklist siempre.</div>
+      </div>
+      <div class="err-card full">
+        <div class="err-num">Error 05</div>
+        <div class="err-title">Operar con dinero que necesitas</div>
+        <div class="err-desc">La presión emocional de operar con dinero que no puedes perder te hace tomar las peores decisiones. El miedo y la desesperación no son estrategias — son el camino más rápido a quemar la cuenta.</div>
+        <div class="err-fix">✓ Solo opera con capital que puedes perder sin que afecte tu vida.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA UPGRADE -->
+  <div class="upgrade-box">
+    <div class="upgrade-glow"></div>
+    <div class="upgrade-tag">⭐ Manual Completo</div>
+    <div class="upgrade-title">¿Listo para el <span>siguiente nivel?</span></div>
+    <p class="upgrade-desc">Este manual cubre los fundamentos. El manual completo añade las estrategias que realmente marcan la diferencia.</p>
+    <div class="upgrade-list">
+      <div class="upgrade-list-item">Fórmula de tamaño de posición paso a paso</div>
+      <div class="upgrade-list-item">Estrategia del 25% de capital</div>
+      <div class="upgrade-list-item">Psicología: FOMO, revenge trading y overtrading</div>
+      <div class="upgrade-list-item">Casos reales con resultados de Luis</div>
+      <div class="upgrade-list-item">Gestión avanzada de entradas y salidas</div>
+    </div>
+    <div class="upgrade-price"><sup>$</sup>17 <span style="font-size:1rem;color:#888;font-weight:600;">USD en USDC · Solana</span></div>
+    <a href="/manuales/completo/" class="upgrade-cta">🔐 Acceder al Manual Completo →</a>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="/">← luisbpalacios.github.io</a> · Manual Básico de Gestión de Riesgo · Luis B. Palacios · 2025<br>
+  <span style="color:#333;margin-top:6px;display:block;">⚠️ Nada en este manual es asesoría financiera. El trading implica riesgo significativo. Haz siempre tu propia investigación.</span>
+</div>
+
+</body>
+</html>
