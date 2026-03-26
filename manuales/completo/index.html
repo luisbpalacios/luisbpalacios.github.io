@@ -386,19 +386,23 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
         </div>
       </div>
       <div class="gate-divider"></div>
-      <div class="gate-tx-label">¿Ya pagaste? Pega tu hash de transacción:</div>
+      <div class="gate-tx-label">📱 Tu número de WhatsApp (recibirás tu código aquí)</div>
+      <div class="gate-tx-wrap">
+        <input class="gate-tx-input" id="wa-input" type="tel" placeholder="Ej: 5214441234567" autocomplete="off" style="margin-bottom:10px;">
+      </div>
+      <div class="gate-tx-label">🔗 Hash de tu transacción en Solana</div>
       <div class="gate-tx-wrap">
         <input class="gate-tx-input" id="tx-input" type="text" placeholder="Pega el TX hash aquí..." autocomplete="off">
       </div>
       <div class="gate-tx-status" id="tx-status"></div>
-      <button class="gate-btn" id="validate-btn" onclick="validateTx()">🔍 Validar Pago en Solscan</button>
+      <button class="gate-btn" id="validate-btn" onclick="validateTx()">🔍 Verificar Pago y Recibir Código</button>
       <a class="gate-solscan-link" href="https://solscan.io/account/ACuxgMrxJWe9Mh7xSEf8LksLDgr9nJRFQnbw3XyC1YvA" target="_blank">Ver wallet en Solscan →</a>
     </div>
 
     <!-- TAB: CÓDIGO -->
     <div id="tab-code" style="display:none;">
       <div class="gate-lock" style="margin-top:16px;">🔐</div>
-      <div class="gate-sub">Ingresa el código que recibiste al realizar tu pago.</div>
+      <div class="gate-sub">Ingresa el código de 8 caracteres que te enviamos por WhatsApp al confirmar tu pago.</div>
       <div class="gate-input-wrap" style="margin-top:20px;">
         <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter')checkCode()">
       </div>
@@ -930,17 +934,31 @@ function copyWalletGate(){
   });
 }
 
-// Code validation
-function checkCode(){
+const BACKEND = 'https://introduced-shark-minor-cst.trycloudflare.com';
+
+// Code validation — via backend
+async function checkCode(){
   const val = document.getElementById('gate-code').value.trim().toUpperCase();
   const err = document.getElementById('gate-error');
   const inp = document.getElementById('gate-code');
-  if(val === ACCESS_CODE.toUpperCase()){
-    unlockContent();
-  } else {
-    err.textContent='Código inválido. Verifica e intenta de nuevo.';
-    inp.classList.add('error');
-    setTimeout(()=>inp.classList.remove('error'),400);
+  if(!val){ err.textContent='Ingresa tu código.'; return; }
+  err.textContent='';
+  const btn = inp.closest('div')?.nextElementSibling?.nextElementSibling;
+  try {
+    const res = await fetch(BACKEND + '/validate', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({code: val})
+    });
+    const data = await res.json();
+    if(data.ok){
+      unlockContent();
+    } else {
+      err.textContent = data.error || 'Código inválido.';
+      inp.classList.add('error');
+      setTimeout(()=>inp.classList.remove('error'), 400);
+    }
+  } catch(e) {
+    err.textContent = 'Error de conexión. Intenta de nuevo.';
   }
 }
 
@@ -951,70 +969,41 @@ function setTxStatus(type, msg){
   el.textContent = msg;
 }
 
-// Validate TX on Solana RPC
+// Validate TX — via backend (verifica en Solana + envía código por WhatsApp)
 async function validateTx(){
-  const txHash = document.getElementById('tx-input').value.trim();
-  if(!txHash){ setTxStatus('error','Pega el hash de tu transacción primero.'); return; }
+  const txHash  = document.getElementById('tx-input').value.trim();
+  const whatsapp = document.getElementById('wa-input').value.trim().replace(/\D/g,'');
+  const btn = document.getElementById('validate-btn');
 
-  // MODO PRUEBA — quitar antes de producción
-  if(txHash.toUpperCase() === 'TEST-OK-LP2025'){
-    setTxStatus('success','✅ Pago verificado (modo prueba). ¡Acceso concedido!');
-    setTimeout(()=>unlockContent(), 1800);
-    return;
+  if(!whatsapp || whatsapp.length < 10){
+    setTxStatus('error','Ingresa tu número de WhatsApp primero.'); return;
+  }
+  if(!txHash || txHash.length < 40){
+    setTxStatus('error','El hash no parece válido. Verifica que lo copiaste completo.'); return;
   }
 
-  if(txHash.length < 40){ setTxStatus('error','El hash no parece válido. Verifica que lo copiaste completo.'); return; }
-
-  const btn = document.getElementById('validate-btn');
   btn.disabled = true;
-  setTxStatus('loading','⏳ Verificando en la blockchain de Solana...');
+  setTxStatus('loading','⏳ Verificando pago en la blockchain...');
 
   try {
-    const res = await fetch('https://api.mainnet-beta.solana.com', {
+    const res = await fetch(BACKEND + '/verify', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        jsonrpc:'2.0', id:1,
-        method:'getTransaction',
-        params:[txHash, {encoding:'jsonParsed', maxSupportedTransactionVersion:0}]
-      })
+      body: JSON.stringify({ txHash, whatsapp })
     });
     const data = await res.json();
-    const tx = data.result;
-
-    if(!tx){
-      setTxStatus('error','❌ Transacción no encontrada. Espera unos minutos y vuelve a intentarlo.');
-      btn.disabled=false; return;
-    }
-    if(tx.meta && tx.meta.err !== null){
-      setTxStatus('error','❌ La transacción falló en la blockchain. Intenta realizar el pago de nuevo.');
-      btn.disabled=false; return;
-    }
-
-    // Check USDC transfer to Luis's wallet
-    const pre  = tx.meta.preTokenBalances  || [];
-    const post = tx.meta.postTokenBalances || [];
-    let validPayment = false;
-
-    for(const pb of post){
-      if(pb.mint !== USDC_MINT) continue;
-      if(pb.owner !== SOL_WALLET) continue;
-      const preBal  = pre.find(p => p.accountIndex === pb.accountIndex);
-      const preAmt  = parseInt(preBal ? preBal.uiTokenAmount.amount : '0');
-      const postAmt = parseInt(pb.uiTokenAmount.amount || '0');
-      if((postAmt - preAmt) >= MIN_USDC){ validPayment = true; break; }
-    }
-
-    if(validPayment){
-      setTxStatus('success','✅ Pago verificado. ¡Acceso concedido! Redirigiendo...');
-      setTimeout(()=>unlockContent(), 1800);
+    if(data.ok){
+      setTxStatus('success','✅ Pago verificado. Te enviamos el código por WhatsApp. Ingrésalo en la pestaña "Ya tengo código".');
+      btn.disabled = true;
+      // Switch to code tab after 3s
+      setTimeout(()=>switchTab('code'), 3000);
     } else {
-      setTxStatus('error','⚠️ No se detectó pago de USDC a esta wallet en esa transacción. Verifica que enviaste a la dirección correcta y que el monto es de $17 USDC.');
-      btn.disabled=false;
+      setTxStatus('error', '⚠️ ' + (data.error || 'Error verificando el pago.'));
+      btn.disabled = false;
     }
-  } catch(err){
+  } catch(e) {
     setTxStatus('error','❌ Error de conexión. Revisa tu internet e intenta de nuevo.');
-    btn.disabled=false;
+    btn.disabled = false;
   }
 }
 
