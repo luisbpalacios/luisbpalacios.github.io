@@ -355,6 +355,11 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .clc-table .loss-col{color:#f44336 !important;}
 .gain-pct,.loss-pct{font-weight:700;}
 .liq-badge{background:rgba(244,67,54,0.15);color:#f44336;border:1px solid rgba(244,67,54,0.3);border-radius:5px;padding:2px 6px;font-size:0.7rem;font-weight:800;}
+
+/* ── TRADE CHART ── */
+#c-chart{margin:4px 0 8px;border-radius:12px;overflow:hidden;background:#0d0d0d;border:1px solid #1a1a1a;}
+#c-chart svg{display:block;}
+
 .clc-note{margin-top:12px;font-size:0.7rem;color:#555;line-height:1.5;}
 
 </style>
@@ -658,6 +663,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
         </div>
         <div style="height:1px;background:#1a1a1a;margin-bottom:18px;"></div>
         <div id="c-results"><div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div></div>
+        <div id="c-chart"></div>
         <div class="calc-warn-badge" id="c-warn">⚠️ Apalancamiento alto — riesgo de liquidación con movimientos mínimos</div>
         <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="calc-cta">🚀 Empieza a Operar en WEEX →</a>
       </div>
@@ -1133,6 +1139,60 @@ function selectLev(btn){
 }
 function fmt(n){return n>=1000?n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):n.toFixed(n<1?6:2);}
 function fmtUSD(n){return'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+function renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain){
+  var chartDiv=document.getElementById('c-chart');
+  if(!chartDiv)return;
+  var W=360,H=260,PL=52,PR=120,CW=W-PL-PR,PAD=18;
+  var minP=liqPrice*0.997,maxP=tp3Price*1.003,range=maxP-minP;
+  function py(p){return PAD+((maxP-p)/range)*H;}
+  var entryY=py(entry),tp1Y=py(tp1Price),tp2Y=py(tp2Price),tp3Y=py(tp3Price),slY=py(slPrice),liqY=py(liqPrice);
+  var levels=[
+    {y:tp3Y,label:'TP3',color:'#1b5e20',lineColor:'#43a047',pnl:'+'+fmtUSD(tp3Gain),pct:'+'+(slPct*5*100).toFixed(0)+'%',w:2,dash:'5,3'},
+    {y:tp2Y,label:'TP2',color:'#2e7d32',lineColor:'#66bb6a',pnl:'+'+fmtUSD(tp2Gain),pct:'+'+(slPct*3*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
+    {y:tp1Y,label:'TP1',color:'#388e3c',lineColor:'#a5d6a7',pnl:'+'+fmtUSD(tp1Gain),pct:'+'+(slPct*2*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
+    {y:entryY,label:'ENTRADA',color:'#F2561D',lineColor:'#F2561D',pnl:'$'+fmt(entry),pct:'',w:2,dash:'0'},
+    {y:slY,label:'SL',color:'#c62828',lineColor:'#ef5350',pnl:'-'+fmtUSD(slLoss),pct:'-'+(slPct*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
+    {y:liqY,label:'LIQ',color:'#7f0000',lineColor:'#b71c1c',pnl:'LIQUIDADO',pct:'-'+(1/cLev*100).toFixed(0)+'%',w:1,dash:'3,2'}
+  ];
+  var totalH=H+PAD*2;
+  var svg='<svg viewBox="0 0 '+W+' '+totalH+'" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  svg+='<rect width="'+W+'" height="'+totalH+'" fill="#0d0d0d"/>';
+  // zones
+  svg+='<rect x="'+PL+'" y="'+tp3Y+'" width="'+CW+'" height="'+(entryY-tp3Y)+'" fill="rgba(76,175,80,0.07)"/>';
+  svg+='<rect x="'+PL+'" y="'+entryY+'" width="'+CW+'" height="'+(slY-entryY)+'" fill="rgba(244,67,54,0.07)"/>';
+  // vertical price spine
+  var midX=PL+CW/2;
+  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+slY+'" stroke="#222" stroke-width="1"/>';
+  // gain spine (entry→tp3)
+  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+entryY+'" stroke="rgba(76,175,80,0.4)" stroke-width="2"/>';
+  // loss spine (sl→entry)
+  svg+='<line x1="'+midX+'" y1="'+entryY+'" x2="'+midX+'" y2="'+slY+'" stroke="rgba(244,67,54,0.4)" stroke-width="2"/>';
+  // entry dot
+  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="6" fill="#F2561D" opacity="0.9"/>';
+  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="3" fill="#fff"/>';
+  // tp dots
+  [tp1Y,tp2Y,tp3Y].forEach(function(y,i){
+    svg+='<circle cx="'+midX+'" cy="'+y+'" r="4" fill="'+['#a5d6a7','#66bb6a','#43a047'][i]+'" opacity="0.85"/>';
+  });
+  // sl dot
+  svg+='<circle cx="'+midX+'" cy="'+slY+'" r="4" fill="#ef5350" opacity="0.85"/>';
+  // lines and labels
+  levels.forEach(function(lv){
+    var da=lv.dash==='0'?'':' stroke-dasharray="'+lv.dash+'"';
+    svg+='<line x1="'+PL+'" y1="'+lv.y+'" x2="'+(PL+CW)+'" y2="'+lv.y+'" stroke="'+lv.lineColor+'" stroke-width="'+lv.w+'"'+da+' opacity="0.8"/>';
+    // left label
+    svg+='<text x="'+(PL-5)+'" y="'+(lv.y+4)+'" text-anchor="end" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.label+'</text>';
+    // right: pnl
+    svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+1)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.pnl+'</text>';
+    if(lv.pct) svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+12)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="8" font-family="monospace" opacity="0.6">'+lv.pct+'</text>';
+  });
+  // ratio label
+  svg+='<text x="'+(PL+CW+4)+'" y="'+(totalH-5)+'" text-anchor="end" fill="#333" font-size="8" font-family="monospace">ratio 1:2 · 1:3 · 1:5</text>';
+  svg+='</svg>';
+  chartDiv.innerHTML=svg;
+}
+
 function calcUpdate(){
   const capital=parseFloat(document.getElementById('c-capital').value);
   const entry=parseFloat(document.getElementById('c-entry').value);
@@ -1199,6 +1259,7 @@ function calcUpdate(){
     </div>
     <div class="clc-note">⚠️ El apalancamiento multiplica ganancias y pérdidas por igual. Un movimiento adverso de -${((1/cLev)*100).toFixed(0)}% liquida toda tu posición.</div>
   </div>`;
+  renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain);
   const moves=[1,2,3,5,10,15,20];
   let rows='';
   moves.forEach(function(m){
