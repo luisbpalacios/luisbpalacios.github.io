@@ -12,23 +12,47 @@
 body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height:100vh;}
 
 /* ── GATE ── */
-#gate{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;}
-.gate-box{width:100%;max-width:420px;text-align:center;}
-.gate-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.08),transparent 65%);pointer-events:none;}
-.gate-lock{font-size:3.5rem;margin-bottom:20px;animation:pulse-lock 2.5s ease-in-out infinite;}
-@keyframes pulse-lock{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
-.gate-title{font-size:1.6rem;font-weight:900;margin-bottom:8px;line-height:1.2;}
-.gate-title span{color:var(--orange);}
-.gate-sub{font-size:0.85rem;color:var(--gray);line-height:1.6;margin-bottom:32px;}
-.gate-input-wrap{position:relative;margin-bottom:12px;}
-.gate-input{width:100%;background:#141414;border:1.5px solid #2a2a2a;border-radius:14px;padding:16px 20px;color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;text-align:center;letter-spacing:0.12em;outline:none;transition:border-color 0.2s;}
+#gate{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+.gate-box{width:100%;max-width:440px;text-align:center;padding-bottom:32px;}
+.gate-glow{position:fixed;top:30%;left:50%;transform:translateX(-50%);width:500px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.07),transparent 65%);pointer-events:none;}
+.gate-tabs{display:flex;gap:8px;margin-bottom:24px;background:#141414;border:1px solid #222;border-radius:14px;padding:4px;}
+.gate-tab{flex:1;padding:10px 12px;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;background:transparent;color:#555;}
+.gate-tab.active{background:var(--orange);color:#fff;box-shadow:0 2px 10px rgba(242,86,29,0.3);}
+.gate-amount{font-size:2rem;font-weight:900;color:#fff;margin-bottom:4px;}
+.gate-amount span{font-size:0.9rem;color:var(--gray);font-weight:600;}
+.gate-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin:20px 0;}
+#gate-qr{background:#fff;padding:14px;border-radius:14px;display:inline-block;}
+.gate-qr-label{font-size:0.72rem;color:#555;font-weight:500;}
+.gate-wallet-wrap{background:#141414;border:1px solid #222;border-radius:12px;padding:14px 16px;margin-bottom:16px;text-align:left;}
+.gate-wallet-label{font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:8px;}
+.gate-wallet-row{display:flex;align-items:center;gap:8px;}
+.gate-wallet-addr{font-size:0.72rem;color:#aaa;font-family:monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.gate-copy-btn{background:#222;border:1px solid #333;color:#aaa;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:0.85rem;transition:all 0.2s;flex-shrink:0;}
+.gate-copy-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.gate-divider{height:1px;background:#1a1a1a;margin:16px 0;}
+.gate-tx-label{font-size:0.75rem;font-weight:700;color:#888;margin-bottom:10px;text-align:left;}
+.gate-tx-wrap{margin-bottom:10px;}
+.gate-tx-input{width:100%;background:#141414;border:1.5px solid #2a2a2a;border-radius:12px;padding:13px 16px;color:#fff;font-family:monospace;font-size:0.78rem;outline:none;transition:border-color 0.2s;}
+.gate-tx-input:focus{border-color:rgba(242,86,29,0.5);}
+.gate-tx-input::placeholder{color:#444;font-family:'Inter',sans-serif;}
+.gate-tx-status{min-height:28px;margin-bottom:10px;font-size:0.8rem;font-weight:600;border-radius:8px;padding:0;transition:all 0.3s;}
+.gate-tx-status.loading{color:#aaa;padding:8px 12px;background:#141414;}
+.gate-tx-status.success{color:#4CAF50;padding:8px 12px;background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.2);}
+.gate-tx-status.error{color:#f44336;padding:8px 12px;background:rgba(244,67,54,0.08);border:1px solid rgba(244,67,54,0.2);}
+.gate-btn{width:100%;background:var(--orange);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 20px rgba(242,86,29,0.3);margin-bottom:10px;}
+.gate-btn:hover{opacity:0.9;transform:translateY(-2px);}
+.gate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.gate-solscan-link{display:inline-block;font-size:0.73rem;color:#444;text-decoration:none;margin-bottom:4px;}
+.gate-solscan-link:hover{color:var(--orange);}
+.gate-lock{font-size:3rem;margin-bottom:12px;display:block;}
+.gate-sub{font-size:0.84rem;color:var(--gray);line-height:1.6;margin-bottom:8px;}
+.gate-input-wrap{margin-bottom:10px;}
+.gate-input{width:100%;background:#141414;border:1.5px solid #2a2a2a;border-radius:14px;padding:15px 20px;color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;text-align:center;letter-spacing:0.12em;outline:none;transition:border-color 0.2s;}
 .gate-input:focus{border-color:rgba(242,86,29,0.5);}
 .gate-input.error{border-color:#f44336;animation:shake 0.35s ease;}
 @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
-.gate-error{font-size:0.78rem;color:#f44336;font-weight:600;min-height:20px;margin-bottom:12px;}
-.gate-btn{width:100%;background:var(--orange);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:opacity 0.2s,transform 0.15s;box-shadow:0 6px 24px rgba(242,86,29,0.3);}
-.gate-btn:hover{opacity:0.9;transform:translateY(-2px);}
-.gate-hint{margin-top:20px;font-size:0.76rem;color:#333;}
+.gate-error{font-size:0.78rem;color:#f44336;font-weight:600;min-height:18px;margin-bottom:10px;}
+.gate-hint{margin-top:16px;font-size:0.73rem;color:#333;}
 .gate-hint a{color:var(--orange);text-decoration:none;}
 
 /* ── CONTENT (hidden until unlocked) ── */
@@ -317,18 +341,50 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 <div id="gate">
   <div class="gate-glow"></div>
   <div class="gate-box">
-    <div class="gate-lock">🔐</div>
-    <div class="gate-title">Manual <span>Completo</span><br>de Gestión de Riesgo</div>
-    <div class="gate-sub">Ingresa tu código de acceso para desbloquear el contenido premium.</div>
-    <div class="gate-input-wrap">
-      <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter')checkCode()">
+    <!-- TABS -->
+    <div class="gate-tabs">
+      <button class="gate-tab active" id="tab-pay-btn" onclick="switchTab('pay')">💳 Realizar Pago</button>
+      <button class="gate-tab" id="tab-code-btn" onclick="switchTab('code')">🔑 Ya tengo código</button>
     </div>
-    <div class="gate-error" id="gate-error"></div>
-    <button class="gate-btn" onclick="checkCode()">Acceder al Manual →</button>
-    <div class="gate-hint">¿No tienes código? <a href="/manuales/basico/">Lee el manual gratuito</a> o <a href="/#manuales">adquiere el acceso</a>.</div>
+
+    <!-- TAB: PAGO -->
+    <div id="tab-pay">
+      <div class="gate-amount">$17 USDC <span>· Red Solana</span></div>
+      <div class="gate-qr-wrap">
+        <div id="gate-qr"></div>
+        <div class="gate-qr-label">Escanea con Phantom, Solflare u otra wallet</div>
+      </div>
+      <div class="gate-wallet-wrap">
+        <div class="gate-wallet-label">Dirección de pago (USDC · Solana)</div>
+        <div class="gate-wallet-row">
+          <span class="gate-wallet-addr" id="gate-wallet-addr">ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd</span>
+          <button class="gate-copy-btn" id="gate-copy-btn" onclick="copyWalletGate()">📋</button>
+        </div>
+      </div>
+      <div class="gate-divider"></div>
+      <div class="gate-tx-label">¿Ya pagaste? Pega tu hash de transacción:</div>
+      <div class="gate-tx-wrap">
+        <input class="gate-tx-input" id="tx-input" type="text" placeholder="Pega el TX hash aquí..." autocomplete="off">
+      </div>
+      <div class="gate-tx-status" id="tx-status"></div>
+      <button class="gate-btn" id="validate-btn" onclick="validateTx()">🔍 Validar Pago en Solscan</button>
+      <a class="gate-solscan-link" href="https://solscan.io/account/ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd" target="_blank">Ver wallet en Solscan →</a>
+    </div>
+
+    <!-- TAB: CÓDIGO -->
+    <div id="tab-code" style="display:none;">
+      <div class="gate-lock" style="margin-top:16px;">🔐</div>
+      <div class="gate-sub">Ingresa el código que recibiste al realizar tu pago.</div>
+      <div class="gate-input-wrap" style="margin-top:20px;">
+        <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter')checkCode()">
+      </div>
+      <div class="gate-error" id="gate-error"></div>
+      <button class="gate-btn" onclick="checkCode()">Acceder al Manual →</button>
+    </div>
+
+    <div class="gate-hint">¿No tienes cuenta? <a href="/manuales/basico/">Lee el manual gratuito primero</a></div>
   </div>
 </div>
-
 <!-- ── CONTENIDO ── -->
 <div id="content">
 
@@ -751,25 +807,129 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 <script>
 /* ── GATE ── */
 const ACCESS_CODE = 'W3B-2025';
+const SOL_WALLET  = 'ER9NxC1J9o3AsSytz9efwfjr1CodQXb9qzNcDQi2ZTJd';
+const USDC_MINT   = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+const MIN_USDC    = 14_000_000; // $14 mínimo con 6 decimales (margen para fees)
+
+function unlockContent(){
+  sessionStorage.setItem('premium_access','1');
+  document.getElementById('gate').style.display='none';
+  document.getElementById('content').style.display='block';
+}
+
+// Check session
+if(sessionStorage.getItem('premium_access')==='1') unlockContent();
+
+// Tabs
+function switchTab(tab){
+  document.getElementById('tab-pay').style.display = tab==='pay'?'block':'none';
+  document.getElementById('tab-code').style.display = tab==='code'?'block':'none';
+  document.getElementById('tab-pay-btn').classList.toggle('active', tab==='pay');
+  document.getElementById('tab-code-btn').classList.toggle('active', tab==='code');
+}
+
+// Copy wallet
+function copyWalletGate(){
+  navigator.clipboard.writeText(SOL_WALLET).then(()=>{
+    const btn = document.getElementById('gate-copy-btn');
+    btn.textContent='✓';
+    btn.style.background='#4CAF50';
+    btn.style.color='#fff';
+    setTimeout(()=>{btn.textContent='📋';btn.style.background='';btn.style.color='';},2000);
+  });
+}
+
+// Code validation
 function checkCode(){
   const val = document.getElementById('gate-code').value.trim().toUpperCase();
   const err = document.getElementById('gate-error');
   const inp = document.getElementById('gate-code');
   if(val === ACCESS_CODE.toUpperCase()){
-    sessionStorage.setItem('premium_access','1');
-    document.getElementById('gate').style.display='none';
-    document.getElementById('content').style.display='block';
-    err.textContent='';
+    unlockContent();
   } else {
     err.textContent='Código inválido. Verifica e intenta de nuevo.';
     inp.classList.add('error');
     setTimeout(()=>inp.classList.remove('error'),400);
   }
 }
-if(sessionStorage.getItem('premium_access')==='1'){
-  document.getElementById('gate').style.display='none';
-  document.getElementById('content').style.display='block';
+
+// TX status helper
+function setTxStatus(type, msg){
+  const el = document.getElementById('tx-status');
+  el.className = 'gate-tx-status ' + type;
+  el.textContent = msg;
 }
+
+// Validate TX on Solana RPC
+async function validateTx(){
+  const txHash = document.getElementById('tx-input').value.trim();
+  if(!txHash){ setTxStatus('error','Pega el hash de tu transacción primero.'); return; }
+  if(txHash.length < 40){ setTxStatus('error','El hash no parece válido. Verifica que lo copiaste completo.'); return; }
+
+  const btn = document.getElementById('validate-btn');
+  btn.disabled = true;
+  setTxStatus('loading','⏳ Verificando en la blockchain de Solana...');
+
+  try {
+    const res = await fetch('https://api.mainnet-beta.solana.com', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        jsonrpc:'2.0', id:1,
+        method:'getTransaction',
+        params:[txHash, {encoding:'jsonParsed', maxSupportedTransactionVersion:0}]
+      })
+    });
+    const data = await res.json();
+    const tx = data.result;
+
+    if(!tx){
+      setTxStatus('error','❌ Transacción no encontrada. Espera unos minutos y vuelve a intentarlo.');
+      btn.disabled=false; return;
+    }
+    if(tx.meta && tx.meta.err !== null){
+      setTxStatus('error','❌ La transacción falló en la blockchain. Intenta realizar el pago de nuevo.');
+      btn.disabled=false; return;
+    }
+
+    // Check USDC transfer to Luis's wallet
+    const pre  = tx.meta.preTokenBalances  || [];
+    const post = tx.meta.postTokenBalances || [];
+    let validPayment = false;
+
+    for(const pb of post){
+      if(pb.mint !== USDC_MINT) continue;
+      if(pb.owner !== SOL_WALLET) continue;
+      const preBal  = pre.find(p => p.accountIndex === pb.accountIndex);
+      const preAmt  = parseInt(preBal ? preBal.uiTokenAmount.amount : '0');
+      const postAmt = parseInt(pb.uiTokenAmount.amount || '0');
+      if((postAmt - preAmt) >= MIN_USDC){ validPayment = true; break; }
+    }
+
+    if(validPayment){
+      setTxStatus('success','✅ Pago verificado. ¡Acceso concedido! Redirigiendo...');
+      setTimeout(()=>unlockContent(), 1800);
+    } else {
+      setTxStatus('error','⚠️ No se detectó pago de USDC a esta wallet en esa transacción. Verifica que enviaste a la dirección correcta y que el monto es de $17 USDC.');
+      btn.disabled=false;
+    }
+  } catch(err){
+    setTxStatus('error','❌ Error de conexión. Revisa tu internet e intenta de nuevo.');
+    btn.disabled=false;
+  }
+}
+
+// Generate QR
+(function initQR(){
+  if(typeof QRCode === 'undefined'){ 
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    s.onload=()=>new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+    document.head.appendChild(s);
+  } else {
+    new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+  }
+})();
 
 /* ── RIESGOS PREMIUM ── */
 const risks=[
