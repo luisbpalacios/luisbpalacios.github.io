@@ -542,7 +542,7 @@ const risks=[
    def:'Las altcoins pueden moverse 20-40% en horas. Una vela de alta volatilidad puede activar tu stop loss antes de que el precio rebote, o bien crear un gap tan grande que tu SL no ejecute al precio esperado.',
    tip:'🛡️ Mitigación: Stop loss con margen técnico real. Considerar el ATR (Average True Range) al definir distancias de SL.'},
 ];
-const dotClass={lvl-muy-alto:'#d32f2f','lvl-alto':'#f44336','lvl-medio':'#FF9800','lvl-variable':'#CE93D8'};
+const dotClass={'lvl-muy-alto':'#d32f2f','lvl-alto':'#f44336','lvl-medio':'#FF9800','lvl-variable':'#CE93D8'};
 function buildRisks(){
   const grid=document.getElementById('risk-grid-premium');
   if(!grid)return;
