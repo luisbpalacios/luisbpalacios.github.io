@@ -94,6 +94,112 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .risk-def{font-size:0.81rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
 .risk-tip{font-size:0.75rem;font-weight:700;margin-top:8px;}
 
+/* ── FÓRMULA ── */
+.formula-box{background:linear-gradient(135deg,#1a120a,#141414);border:1.5px solid rgba(242,86,29,0.3);border-radius:16px;padding:24px 22px;text-align:center;margin-bottom:20px;}
+.formula-label{font-size:0.7rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(242,86,29,0.7);margin-bottom:12px;}
+.formula-main{font-size:clamp(1rem,3vw,1.3rem);font-weight:900;color:#fff;line-height:1.4;}
+.formula-main span{color:var(--orange);}
+
+/* ── CAPITAL EXAMPLES ── */
+.capital-examples{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;padding:20px 22px;}
+.cap-ex-title{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:14px;}
+.cap-ex-grid{display:flex;flex-direction:column;gap:10px;}
+.cap-ex-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;background:#111;border-radius:10px;padding:12px 14px;}
+@media(max-width:520px){.cap-ex-row{grid-template-columns:1fr 1fr;gap:8px;}}
+.cap-ex-cell{}
+.cap-ex-cell-label{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:3px;}
+.cap-ex-cell-val{font-size:0.88rem;font-weight:800;color:#fff;}
+.cap-ex-cell-val.loss{color:#f44336;}.cap-ex-cell-val.gain{color:#4CAF50;}
+
+/* ── SL RULES ── */
+.sl-rules{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.sl-rule{display:flex;align-items:flex-start;gap:16px;background:var(--dark-3);border:1px solid #1e1e1e;border-left:3px solid var(--orange);border-radius:14px;padding:18px 20px;}
+.sl-rule-num{font-size:1.8rem;font-weight:900;color:rgba(242,86,29,0.12);line-height:1;flex-shrink:0;width:36px;}
+.sl-rule-title{font-size:0.9rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.sl-rule-title span{color:var(--orange);}
+.sl-rule-desc{font-size:0.8rem;color:#888;line-height:1.65;}
+
+/* ── SL EXAMPLE ── */
+.sl-example-box{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;padding:22px;}
+.sl-ex-label{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:18px;}
+.sl-ex-timeline{display:flex;flex-direction:column;gap:0;}
+.sl-ex-item{display:flex;align-items:flex-start;gap:14px;padding-bottom:16px;position:relative;}
+.sl-ex-item:last-child{padding-bottom:0;}
+.sl-ex-item:not(:last-child)::before{content:'';position:absolute;left:9px;top:20px;bottom:0;width:2px;background:#1e1e1e;}
+.sl-ex-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:2px;border:2px solid;}
+.entry .sl-ex-dot{background:rgba(66,165,245,0.2);border-color:#42a5f5;}
+.sl .sl-ex-dot{background:rgba(244,67,54,0.2);border-color:#f44336;}
+.tp1 .sl-ex-dot{background:rgba(255,193,7,0.2);border-color:#FFC107;}
+.tp2 .sl-ex-dot{background:rgba(76,175,80,0.2);border-color:#4CAF50;}
+.sl-ex-name{font-size:0.7rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-bottom:3px;}
+.sl-ex-price{font-size:1rem;font-weight:900;color:#fff;margin-bottom:2px;}
+.sl-ex-price span{font-size:0.78rem;font-weight:700;}
+.entry .sl-ex-price span{color:#42a5f5;}
+.sl .sl-ex-price span{color:#f44336;}
+.tp1 .sl-ex-price span{color:#FFC107;}
+.tp2 .sl-ex-price span{color:#4CAF50;}
+.sl-ex-note{font-size:0.75rem;color:#666;}
+
+/* ── TAKE PROFIT ── */
+.tp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:520px){.tp-grid{grid-template-columns:1fr;}}
+.tp-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px;text-align:center;}
+.tp-badge{font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;display:inline-block;margin-bottom:10px;}
+.tp1-c .tp-badge{background:rgba(255,193,7,0.12);color:#FFC107;border:1px solid rgba(255,193,7,0.2);}
+.tp2-c .tp-badge{background:rgba(255,152,0,0.12);color:#FF9800;border:1px solid rgba(255,152,0,0.2);}
+.tp3-c .tp-badge{background:rgba(76,175,80,0.12);color:#4CAF50;border:1px solid rgba(76,175,80,0.2);}
+.tp-ratio{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.tp-desc{font-size:0.76rem;color:#888;line-height:1.6;margin-bottom:10px;}
+.tp-rule{font-size:0.75rem;font-weight:700;padding:6px 10px;border-radius:8px;background:#111;}
+.tp1-c .tp-rule{color:#FFC107;}.tp2-c .tp-rule{color:#FF9800;}.tp3-c .tp-rule{color:#4CAF50;}
+
+/* ── WINRATE ── */
+.winrate-box{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;padding:22px;}
+.wr-title{font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:14px;}
+.wr-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.wr-row{display:flex;align-items:center;gap:12px;}
+.wr-label{font-size:0.75rem;color:var(--gray);width:100px;flex-shrink:0;}
+.wr-bar-track{flex:1;height:8px;background:#111;border-radius:4px;overflow:hidden;}
+.wr-bar-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+.wr-val{font-size:0.75rem;font-weight:800;width:60px;text-align:right;flex-shrink:0;}
+.wr-note{font-size:0.78rem;color:#666;line-height:1.65;font-style:italic;}
+
+/* ── CALCULADORA ── */
+.calc-box{background:var(--dark-3);border:1px solid #222;border-radius:18px;padding:24px 22px;margin-bottom:16px;}
+.calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+@media(max-width:480px){.calc-inputs{grid-template-columns:1fr;}}
+.calc-field{display:flex;flex-direction:column;gap:6px;}
+.calc-field.full{grid-column:1/-1;}
+.calc-label{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);}
+.calc-input{background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:11px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:600;outline:none;transition:border-color 0.2s;width:100%;}
+.calc-input:focus{border-color:rgba(242,86,29,0.5);}
+.calc-input::placeholder{color:#444;}
+.calc-lev-group{display:flex;gap:8px;flex-wrap:wrap;}
+.calc-lev-btn{flex:1;min-width:48px;padding:10px 6px;border-radius:9px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+.calc-lev-btn:hover{border-color:#444;color:#ccc;}
+.calc-lev-btn.active{background:rgba(242,86,29,0.12);border-color:rgba(242,86,29,0.5);color:var(--orange);}
+.calc-lev-btn.warn.active{background:rgba(255,152,0,0.1);border-color:rgba(255,152,0,0.4);color:#FF9800;}
+.calc-lev-btn.danger.active{background:rgba(244,67,54,0.1);border-color:rgba(244,67,54,0.4);color:#f44336;}
+.calc-results{display:flex;flex-direction:column;gap:10px;}
+.calc-row-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.calc-row-group{grid-template-columns:1fr;}}
+.calc-result-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 16px;}
+.calc-result-card.sl-card{border-color:rgba(244,67,54,0.2);}
+.calc-result-card.tp1-card{border-color:rgba(255,193,7,0.15);}
+.calc-result-card.tp2-card{border-color:rgba(255,152,0,0.2);}
+.calc-result-card.tp3-card{border-color:rgba(76,175,80,0.2);}
+.calc-result-card.pos-card{border-color:rgba(66,165,245,0.2);grid-column:1/-1;}
+.crc-label{font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+.sl-card .crc-label{color:#f44336;}.tp1-card .crc-label{color:#FFC107;}.tp2-card .crc-label{color:#FF9800;}.tp3-card .crc-label{color:#4CAF50;}.pos-card .crc-label{color:#42a5f5;}
+.crc-price{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:2px;}
+.crc-pnl{font-size:0.78rem;font-weight:700;}
+.crc-pnl.loss{color:#f44336;}.crc-pnl.gain{color:#4CAF50;}
+.crc-pct{font-size:0.7rem;color:var(--gray);margin-top:2px;}
+.calc-empty{text-align:center;padding:28px 0;font-size:0.82rem;color:#444;}
+.calc-warn-badge{display:none;align-items:center;gap:6px;background:rgba(244,67,54,0.08);border:1px solid rgba(244,67,54,0.2);border-radius:8px;padding:8px 12px;font-size:0.75rem;color:#f44336;font-weight:600;margin-top:10px;}
+.calc-cta{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--orange);color:#fff;font-size:0.9rem;font-weight:800;padding:15px 24px;border-radius:12px;text-decoration:none;margin-top:16px;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 20px rgba(242,86,29,0.25);}
+.calc-cta:hover{opacity:0.9;transform:translateY(-2px);}
+
 /* ALERT */
 .alert{background:rgba(242,86,29,0.06);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;}
 .alert-icon{font-size:1.4rem;flex-shrink:0;}
@@ -200,6 +306,183 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
       <div class="risk-grid" id="risk-grid-premium"></div>
     </div>
 
+    <!-- FASE 2: GESTIÓN DE CAPITAL -->
+    <div class="section">
+      <div class="section-tag">La regla más importante</div>
+      <div class="section-title">La Regla del <span>1-2%</span> de Capital</div>
+      <p class="section-intro">Esta regla sola puede salvarte de perder tu cuenta. La mayoría de traders la ignora porque "suena muy conservadora". Los que la aplican son los que siguen operando 6 meses después.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">📐 Fórmula de Tamaño de Posición</div>
+        <div class="formula-main">Posición = <span>(Capital × % Riesgo)</span> ÷ <span>Distancia al SL</span></div>
+      </div>
+
+      <div class="capital-examples">
+        <div class="cap-ex-title">Ejemplos reales con la regla del 2%</div>
+        <div class="cap-ex-grid" id="cap-ex-grid"></div>
+      </div>
+
+      <div class="alert" style="margin-top:20px;">
+        <div class="alert-icon">🔑</div>
+        <div>
+          <div class="alert-title">Por qué funciona matemáticamente</div>
+          <div class="alert-text">Con riesgo del 2% por operación, necesitas perder 50 trades seguidos para llegar a cero. Con ratio 1:2, solo necesitas acertar el 34% de tus operaciones para ser rentable. Eso es operar con ventaja matemática, no con suerte.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP LOSS AVANZADO -->
+    <div class="section">
+      <div class="section-tag">Tu red de seguridad</div>
+      <div class="section-title">Stop Loss <span>Técnico</span> Avanzado</div>
+      <p class="section-intro">Colocar el stop loss en un número redondo o "donde duela menos" no es gestión de riesgo — es esperanza. El stop loss técnico se coloca donde el mercado te está diciendo que tu análisis estuvo mal.</p>
+
+      <div class="sl-rules">
+        <div class="sl-rule">
+          <div class="sl-rule-num">01</div>
+          <div>
+            <div class="sl-rule-title">Ponlo <span>debajo del soporte</span> más cercano (Long)</div>
+            <div class="sl-rule-desc">Si vas long, tu stop loss va ligeramente por debajo del soporte que valida tu tesis. Si ese soporte rompe, tu análisis estuvo mal — sal sin dudarlo.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">02</div>
+          <div>
+            <div class="sl-rule-title">Nunca lo coloques en <span>números redondos</span></div>
+            <div class="sl-rule-desc">Los market makers saben que la mayoría pone SL en $100, $150, $200. Barren esos niveles antes de mover. Usa $97.80 en lugar de $98.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">03</div>
+          <div>
+            <div class="sl-rule-title">Dale <span>un pequeño margen</span> técnico</div>
+            <div class="sl-rule-desc">El precio puede tocar brevemente un soporte antes de rebotar. Coloca el SL 0.5-1% por debajo del nivel técnico para evitar salidas prematuras por ruido de mercado.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">04</div>
+          <div>
+            <div class="sl-rule-title"><span>Nunca muevas el SL</span> en tu contra</div>
+            <div class="sl-rule-desc">Mover el stop para "darle más espacio" mientras la posición va en tu contra es la forma más común de convertir una pérdida pequeña en una pérdida devastadora.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">05</div>
+          <div>
+            <div class="sl-rule-title">Trailing Stop: <span>protege ganancias</span></div>
+            <div class="sl-rule-desc">Una vez que el precio se mueve a tu favor, puedes mover el SL al breakeven (precio de entrada) para operar "gratis". Luego súbelo conforme el precio avanza.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sl-example-box">
+        <div class="sl-ex-label">📍 Ejemplo real — Long en SOL</div>
+        <div class="sl-ex-timeline">
+          <div class="sl-ex-item entry">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">Entrada</div>
+              <div class="sl-ex-price">$130.00</div>
+              <div class="sl-ex-note">Soporte confirmado + volumen creciente</div>
+            </div>
+          </div>
+          <div class="sl-ex-item sl">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">Stop Loss</div>
+              <div class="sl-ex-price">$118.20 <span>(-9.1%)</span></div>
+              <div class="sl-ex-note">0.8% por debajo del soporte en $119.20</div>
+            </div>
+          </div>
+          <div class="sl-ex-item tp1">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">TP1 · Ratio 1:2</div>
+              <div class="sl-ex-price">$151.80 <span>(+16.8%)</span></div>
+              <div class="sl-ex-note">Resistencia más cercana. Cierra 50% posición.</div>
+            </div>
+          </div>
+          <div class="sl-ex-item tp2">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">TP2 · Ratio 1:3</div>
+              <div class="sl-ex-price">$164.30 <span>(+26.4%)</span></div>
+              <div class="sl-ex-note">Resistencia secundaria. SL ya en breakeven.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAKE PROFIT -->
+    <div class="section">
+      <div class="section-tag">Cuándo salir ganando</div>
+      <div class="section-title">Take Profit y <span>Ratio R/R</span></div>
+      <p class="section-intro">Saber cuándo salir ganando es tan importante como el stop loss. Salir demasiado pronto deja dinero en la mesa. Salir demasiado tarde convierte ganancias en pérdidas.</p>
+
+      <div class="tp-grid">
+        <div class="tp-card tp1-c">
+          <div class="tp-badge">TP1</div>
+          <div class="tp-ratio">Ratio 1:2</div>
+          <div class="tp-desc">Primer objetivo. Cierra entre el 40-50% de la posición. Asegura ganancia y opera el resto "en verde".</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $40 mínimo</div>
+        </div>
+        <div class="tp-card tp2-c">
+          <div class="tp-badge">TP2</div>
+          <div class="tp-ratio">Ratio 1:3</div>
+          <div class="tp-desc">Segundo objetivo. Cierra otro 30-40%. Mueve el SL al breakeven antes de llegar aquí.</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $60</div>
+        </div>
+        <div class="tp-card tp3-c">
+          <div class="tp-badge">TP3</div>
+          <div class="tp-ratio">Ratio 1:5</div>
+          <div class="tp-desc">Objetivo ambicioso. Deja correr el 20-30% restante solo si el momentum es fuerte y el SL ya está en verde.</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $100</div>
+        </div>
+      </div>
+
+      <div class="winrate-box">
+        <div class="wr-title">¿Por qué el ratio 1:2 cambia todo?</div>
+        <div class="wr-grid" id="wr-grid"></div>
+        <div class="wr-note">Con ratio 1:2 puedes perder 6 de cada 10 operaciones y seguir siendo rentable. La mayoría de traders no lo cree hasta que lo calcula.</div>
+      </div>
+    </div>
+
+    <!-- CALCULADORA -->
+    <div class="section">
+      <div class="section-tag">Herramienta práctica</div>
+      <div class="section-title">Calculadora de <span>Posición</span></div>
+      <p class="section-intro">Ingresa tu capital, precio de entrada y apalancamiento — calcula al instante tu Stop Loss, tus 3 niveles de Take Profit y cuánto puedes ganar.</p>
+
+      <div class="calc-box">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <div class="calc-label">💰 Capital (USD)</div>
+            <input class="calc-input" id="c-capital" type="number" placeholder="Ej: 500" min="1" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field">
+            <div class="calc-label">📈 Precio de entrada</div>
+            <input class="calc-input" id="c-entry" type="number" placeholder="Ej: 130" min="0.00001" step="any" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field full">
+            <div class="calc-label">⚡ Apalancamiento</div>
+            <div class="calc-lev-group">
+              <div class="calc-lev-btn active" data-lev="2" onclick="selectLev(this)">2x</div>
+              <div class="calc-lev-btn" data-lev="3" onclick="selectLev(this)">3x</div>
+              <div class="calc-lev-btn" data-lev="5" onclick="selectLev(this)">5x</div>
+              <div class="calc-lev-btn warn" data-lev="10" onclick="selectLev(this)">10x ⚠️</div>
+              <div class="calc-lev-btn danger" data-lev="20" onclick="selectLev(this)">20x 🔴</div>
+              <div class="calc-lev-btn danger" data-lev="50" onclick="selectLev(this)">50x 💀</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:1px;background:#1a1a1a;margin-bottom:18px;"></div>
+        <div id="c-results"><div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div></div>
+        <div class="calc-warn-badge" id="c-warn">⚠️ Apalancamiento alto — riesgo de liquidación con movimientos mínimos</div>
+        <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="calc-cta">🚀 Empieza a Operar en WEEX →</a>
+      </div>
+    </div>
+
   </div><!-- /content -->
 
   <div class="page-footer">
@@ -282,6 +565,109 @@ function toggleRisk(el){
   if(!isOpen)el.classList.add('open');
 }
 buildRisks();
+
+/* ── CAPITAL EXAMPLES ── */
+const capExamples=[
+  {capital:500,  risk:2, slPct:5, entry:130},
+  {capital:1000, risk:2, slPct:5, entry:2000},
+  {capital:2500, risk:1, slPct:4, entry:0.85},
+];
+function buildCapExamples(){
+  const grid=document.getElementById('cap-ex-grid');
+  if(!grid)return;
+  grid.innerHTML=capExamples.map(e=>{
+    const riskAmt=e.capital*(e.risk/100);
+    const pos=riskAmt/(e.slPct/100);
+    const tp=riskAmt*2;
+    return`<div class="cap-ex-row">
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Capital</div><div class="cap-ex-cell-val">$${e.capital.toLocaleString()}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Riesgo ${e.risk}%</div><div class="cap-ex-cell-val loss">-$${riskAmt.toFixed(0)}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Tamaño</div><div class="cap-ex-cell-val">$${pos.toFixed(0)}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">TP1 (1:2)</div><div class="cap-ex-cell-val gain">+$${tp.toFixed(0)}</div></div>
+    </div>`;
+  }).join('');
+}
+buildCapExamples();
+
+/* ── WINRATE ── */
+function buildWinrate(){
+  const grid=document.getElementById('wr-grid');
+  if(!grid)return;
+  const rows=[
+    {label:'30% acierto',pct:30,color:'#f44336',net:'+20%'},
+    {label:'40% acierto',pct:40,color:'#FF9800',net:'+60%'},
+    {label:'50% acierto',pct:50,color:'#FFC107',net:'+100%'},
+    {label:'60% acierto',pct:60,color:'#8BC34A',net:'+140%'},
+  ];
+  grid.innerHTML=rows.map(r=>`
+    <div class="wr-row">
+      <div class="wr-label">${r.label}</div>
+      <div class="wr-bar-track"><div class="wr-bar-fill" style="width:${r.pct}%;background:${r.color};"></div></div>
+      <div class="wr-val" style="color:${r.color};">${r.net}</div>
+    </div>`).join('');
+}
+buildWinrate();
+
+/* ── CALCULADORA ── */
+let cLev=2;
+function selectLev(btn){
+  document.querySelectorAll('.calc-lev-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  cLev=parseInt(btn.dataset.lev);
+  document.getElementById('c-warn').style.display=cLev>=10?'flex':'none';
+  calcUpdate();
+}
+function fmt(n){return n>=1000?n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):n.toFixed(n<1?6:2);}
+function fmtUSD(n){return'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function calcUpdate(){
+  const capital=parseFloat(document.getElementById('c-capital').value);
+  const entry=parseFloat(document.getElementById('c-entry').value);
+  const res=document.getElementById('c-results');
+  if(!capital||!entry||capital<=0||entry<=0){res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div>';return;}
+  const pos=capital*cLev;
+  const liqPct=1/cLev;
+  const liqPrice=entry*(1-liqPct);
+  const slPct=0.03;
+  const slPrice=entry*(1-slPct);const slLoss=capital*slPct*cLev;
+  const tp1Pct=slPct*2;const tp1Price=entry*(1+tp1Pct);const tp1Gain=capital*tp1Pct*cLev;
+  const tp2Pct=slPct*3;const tp2Price=entry*(1+tp2Pct);const tp2Gain=capital*tp2Pct*cLev;
+  const tp3Pct=slPct*5;const tp3Price=entry*(1+tp3Pct);const tp3Gain=capital*tp3Pct*cLev;
+  res.innerHTML=`<div class="calc-results">
+    <div class="calc-result-card pos-card">
+      <div class="crc-label">📊 Tamaño de Posición</div>
+      <div class="crc-price">${fmtUSD(pos)}</div>
+      <div class="crc-pct">${capital} USD × ${cLev}x · Liquidación: $${fmt(liqPrice)} (-${(liqPct*100).toFixed(0)}%)</div>
+    </div>
+    <div class="calc-row-group">
+      <div class="calc-result-card sl-card">
+        <div class="crc-label">🛑 Stop Loss (−3%)</div>
+        <div class="crc-price">$${fmt(slPrice)}</div>
+        <div class="crc-pnl loss">−${fmtUSD(slLoss)}</div>
+        <div class="crc-pct">Precio baja 3% desde entrada</div>
+      </div>
+      <div class="calc-result-card tp1-card">
+        <div class="crc-label">🎯 TP1 · Ratio 1:2</div>
+        <div class="crc-price">$${fmt(tp1Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp1Gain)}</div>
+        <div class="crc-pct">+${(tp1Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+    </div>
+    <div class="calc-row-group">
+      <div class="calc-result-card tp2-card">
+        <div class="crc-label">🎯 TP2 · Ratio 1:3</div>
+        <div class="crc-price">$${fmt(tp2Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp2Gain)}</div>
+        <div class="crc-pct">+${(tp2Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+      <div class="calc-result-card tp3-card">
+        <div class="crc-label">🏆 TP3 · Ratio 1:5</div>
+        <div class="crc-price">$${fmt(tp3Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp3Gain)}</div>
+        <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+    </div>
+  </div>`;
+}
 </script>
 </body>
 </html>
