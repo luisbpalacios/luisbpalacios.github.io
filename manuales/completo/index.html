@@ -12,84 +12,71 @@
 body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height:100vh;}
 
 /* ── GATE ── */
-#gate{position:fixed;inset:0;z-index:1000;background:var(--dark);display:flex;align-items:center;justify-content:center;padding:24px;}
-.gate-box{width:100%;max-width:400px;text-align:center;}
+#gate{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;}
+.gate-box{width:100%;max-width:420px;text-align:center;}
 .gate-glow{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.08),transparent 65%);pointer-events:none;}
-.gate-lock{font-size:3rem;margin-bottom:20px;animation:pulse-lock 2s ease-in-out infinite;}
+.gate-lock{font-size:3.5rem;margin-bottom:20px;animation:pulse-lock 2.5s ease-in-out infinite;}
 @keyframes pulse-lock{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
-.gate-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:#F2561D;font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
-.gate-title{font-size:1.6rem;font-weight:900;line-height:1.2;margin-bottom:8px;}
-.gate-title span{color:#F2561D;}
-.gate-desc{font-size:0.83rem;color:var(--gray);line-height:1.65;margin-bottom:28px;}
+.gate-title{font-size:1.6rem;font-weight:900;margin-bottom:8px;line-height:1.2;}
+.gate-title span{color:var(--orange);}
+.gate-sub{font-size:0.85rem;color:var(--gray);line-height:1.6;margin-bottom:32px;}
 .gate-input-wrap{position:relative;margin-bottom:12px;}
-.gate-input{width:100%;background:#141414;border:1.5px solid #2a2a2a;border-radius:14px;padding:16px 20px;color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.08em;text-align:center;outline:none;transition:border-color 0.2s;text-transform:uppercase;}
+.gate-input{width:100%;background:#141414;border:1.5px solid #2a2a2a;border-radius:14px;padding:16px 20px;color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;text-align:center;letter-spacing:0.12em;outline:none;transition:border-color 0.2s;}
 .gate-input:focus{border-color:rgba(242,86,29,0.5);}
-.gate-input.error{border-color:#f44336;animation:shake 0.3s ease;}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-.gate-btn{width:100%;background:#F2561D;color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:opacity 0.2s,transform 0.15s;box-shadow:0 6px 24px rgba(242,86,29,0.3);}
+.gate-input.error{border-color:#f44336;animation:shake 0.35s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.gate-error{font-size:0.78rem;color:#f44336;font-weight:600;min-height:20px;margin-bottom:12px;}
+.gate-btn{width:100%;background:var(--orange);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:opacity 0.2s,transform 0.15s;box-shadow:0 6px 24px rgba(242,86,29,0.3);}
 .gate-btn:hover{opacity:0.9;transform:translateY(-2px);}
-.gate-error{font-size:0.78rem;color:#f44336;font-weight:600;margin-top:8px;min-height:20px;transition:opacity 0.2s;}
-.gate-note{font-size:0.72rem;color:#333;margin-top:16px;}
-.gate-note a{color:#F2561D;text-decoration:none;}
+.gate-hint{margin-top:20px;font-size:0.76rem;color:#333;}
+.gate-hint a{color:var(--orange);text-decoration:none;}
 
-/* ── CONTENIDO (oculto hasta desbloquear) ── */
-#content{display:none;opacity:0;transition:opacity 0.5s;}
-#content.visible{display:block;}
-#content.fade-in{opacity:1;}
+/* ── CONTENT (hidden until unlocked) ── */
+#content{display:none;}
 
-/* NAV */
+/* ── NAV ── */
 .nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #1a1a1a;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
 .nav-back{display:flex;align-items:center;gap:8px;color:var(--gray);font-size:0.82rem;font-weight:600;text-decoration:none;transition:color 0.2s;}
 .nav-back:hover{color:#fff;}
-.nav-badge{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;background:rgba(242,86,29,0.12);color:#F2561D;border:1px solid rgba(242,86,29,0.3);padding:4px 12px;border-radius:20px;}
+.nav-badge{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;background:rgba(242,86,29,0.12);color:var(--orange);border:1px solid rgba(242,86,29,0.3);padding:4px 12px;border-radius:20px;}
 
-/* HERO */
-.hero{max-width:740px;margin:0 auto;padding:64px 24px 48px;text-align:center;}
-.hero-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:#F2561D;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:24px;}
+/* ── HERO ── */
+.hero{max-width:740px;margin:0 auto;padding:64px 24px 48px;text-align:center;position:relative;}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.07),transparent 65%);pointer-events:none;}
+.hero-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:var(--orange);font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:24px;}
 .hero-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:16px;}
-.hero-title span{color:#F2561D;}
+.hero-title span{color:var(--orange);}
 .hero-desc{font-size:1rem;color:var(--gray);line-height:1.7;max-width:520px;margin:0 auto 32px;}
 .hero-author{display:flex;align-items:center;justify-content:center;gap:12px;}
-.hero-author-dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F2561D,#ff8c42);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;}
-.hero-author-name{font-size:0.85rem;font-weight:700;color:#fff;}
+.hero-author-dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F2561D,#ff8c42);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;color:#fff;flex-shrink:0;}
+.hero-author-name{font-size:0.85rem;font-weight:700;color:#fff;text-align:left;}
 .hero-author-sub{font-size:0.72rem;color:var(--gray);}
-.hero-divider{width:60px;height:3px;background:#F2561D;border-radius:2px;margin:40px auto 0;}
+.hero-divider{width:60px;height:3px;background:var(--orange);border-radius:2px;margin:40px auto 0;}
+.hero-includes{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px;}
+.hero-inc-item{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:#ccc;font-weight:600;background:var(--dark-3);border:1px solid #222;padding:6px 12px;border-radius:20px;}
+.hero-inc-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;}
 
-/* BADGES INCLUYE */
-.hero-includes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px 0 0;}
-.hi-badge{display:inline-flex;align-items:center;gap:6px;background:var(--dark-3);border:1px solid #222;border-radius:20px;padding:6px 12px;font-size:0.72rem;font-weight:600;color:#ccc;}
-.hi-badge span{color:#F2561D;}
-
-/* CONTENT AREA */
+/* ── CONTENT AREA ── */
 .content{max-width:740px;margin:0 auto;padding:0 24px 80px;}
-
-/* SECCIÓN */
 .section{margin-bottom:56px;}
-.section-tag{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#F2561D;margin-bottom:10px;}
+.section-tag{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
 .section-title{font-size:1.6rem;font-weight:900;letter-spacing:-0.4px;margin-bottom:8px;line-height:1.2;}
-.section-title span{color:#F2561D;}
+.section-title span{color:var(--orange);}
 .section-intro{font-size:0.88rem;color:var(--gray);line-height:1.75;margin-bottom:28px;}
 
-/* INTRO CARDS */
-.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+/* ── INTRO CARDS ── */
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 @media(max-width:520px){.intro-grid{grid-template-columns:1fr;}}
 .intro-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:20px 18px;}
 .intro-card-icon{font-size:1.6rem;margin-bottom:10px;}
-.intro-card-title{font-size:0.88rem;font-weight:800;color:#fff;margin-bottom:6px;}
-.intro-card-desc{font-size:0.78rem;color:#888;line-height:1.65;}
+.intro-card-title{font-size:0.9rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.intro-card-desc{font-size:0.8rem;color:#888;line-height:1.65;}
+.intro-card.highlight{background:linear-gradient(135deg,#1a120a,#141414);border-color:rgba(242,86,29,0.25);}
 
-/* ALERT */
-.alert{background:rgba(242,86,29,0.06);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;}
-.alert-icon{font-size:1.4rem;flex-shrink:0;}
-.alert-title{font-size:0.78rem;font-weight:800;color:#F2561D;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
-.alert-text{font-size:0.82rem;color:#aaa;line-height:1.7;}
-.alert.green{background:rgba(76,175,80,0.06);border-color:rgba(76,175,80,0.2);}
-.alert.green .alert-title{color:#4CAF50;}
-
-/* RIESGO CARDS */
+/* ── RIESGOS ── */
 .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:520px){.risk-grid{grid-template-columns:1fr;}}
-.risk-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px 18px;cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;}
+.risk-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px;cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;}
 .risk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;}
 .risk-card:hover{background:#1d1d1d;}
 .risk-card.open{border-color:rgba(242,86,29,0.3);}
@@ -104,26 +91,18 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .risk-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
 .risk-card.open .risk-body{max-height:200px;}
 @media(max-width:520px){.risk-card.open .risk-body{max-height:280px;}}
-.risk-def{font-size:0.82rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
+.risk-def{font-size:0.81rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
 .risk-tip{font-size:0.75rem;font-weight:700;margin-top:8px;}
 
-/* LONG vs SHORT */
-.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:480px){.vs-grid{grid-template-columns:1fr;}}
-.vs-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:20px 18px;}
-.vs-card.long{border-top:3px solid #4CAF50;}
-.vs-card.short{border-top:3px solid #f44336;}
-.vs-badge{font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:12px;}
-.vs-card.long .vs-badge{background:rgba(76,175,80,0.12);color:#4CAF50;}
-.vs-card.short .vs-badge{background:rgba(244,67,54,0.12);color:#f44336;}
-.vs-title{font-size:1rem;font-weight:900;color:#fff;margin-bottom:8px;}
-.vs-desc{font-size:0.8rem;color:#888;line-height:1.65;margin-bottom:12px;}
-.vs-example{background:#111;border-radius:8px;padding:10px 12px;font-size:0.76rem;color:#aaa;line-height:1.6;}
-.vs-example strong{color:#fff;}
+/* ALERT */
+.alert{background:rgba(242,86,29,0.06);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;}
+.alert-icon{font-size:1.4rem;flex-shrink:0;}
+.alert-title{font-size:0.78rem;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.alert-text{font-size:0.82rem;color:#aaa;line-height:1.7;}
 
 /* FOOTER */
 .page-footer{border-top:1px solid #1a1a1a;padding:24px;text-align:center;font-size:0.75rem;color:#444;margin-top:40px;}
-.page-footer a{color:#F2561D;text-decoration:none;}
+.page-footer a{color:var(--orange);text-decoration:none;}
 </style>
 </head>
 <body>
@@ -133,15 +112,14 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
   <div class="gate-glow"></div>
   <div class="gate-box">
     <div class="gate-lock">🔐</div>
-    <div class="gate-tag">⭐ Manual Premium</div>
-    <h1 class="gate-title">Contenido <span>exclusivo</span></h1>
-    <p class="gate-desc">Ingresa el código de acceso que recibiste para desbloquear el manual completo.</p>
+    <div class="gate-title">Manual <span>Completo</span><br>de Gestión de Riesgo</div>
+    <div class="gate-sub">Ingresa tu código de acceso para desbloquear el contenido premium.</div>
     <div class="gate-input-wrap">
-      <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" onkeydown="if(event.key==='Enter')checkCode()">
+      <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter')checkCode()">
     </div>
-    <button class="gate-btn" onclick="checkCode()">🔓 Acceder al Manual</button>
     <div class="gate-error" id="gate-error"></div>
-    <div class="gate-note">¿No tienes código? <a href="/manuales/basico/">Ver manual gratuito →</a></div>
+    <button class="gate-btn" onclick="checkCode()">Acceder al Manual →</button>
+    <div class="gate-hint">¿No tienes código? <a href="/manuales/basico/">Lee el manual gratuito</a> o <a href="/#manuales">adquiere el acceso</a>.</div>
   </div>
 </div>
 
@@ -154,9 +132,10 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
   </nav>
 
   <div class="hero">
+    <div class="hero-glow"></div>
     <div class="hero-tag">⭐ Manual Completo · Edición 2025</div>
     <h1 class="hero-title">Gestión de Riesgo <span>Avanzada</span><br>en Futuros de Altcoins</h1>
-    <p class="hero-desc">La guía profesional que separa a los traders que sobreviven de los que queman su cuenta. Con estrategias reales, ejemplos con números y todo lo que el manual básico no te dice.</p>
+    <p class="hero-desc">La guía completa con estrategias reales, fórmulas, psicología y casos prácticos para operar con disciplina y proteger tu capital.</p>
     <div class="hero-author">
       <div class="hero-author-dot">LP</div>
       <div>
@@ -165,12 +144,12 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
       </div>
     </div>
     <div class="hero-includes">
-      <div class="hi-badge"><span>✓</span> Fórmula de tamaño de posición</div>
-      <div class="hi-badge"><span>✓</span> Estrategia del 25% de capital</div>
-      <div class="hi-badge"><span>✓</span> Psicología del trader</div>
-      <div class="hi-badge"><span>✓</span> Calculadora avanzada</div>
-      <div class="hi-badge"><span>✓</span> Casos reales con resultados</div>
-      <div class="hi-badge"><span>✓</span> Checklist interactivo</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Gestión de capital con fórmulas</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Stop Loss técnico avanzado</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Estrategia del 25%</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Psicología del trader</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Calculadora interactiva</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Checklist con semáforo</div>
     </div>
     <div class="hero-divider"></div>
   </div>
@@ -179,59 +158,36 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 
     <!-- INTRODUCCIÓN -->
     <div class="section">
-      <div class="section-tag">Por qué este manual existe</div>
+      <div class="section-tag">¿Por qué estás aquí?</div>
       <div class="section-title">El mercado no <span>perdona</span> la ignorancia</div>
-      <p class="section-intro">Los futuros de altcoins son el instrumento financiero con mayor potencial de ganancia y mayor potencial de pérdida total en el mundo crypto. La diferencia entre un trader que crece y uno que desaparece no es la suerte — es la gestión del riesgo.</p>
-
+      <p class="section-intro">Los futuros de altcoins son el instrumento financiero más poderoso y más peligroso del ecosistema crypto. Puedes triplicar tu capital en días — o perderlo completamente en horas. La diferencia entre ambos escenarios no es la suerte: es la disciplina.</p>
       <div class="intro-grid">
-        <div class="intro-card">
+        <div class="intro-card highlight">
           <div class="intro-card-icon">📊</div>
           <div class="intro-card-title">¿Qué son los futuros?</div>
-          <div class="intro-card-desc">Contratos que te permiten especular sobre el precio de una crypto sin comprarla directamente. Puedes ganar cuando sube (long) o cuando baja (short), usando apalancamiento.</div>
+          <div class="intro-card-desc">Contratos que te permiten especular sobre el precio de una criptomoneda sin comprarla. Puedes ganar cuando sube (long) o cuando baja (short), con apalancamiento.</div>
         </div>
         <div class="intro-card">
           <div class="intro-card-icon">⚠️</div>
           <div class="intro-card-title">¿Por qué son peligrosos?</div>
-          <div class="intro-card-desc">El apalancamiento amplifica las pérdidas igual que las ganancias. Sin gestión de riesgo, una sola mala operación puede eliminar semanas o meses de ganancias acumuladas.</div>
+          <div class="intro-card-desc">El apalancamiento multiplica tanto las ganancias como las pérdidas. Sin gestión de riesgo, una sola operación mal manejada puede liquidar toda tu cuenta.</div>
         </div>
         <div class="intro-card">
           <div class="intro-card-icon">🎯</div>
-          <div class="intro-card-title">¿Qué diferencia a los rentables?</div>
-          <div class="intro-card-desc">No es el análisis técnico perfecto — es la disciplina. Los traders rentables tienen reglas claras y las siguen siempre, especialmente cuando el mercado los presiona emocionalmente.</div>
-        </div>
-        <div class="intro-card">
-          <div class="intro-card-icon">🔑</div>
           <div class="intro-card-title">¿Para qué sirve este manual?</div>
-          <div class="intro-card-desc">Para darte un sistema completo: cómo dimensionar posiciones, dónde poner SL y TP, cómo gestionar tu capital total y cómo mantener la cabeza fría cuando el mercado se mueve.</div>
+          <div class="intro-card-desc">Para darte el sistema completo que protege tu capital mientras te permite crecer. No hay fórmula mágica — hay disciplina, reglas y práctica constante.</div>
+        </div>
+        <div class="intro-card highlight">
+          <div class="intro-card-icon">📈</div>
+          <div class="intro-card-title">¿Qué diferencia a los que ganan?</div>
+          <div class="intro-card-desc">No es el análisis técnico. El 80% de los traders que sobreviven lo hacen por gestión de riesgo estricta — no por tener mejores señales que los demás.</div>
         </div>
       </div>
-
-      <div class="alert green">
+      <div class="alert" style="margin-top:20px;">
         <div class="alert-icon">💡</div>
         <div>
-          <div class="alert-title">La verdad que nadie te dice</div>
-          <div class="alert-text">La mayoría de traders pierde no porque su análisis sea malo, sino porque cuando su análisis falla — y en algún momento siempre falla — no tienen un sistema para limitar el daño. Este manual es ese sistema.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LONG vs SHORT -->
-    <div class="section">
-      <div class="section-tag">Los dos lados del mercado</div>
-      <div class="section-title"><span>Long</span> vs <span>Short</span> — Entiéndelo bien</div>
-      <p class="section-intro">Antes de hablar de riesgo, necesitas entender perfectamente qué es lo que estás operando y cómo funciona cada dirección.</p>
-      <div class="vs-grid">
-        <div class="vs-card long">
-          <span class="vs-badge">📈 Long</span>
-          <div class="vs-title">Apuesta al alza</div>
-          <div class="vs-desc">Compras un contrato esperando que el precio suba. Ganas cuando el mercado sube, pierdes cuando baja. Es la operación más intuitiva — como comprar spot, pero con apalancamiento.</div>
-          <div class="vs-example"><strong>Ejemplo:</strong> SOL está en $130. Abres long con 3x. Si sube a $143 (+10%), ganas 30% de tu capital. Si baja a $117 (-10%), pierdes 30%.</div>
-        </div>
-        <div class="vs-card short">
-          <span class="vs-badge">📉 Short</span>
-          <div class="vs-title">Apuesta a la baja</div>
-          <div class="vs-desc">Vendes un contrato que no tienes, esperando recomprarlo más barato. Ganas cuando el mercado baja, pierdes cuando sube. Requiere más experiencia y disciplina.</div>
-          <div class="vs-example"><strong>Ejemplo:</strong> ETH está en $2,000. Abres short con 3x. Si baja a $1,800 (-10%), ganas 30%. Si sube a $2,200 (+10%), pierdes 30%.</div>
+          <div class="alert-title">La Regla Número Cero</div>
+          <div class="alert-text">Antes de leer cualquier estrategia, grábate esto: nunca operes con dinero que no puedes permitirte perder. La presión emocional de operar con capital que necesitas te llevará a tomar las peores decisiones exactamente en los peores momentos.</div>
         </div>
       </div>
     </div>
@@ -239,9 +195,9 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
     <!-- TIPOS DE RIESGO -->
     <div class="section">
       <div class="section-tag">Conoce a tu enemigo</div>
-      <div class="section-title">Los 8 tipos de riesgo en <span>Futuros</span></div>
-      <p class="section-intro">No puedes gestionar lo que no conoces. Cada uno de estos riesgos ha destruido la cuenta de miles de traders. Identifícalos, entiéndelos y aprende a mitigarlos.</p>
-      <div class="risk-grid" id="risk-grid-p"></div>
+      <div class="section-title">Los 8 tipos de <span>riesgo</span> que debes dominar</div>
+      <p class="section-intro">No puedes gestionar lo que no conoces. Cada uno de estos riesgos ha destruido cuentas de traders que ignoraron su existencia. Tú no vas a cometer ese error.</p>
+      <div class="risk-grid" id="risk-grid-premium"></div>
     </div>
 
   </div><!-- /content -->
@@ -251,53 +207,63 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
     <span style="color:#333;margin-top:6px;display:block;">⚠️ Nada en este manual es asesoría financiera. El trading implica riesgo significativo. Haz siempre tu propia investigación.</span>
   </div>
 
-</div><!-- /content -->
+</div><!-- /content wrapper -->
 
 <script>
-// ── GATE ──
-const VALID_CODES = ['W3B-2025','w3b-2025'];
-
+/* ── GATE ── */
+const ACCESS_CODE = 'W3B-2025';
 function checkCode(){
-  const input = document.getElementById('gate-code');
-  const err   = document.getElementById('gate-error');
-  const val   = input.value.trim().toUpperCase();
-  if(VALID_CODES.map(c=>c.toUpperCase()).includes(val)){
-    localStorage.setItem('prem_access','1');
-    unlock();
+  const val = document.getElementById('gate-code').value.trim().toUpperCase();
+  const err = document.getElementById('gate-error');
+  const inp = document.getElementById('gate-code');
+  if(val === ACCESS_CODE.toUpperCase()){
+    sessionStorage.setItem('premium_access','1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('content').style.display='block';
+    err.textContent='';
   } else {
-    input.classList.add('error');
-    err.textContent = 'Código inválido. Verifica e intenta de nuevo.';
-    setTimeout(()=>input.classList.remove('error'), 400);
+    err.textContent='Código inválido. Verifica e intenta de nuevo.';
+    inp.classList.add('error');
+    setTimeout(()=>inp.classList.remove('error'),400);
   }
 }
-
-function unlock(){
+if(sessionStorage.getItem('premium_access')==='1'){
   document.getElementById('gate').style.display='none';
-  const c = document.getElementById('content');
-  c.style.display='block';
-  setTimeout(()=>c.classList.add('fade-in'),30);
-  buildRisks();
+  document.getElementById('content').style.display='block';
 }
 
-// Auto-unlock if already authenticated
-if(localStorage.getItem('prem_access')==='1'){ window.addEventListener('DOMContentLoaded', unlock); }
-
-// ── RIESGOS ──
-const risks = [
-  {icon:'⚡',name:'Riesgo de Liquidación',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',def:'Si el mercado se mueve en tu contra más allá de tu margen, el exchange cierra tu posición y pierdes todo el capital depositado. Con 10x, un movimiento del 10% te liquida.',tip:'🛡️ Mitigación: Stop loss siempre activo + apalancamiento bajo.'},
-  {icon:'📉',name:'Riesgo de Mercado',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',def:'El precio puede moverse violentamente por noticias, ballenas o eventos macro. Las altcoins pueden caer 30-50% en horas.',tip:'🛡️ Mitigación: No operar sin volumen ni durante eventos de alto impacto (CPI, FOMC, liquidaciones masivas).'},
-  {icon:'🔥',name:'Riesgo de Apalancamiento',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'El apalancamiento multiplica las pérdidas igual que las ganancias. 5x convierte una caída del 10% en pérdida del 50%. 20x te liquida con una corrección del 5%.',tip:'🛡️ Mitigación: Máximo 5x para principiantes. Usa el apalancamiento para gestionar tamaño de posición, no para apostar más.'},
-  {icon:'💧',name:'Riesgo de Liquidez',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',def:'En altcoins con bajo volumen, no puedes cerrar al precio deseado. El spread se amplía y ejecutas peor de lo calculado.',tip:'🛡️ Mitigación: Opera solo pares con alto volumen (BTC, ETH, SOL, BNB). Evita altcoins con menos de $50M de volumen diario.'},
-  {icon:'🧠',name:'Riesgo Psicológico',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'FOMO, revenge trading y overtrading son tan peligrosos como un mal setup. Las emociones hacen que ignores las reglas exactamente cuando más importan.',tip:'🛡️ Mitigación: Checklist pre-trade. Máximo 2 pérdidas consecutivas por día. Descanso obligatorio.'},
-  {icon:'💸',name:'Riesgo de Funding Rate',level:'Variable',lvlCls:'lvl-variable',color:'#CE93D8',def:'En futuros perpetuos, el funding rate se cobra cada 8 horas. En posiciones grandes con funding alto, el costo acumulado puede comerse tus ganancias.',tip:'🛡️ Mitigación: Revisa el funding rate antes de abrir. Evita pagar funding muy alto (>0.1%) en posiciones de largo plazo.'},
-  {icon:'🏦',name:'Riesgo de Contraparte',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',def:'El exchange puede ser hackeado, quebrar o congelar retiros. Tu capital en la plataforma no está en tu custodia.',tip:'🛡️ Mitigación: Usa exchanges regulados y auditados. Retira ganancias periódicamente. Nunca tengas más del necesario en el exchange.'},
-  {icon:'🌊',name:'Riesgo de Volatilidad',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'Las altcoins pueden moverse 20-40% en horas. Una vela de alta volatilidad puede activar tu stop loss antes de que el precio continúe en tu dirección.',tip:'🛡️ Mitigación: Coloca el SL en niveles técnicos reales (soportes/resistencias), no en porcentajes arbitrarios.'},
+/* ── RIESGOS PREMIUM ── */
+const risks=[
+  {icon:'⚡',name:'Riesgo de Liquidación',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',
+   def:'Si el mercado se mueve en tu contra más allá de tu margen, el exchange cierra tu posición forzosamente y pierdes todo el capital depositado. Con 10x, solo necesitas un -10% para ser liquidado.',
+   tip:'🛡️ Mitigación: Stop loss obligatorio bien colocado + apalancamiento bajo (2x-5x).'},
+  {icon:'📉',name:'Riesgo de Mercado',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',
+   def:'El precio puede moverse violentamente por noticias, ballenas o eventos macro. En altcoins, movimientos del 20-40% en pocas horas son completamente normales — incluso en tendencia alcista.',
+   tip:'🛡️ Mitigación: No operar en rangos sin volumen. Revisar el calendario de noticias antes de entrar.'},
+  {icon:'🔥',name:'Riesgo de Apalancamiento',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'El apalancamiento multiplica pérdidas igual que ganancias. Con 5x, una caída del 10% te cuesta el 50% de tu capital. Con 20x, una vela del 5% en tu contra liquida toda la posición.',
+   tip:'🛡️ Mitigación: Máximo 5x para principiantes. El apalancamiento es para optimizar posición, no para multiplicar apuestas.'},
+  {icon:'💧',name:'Riesgo de Liquidez',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',
+   def:'En altcoins con bajo volumen, el spread entre compra y venta se amplía. No puedes cerrar al precio que ves — terminas pagando más o recibiendo menos, especialmente en movimientos rápidos.',
+   tip:'🛡️ Mitigación: Operar solo pares con volumen diario alto. Verificar el order book antes de entrar en posiciones grandes.'},
+  {icon:'🧠',name:'Riesgo Psicológico',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'FOMO, revenge trading y overtrading destruyen más cuentas que el análisis técnico malo. Las emociones llevan a mover stop losses, agregar posiciones perdedoras y operar sin plan.',
+   tip:'🛡️ Mitigación: Checklist pre-trade. Máximo 2 pérdidas consecutivas por día. Descanso obligatorio después de racha mala.'},
+  {icon:'💸',name:'Riesgo de Funding Rate',level:'Variable',lvlCls:'lvl-variable',color:'#CE93D8',
+   def:'Los futuros perpetuos cobran o pagan un funding rate cada 8 horas según el sentimiento del mercado. Un funding rate alto positivo cobra a los longs — puede erosionar ganancias en posiciones largas.',
+   tip:'🛡️ Mitigación: Revisar el funding rate antes de entrar. Evitar mantener posiciones largas cuando el funding es extremadamente positivo.'},
+  {icon:'🏦',name:'Riesgo de Contraparte',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',
+   def:'El exchange es tu contraparte. Puede ser hackeado, quebrar, congelar retiros o manipular precios. Tu capital dentro del exchange no está completamente asegurado — es custodia, no tuyo.',
+   tip:'🛡️ Mitigación: Usar exchanges regulados y reconocidos. Retirar ganancias periódicamente. Nunca dejar más de lo necesario para operar.'},
+  {icon:'🌊',name:'Riesgo de Volatilidad',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'Las altcoins pueden moverse 20-40% en horas. Una vela de alta volatilidad puede activar tu stop loss antes de que el precio rebote, o bien crear un gap tan grande que tu SL no ejecute al precio esperado.',
+   tip:'🛡️ Mitigación: Stop loss con margen técnico real. Considerar el ATR (Average True Range) al definir distancias de SL.'},
 ];
-
+const dotClass={lvl-muy-alto:'#d32f2f','lvl-alto':'#f44336','lvl-medio':'#FF9800','lvl-variable':'#CE93D8'};
 function buildRisks(){
-  const grid = document.getElementById('risk-grid-p');
-  if(!grid) return;
-  grid.innerHTML = risks.map(r=>`
+  const grid=document.getElementById('risk-grid-premium');
+  if(!grid)return;
+  grid.innerHTML=risks.map(r=>`
     <div class="risk-card" onclick="toggleRisk(this)" style="--rc:${r.color};">
       <style>.risk-card[style*="${r.color}"]::before{background:${r.color};}</style>
       <div class="risk-header">
@@ -306,17 +272,16 @@ function buildRisks(){
         <span class="risk-level ${r.lvlCls}">${r.level}</span>
       </div>
       <div class="risk-body">
-        <div class="risk-def">${r.def}<div class="risk-tip" style="color:${r.color==='#d32f2f'?'#f44336':r.color}">${r.tip}</div></div>
+        <div class="risk-def">${r.def}<div class="risk-tip" style="color:${r.color}">${r.tip}</div></div>
       </div>
     </div>`).join('');
 }
-
 function toggleRisk(el){
   const isOpen=el.classList.contains('open');
   document.querySelectorAll('.risk-card.open').forEach(c=>c.classList.remove('open'));
-  if(!isOpen) el.classList.add('open');
+  if(!isOpen)el.classList.add('open');
 }
+buildRisks();
 </script>
-
 </body>
 </html>
