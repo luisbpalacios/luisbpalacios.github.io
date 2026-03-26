@@ -864,6 +864,14 @@ function setTxStatus(type, msg){
 async function validateTx(){
   const txHash = document.getElementById('tx-input').value.trim();
   if(!txHash){ setTxStatus('error','Pega el hash de tu transacción primero.'); return; }
+
+  // MODO PRUEBA — quitar antes de producción
+  if(txHash.toUpperCase() === 'TEST-OK-LP2025'){
+    setTxStatus('success','✅ Pago verificado (modo prueba). ¡Acceso concedido!');
+    setTimeout(()=>unlockContent(), 1800);
+    return;
+  }
+
   if(txHash.length < 40){ setTxStatus('error','El hash no parece válido. Verifica que lo copiaste completo.'); return; }
 
   const btn = document.getElementById('validate-btn');
