@@ -94,6 +94,106 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .risk-def{font-size:0.81rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
 .risk-tip{font-size:0.75rem;font-weight:700;margin-top:8px;}
 
+/* ── ESTRATEGIA 25% ── */
+.quarters-visual{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+@media(max-width:480px){.quarters-visual{grid-template-columns:1fr 1fr;}}
+.quarter-block{border-radius:14px;padding:20px 14px;text-align:center;position:relative;overflow:hidden;}
+.quarter-block.active{background:linear-gradient(135deg,#1a120a,#141414);border:1.5px solid rgba(242,86,29,0.4);}
+.quarter-block.reserve{background:var(--dark-3);border:1px solid #1e1e1e;}
+.quarter-tag{font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.active .quarter-tag{color:var(--orange);}
+.reserve .quarter-tag{color:#444;}
+.quarter-pct{font-size:1.8rem;font-weight:900;margin-bottom:4px;}
+.active .quarter-pct{color:var(--orange);}
+.reserve .quarter-pct{color:#333;}
+.quarter-label{font-size:0.72rem;font-weight:600;}
+.active .quarter-label{color:#ccc;}
+.reserve .quarter-label{color:#444;}
+.quarters-explain{display:flex;flex-direction:column;gap:12px;}
+.qe-row{display:flex;align-items:flex-start;gap:14px;background:var(--dark-3);border:1px solid #1e1e1e;border-left:3px solid var(--orange);border-radius:12px;padding:16px 18px;}
+.qe-num{font-size:1.6rem;font-weight:900;color:rgba(242,86,29,0.12);line-height:1;flex-shrink:0;width:32px;}
+.qe-title{font-size:0.88rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.qe-desc{font-size:0.79rem;color:#888;line-height:1.65;}
+
+/* ── PSICOLOGÍA ── */
+.psych-grid{display:flex;flex-direction:column;gap:14px;}
+.psych-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;padding:22px 20px;position:relative;overflow:hidden;}
+.psych-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.fomo-c::before{background:#FF9800;}.revenge-c::before{background:#f44336;}.over-c::before{background:#CE93D8;}
+.psych-icon{font-size:2rem;margin-bottom:10px;}
+.psych-name{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:2px;}
+.fomo-c .psych-name{color:#FF9800;}.revenge-c .psych-name{color:#f44336;}.over-c .psych-name{color:#CE93D8;}
+.psych-full{font-size:0.72rem;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;}
+.psych-desc{font-size:0.82rem;color:#888;line-height:1.7;margin-bottom:14px;}
+.psych-signals-label{font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:8px;}
+.psych-signals{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.psych-signal{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:#777;}
+.psych-signal::before{content:'›';font-weight:900;font-size:1rem;flex-shrink:0;}
+.fomo-c .psych-signal::before{color:#FF9800;}.revenge-c .psych-signal::before{color:#f44336;}.over-c .psych-signal::before{color:#CE93D8;}
+.psych-fix{font-size:0.8rem;color:#aaa;line-height:1.6;background:#111;border-radius:10px;padding:12px 14px;}
+.psych-fix strong{color:#4CAF50;}
+
+/* ── CHECKLIST ── */
+.semaforo-wrap{margin-bottom:20px;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:16px;padding:20px 22px;}
+.semaforo-top{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+.semaforo-ring{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:all 0.4s;position:relative;}
+.semaforo-ring::after{content:'';position:absolute;inset:-3px;border-radius:50%;transition:box-shadow 0.4s;}
+.semaforo-info{flex:1;}
+.semaforo-label{font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;transition:color 0.4s;}
+.semaforo-desc{font-size:0.8rem;color:var(--gray);line-height:1.5;}
+.semaforo-count{font-size:1.4rem;font-weight:900;color:#fff;flex-shrink:0;text-align:right;line-height:1;}
+.semaforo-count span{font-size:0.7rem;color:var(--gray);font-weight:600;display:block;}
+.semaforo-bar-track{height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden;}
+.semaforo-bar-fill{height:100%;border-radius:3px;transition:width 0.4s ease,background 0.4s;width:0%;}
+.s0 .semaforo-ring{background:rgba(244,67,54,0.1);}.s0 .semaforo-ring::after{box-shadow:0 0 14px rgba(244,67,54,0.4);}.s0 .semaforo-label{color:#f44336;}.s0 .semaforo-bar-fill{background:#f44336;}
+.s1 .semaforo-ring{background:rgba(255,87,34,0.1);}.s1 .semaforo-ring::after{box-shadow:0 0 14px rgba(255,87,34,0.3);}.s1 .semaforo-label{color:#FF5722;}.s1 .semaforo-bar-fill{background:#FF5722;}
+.s2 .semaforo-ring{background:rgba(255,152,0,0.1);}.s2 .semaforo-ring::after{box-shadow:0 0 14px rgba(255,152,0,0.3);}.s2 .semaforo-label{color:#FF9800;}.s2 .semaforo-bar-fill{background:#FF9800;}
+.s3 .semaforo-ring{background:rgba(255,193,7,0.1);}.s3 .semaforo-ring::after{box-shadow:0 0 14px rgba(255,193,7,0.25);}.s3 .semaforo-label{color:#FFC107;}.s3 .semaforo-bar-fill{background:#FFC107;}
+.s4 .semaforo-ring{background:rgba(139,195,74,0.1);}.s4 .semaforo-ring::after{box-shadow:0 0 14px rgba(139,195,74,0.25);}.s4 .semaforo-label{color:#8BC34A;}.s4 .semaforo-bar-fill{background:#8BC34A;}
+.s5 .semaforo-ring{background:rgba(76,175,80,0.15);}.s5 .semaforo-ring::after{box-shadow:0 0 18px rgba(76,175,80,0.5);}.s5 .semaforo-label{color:#4CAF50;}.s5 .semaforo-bar-fill{background:#4CAF50;}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.checklist{grid-template-columns:1fr;}}
+.check-item{display:flex;align-items:center;gap:14px;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:12px;padding:14px 18px;cursor:pointer;transition:background 0.2s,border-color 0.2s;user-select:none;}
+.check-item:hover{background:#1f1f1f;}
+.check-item.checked{background:rgba(76,175,80,0.06);border-color:rgba(76,175,80,0.25);}
+.check-box{width:22px;height:22px;border:2px solid #333;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.check-item.checked .check-box{background:#4CAF50;border-color:#4CAF50;}
+.check-tick{display:none;color:#fff;font-size:13px;font-weight:900;line-height:1;}
+.check-item.checked .check-tick{display:block;}
+.check-text{font-size:0.83rem;color:#ccc;font-weight:500;flex:1;transition:color 0.2s;}
+.check-item.checked .check-text{color:#fff;}
+.check-cat{font-size:0.65rem;font-weight:800;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0;}
+.cat-analysis{background:rgba(76,175,80,0.1);color:#4CAF50;}
+.cat-risk{background:rgba(255,152,0,0.1);color:#FF9800;}
+.cat-capital{background:rgba(242,86,29,0.1);color:var(--orange);}
+.cat-mental{background:rgba(156,39,176,0.1);color:#CE93D8;}
+
+/* ── ERRORES ── */
+.errors-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.errors-grid{grid-template-columns:1fr;}}
+.err-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px;}
+.err-card.full{grid-column:1/-1;}
+.err-num{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.err-title{font-size:0.9rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.err-desc{font-size:0.79rem;color:#777;line-height:1.65;}
+.err-fix{margin-top:10px;font-size:0.75rem;font-weight:700;color:#4CAF50;}
+
+/* ── RESUMEN FINAL ── */
+.final-rules{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.final-rule{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#1a120a,#141414);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:18px 20px;}
+.final-rule-num{width:36px;height:36px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
+.final-rule-text{font-size:0.9rem;font-weight:700;color:#fff;line-height:1.4;}
+.final-rule-text span{color:var(--orange);}
+.final-cta-box{background:var(--dark-2);border:1.5px solid rgba(242,86,29,0.25);border-radius:20px;padding:36px 28px;text-align:center;position:relative;overflow:hidden;}
+.final-cta-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.08),transparent 65%);pointer-events:none;}
+.final-cta-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:var(--orange);font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.final-cta-title{font-size:1.3rem;font-weight:900;line-height:1.2;margin-bottom:10px;}
+.final-cta-desc{font-size:0.84rem;color:var(--gray);line-height:1.7;max-width:380px;margin:0 auto 24px;}
+.final-cta-btn{display:inline-block;background:var(--orange);color:#fff;font-size:0.95rem;font-weight:800;padding:14px 36px;border-radius:50px;text-decoration:none;transition:opacity 0.2s,transform 0.15s;box-shadow:0 6px 24px rgba(242,86,29,0.3);}
+.final-cta-btn:hover{opacity:0.9;transform:translateY(-2px);}
+.final-cta-sub{margin-top:16px;font-size:0.75rem;color:#333;}
+.final-cta-sub a{color:var(--orange);text-decoration:none;}
+
 /* ── FÓRMULA ── */
 .formula-box{background:linear-gradient(135deg,#1a120a,#141414);border:1.5px solid rgba(242,86,29,0.3);border-radius:16px;padding:24px 22px;text-align:center;margin-bottom:20px;}
 .formula-label{font-size:0.7rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(242,86,29,0.7);margin-bottom:12px;}
@@ -483,6 +583,162 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
       </div>
     </div>
 
+    <!-- ESTRATEGIA DEL 25% -->
+    <div class="section">
+      <div class="section-tag">Gestión avanzada de capital</div>
+      <div class="section-title">La Estrategia del <span>25%</span></div>
+      <p class="section-intro">Esta estrategia no es solo para principiantes — es para cualquiera que quiera seguir operando después de una racha mala. Divide tu capital en 4 partes iguales y nunca uses más de una a la vez.</p>
+      <div class="quarters-visual" id="quarters-visual"></div>
+      <div class="quarters-explain">
+        <div class="qe-row">
+          <div class="qe-num">01</div>
+          <div><div class="qe-title">Solo usas una parte a la vez</div><div class="qe-desc">Con $1,000 operas con $250. Si la pierdes completamente, tienes 3 oportunidades más para recuperarte sin quemar todo.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">02</div>
+          <div><div class="qe-title">Psicológicamente cambia todo</div><div class="qe-desc">Saber que tienes 3 partes en reserva elimina la desesperación. Operas más calmado, con menos apego al resultado de cada trade.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">03</div>
+          <div><div class="qe-title">Combínala con la regla del 2%</div><div class="qe-desc">Aplica la regla del 2% sobre la parte activa, no sobre el capital total. Así tu exposición real es del 0.5% de tu capital total por operación.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">04</div>
+          <div><div class="qe-title">Cuándo activar la siguiente parte</div><div class="qe-desc">Solo mueves capital de reserva a activo cuando la parte anterior creció un 20%+ o la perdiste completamente. Nunca por impaciencia.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PSICOLOGÍA -->
+    <div class="section">
+      <div class="section-tag">El enemigo interno</div>
+      <div class="section-title">Psicología del <span>Trader</span></div>
+      <p class="section-intro">El 80% de los traders que pierden no lo hacen por análisis técnico malo — lo hacen por decisiones emocionales en momentos de presión. Conoce las 3 trampas mentales y cómo salir de ellas.</p>
+      <div class="psych-grid">
+        <div class="psych-card fomo-c">
+          <div class="psych-icon">😰</div>
+          <div class="psych-name">FOMO</div>
+          <div class="psych-full">Fear Of Missing Out</div>
+          <div class="psych-desc">El mercado sube rápido y sientes que te estás perdiendo el movimiento. Entras sin análisis, en el peor punto, justo antes de la corrección.</div>
+          <div class="psych-signals-label">Señales de que lo estás sintiendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Tu corazón late más rápido viendo el precio</div>
+            <div class="psych-signal">Entras sin revisar el checklist</div>
+            <div class="psych-signal">Abres tamaño de posición mayor al habitual</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Si ya subió 10%+, ya no es tu trade. Espera el retroceso o pasa al siguiente setup.</div>
+        </div>
+        <div class="psych-card revenge-c">
+          <div class="psych-icon">😤</div>
+          <div class="psych-name">Revenge Trading</div>
+          <div class="psych-full">Operar por venganza</div>
+          <div class="psych-desc">Acabas de perder y abres otra posición inmediatamente para "recuperar". Las decisiones tomadas desde el enojo casi siempre terminan en más pérdidas.</div>
+          <div class="psych-signals-label">Señales de que lo estás haciendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Abres trade segundos después de cerrar uno en pérdida</div>
+            <div class="psych-signal">Aumentas el tamaño para recuperar más rápido</div>
+            <div class="psych-signal">No tienes un setup claro — solo quieres ganar</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Regla absoluta: 2 pérdidas seguidas = para el día. El mercado siempre estará mañana.</div>
+        </div>
+        <div class="psych-card over-c">
+          <div class="psych-icon">🎰</div>
+          <div class="psych-name">Overtrading</div>
+          <div class="psych-full">Operar en exceso</div>
+          <div class="psych-desc">Operas constantemente por aburrimiento, por sentir que "el mercado siempre da oportunidades" o porque necesitas sentir la adrenalina. La calidad cae, las comisiones se acumulan.</div>
+          <div class="psych-signals-label">Señales de que lo estás haciendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Más de 5 trades en un día sin setups claros</div>
+            <div class="psych-signal">Operas en timeframes muy bajos sin razón</div>
+            <div class="psych-signal">Sientes ansiedad cuando no tienes posición abierta</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Establece un máximo de 3 trades por día. Escribe tu razón de entrada antes de cada operación.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST INTERACTIVO -->
+    <div class="section">
+      <div class="section-tag">Antes de cada operación</div>
+      <div class="section-title"><span>7 Preguntas</span> que salvan tu capital</div>
+      <p class="section-intro">Marca cada pregunta antes de entrar. Si una sola es "no" — no entres. Sin excepciones.</p>
+      <div class="semaforo-wrap s0" id="semaforo-p">
+        <div class="semaforo-top">
+          <div class="semaforo-ring" id="semp-icon">⛔</div>
+          <div class="semaforo-info">
+            <div class="semaforo-label" id="semp-label">Alto Riesgo</div>
+            <div class="semaforo-desc" id="semp-desc">No has confirmado ninguna condición. No estás listo para operar.</div>
+          </div>
+          <div class="semaforo-count"><span id="semp-num">0</span><span>de 7</span></div>
+        </div>
+        <div class="semaforo-bar-track"><div class="semaforo-bar-fill" id="semp-bar"></div></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Identifiqué claramente el setup y la razón de mi entrada?</div><span class="check-cat cat-analysis">Análisis</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Ya definí exactamente dónde va mi stop loss técnico?</div><span class="check-cat cat-risk">Riesgo</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El ratio riesgo/recompensa es mínimo 1:2?</div><span class="check-cat cat-capital">Capital</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El tamaño de posición respeta la regla del 1-2% de capital?</div><span class="check-cat cat-capital">Capital</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Estoy entrando desde el análisis y no por FOMO o impulso?</div><span class="check-cat cat-mental">Psicología</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El apalancamiento que usaré es 5x o menos?</div><span class="check-cat cat-risk">Riesgo</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Puedo perder este dinero sin que afecte mi vida cotidiana?</div><span class="check-cat cat-mental">Mental</span></div>
+      </div>
+    </div>
+
+    <!-- ERRORES -->
+    <div class="section">
+      <div class="section-tag">Aprende de los demás</div>
+      <div class="section-title">Los <span>5 Errores</span> más devastadores</div>
+      <p class="section-intro">Estos errores han destruido miles de cuentas. Conocerlos no te hace inmune — pero sí te da la ventaja de reconocerlos antes de cometerlos.</div>
+      <div class="errors-grid">
+        <div class="err-card">
+          <div class="err-num">Error 01</div>
+          <div class="err-title">Operar sin Stop Loss</div>
+          <div class="err-desc">"El precio va a volver" es la frase favorita de quienes pierden todo. En futuros, mantener una posición perdedora indefinidamente termina en liquidación — no en recuperación.</div>
+          <div class="err-fix">✓ SL siempre, en nivel técnico, antes de abrir.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 02</div>
+          <div class="err-title">Apalancamiento alto desde el inicio</div>
+          <div class="err-desc">El 10x o 20x antes de dominar la gestión de riesgo destruye la cuenta antes de que puedas aprender. El mercado siempre cobra la colegiatura — decide cuánto quieres pagar.</div>
+          <div class="err-fix">✓ Empieza con 2x-3x. Escala gradualmente.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 03</div>
+          <div class="err-title">Promediar a la baja</div>
+          <div class="err-desc">Agregar posición cuando el precio va en tu contra multiplica el riesgo exponencialmente. Si el análisis estuvo mal, no dobles la apuesta — acepta el error y sal.</div>
+          <div class="err-fix">✓ Si el precio rompió tu nivel de invalidación, cierra.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 04</div>
+          <div class="err-title">Operar sin plan</div>
+          <div class="err-desc">"Entro aquí y veo qué pasa" no es trading — es apuesta. Sin entry, SL, TP y tamaño definidos antes de entrar, las decisiones se toman desde la emoción, no desde la estrategia.</div>
+          <div class="err-fix">✓ Escribe el plan antes de abrir cada posición.</div>
+        </div>
+        <div class="err-card full">
+          <div class="err-num">Error 05</div>
+          <div class="err-title">Ignorar el contexto macro</div>
+          <div class="err-desc">Entrar en long justo antes de un dato de inflación, una decisión de la Fed o un tweet de influencer puede destruir incluso el mejor setup técnico. El macro mueve mercados más rápido que cualquier soporte. Revisa el calendario económico antes de abrir posiciones grandes.</div>
+          <div class="err-fix">✓ Revisa investing.com/economic-calendar antes de cada sesión.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMEN FINAL -->
+    <div class="section">
+      <div class="section-tag">Para cerrar</div>
+      <div class="section-title">Las <span>5 Reglas</span> que no puedes olvidar</div>
+      <p class="section-intro">Todo lo que leíste se resume aquí. Pégalas en tu escritorio, ponlas de fondo de pantalla, tatúatelas si hace falta. Son la diferencia entre seguir operando y quemar la cuenta.</p>
+      <div class="final-rules" id="final-rules"></div>
+      <div class="final-cta-box">
+        <div class="final-cta-glow"></div>
+        <div class="final-cta-tag">🚀 ¿Listo para operar?</div>
+        <div class="final-cta-title">Empieza a poner en práctica<br>todo lo que aprendiste</div>
+        <div class="final-cta-desc">Abre tu cuenta en WEEX con el link de Luis y obtén beneficios exclusivos para nuevos usuarios.</div>
+        <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="final-cta-btn">🔗 Crear cuenta en WEEX →</a>
+        <div class="final-cta-sub"><a href="/">← Volver a luisbpalacios.github.io</a></div>
+      </div>
+    </div>
+
   </div><!-- /content -->
 
   <div class="page-footer">
@@ -565,6 +821,69 @@ function toggleRisk(el){
   if(!isOpen)el.classList.add('open');
 }
 buildRisks();
+
+/* ── QUARTERS ── */
+function buildQuarters(){
+  const v=document.getElementById('quarters-visual');
+  if(!v)return;
+  const parts=[
+    {label:'En uso',pct:'25%',active:true},
+    {label:'Reserva 1',pct:'25%',active:false},
+    {label:'Reserva 2',pct:'25%',active:false},
+    {label:'Reserva 3',pct:'25%',active:false},
+  ];
+  v.innerHTML=parts.map((p,i)=>`
+    <div class="quarter-block ${p.active?'active':'reserve'}">
+      <div class="quarter-tag">${p.active?'🔥 Activo':'🔒 Reserva '+(i)}</div>
+      <div class="quarter-pct">${p.pct}</div>
+      <div class="quarter-label">${p.active?'Operando ahora':'Intocable'}</div>
+    </div>`).join('');
+}
+buildQuarters();
+
+/* ── SEMÁFORO PREMIUM ── */
+const semStates2=[
+  {cls:'s0',icon:'⛔',label:'Alto Riesgo',desc:'No has confirmado ninguna condición. No estás listo para operar.'},
+  {cls:'s1',icon:'🔴',label:'Riesgo Muy Alto',desc:'Faltan condiciones clave. Operar así casi siempre termina en pérdida.'},
+  {cls:'s2',icon:'🟠',label:'Riesgo Elevado',desc:'Más de la mitad sin confirmar. Hay demasiadas variables sin controlar.'},
+  {cls:'s3',icon:'🟡',label:'Riesgo Moderado',desc:'Vas por buen camino, pero aún tienes puntos sin verificar.'},
+  {cls:'s4',icon:'🟡',label:'Casi Listo',desc:'Solo te falta confirmar uno o dos puntos. No te apresures.'},
+  {cls:'s5',icon:'🟢',label:'Riesgo Controlado',desc:'¡Todo confirmado! Puedes operar con disciplina.'},
+  {cls:'s5',icon:'✅',label:'Listo para Operar',desc:'¡Perfecto! Todas las condiciones están dadas. Opera con confianza.'},
+];
+function toggleCheck2(el){
+  el.classList.toggle('checked');
+  const total=document.querySelectorAll('#semaforo-p ~ .checklist .check-item').length;
+  const checked=document.querySelectorAll('#semaforo-p ~ .checklist .check-item.checked').length;
+  const idx=checked===0?0:checked===total?6:Math.round((checked/total)*4)+1;
+  const s=semStates2[Math.min(idx,semStates2.length-1)];
+  const sem=document.getElementById('semaforo-p');
+  sem.className='semaforo-wrap '+s.cls;
+  document.getElementById('semp-icon').textContent=s.icon;
+  document.getElementById('semp-label').textContent=s.label;
+  document.getElementById('semp-desc').textContent=s.desc;
+  document.getElementById('semp-num').textContent=checked;
+  document.getElementById('semp-bar').style.width=((checked/total)*100)+'%';
+}
+
+/* ── FINAL RULES ── */
+function buildFinalRules(){
+  const el=document.getElementById('final-rules');
+  if(!el)return;
+  const rules=[
+    'Nunca arriesgues más del <span>2%</span> de tu capital por operación',
+    'Siempre pon <span>stop loss técnico</span> antes de entrar — nunca lo muevas en tu contra',
+    'Solo entres a trades con ratio mínimo <span>1:2</span> riesgo/recompensa',
+    'Usa máximo <span>5x de apalancamiento</span> como principiante',
+    'Si pierdes <span>2 operaciones seguidas</span>, para el día — el mercado siempre estará mañana',
+  ];
+  el.innerHTML=rules.map((r,i)=>`
+    <div class="final-rule">
+      <div class="final-rule-num">${i+1}</div>
+      <div class="final-rule-text">${r}</div>
+    </div>`).join('');
+}
+buildFinalRules();
 
 /* ── CAPITAL EXAMPLES ── */
 const capExamples=[
