@@ -342,6 +342,21 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 /* FOOTER */
 .page-footer{border-top:1px solid #1a1a1a;padding:24px;text-align:center;font-size:0.75rem;color:#444;margin-top:40px;}
 .page-footer a{color:var(--orange);text-decoration:none;}
+
+/* ── LEVERAGE COMPARE TABLE ── */
+.calc-lev-compare{margin-top:20px;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px 16px;}
+.clc-title{font-size:0.8rem;font-weight:700;color:#888;margin-bottom:14px;letter-spacing:0.02em;}
+.clc-table-wrap{overflow-x:auto;}
+.clc-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.clc-table th{color:#555;font-weight:700;text-align:left;padding:6px 8px;border-bottom:1px solid #1e1e1e;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;}
+.clc-table td{padding:7px 8px;border-bottom:1px solid #161616;color:#ccc;}
+.clc-table tr:last-child td{border-bottom:none;}
+.clc-table .gain-col{color:#4CAF50 !important;}
+.clc-table .loss-col{color:#f44336 !important;}
+.gain-pct,.loss-pct{font-weight:700;}
+.liq-badge{background:rgba(244,67,54,0.15);color:#f44336;border:1px solid rgba(244,67,54,0.3);border-radius:5px;padding:2px 6px;font-size:0.7rem;font-weight:800;}
+.clc-note{margin-top:12px;font-size:0.7rem;color:#555;line-height:1.5;}
+
 </style>
 </head>
 <body>
@@ -1165,7 +1180,42 @@ function calcUpdate(){
         <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
       </div>
     </div>
+  </div>
+  <div class="calc-lev-compare">
+    <div class="clc-title">📊 Comparativa: movimiento de mercado vs tu capital (${cLev}x apalancamiento)</div>
+    <div class="clc-table-wrap">
+      <table class="clc-table">
+        <thead>
+          <tr>
+            <th>Movimiento</th>
+            <th class="gain-col">Ganancia</th>
+            <th class="gain-col">% de tu capital</th>
+            <th class="loss-col">Pérdida</th>
+            <th class="loss-col">% de tu capital</th>
+          </tr>
+        </thead>
+        <tbody id="clc-tbody"></tbody>
+      </table>
+    </div>
+    <div class="clc-note">⚠️ El apalancamiento multiplica ganancias y pérdidas por igual. Un movimiento adverso de -${((1/cLev)*100).toFixed(0)}% liquida toda tu posición.</div>
   </div>`;
+  const moves=[1,2,3,5,10,15,20];
+  let rows='';
+  moves.forEach(function(m){
+    const gainAmt=capital*(m/100)*cLev;
+    const gainPct=(m/100)*cLev*100;
+    const lossAmt=Math.min(capital*(m/100)*cLev,capital);
+    const lossPct=Math.min((m/100)*cLev*100,100);
+    const liquidated=(m/100)*cLev*100>=100;
+    rows+='<tr><td><strong>'+m+'%</strong></td>'
+      +'<td class="gain-col">+'+fmtUSD(gainAmt)+'</td>'
+      +'<td class="gain-col gain-pct">+'+gainPct.toFixed(0)+'%</td>'
+      +(liquidated
+        ?'<td class="loss-col"><span class="liq-badge">LIQUIDADO</span></td><td class="loss-col"><span class="liq-badge">💀 100%</span></td>'
+        :'<td class="loss-col">-'+fmtUSD(lossAmt)+'</td><td class="loss-col loss-pct">-'+lossPct.toFixed(0)+'%</td>')
+      +'</tr>';
+  });
+  document.getElementById('clc-tbody').innerHTML=rows;
 }
 </script>
 </body>
