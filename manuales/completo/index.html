@@ -297,113 +297,992 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .wr-val{font-size:0.75rem;font-weight:800;width:60px;text-align:right;flex-shrink:0;}
 .wr-note{font-size:0.78rem;color:#666;line-height:1.65;font-style:italic;}
 
-function renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain){
-  var chartDiv=document.getElementById('c-chart');
-  if(!chartDiv)return;
-  var W=360,H=260,PL=52,PR=115,CW=W-PL-PR,PAD=18;
-  var minP=liqPrice*0.997,maxP=tp3Price*1.003,range=maxP-minP;
-  function py(p){return PAD+((maxP-p)/range)*H;}
-  var entryY=py(entry),tp1Y=py(tp1Price),tp2Y=py(tp2Price),tp3Y=py(tp3Price),slY=py(slPrice),liqY=py(liqPrice);
-  var levels=[
-    {y:tp3Y,label:'TP3',color:'#43a047',pnl:'+'+fmtUSD(tp3Gain),pct:'+'+(slPct*5*100).toFixed(0)+'%',w:2,dash:'5,3'},
-    {y:tp2Y,label:'TP2',color:'#66bb6a',pnl:'+'+fmtUSD(tp2Gain),pct:'+'+(slPct*3*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
-    {y:tp1Y,label:'TP1',color:'#a5d6a7',pnl:'+'+fmtUSD(tp1Gain),pct:'+'+(slPct*2*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
-    {y:entryY,label:'ENTRADA',color:'#F2561D',pnl:'$'+fmt(entry),pct:'',w:2,dash:'0'},
-    {y:slY,label:'SL',color:'#ef5350',pnl:'-'+fmtUSD(slLoss),pct:'-'+(slPct*100).toFixed(1)+'%',w:1.5,dash:'5,3'},
-    {y:liqY,label:'LIQ',color:'#b71c1c',pnl:'LIQ',pct:'-'+(1/cLev*100).toFixed(0)+'%',w:1,dash:'3,2'}
-  ];
-  var totalH=H+PAD*2,midX=PL+CW/2;
-  var svg='<svg viewBox="0 0 '+W+' '+totalH+'" width="100%" xmlns="http://www.w3.org/2000/svg">';
-  svg+='<rect width="'+W+'" height="'+totalH+'" fill="#0d0d0d"/>';
-  svg+='<rect x="'+PL+'" y="'+tp3Y+'" width="'+CW+'" height="'+(entryY-tp3Y)+'" fill="rgba(76,175,80,0.07)"/>';
-  svg+='<rect x="'+PL+'" y="'+entryY+'" width="'+CW+'" height="'+(slY-entryY)+'" fill="rgba(244,67,54,0.07)"/>';
-  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+entryY+'" stroke="rgba(76,175,80,0.35)" stroke-width="2"/>';
-  svg+='<line x1="'+midX+'" y1="'+entryY+'" x2="'+midX+'" y2="'+slY+'" stroke="rgba(244,67,54,0.35)" stroke-width="2"/>';
-  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="6" fill="#F2561D" opacity="0.9"/>';
-  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="3" fill="#fff"/>';
-  [{y:tp1Y,c:'#a5d6a7'},{y:tp2Y,c:'#66bb6a'},{y:tp3Y,c:'#43a047'}].forEach(function(d){
-    svg+='<circle cx="'+midX+'" cy="'+d.y+'" r="4" fill="'+d.c+'"/>';
-  });
-  svg+='<circle cx="'+midX+'" cy="'+slY+'" r="4" fill="#ef5350"/>';
-  levels.forEach(function(lv){
-    var da=lv.dash==='0'?'':' stroke-dasharray="'+lv.dash+'"';
-    svg+='<line x1="'+PL+'" y1="'+lv.y+'" x2="'+(PL+CW)+'" y2="'+lv.y+'" stroke="'+lv.color+'" stroke-width="'+lv.w+'"'+da+' opacity="0.85"/>';
-    svg+='<text x="'+(PL-5)+'" y="'+(lv.y+4)+'" text-anchor="end" fill="'+lv.color+'" font-size="9" font-family="monospace" font-weight="700">'+lv.label+'</text>';
-    svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+1)+'" text-anchor="start" fill="'+lv.color+'" font-size="9" font-family="monospace" font-weight="700">'+lv.pnl+'</text>';
-    if(lv.pct) svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+12)+'" text-anchor="start" fill="'+lv.color+'" font-size="8" font-family="monospace" opacity="0.6">'+lv.pct+'</text>';
-  });
-  svg+='</svg>';
-  chartDiv.innerHTML=svg;
+/* ── CALCULADORA ── */
+.calc-box{background:var(--dark-3);border:1px solid #222;border-radius:18px;padding:24px 22px;margin-bottom:16px;}
+.calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+@media(max-width:480px){.calc-inputs{grid-template-columns:1fr;}}
+.calc-field{display:flex;flex-direction:column;gap:6px;}
+.calc-field.full{grid-column:1/-1;}
+.calc-label{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);}
+.calc-input{background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:11px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:600;outline:none;transition:border-color 0.2s;width:100%;}
+.calc-input:focus{border-color:rgba(242,86,29,0.5);}
+.calc-input::placeholder{color:#444;}
+.calc-lev-group{display:flex;gap:8px;flex-wrap:wrap;}
+.calc-lev-btn{flex:1;min-width:48px;padding:10px 6px;border-radius:9px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+.calc-lev-btn:hover{border-color:#444;color:#ccc;}
+.calc-lev-btn.active{background:rgba(242,86,29,0.12);border-color:rgba(242,86,29,0.5);color:var(--orange);}
+.calc-lev-btn.warn.active{background:rgba(255,152,0,0.1);border-color:rgba(255,152,0,0.4);color:#FF9800;}
+.calc-lev-btn.danger.active{background:rgba(244,67,54,0.1);border-color:rgba(244,67,54,0.4);color:#f44336;}
+.calc-results{display:flex;flex-direction:column;gap:10px;}
+.calc-row-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.calc-row-group{grid-template-columns:1fr;}}
+.calc-result-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 16px;}
+.calc-result-card.sl-card{border-color:rgba(244,67,54,0.2);}
+.calc-result-card.tp1-card{border-color:rgba(255,193,7,0.15);}
+.calc-result-card.tp2-card{border-color:rgba(255,152,0,0.2);}
+.calc-result-card.tp3-card{border-color:rgba(76,175,80,0.2);}
+.calc-result-card.pos-card{border-color:rgba(66,165,245,0.2);grid-column:1/-1;}
+.crc-label{font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+.sl-card .crc-label{color:#f44336;}.tp1-card .crc-label{color:#FFC107;}.tp2-card .crc-label{color:#FF9800;}.tp3-card .crc-label{color:#4CAF50;}.pos-card .crc-label{color:#42a5f5;}
+.crc-price{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:2px;}
+.crc-pnl{font-size:0.78rem;font-weight:700;}
+.crc-pnl.loss{color:#f44336;}.crc-pnl.gain{color:#4CAF50;}
+.crc-pct{font-size:0.7rem;color:var(--gray);margin-top:2px;}
+.calc-empty{text-align:center;padding:28px 0;font-size:0.82rem;color:#444;}
+.calc-warn-badge{display:none;align-items:center;gap:6px;background:rgba(244,67,54,0.08);border:1px solid rgba(244,67,54,0.2);border-radius:8px;padding:8px 12px;font-size:0.75rem;color:#f44336;font-weight:600;margin-top:10px;}
+.calc-cta{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--orange);color:#fff;font-size:0.9rem;font-weight:800;padding:15px 24px;border-radius:12px;text-decoration:none;margin-top:16px;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 20px rgba(242,86,29,0.25);}
+.calc-cta:hover{opacity:0.9;transform:translateY(-2px);}
+
+/* ALERT */
+.alert{background:rgba(242,86,29,0.06);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:20px 22px;display:flex;align-items:flex-start;gap:14px;}
+.alert-icon{font-size:1.4rem;flex-shrink:0;}
+.alert-title{font-size:0.78rem;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.alert-text{font-size:0.82rem;color:#aaa;line-height:1.7;}
+
+/* FOOTER */
+.page-footer{border-top:1px solid #1a1a1a;padding:24px;text-align:center;font-size:0.75rem;color:#444;margin-top:40px;}
+.page-footer a{color:var(--orange);text-decoration:none;}
+
+/* ── LEVERAGE COMPARE TABLE ── */
+.calc-lev-compare{margin-top:20px;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px 16px;}
+.clc-title{font-size:0.8rem;font-weight:700;color:#888;margin-bottom:14px;letter-spacing:0.02em;}
+.clc-table-wrap{overflow-x:auto;}
+.clc-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.clc-table th{color:#555;font-weight:700;text-align:left;padding:6px 8px;border-bottom:1px solid #1e1e1e;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;}
+.clc-table td{padding:7px 8px;border-bottom:1px solid #161616;color:#ccc;}
+.clc-table tr:last-child td{border-bottom:none;}
+.clc-table .gain-col{color:#4CAF50 !important;}
+.clc-table .loss-col{color:#f44336 !important;}
+.gain-pct,.loss-pct{font-weight:700;}
+.liq-badge{background:rgba(244,67,54,0.15);color:#f44336;border:1px solid rgba(244,67,54,0.3);border-radius:5px;padding:2px 6px;font-size:0.7rem;font-weight:800;}
+.clc-note{margin-top:12px;font-size:0.7rem;color:#555;line-height:1.5;}
+
+</style>
+</head>
+<body>
+
+<!-- ── GATE ── -->
+<div id="gate">
+  <div class="gate-glow"></div>
+  <div class="gate-box">
+    <!-- TABS -->
+    <div class="gate-tabs">
+      <button class="gate-tab active" id="tab-pay-btn" onclick="switchTab('pay')">💳 Realizar Pago</button>
+      <button class="gate-tab" id="tab-code-btn" onclick="switchTab('code')">🔑 Ya tengo código</button>
+    </div>
+
+    <!-- TAB: PAGO -->
+    <div id="tab-pay">
+      <div class="gate-amount"><span style="text-decoration:line-through;color:#666;font-size:1.3rem;font-weight:600;margin-right:8px;">$47</span>$17 USDC <span>· Red Solana</span></div>
+      <div class="gate-qr-wrap">
+        <div id="gate-qr"></div>
+        <div class="gate-qr-label">Escanea con Phantom, Solflare u otra wallet</div>
+      </div>
+      <div class="gate-wallet-wrap">
+        <div class="gate-wallet-label">Dirección de pago (USDC · Solana)</div>
+        <div class="gate-wallet-row">
+          <span class="gate-wallet-addr" id="gate-wallet-addr">ACuxgMrxJWe9Mh7xSEf8LksLDgr9nJRFQnbw3XyC1YvA</span>
+          <button class="gate-copy-btn" id="gate-copy-btn" onclick="copyWalletGate()">📋</button>
+        </div>
+      </div>
+      <div class="gate-divider"></div>
+      <div class="gate-tx-label">¿Ya pagaste? Pega tu hash de transacción:</div>
+      <div class="gate-tx-wrap">
+        <input class="gate-tx-input" id="tx-input" type="text" placeholder="Pega el TX hash aquí..." autocomplete="off">
+      </div>
+      <div class="gate-tx-status" id="tx-status"></div>
+      <button class="gate-btn" id="validate-btn" onclick="validateTx()">🔍 Validar Pago en Solscan</button>
+      <a class="gate-solscan-link" href="https://solscan.io/account/ACuxgMrxJWe9Mh7xSEf8LksLDgr9nJRFQnbw3XyC1YvA" target="_blank">Ver wallet en Solscan →</a>
+    </div>
+
+    <!-- TAB: CÓDIGO -->
+    <div id="tab-code" style="display:none;">
+      <div class="gate-lock" style="margin-top:16px;">🔐</div>
+      <div class="gate-sub">Ingresa el código que recibiste al realizar tu pago.</div>
+      <div class="gate-input-wrap" style="margin-top:20px;">
+        <input class="gate-input" id="gate-code" type="text" placeholder="CÓDIGO DE ACCESO" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter')checkCode()">
+      </div>
+      <div class="gate-error" id="gate-error"></div>
+      <button class="gate-btn" onclick="checkCode()">Acceder al Manual →</button>
+    </div>
+
+    <div class="gate-hint">¿No tienes cuenta? <a href="/manuales/basico/">Lee el manual gratuito primero</a></div>
+  </div>
+</div>
+<!-- ── CONTENIDO ── -->
+<div id="content">
+
+  <nav class="nav">
+    <a href="/" class="nav-back">← luisbpalacios.github.io</a>
+    <span class="nav-badge">⭐ Manual Premium</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-tag">⭐ Manual Completo · Edición 2025</div>
+    <h1 class="hero-title">Gestión de Riesgo <span>Avanzada</span><br>en Futuros de Altcoins</h1>
+    <p class="hero-desc">La guía completa con estrategias reales, fórmulas, psicología y casos prácticos para operar con disciplina y proteger tu capital.</p>
+    <div class="hero-author">
+      <div class="hero-author-dot">LP</div>
+      <div>
+        <div class="hero-author-name">Luis B. Palacios</div>
+        <div class="hero-author-sub">Crypto Investor & DeFi Strategist</div>
+      </div>
+    </div>
+    <div class="hero-includes">
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Gestión de capital con fórmulas</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Stop Loss técnico avanzado</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Estrategia del 25%</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Psicología del trader</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Calculadora interactiva</div>
+      <div class="hero-inc-item"><div class="hero-inc-dot"></div>Checklist con semáforo</div>
+    </div>
+    <div class="hero-divider"></div>
+  </div>
+
+  <div class="content">
+
+    <!-- INTRODUCCIÓN -->
+    <div class="section">
+      <div class="section-tag">¿Por qué estás aquí?</div>
+      <div class="section-title">El mercado no <span>perdona</span> la ignorancia</div>
+      <p class="section-intro">Los futuros de altcoins son el instrumento financiero más poderoso y más peligroso del ecosistema crypto. Puedes triplicar tu capital en días — o perderlo completamente en horas. La diferencia entre ambos escenarios no es la suerte: es la disciplina.</p>
+      <div class="intro-grid">
+        <div class="intro-card highlight">
+          <div class="intro-card-icon">📊</div>
+          <div class="intro-card-title">¿Qué son los futuros?</div>
+          <div class="intro-card-desc">Contratos que te permiten especular sobre el precio de una criptomoneda sin comprarla. Puedes ganar cuando sube (long) o cuando baja (short), con apalancamiento.</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-icon">⚠️</div>
+          <div class="intro-card-title">¿Por qué son peligrosos?</div>
+          <div class="intro-card-desc">El apalancamiento multiplica tanto las ganancias como las pérdidas. Sin gestión de riesgo, una sola operación mal manejada puede liquidar toda tu cuenta.</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-icon">🎯</div>
+          <div class="intro-card-title">¿Para qué sirve este manual?</div>
+          <div class="intro-card-desc">Para darte el sistema completo que protege tu capital mientras te permite crecer. No hay fórmula mágica — hay disciplina, reglas y práctica constante.</div>
+        </div>
+        <div class="intro-card highlight">
+          <div class="intro-card-icon">📈</div>
+          <div class="intro-card-title">¿Qué diferencia a los que ganan?</div>
+          <div class="intro-card-desc">No es el análisis técnico. El 80% de los traders que sobreviven lo hacen por gestión de riesgo estricta — no por tener mejores señales que los demás.</div>
+        </div>
+      </div>
+      <div class="alert" style="margin-top:20px;">
+        <div class="alert-icon">💡</div>
+        <div>
+          <div class="alert-title">La Regla Número Cero</div>
+          <div class="alert-text">Antes de leer cualquier estrategia, grábate esto: nunca operes con dinero que no puedes permitirte perder. La presión emocional de operar con capital que necesitas te llevará a tomar las peores decisiones exactamente en los peores momentos.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPOS DE RIESGO -->
+    <div class="section">
+      <div class="section-tag">Conoce a tu enemigo</div>
+      <div class="section-title">Los 8 tipos de <span>riesgo</span> que debes dominar</div>
+      <p class="section-intro">No puedes gestionar lo que no conoces. Cada uno de estos riesgos ha destruido cuentas de traders que ignoraron su existencia. Tú no vas a cometer ese error.</p>
+      <div class="risk-grid" id="risk-grid-premium"></div>
+    </div>
+
+    <!-- FASE 2: GESTIÓN DE CAPITAL -->
+    <div class="section">
+      <div class="section-tag">La regla más importante</div>
+      <div class="section-title">La Regla del <span>1-2%</span> de Capital</div>
+      <p class="section-intro">Esta regla sola puede salvarte de perder tu cuenta. La mayoría de traders la ignora porque "suena muy conservadora". Los que la aplican son los que siguen operando 6 meses después.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">📐 Fórmula de Tamaño de Posición</div>
+        <div class="formula-main">Posición = <span>(Capital × % Riesgo)</span> ÷ <span>Distancia al SL</span></div>
+      </div>
+
+      <div class="capital-examples">
+        <div class="cap-ex-title">Ejemplos reales con la regla del 2%</div>
+        <div class="cap-ex-grid" id="cap-ex-grid"></div>
+      </div>
+
+      <div class="alert" style="margin-top:20px;">
+        <div class="alert-icon">🔑</div>
+        <div>
+          <div class="alert-title">Por qué funciona matemáticamente</div>
+          <div class="alert-text">Con riesgo del 2% por operación, necesitas perder 50 trades seguidos para llegar a cero. Con ratio 1:2, solo necesitas acertar el 34% de tus operaciones para ser rentable. Eso es operar con ventaja matemática, no con suerte.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOP LOSS AVANZADO -->
+    <div class="section">
+      <div class="section-tag">Tu red de seguridad</div>
+      <div class="section-title">Stop Loss <span>Técnico</span> Avanzado</div>
+      <p class="section-intro">Colocar el stop loss en un número redondo o "donde duela menos" no es gestión de riesgo — es esperanza. El stop loss técnico se coloca donde el mercado te está diciendo que tu análisis estuvo mal.</p>
+
+      <div class="sl-rules">
+        <div class="sl-rule">
+          <div class="sl-rule-num">01</div>
+          <div>
+            <div class="sl-rule-title">Ponlo <span>debajo del soporte</span> más cercano (Long)</div>
+            <div class="sl-rule-desc">Si vas long, tu stop loss va ligeramente por debajo del soporte que valida tu tesis. Si ese soporte rompe, tu análisis estuvo mal — sal sin dudarlo.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">02</div>
+          <div>
+            <div class="sl-rule-title">Nunca lo coloques en <span>números redondos</span></div>
+            <div class="sl-rule-desc">Los market makers saben que la mayoría pone SL en $100, $150, $200. Barren esos niveles antes de mover. Usa $97.80 en lugar de $98.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">03</div>
+          <div>
+            <div class="sl-rule-title">Dale <span>un pequeño margen</span> técnico</div>
+            <div class="sl-rule-desc">El precio puede tocar brevemente un soporte antes de rebotar. Coloca el SL 0.5-1% por debajo del nivel técnico para evitar salidas prematuras por ruido de mercado.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">04</div>
+          <div>
+            <div class="sl-rule-title"><span>Nunca muevas el SL</span> en tu contra</div>
+            <div class="sl-rule-desc">Mover el stop para "darle más espacio" mientras la posición va en tu contra es la forma más común de convertir una pérdida pequeña en una pérdida devastadora.</div>
+          </div>
+        </div>
+        <div class="sl-rule">
+          <div class="sl-rule-num">05</div>
+          <div>
+            <div class="sl-rule-title">Trailing Stop: <span>protege ganancias</span></div>
+            <div class="sl-rule-desc">Una vez que el precio se mueve a tu favor, puedes mover el SL al breakeven (precio de entrada) para operar "gratis". Luego súbelo conforme el precio avanza.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sl-example-box">
+        <div class="sl-ex-label">📍 Ejemplo real — Long en SOL</div>
+        <div class="sl-ex-timeline">
+          <div class="sl-ex-item entry">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">Entrada</div>
+              <div class="sl-ex-price">$130.00</div>
+              <div class="sl-ex-note">Soporte confirmado + volumen creciente</div>
+            </div>
+          </div>
+          <div class="sl-ex-item sl">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">Stop Loss</div>
+              <div class="sl-ex-price">$118.20 <span>(-9.1%)</span></div>
+              <div class="sl-ex-note">0.8% por debajo del soporte en $119.20</div>
+            </div>
+          </div>
+          <div class="sl-ex-item tp1">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">TP1 · Ratio 1:2</div>
+              <div class="sl-ex-price">$151.80 <span>(+16.8%)</span></div>
+              <div class="sl-ex-note">Resistencia más cercana. Cierra 50% posición.</div>
+            </div>
+          </div>
+          <div class="sl-ex-item tp2">
+            <div class="sl-ex-dot"></div>
+            <div class="sl-ex-content">
+              <div class="sl-ex-name">TP2 · Ratio 1:3</div>
+              <div class="sl-ex-price">$164.30 <span>(+26.4%)</span></div>
+              <div class="sl-ex-note">Resistencia secundaria. SL ya en breakeven.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAKE PROFIT -->
+    <div class="section">
+      <div class="section-tag">Cuándo salir ganando</div>
+      <div class="section-title">Take Profit y <span>Ratio R/R</span></div>
+      <p class="section-intro">Saber cuándo salir ganando es tan importante como el stop loss. Salir demasiado pronto deja dinero en la mesa. Salir demasiado tarde convierte ganancias en pérdidas.</p>
+
+      <div class="tp-grid">
+        <div class="tp-card tp1-c">
+          <div class="tp-badge">TP1</div>
+          <div class="tp-ratio">Ratio 1:2</div>
+          <div class="tp-desc">Primer objetivo. Cierra entre el 40-50% de la posición. Asegura ganancia y opera el resto "en verde".</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $40 mínimo</div>
+        </div>
+        <div class="tp-card tp2-c">
+          <div class="tp-badge">TP2</div>
+          <div class="tp-ratio">Ratio 1:3</div>
+          <div class="tp-desc">Segundo objetivo. Cierra otro 30-40%. Mueve el SL al breakeven antes de llegar aquí.</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $60</div>
+        </div>
+        <div class="tp-card tp3-c">
+          <div class="tp-badge">TP3</div>
+          <div class="tp-ratio">Ratio 1:5</div>
+          <div class="tp-desc">Objetivo ambicioso. Deja correr el 20-30% restante solo si el momentum es fuerte y el SL ya está en verde.</div>
+          <div class="tp-rule">Si arriesgas $20 → ganas $100</div>
+        </div>
+      </div>
+
+      <div class="winrate-box">
+        <div class="wr-title">¿Por qué el ratio 1:2 cambia todo?</div>
+        <div class="wr-grid" id="wr-grid"></div>
+        <div class="wr-note">Con ratio 1:2 puedes perder 6 de cada 10 operaciones y seguir siendo rentable. La mayoría de traders no lo cree hasta que lo calcula.</div>
+      </div>
+    </div>
+
+    <!-- CALCULADORA -->
+    <div class="section">
+      <div class="section-tag">Herramienta práctica</div>
+      <div class="section-title">Calculadora de <span>Posición</span></div>
+      <p class="section-intro">Ingresa tu capital y precio de entrada — calcula al instante tu Stop Loss, tus 3 niveles de Take Profit y cuánto puedes ganar o perder.</p>
+
+      <div class="calc-box">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <div class="calc-label">💰 Capital a invertir (USD)</div>
+            <input class="calc-input" id="c-capital" type="number" placeholder="Ej: 500" min="1" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field">
+            <div class="calc-label">📈 Precio de entrada (USD)</div>
+            <input class="calc-input" id="c-entry" type="number" placeholder="Ej: 130" min="0.00001" step="any" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field full">
+            <div class="calc-label">⚡ Apalancamiento</div>
+            <div class="calc-lev-group" id="c-lev-group">
+              <div class="calc-lev-btn active" data-lev="2" onclick="selectLev(this)">2x</div>
+              <div class="calc-lev-btn" data-lev="3" onclick="selectLev(this)">3x</div>
+              <div class="calc-lev-btn" data-lev="5" onclick="selectLev(this)">5x</div>
+              <div class="calc-lev-btn warn" data-lev="10" onclick="selectLev(this)">10x ⚠️</div>
+              <div class="calc-lev-btn danger" data-lev="20" onclick="selectLev(this)">20x 🔴</div>
+              <div class="calc-lev-btn danger" data-lev="50" onclick="selectLev(this)">50x 💀</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:1px;background:#1a1a1a;margin-bottom:18px;"></div>
+        <div id="c-results">
+          <div class="calc-empty">👆 Ingresa tu capital y precio de entrada para calcular</div>
+        </div>
+        <div class="calc-warn-badge" id="c-warn">⚠️ Apalancamiento alto — riesgo de liquidación con movimientos mínimos</div>
+        <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="calc-cta">🚀 Empieza a Operar en WEEX →</a>
+      </div>
+    </div>
+
+    <script>
+    let cLev = 2;
+    function selectLev(btn){
+      document.querySelectorAll('.calc-lev-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      cLev = parseInt(btn.dataset.lev);
+      const warn = document.getElementById('c-warn');
+      warn.style.display = cLev >= 10 ? 'flex' : 'none';
+      calcUpdate();
+    }
+    function fmt(n){ return n >= 1000 ? n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : n.toFixed(n < 1 ? 6 : 2); }
+    function fmtUSD(n){ return '$' + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function calcUpdate(){
+      const capital = parseFloat(document.getElementById('c-capital').value);
+      const entry   = parseFloat(document.getElementById('c-entry').value);
+      const res     = document.getElementById('c-results');
+      if(!capital || !entry || capital <= 0 || entry <= 0){ res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada para calcular</div>'; return; }
+      const pos      = capital * cLev;
+      const liqPct   = 1 / cLev;
+      const liqPrice = entry * (1 - liqPct);
+      const slPct    = 0.03;
+      const slPrice  = entry * (1 - slPct);
+      const slLoss   = capital * slPct * cLev;
+      const tp1Pct = slPct*2; const tp1Price = entry*(1+tp1Pct); const tp1Gain = capital*tp1Pct*cLev;
+      const tp2Pct = slPct*3; const tp2Price = entry*(1+tp2Pct); const tp2Gain = capital*tp2Pct*cLev;
+      const tp3Pct = slPct*5; const tp3Price = entry*(1+tp3Pct); const tp3Gain = capital*tp3Pct*cLev;
+      res.innerHTML = `
+        <div class="calc-results">
+          <div class="calc-result-card pos-card">
+            <div class="crc-label">📊 Tamaño de Posición</div>
+            <div class="crc-price">${fmtUSD(pos)}</div>
+            <div class="crc-pct">${capital} USD × ${cLev}x apalancamiento · Liquidación: $${fmt(liqPrice)} (-${(liqPct*100).toFixed(0)}%)</div>
+          </div>
+          <div class="calc-row-group">
+            <div class="calc-result-card sl-card">
+              <div class="crc-label">🛑 Stop Loss (−3%)</div>
+              <div class="crc-price">$${fmt(slPrice)}</div>
+              <div class="crc-pnl loss">−${fmtUSD(slLoss)}</div>
+              <div class="crc-pct">Precio baja 3% desde entrada</div>
+            </div>
+            <div class="calc-result-card tp1-card">
+              <div class="crc-label">🎯 TP1 · Ratio 1:2</div>
+              <div class="crc-price">$${fmt(tp1Price)}</div>
+              <div class="crc-pnl gain">+${fmtUSD(tp1Gain)}</div>
+              <div class="crc-pct">+${(tp1Pct*100).toFixed(0)}% desde entrada</div>
+            </div>
+          </div>
+          <div class="calc-row-group">
+            <div class="calc-result-card tp2-card">
+              <div class="crc-label">🎯 TP2 · Ratio 1:3</div>
+              <div class="crc-price">$${fmt(tp2Price)}</div>
+              <div class="crc-pnl gain">+${fmtUSD(tp2Gain)}</div>
+              <div class="crc-pct">+${(tp2Pct*100).toFixed(0)}% desde entrada</div>
+            </div>
+            <div class="calc-result-card tp3-card">
+              <div class="crc-label">🏆 TP3 · Ratio 1:5</div>
+              <div class="crc-price">$${fmt(tp3Price)}</div>
+              <div class="crc-pnl gain">+${fmtUSD(tp3Gain)}</div>
+              <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
+            </div>
+          </div>
+        </div>`;
+    }
+    </script>
+
+        <!-- ESTRATEGIA DEL 25% -->
+    <div class="section">
+      <div class="section-tag">Gestión avanzada de capital</div>
+      <div class="section-title">La Estrategia del <span>25%</span></div>
+      <p class="section-intro">Esta estrategia no es solo para principiantes — es para cualquiera que quiera seguir operando después de una racha mala. Divide tu capital en 4 partes iguales y nunca uses más de una a la vez.</p>
+      <div class="quarters-visual" id="quarters-visual"></div>
+      <div class="quarters-explain">
+        <div class="qe-row">
+          <div class="qe-num">01</div>
+          <div><div class="qe-title">Solo usas una parte a la vez</div><div class="qe-desc">Con $1,000 operas con $250. Si la pierdes completamente, tienes 3 oportunidades más para recuperarte sin quemar todo.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">02</div>
+          <div><div class="qe-title">Psicológicamente cambia todo</div><div class="qe-desc">Saber que tienes 3 partes en reserva elimina la desesperación. Operas más calmado, con menos apego al resultado de cada trade.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">03</div>
+          <div><div class="qe-title">Combínala con la regla del 2%</div><div class="qe-desc">Aplica la regla del 2% sobre la parte activa, no sobre el capital total. Así tu exposición real es del 0.5% de tu capital total por operación.</div></div>
+        </div>
+        <div class="qe-row">
+          <div class="qe-num">04</div>
+          <div><div class="qe-title">Cuándo activar la siguiente parte</div><div class="qe-desc">Solo mueves capital de reserva a activo cuando la parte anterior creció un 20%+ o la perdiste completamente. Nunca por impaciencia.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PSICOLOGÍA -->
+    <div class="section">
+      <div class="section-tag">El enemigo interno</div>
+      <div class="section-title">Psicología del <span>Trader</span></div>
+      <p class="section-intro">El 80% de los traders que pierden no lo hacen por análisis técnico malo — lo hacen por decisiones emocionales en momentos de presión. Conoce las 3 trampas mentales y cómo salir de ellas.</p>
+      <div class="psych-grid">
+        <div class="psych-card fomo-c">
+          <div class="psych-icon">😰</div>
+          <div class="psych-name">FOMO</div>
+          <div class="psych-full">Fear Of Missing Out</div>
+          <div class="psych-desc">El mercado sube rápido y sientes que te estás perdiendo el movimiento. Entras sin análisis, en el peor punto, justo antes de la corrección.</div>
+          <div class="psych-signals-label">Señales de que lo estás sintiendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Tu corazón late más rápido viendo el precio</div>
+            <div class="psych-signal">Entras sin revisar el checklist</div>
+            <div class="psych-signal">Abres tamaño de posición mayor al habitual</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Si ya subió 10%+, ya no es tu trade. Espera el retroceso o pasa al siguiente setup.</div>
+        </div>
+        <div class="psych-card revenge-c">
+          <div class="psych-icon">😤</div>
+          <div class="psych-name">Revenge Trading</div>
+          <div class="psych-full">Operar por venganza</div>
+          <div class="psych-desc">Acabas de perder y abres otra posición inmediatamente para "recuperar". Las decisiones tomadas desde el enojo casi siempre terminan en más pérdidas.</div>
+          <div class="psych-signals-label">Señales de que lo estás haciendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Abres trade segundos después de cerrar uno en pérdida</div>
+            <div class="psych-signal">Aumentas el tamaño para recuperar más rápido</div>
+            <div class="psych-signal">No tienes un setup claro — solo quieres ganar</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Regla absoluta: 2 pérdidas seguidas = para el día. El mercado siempre estará mañana.</div>
+        </div>
+        <div class="psych-card over-c">
+          <div class="psych-icon">🎰</div>
+          <div class="psych-name">Overtrading</div>
+          <div class="psych-full">Operar en exceso</div>
+          <div class="psych-desc">Operas constantemente por aburrimiento, por sentir que "el mercado siempre da oportunidades" o porque necesitas sentir la adrenalina. La calidad cae, las comisiones se acumulan.</div>
+          <div class="psych-signals-label">Señales de que lo estás haciendo:</div>
+          <div class="psych-signals">
+            <div class="psych-signal">Más de 5 trades en un día sin setups claros</div>
+            <div class="psych-signal">Operas en timeframes muy bajos sin razón</div>
+            <div class="psych-signal">Sientes ansiedad cuando no tienes posición abierta</div>
+          </div>
+          <div class="psych-fix">💡 <strong>Solución:</strong> Establece un máximo de 3 trades por día. Escribe tu razón de entrada antes de cada operación.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST INTERACTIVO -->
+    <div class="section">
+      <div class="section-tag">Antes de cada operación</div>
+      <div class="section-title"><span>7 Preguntas</span> que salvan tu capital</div>
+      <p class="section-intro">Marca cada pregunta antes de entrar. Si una sola es "no" — no entres. Sin excepciones.</p>
+      <div class="semaforo-wrap s0" id="semaforo-p">
+        <div class="semaforo-top">
+          <div class="semaforo-ring" id="semp-icon">⛔</div>
+          <div class="semaforo-info">
+            <div class="semaforo-label" id="semp-label">Alto Riesgo</div>
+            <div class="semaforo-desc" id="semp-desc">No has confirmado ninguna condición. No estás listo para operar.</div>
+          </div>
+          <div class="semaforo-count"><span id="semp-num">0</span><span>de 7</span></div>
+        </div>
+        <div class="semaforo-bar-track"><div class="semaforo-bar-fill" id="semp-bar"></div></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Identifiqué claramente el setup y la razón de mi entrada?</div><span class="check-cat cat-analysis">Análisis</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Ya definí exactamente dónde va mi stop loss técnico?</div><span class="check-cat cat-risk">Riesgo</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El ratio riesgo/recompensa es mínimo 1:2?</div><span class="check-cat cat-capital">Capital</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El tamaño de posición respeta la regla del 1-2% de capital?</div><span class="check-cat cat-capital">Capital</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Estoy entrando desde el análisis y no por FOMO o impulso?</div><span class="check-cat cat-mental">Psicología</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿El apalancamiento que usaré es 5x o menos?</div><span class="check-cat cat-risk">Riesgo</span></div>
+        <div class="check-item" onclick="toggleCheck2(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text">¿Puedo perder este dinero sin que afecte mi vida cotidiana?</div><span class="check-cat cat-mental">Mental</span></div>
+      </div>
+    </div>
+
+    <!-- ERRORES -->
+    <div class="section">
+      <div class="section-tag">Aprende de los demás</div>
+      <div class="section-title">Los <span>5 Errores</span> más devastadores</div>
+      <p class="section-intro">Estos errores han destruido miles de cuentas. Conocerlos no te hace inmune — pero sí te da la ventaja de reconocerlos antes de cometerlos.</div>
+      <div class="errors-grid">
+        <div class="err-card">
+          <div class="err-num">Error 01</div>
+          <div class="err-title">Operar sin Stop Loss</div>
+          <div class="err-desc">"El precio va a volver" es la frase favorita de quienes pierden todo. En futuros, mantener una posición perdedora indefinidamente termina en liquidación — no en recuperación.</div>
+          <div class="err-fix">✓ SL siempre, en nivel técnico, antes de abrir.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 02</div>
+          <div class="err-title">Apalancamiento alto desde el inicio</div>
+          <div class="err-desc">El 10x o 20x antes de dominar la gestión de riesgo destruye la cuenta antes de que puedas aprender. El mercado siempre cobra la colegiatura — decide cuánto quieres pagar.</div>
+          <div class="err-fix">✓ Empieza con 2x-3x. Escala gradualmente.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 03</div>
+          <div class="err-title">Promediar a la baja</div>
+          <div class="err-desc">Agregar posición cuando el precio va en tu contra multiplica el riesgo exponencialmente. Si el análisis estuvo mal, no dobles la apuesta — acepta el error y sal.</div>
+          <div class="err-fix">✓ Si el precio rompió tu nivel de invalidación, cierra.</div>
+        </div>
+        <div class="err-card">
+          <div class="err-num">Error 04</div>
+          <div class="err-title">Operar sin plan</div>
+          <div class="err-desc">"Entro aquí y veo qué pasa" no es trading — es apuesta. Sin entry, SL, TP y tamaño definidos antes de entrar, las decisiones se toman desde la emoción, no desde la estrategia.</div>
+          <div class="err-fix">✓ Escribe el plan antes de abrir cada posición.</div>
+        </div>
+        <div class="err-card full">
+          <div class="err-num">Error 05</div>
+          <div class="err-title">Ignorar el contexto macro</div>
+          <div class="err-desc">Entrar en long justo antes de un dato de inflación, una decisión de la Fed o un tweet de influencer puede destruir incluso el mejor setup técnico. El macro mueve mercados más rápido que cualquier soporte. Revisa el calendario económico antes de abrir posiciones grandes.</div>
+          <div class="err-fix">✓ Revisa investing.com/economic-calendar antes de cada sesión.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMEN FINAL -->
+    <div class="section" style="max-width:740px;margin-left:auto;margin-right:auto;">
+      <div class="section-tag">Para cerrar</div>
+      <div class="section-title">Las <span>5 Reglas</span> que no puedes olvidar</div>
+      <p class="section-intro">Todo lo que leíste se resume aquí. Pégalas en tu escritorio, ponlas de fondo de pantalla, tatúatelas si hace falta. Son la diferencia entre seguir operando y quemar la cuenta.</p>
+      <div class="final-rules" id="final-rules"></div>
+      <div class="final-cta-box">
+        <div class="final-cta-glow"></div>
+        <div class="final-cta-tag">🚀 ¿Listo para operar?</div>
+        <div class="final-cta-title">Empieza a poner en práctica<br>todo lo que aprendiste</div>
+        <div class="final-cta-desc">Abre tu cuenta en WEEX con el link de Luis y obtén beneficios exclusivos para nuevos usuarios.</div>
+        <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="final-cta-btn">🔗 Crear cuenta en WEEX →</a>
+        <div class="final-cta-sub"><a href="/">← Volver a luisbpalacios.github.io</a></div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    <a href="/">← luisbpalacios.github.io</a> · Manual Completo Premium · Luis B. Palacios · 2025<br>
+    <span style="color:#333;margin-top:6px;display:block;">⚠️ Nada en este manual es asesoría financiera. El trading implica riesgo significativo. Haz siempre tu propia investigación.</span>
+  </div>
+
+</div><!-- /content wrapper -->
+
+<script>
+/* ── GATE ── */
+const ACCESS_CODE = 'W3B-2025';
+const SOL_WALLET  = 'ACuxgMrxJWe9Mh7xSEf8LksLDgr9nJRFQnbw3XyC1YvA';
+const USDC_MINT   = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+const MIN_USDC    = 14_000_000; // $14 mínimo con 6 decimales (margen para fees)
+
+function unlockContent(){
+  sessionStorage.setItem('premium_access','1');
+  document.getElementById('gate').style.display='none';
+  document.getElementById('content').style.display='block';
 }
+
+// Check session
+if(sessionStorage.getItem('premium_access')==='1') unlockContent();
+
+// Tabs
+function switchTab(tab){
+  document.getElementById('tab-pay').style.display = tab==='pay'?'block':'none';
+  document.getElementById('tab-code').style.display = tab==='code'?'block':'none';
+  document.getElementById('tab-pay-btn').classList.toggle('active', tab==='pay');
+  document.getElementById('tab-code-btn').classList.toggle('active', tab==='code');
+}
+
+// Copy wallet
+function copyWalletGate(){
+  navigator.clipboard.writeText(SOL_WALLET).then(()=>{
+    const btn = document.getElementById('gate-copy-btn');
+    btn.textContent='✓';
+    btn.style.background='#4CAF50';
+    btn.style.color='#fff';
+    setTimeout(()=>{btn.textContent='📋';btn.style.background='';btn.style.color='';},2000);
+  });
+}
+
+// Code validation
+function checkCode(){
+  const val = document.getElementById('gate-code').value.trim().toUpperCase();
+  const err = document.getElementById('gate-error');
+  const inp = document.getElementById('gate-code');
+  if(val === ACCESS_CODE.toUpperCase()){
+    unlockContent();
+  } else {
+    err.textContent='Código inválido. Verifica e intenta de nuevo.';
+    inp.classList.add('error');
+    setTimeout(()=>inp.classList.remove('error'),400);
+  }
+}
+
+// TX status helper
+function setTxStatus(type, msg){
+  const el = document.getElementById('tx-status');
+  el.className = 'gate-tx-status ' + type;
+  el.textContent = msg;
+}
+
+// Validate TX on Solana RPC
+async function validateTx(){
+  const txHash = document.getElementById('tx-input').value.trim();
+  if(!txHash){ setTxStatus('error','Pega el hash de tu transacción primero.'); return; }
+
+  // MODO PRUEBA — quitar antes de producción
+  if(txHash.toUpperCase() === 'TEST-OK-LP2025'){
+    setTxStatus('success','✅ Pago verificado (modo prueba). ¡Acceso concedido!');
+    setTimeout(()=>unlockContent(), 1800);
+    return;
+  }
+
+  if(txHash.length < 40){ setTxStatus('error','El hash no parece válido. Verifica que lo copiaste completo.'); return; }
+
+  const btn = document.getElementById('validate-btn');
+  btn.disabled = true;
+  setTxStatus('loading','⏳ Verificando en la blockchain de Solana...');
+
+  try {
+    const res = await fetch('https://api.mainnet-beta.solana.com', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        jsonrpc:'2.0', id:1,
+        method:'getTransaction',
+        params:[txHash, {encoding:'jsonParsed', maxSupportedTransactionVersion:0}]
+      })
+    });
+    const data = await res.json();
+    const tx = data.result;
+
+    if(!tx){
+      setTxStatus('error','❌ Transacción no encontrada. Espera unos minutos y vuelve a intentarlo.');
+      btn.disabled=false; return;
+    }
+    if(tx.meta && tx.meta.err !== null){
+      setTxStatus('error','❌ La transacción falló en la blockchain. Intenta realizar el pago de nuevo.');
+      btn.disabled=false; return;
+    }
+
+    // Check USDC transfer to Luis's wallet
+    const pre  = tx.meta.preTokenBalances  || [];
+    const post = tx.meta.postTokenBalances || [];
+    let validPayment = false;
+
+    for(const pb of post){
+      if(pb.mint !== USDC_MINT) continue;
+      if(pb.owner !== SOL_WALLET) continue;
+      const preBal  = pre.find(p => p.accountIndex === pb.accountIndex);
+      const preAmt  = parseInt(preBal ? preBal.uiTokenAmount.amount : '0');
+      const postAmt = parseInt(pb.uiTokenAmount.amount || '0');
+      if((postAmt - preAmt) >= MIN_USDC){ validPayment = true; break; }
+    }
+
+    if(validPayment){
+      setTxStatus('success','✅ Pago verificado. ¡Acceso concedido! Redirigiendo...');
+      setTimeout(()=>unlockContent(), 1800);
+    } else {
+      setTxStatus('error','⚠️ No se detectó pago de USDC a esta wallet en esa transacción. Verifica que enviaste a la dirección correcta y que el monto es de $17 USDC.');
+      btn.disabled=false;
+    }
+  } catch(err){
+    setTxStatus('error','❌ Error de conexión. Revisa tu internet e intenta de nuevo.');
+    btn.disabled=false;
+  }
+}
+
+// Generate QR
+(function initQR(){
+  if(typeof QRCode === 'undefined'){ 
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    s.onload=()=>new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+    document.head.appendChild(s);
+  } else {
+    new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+  }
+})();
+
+/* ── RIESGOS PREMIUM ── */
+const risks=[
+  {icon:'⚡',name:'Riesgo de Liquidación',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',
+   def:'Si el mercado se mueve en tu contra más allá de tu margen, el exchange cierra tu posición forzosamente y pierdes todo el capital depositado. Con 10x, solo necesitas un -10% para ser liquidado.',
+   tip:'🛡️ Mitigación: Stop loss obligatorio bien colocado + apalancamiento bajo (2x-5x).'},
+  {icon:'📉',name:'Riesgo de Mercado',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',
+   def:'El precio puede moverse violentamente por noticias, ballenas o eventos macro. En altcoins, movimientos del 20-40% en pocas horas son completamente normales — incluso en tendencia alcista.',
+   tip:'🛡️ Mitigación: No operar en rangos sin volumen. Revisar el calendario de noticias antes de entrar.'},
+  {icon:'🔥',name:'Riesgo de Apalancamiento',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'El apalancamiento multiplica pérdidas igual que ganancias. Con 5x, una caída del 10% te cuesta el 50% de tu capital. Con 20x, una vela del 5% en tu contra liquida toda la posición.',
+   tip:'🛡️ Mitigación: Máximo 5x para principiantes. El apalancamiento es para optimizar posición, no para multiplicar apuestas.'},
+  {icon:'💧',name:'Riesgo de Liquidez',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',
+   def:'En altcoins con bajo volumen, el spread entre compra y venta se amplía. No puedes cerrar al precio que ves — terminas pagando más o recibiendo menos, especialmente en movimientos rápidos.',
+   tip:'🛡️ Mitigación: Operar solo pares con volumen diario alto. Verificar el order book antes de entrar en posiciones grandes.'},
+  {icon:'🧠',name:'Riesgo Psicológico',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'FOMO, revenge trading y overtrading destruyen más cuentas que el análisis técnico malo. Las emociones llevan a mover stop losses, agregar posiciones perdedoras y operar sin plan.',
+   tip:'🛡️ Mitigación: Checklist pre-trade. Máximo 2 pérdidas consecutivas por día. Descanso obligatorio después de racha mala.'},
+  {icon:'💸',name:'Riesgo de Funding Rate',level:'Variable',lvlCls:'lvl-variable',color:'#CE93D8',
+   def:'Los futuros perpetuos cobran o pagan un funding rate cada 8 horas según el sentimiento del mercado. Un funding rate alto positivo cobra a los longs — puede erosionar ganancias en posiciones largas.',
+   tip:'🛡️ Mitigación: Revisar el funding rate antes de entrar. Evitar mantener posiciones largas cuando el funding es extremadamente positivo.'},
+  {icon:'🏦',name:'Riesgo de Contraparte',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',
+   def:'El exchange es tu contraparte. Puede ser hackeado, quebrar, congelar retiros o manipular precios. Tu capital dentro del exchange no está completamente asegurado — es custodia, no tuyo.',
+   tip:'🛡️ Mitigación: Usar exchanges regulados y reconocidos. Retirar ganancias periódicamente. Nunca dejar más de lo necesario para operar.'},
+  {icon:'🌊',name:'Riesgo de Volatilidad',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',
+   def:'Las altcoins pueden moverse 20-40% en horas. Una vela de alta volatilidad puede activar tu stop loss antes de que el precio rebote, o bien crear un gap tan grande que tu SL no ejecute al precio esperado.',
+   tip:'🛡️ Mitigación: Stop loss con margen técnico real. Considerar el ATR (Average True Range) al definir distancias de SL.'},
+];
+const dotClass={'lvl-muy-alto':'#d32f2f','lvl-alto':'#f44336','lvl-medio':'#FF9800','lvl-variable':'#CE93D8'};
+function buildRisks(){
+  const grid=document.getElementById('risk-grid-premium');
+  if(!grid)return;
+  grid.innerHTML=risks.map(r=>`
+    <div class="risk-card" onclick="toggleRisk(this)" style="--rc:${r.color};">
+      <style>.risk-card[style*="${r.color}"]::before{background:${r.color};}</style>
+      <div class="risk-header">
+        <span class="risk-icon">${r.icon}</span>
+        <span class="risk-name">${r.name}</span>
+        <span class="risk-level ${r.lvlCls}">${r.level}</span>
+      </div>
+      <div class="risk-body">
+        <div class="risk-def">${r.def}<div class="risk-tip" style="color:${r.color}">${r.tip}</div></div>
+      </div>
+    </div>`).join('');
+}
+function toggleRisk(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.risk-card.open').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+buildRisks();
+
+/* ── QUARTERS ── */
+function buildQuarters(){
+  const v=document.getElementById('quarters-visual');
+  if(!v)return;
+  const parts=[
+    {label:'En uso',pct:'25%',active:true},
+    {label:'Reserva 1',pct:'25%',active:false},
+    {label:'Reserva 2',pct:'25%',active:false},
+    {label:'Reserva 3',pct:'25%',active:false},
+  ];
+  v.innerHTML=parts.map((p,i)=>`
+    <div class="quarter-block ${p.active?'active':'reserve'}">
+      <div class="quarter-tag">${p.active?'🔥 Activo':'🔒 Reserva '+(i)}</div>
+      <div class="quarter-pct">${p.pct}</div>
+      <div class="quarter-label">${p.active?'Operando ahora':'Intocable'}</div>
+    </div>`).join('');
+}
+buildQuarters();
+
+/* ── SEMÁFORO PREMIUM ── */
+const semStates2=[
+  {cls:'s0',icon:'⛔',label:'Alto Riesgo',desc:'No has confirmado ninguna condición. No estás listo para operar.'},
+  {cls:'s1',icon:'🔴',label:'Riesgo Muy Alto',desc:'Faltan condiciones clave. Operar así casi siempre termina en pérdida.'},
+  {cls:'s2',icon:'🟠',label:'Riesgo Elevado',desc:'Más de la mitad sin confirmar. Hay demasiadas variables sin controlar.'},
+  {cls:'s3',icon:'🟡',label:'Riesgo Moderado',desc:'Vas por buen camino, pero aún tienes puntos sin verificar.'},
+  {cls:'s4',icon:'🟡',label:'Casi Listo',desc:'Solo te falta confirmar uno o dos puntos. No te apresures.'},
+  {cls:'s5',icon:'🟢',label:'Riesgo Controlado',desc:'¡Todo confirmado! Puedes operar con disciplina.'},
+  {cls:'s5',icon:'✅',label:'Listo para Operar',desc:'¡Perfecto! Todas las condiciones están dadas. Opera con confianza.'},
+];
+function toggleCheck2(el){
+  el.classList.toggle('checked');
+  const total=document.querySelectorAll('#semaforo-p ~ .checklist .check-item').length;
+  const checked=document.querySelectorAll('#semaforo-p ~ .checklist .check-item.checked').length;
+  const idx=checked===0?0:checked===total?6:Math.round((checked/total)*4)+1;
+  const s=semStates2[Math.min(idx,semStates2.length-1)];
+  const sem=document.getElementById('semaforo-p');
+  sem.className='semaforo-wrap '+s.cls;
+  document.getElementById('semp-icon').textContent=s.icon;
+  document.getElementById('semp-label').textContent=s.label;
+  document.getElementById('semp-desc').textContent=s.desc;
+  document.getElementById('semp-num').textContent=checked;
+  document.getElementById('semp-bar').style.width=((checked/total)*100)+'%';
+}
+
+/* ── FINAL RULES ── */
+function buildFinalRules(){
+  const el=document.getElementById('final-rules');
+  if(!el)return;
+  const rules=[
+    {icon:'💰',title:'Regla del <span>2%</span>',desc:'Nunca arriesgues más del 2% de tu capital por operación. Con $1,000, tu pérdida máxima por trade es $20. Puedes perder 50 seguidas y aún operar.'},
+    {icon:'🛑',title:'Stop Loss <span>siempre</span>',desc:'Colócalo en un nivel técnico real antes de abrir. Nunca en números redondos, nunca lo muevas en tu contra. Es tu única protección ante el mercado.'},
+    {icon:'🎯',title:'Ratio mínimo <span>1:2</span>',desc:'Si arriesgas $20, solo entras donde puedes ganar $40. Con este ratio ganas dinero incluso perdiendo el 60% de tus operaciones.'},
+    {icon:'⚡',title:'Máximo <span>5x</span> de apalancamiento',desc:'Las altcoins se mueven 10-20% en un día. Con 10x o más, una corrección normal te liquida antes de que el precio rebote.'},
+    {icon:'🧠',title:'<span>2 pérdidas</span> = para el día',desc:'Después de 2 operaciones perdedoras seguidas, cierra la plataforma. El mercado siempre estará mañana. Las decisiones desde el enojo destruyen cuentas.',full:true},
+  ];
+  el.innerHTML=rules.map((r,i)=>`
+    <div class="final-rule${r.full?' full':''}">
+      <div class="final-rule-glow"></div>
+      <div class="final-rule-num">0${i+1}</div>
+      <span class="final-rule-icon">${r.icon}</span>
+      <div class="final-rule-title">${r.title}</div>
+      <div class="final-rule-desc">${r.desc}</div>
+    </div>`).join('');
+}
+buildFinalRules();
+
+/* ── CAPITAL EXAMPLES ── */
+const capExamples=[
+  {capital:500,  risk:2, slPct:5, entry:130},
+  {capital:1000, risk:2, slPct:5, entry:2000},
+  {capital:2500, risk:1, slPct:4, entry:0.85},
+];
+function buildCapExamples(){
+  const grid=document.getElementById('cap-ex-grid');
+  if(!grid)return;
+  grid.innerHTML=capExamples.map(e=>{
+    const riskAmt=e.capital*(e.risk/100);
+    const pos=riskAmt/(e.slPct/100);
+    const tp=riskAmt*2;
+    return`<div class="cap-ex-row">
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Capital</div><div class="cap-ex-cell-val">$${e.capital.toLocaleString()}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Riesgo ${e.risk}%</div><div class="cap-ex-cell-val loss">-$${riskAmt.toFixed(0)}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Tamaño</div><div class="cap-ex-cell-val">$${pos.toFixed(0)}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">TP1 (1:2)</div><div class="cap-ex-cell-val gain">+$${tp.toFixed(0)}</div></div>
+    </div>`;
+  }).join('');
+}
+buildCapExamples();
+
+/* ── WINRATE ── */
+function buildWinrate(){
+  const grid=document.getElementById('wr-grid');
+  if(!grid)return;
+  const rows=[
+    {label:'30% acierto',pct:30,color:'#f44336',net:'+20%'},
+    {label:'40% acierto',pct:40,color:'#FF9800',net:'+60%'},
+    {label:'50% acierto',pct:50,color:'#FFC107',net:'+100%'},
+    {label:'60% acierto',pct:60,color:'#8BC34A',net:'+140%'},
+  ];
+  grid.innerHTML=rows.map(r=>`
+    <div class="wr-row">
+      <div class="wr-label">${r.label}</div>
+      <div class="wr-bar-track"><div class="wr-bar-fill" style="width:${r.pct}%;background:${r.color};"></div></div>
+      <div class="wr-val" style="color:${r.color};">${r.net}</div>
+    </div>`).join('');
+}
+buildWinrate();
+
+/* ── CALCULADORA ── */
 let cLev=2;
 function selectLev(btn){
-  document.querySelectorAll('.calc-lev-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.calc-lev-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   cLev=parseInt(btn.dataset.lev);
-  var w=document.getElementById('c-warn');
-  if(w) w.style.display=cLev>=10?'flex':'none';
+  document.getElementById('c-warn').style.display=cLev>=10?'flex':'none';
   calcUpdate();
 }
+function fmt(n){return n>=1000?n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):n.toFixed(n<1?6:2);}
+function fmtUSD(n){return'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function calcUpdate(){
-  var capital=parseFloat(document.getElementById('c-capital').value);
-  var entry=parseFloat(document.getElementById('c-entry').value);
-  var slInput=parseFloat(document.getElementById('c-sl').value);
-  var res=document.getElementById('c-results');
-  var chartDiv=document.getElementById('c-chart');
-  if(!capital||!entry||capital<=0||entry<=0){
-    res.innerHTML='<div class="calc-empty">\uD83D\uDC46 Ingresa tu capital y precio de entrada</div>';
-    if(chartDiv) chartDiv.innerHTML='';
-    return;
-  }
-  var slPctRaw=(isNaN(slInput)||slInput<=0)?3:slInput;
-  var slPct=slPctRaw/100;
-  var liqPct=1/cLev;
-  var liqPrice=entry*(1-liqPct);
-  if(slPct>=liqPct){
-    res.innerHTML='<div class="calc-error-card"><strong>\uD83D\uDEA8 SL imposible con '+cLev+'x</strong>Tu liquidaci\u00F3n ocurre a \u2212'+(liqPct*100).toFixed(1)+'%. Reduce el SL o el apalancamiento.</div>';
-    if(chartDiv) chartDiv.innerHTML='';
-    return;
-  }
-  var pos=capital*cLev;
-  var slPrice=entry*(1-slPct);
-  var slLoss=capital*slPct*cLev;
-  var slLossPct=(slPct*cLev*100).toFixed(0);
-  var tp1Pct=slPct*2,tp1Price=entry*(1+tp1Pct),tp1Gain=capital*tp1Pct*cLev;
-  var tp2Pct=slPct*3,tp2Price=entry*(1+tp2Pct),tp2Gain=capital*tp2Pct*cLev;
-  var tp3Pct=slPct*5,tp3Price=entry*(1+tp3Pct),tp3Gain=capital*tp3Pct*cLev;
-  res.innerHTML=
-    '<div class="calc-results">'
-    +'<div class="calc-result-card pos-card">'
-      +'<div class="crc-label">\uD83D\uDCCA Tama\u00F1o de Posici\u00F3n</div>'
-      +'<div class="crc-price">'+fmtUSD(pos)+'</div>'
-      +'<div class="crc-pct">'+capital+' USD \u00D7 '+cLev+'x \u00B7 Liquidaci\u00F3n: $'+fmt(liqPrice)+' (\u2212'+(liqPct*100).toFixed(0)+'%)</div>'
-    +'</div>'
-    +'<div class="calc-row-group">'
-      +'<div class="calc-result-card sl-card">'
-        +'<div class="crc-label">\uD83D\uDED1 Stop Loss (\u2212'+slPctRaw+'%)</div>'
-        +'<div class="crc-price">$'+fmt(slPrice)+'</div>'
-        +'<div class="crc-pnl loss">\u2212'+fmtUSD(slLoss)+'<span class="crc-cap-pct loss-pct">'+slLossPct+'% capital</span></div>'
-      +'</div>'
-      +'<div class="calc-result-card tp1-card">'
-        +'<div class="crc-label">\uD83C\uDFAF TP1 \u00B7 Ratio 1:2</div>'
-        +'<div class="crc-price">$'+fmt(tp1Price)+'</div>'
-        +'<div class="crc-pnl gain">+'+fmtUSD(tp1Gain)+'<span class="crc-cap-pct gain-pct">+'+(tp1Pct*cLev*100).toFixed(0)+'% capital</span></div>'
-      +'</div>'
-    +'</div>'
-    +'<div class="calc-row-group">'
-      +'<div class="calc-result-card tp2-card">'
-        +'<div class="crc-label">\uD83C\uDFAF TP2 \u00B7 Ratio 1:3</div>'
-        +'<div class="crc-price">$'+fmt(tp2Price)+'</div>'
-        +'<div class="crc-pnl gain">+'+fmtUSD(tp2Gain)+'<span class="crc-cap-pct gain-pct">+'+(tp2Pct*cLev*100).toFixed(0)+'% capital</span></div>'
-      +'</div>'
-      +'<div class="calc-result-card tp3-card">'
-        +'<div class="crc-label">\uD83C\uDFC6 TP3 \u00B7 Ratio 1:5</div>'
-        +'<div class="crc-price">$'+fmt(tp3Price)+'</div>'
-        +'<div class="crc-pnl gain">+'+fmtUSD(tp3Gain)+'<span class="crc-cap-pct gain-pct">+'+(tp3Pct*cLev*100).toFixed(0)+'% capital</span></div>'
-      +'</div>'
-    +'</div>'
-    +'</div>';
-  renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain);
+  const capital=parseFloat(document.getElementById('c-capital').value);
+  const entry=parseFloat(document.getElementById('c-entry').value);
+  const res=document.getElementById('c-results');
+  if(!capital||!entry||capital<=0||entry<=0){res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div>';return;}
+  const pos=capital*cLev;
+  const liqPct=1/cLev;
+  const liqPrice=entry*(1-liqPct);
+  const slPct=0.03;
+  const slPrice=entry*(1-slPct);const slLoss=capital*slPct*cLev;
+  const tp1Pct=slPct*2;const tp1Price=entry*(1+tp1Pct);const tp1Gain=capital*tp1Pct*cLev;
+  const tp2Pct=slPct*3;const tp2Price=entry*(1+tp2Pct);const tp2Gain=capital*tp2Pct*cLev;
+  const tp3Pct=slPct*5;const tp3Price=entry*(1+tp3Pct);const tp3Gain=capital*tp3Pct*cLev;
+  res.innerHTML=`<div class="calc-results">
+    <div class="calc-result-card pos-card">
+      <div class="crc-label">📊 Tamaño de Posición</div>
+      <div class="crc-price">${fmtUSD(pos)}</div>
+      <div class="crc-pct">${capital} USD × ${cLev}x · Liquidación: $${fmt(liqPrice)} (-${(liqPct*100).toFixed(0)}%)</div>
+    </div>
+    <div class="calc-row-group">
+      <div class="calc-result-card sl-card">
+        <div class="crc-label">🛑 Stop Loss (−3%)</div>
+        <div class="crc-price">$${fmt(slPrice)}</div>
+        <div class="crc-pnl loss">−${fmtUSD(slLoss)}</div>
+        <div class="crc-pct">Precio baja 3% desde entrada</div>
+      </div>
+      <div class="calc-result-card tp1-card">
+        <div class="crc-label">🎯 TP1 · Ratio 1:2</div>
+        <div class="crc-price">$${fmt(tp1Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp1Gain)}</div>
+        <div class="crc-pct">+${(tp1Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+    </div>
+    <div class="calc-row-group">
+      <div class="calc-result-card tp2-card">
+        <div class="crc-label">🎯 TP2 · Ratio 1:3</div>
+        <div class="crc-price">$${fmt(tp2Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp2Gain)}</div>
+        <div class="crc-pct">+${(tp2Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+      <div class="calc-result-card tp3-card">
+        <div class="crc-label">🏆 TP3 · Ratio 1:5</div>
+        <div class="crc-price">$${fmt(tp3Price)}</div>
+        <div class="crc-pnl gain">+${fmtUSD(tp3Gain)}</div>
+        <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-lev-compare">
+    <div class="clc-title">📊 Comparativa: movimiento de mercado vs tu capital (${cLev}x apalancamiento)</div>
+    <div class="clc-table-wrap">
+      <table class="clc-table">
+        <thead>
+          <tr>
+            <th>Movimiento</th>
+            <th class="gain-col">Ganancia</th>
+            <th class="gain-col">% de tu capital</th>
+            <th class="loss-col">Pérdida</th>
+            <th class="loss-col">% de tu capital</th>
+          </tr>
+        </thead>
+        <tbody id="clc-tbody"></tbody>
+      </table>
+    </div>
+    <div class="clc-note">⚠️ El apalancamiento multiplica ganancias y pérdidas por igual. Un movimiento adverso de -${((1/cLev)*100).toFixed(0)}% liquida toda tu posición.</div>
+  </div>`;
+  const moves=[1,2,3,5,10,15,20];
+  let rows='';
+  moves.forEach(function(m){
+    const gainAmt=capital*(m/100)*cLev;
+    const gainPct=(m/100)*cLev*100;
+    const lossAmt=Math.min(capital*(m/100)*cLev,capital);
+    const lossPct=Math.min((m/100)*cLev*100,100);
+    const liquidated=(m/100)*cLev*100>=100;
+    rows+='<tr><td><strong>'+m+'%</strong></td>'
+      +'<td class="gain-col">+'+fmtUSD(gainAmt)+'</td>'
+      +'<td class="gain-col gain-pct">+'+gainPct.toFixed(0)+'%</td>'
+      +(liquidated
+        ?'<td class="loss-col"><span class="liq-badge">LIQUIDADO</span></td><td class="loss-col"><span class="liq-badge">💀 100%</span></td>'
+        :'<td class="loss-col">-'+fmtUSD(lossAmt)+'</td><td class="loss-col loss-pct">-'+lossPct.toFixed(0)+'%</td>')
+      +'</tr>';
+  });
+  document.getElementById('clc-tbody').innerHTML=rows;
 }
 </script>
 </body>
