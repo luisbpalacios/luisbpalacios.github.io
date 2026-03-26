@@ -198,6 +198,69 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
 
 <div class="content">
 
+  <!-- TIPOS DE RIESGO -->
+  <div class="section">
+    <div class="section-tag">Antes de empezar</div>
+    <div class="section-title">¿A qué riesgos te <span>expones?</span></div>
+    <p class="section-intro">El trading de futuros tiene múltiples capas de riesgo. Conocerlos no te hace invencible — pero sí te prepara para no ser sorprendido.</p>
+    <div class="risk-grid" id="risk-grid"></div>
+  </div>
+
+  <style>
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:520px){.risk-grid{grid-template-columns:1fr;}}
+  .risk-card{background:var(--dark-3);border:1px solid #1e1e1e;border-radius:14px;padding:18px 18px;cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;}
+  .risk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;transition:opacity 0.2s;}
+  .risk-card:hover{background:#1d1d1d;}
+  .risk-card.open{border-color:rgba(242,86,29,0.3);}
+  .risk-card.open::before{opacity:1;}
+  .risk-header{display:flex;align-items:center;gap:10px;}
+  .risk-icon{font-size:1.3rem;flex-shrink:0;}
+  .risk-name{font-size:0.88rem;font-weight:800;color:#fff;flex:1;line-height:1.2;}
+  .risk-level{font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:5px;flex-shrink:0;}
+  .lvl-alto{background:rgba(244,67,54,0.12);color:#f44336;}
+  .lvl-muy-alto{background:rgba(244,67,54,0.18);color:#d32f2f;}
+  .lvl-medio{background:rgba(255,152,0,0.12);color:#FF9800;}
+  .lvl-variable{background:rgba(156,39,176,0.12);color:#CE93D8;}
+  .risk-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
+  .risk-card.open .risk-body{max-height:120px;}
+  .risk-def{font-size:0.8rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
+  .risk-tip{font-size:0.75rem;font-weight:700;margin-top:6px;}
+  </style>
+  <script>
+  const risks = [
+    {icon:'⚡',name:'Riesgo de Liquidación',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',def:'Si el mercado se mueve en tu contra más allá de tu margen, el exchange cierra tu posición forzosamente y pierdes todo el capital depositado.',tip:'🛡️ Cómo mitigarlo: Stop loss obligatorio y apalancamiento bajo.'},
+    {icon:'📉',name:'Riesgo de Mercado',level:'Muy Alto',lvlCls:'lvl-muy-alto',color:'#d32f2f',def:'El precio puede moverse violentamente en tu contra por noticias, ballenas o cambios macroeconómicos. Las altcoins amplían este riesgo.',tip:'🛡️ Cómo mitigarlo: No operar en rangos sin volumen ni durante eventos de alto impacto.'},
+    {icon:'🔥',name:'Riesgo de Apalancamiento',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'El apalancamiento multiplica las pérdidas igual que las ganancias. Un 5x convierte una caída del 10% en una pérdida del 50% de tu capital.',tip:'🛡️ Cómo mitigarlo: Máximo 5x para principiantes. Nunca más del necesario.'},
+    {icon:'💧',name:'Riesgo de Liquidez',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',def:'En altcoins con bajo volumen, no puedes cerrar tu posición al precio deseado. El spread se amplía y terminas pagando más de lo que calculaste.',tip:'🛡️ Cómo mitigarlo: Operar solo pares con volumen alto (BTC, ETH, SOL, BNB).'},
+    {icon:'🧠',name:'Riesgo Psicológico',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'FOMO, revenge trading y overtrading son tan peligrosos como un mal setup. Las emociones llevan a ignorar las reglas exactamente cuando más importan.',tip:'🛡️ Cómo mitigarlo: Checklist pre-trade. Límite de 2 pérdidas consecutivas por día.'},
+    {icon:'💸',name:'Riesgo de Funding Rate',level:'Variable',lvlCls:'lvl-variable',color:'#CE93D8',def:'En posiciones perpetuas, el funding rate puede cobrarte comisiones constantes si el mercado está muy sesgado hacia tu dirección.',tip:'🛡️ Cómo mitigarlo: Revisar el funding rate antes de abrir. Evitar pagar funding alto.'},
+    {icon:'🏦',name:'Riesgo de Contraparte',level:'Medio',lvlCls:'lvl-medio',color:'#FF9800',def:'El exchange puede ser hackeado, quebrar o congelar retiros. Tu capital en la plataforma no está 100% seguro — es custodio, no tuyo.',tip:'🛡️ Cómo mitigarlo: Usar exchanges regulados y retira ganancias periódicamente.'},
+    {icon:'🌊',name:'Riesgo de Volatilidad',level:'Alto',lvlCls:'lvl-alto',color:'#f44336',def:'Las altcoins pueden moverse 20-40% en horas. Una vela de alta volatilidad puede activar tu stop loss antes de que el precio continúe a tu favor.',tip:'🛡️ Cómo mitigarlo: Stop loss con margen técnico real, no arbitrario.'},
+  ];
+  function buildRisks(){
+    const grid = document.getElementById('risk-grid');
+    grid.innerHTML = risks.map(r=>`
+      <div class="risk-card" onclick="toggleRisk(this)" style="--rc:${r.color};">
+        <style>.risk-card[style*='${r.color}']::before{background:${r.color};}</style>
+        <div class="risk-header">
+          <span class="risk-icon">${r.icon}</span>
+          <span class="risk-name">${r.name}</span>
+          <span class="risk-level ${r.lvlCls}">${r.level}</span>
+        </div>
+        <div class="risk-body">
+          <div class="risk-def">${r.def}<div class="risk-tip" style="color:${r.color === '#d32f2f' ? '#f44336' : r.color}">${r.tip}</div></div>
+        </div>
+      </div>`).join('');
+  }
+  function toggleRisk(el){
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.risk-card.open').forEach(c=>c.classList.remove('open'));
+    if(!isOpen) el.classList.add('open');
+  }
+  buildRisks();
+  </script>
+
   <!-- 5 REGLAS -->
   <div class="section">
     <div class="section-tag">El núcleo del manual</div>
