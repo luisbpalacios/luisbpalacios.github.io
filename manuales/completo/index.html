@@ -362,6 +362,21 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 
 .clc-note{margin-top:12px;font-size:0.7rem;color:#555;line-height:1.5;}
 
+
+.calc-risk-btn{flex:1;min-width:48px;padding:10px 6px;border-radius:9px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+.calc-risk-btn:hover{border-color:#444;color:#ccc;}
+.calc-risk-btn.active{background:rgba(242,86,29,0.12);border-color:rgba(242,86,29,0.5);color:var(--orange);}
+.calc-error-card{background:rgba(244,67,54,0.1);border:1px solid rgba(244,67,54,0.35);border-radius:12px;padding:16px 18px;color:#ef5350;font-size:0.85rem;font-weight:600;line-height:1.5;}
+.calc-error-card strong{display:block;font-size:0.95rem;margin-bottom:4px;}
+.rec-pos-card{background:rgba(76,175,80,0.07);border:1px solid rgba(76,175,80,0.2);border-radius:10px;padding:12px 14px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.rec-pos-label{font-size:0.75rem;color:#888;line-height:1.4;}
+.rec-pos-val{font-size:1rem;font-weight:800;color:#66bb6a;white-space:nowrap;}
+.rec-pos-warn{color:#FF9800;}
+.capital-pct-badge{font-size:0.72rem;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:6px;}
+.cpb-ok{background:rgba(76,175,80,0.15);color:#66bb6a;}
+.cpb-warn{background:rgba(255,152,0,0.15);color:#FF9800;}
+.cpb-danger{background:rgba(244,67,54,0.15);color:#ef5350;}
+
 </style>
 </head>
 <body>
@@ -648,6 +663,17 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
           <div class="calc-field">
             <div class="calc-label">📈 Precio de entrada</div>
             <input class="calc-input" id="c-entry" type="number" placeholder="Ej: 130" min="0.00001" step="any" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field">
+            <div class="calc-label">🎯 Stop Loss (%)</div>
+            <input class="calc-input" id="c-sl" type="number" placeholder="Ej: 3" value="3" min="0.1" max="49" step="0.5" oninput="calcUpdate()">
+          </div>
+          <div class="calc-field">
+            <div class="calc-label">⚠️ Riesgo por operación</div>
+            <div class="calc-lev-group">
+              <div class="calc-risk-btn" data-risk="1" onclick="selectRisk(this)">1%</div>
+              <div class="calc-risk-btn active" data-risk="2" onclick="selectRisk(this)">2%</div>
+            </div>
           </div>
           <div class="calc-field full">
             <div class="calc-label">⚡ Apalancamiento</div>
@@ -1088,9 +1114,9 @@ buildFinalRules();
 
 /* ── CAPITAL EXAMPLES ── */
 const capExamples=[
-  {capital:500,  risk:2, slPct:5, entry:130},
-  {capital:1000, risk:2, slPct:5, entry:2000},
-  {capital:2500, risk:1, slPct:4, entry:0.85},
+  {capital:500,  risk:2, slPct:5, entry:130,  coin:'SOL'},
+  {capital:1000, risk:2, slPct:5, entry:2000, coin:'ETH'},
+  {capital:2500, risk:1, slPct:4, entry:0.85, coin:'ALGO'},
 ];
 function buildCapExamples(){
   const grid=document.getElementById('cap-ex-grid');
@@ -1100,7 +1126,7 @@ function buildCapExamples(){
     const pos=riskAmt/(e.slPct/100);
     const tp=riskAmt*2;
     return`<div class="cap-ex-row">
-      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Capital</div><div class="cap-ex-cell-val">$${e.capital.toLocaleString()}</div></div>
+      <div class="cap-ex-cell"><div class="cap-ex-cell-label">Capital · ${e.coin}</div><div class="cap-ex-cell-val">$${e.capital.toLocaleString()} @ $${e.entry}</div></div>
       <div class="cap-ex-cell"><div class="cap-ex-cell-label">Riesgo ${e.risk}%</div><div class="cap-ex-cell-val loss">-$${riskAmt.toFixed(0)}</div></div>
       <div class="cap-ex-cell"><div class="cap-ex-cell-label">Tamaño</div><div class="cap-ex-cell-val">$${pos.toFixed(0)}</div></div>
       <div class="cap-ex-cell"><div class="cap-ex-cell-label">TP1 (1:2)</div><div class="cap-ex-cell-val gain">+$${tp.toFixed(0)}</div></div>
@@ -1134,131 +1160,102 @@ function selectLev(btn){
   document.querySelectorAll('.calc-lev-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   cLev=parseInt(btn.dataset.lev);
-  document.getElementById('c-warn').style.display=cLev>=10?'flex':'none';
+  const w=document.getElementById('c-warn');
+  if(w){w.style.display=cLev>=10?'flex':'none';}
   calcUpdate();
 }
-function fmt(n){return n>=1000?n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):n.toFixed(n<1?6:2);}
-function fmtUSD(n){return'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
-
-function renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain){
-  var chartDiv=document.getElementById('c-chart');
-  if(!chartDiv)return;
-  var W=360,H=260,PL=52,PR=120,CW=W-PL-PR,PAD=18;
-  var minP=liqPrice*0.997,maxP=tp3Price*1.003,range=maxP-minP;
-  function py(p){return PAD+((maxP-p)/range)*H;}
-  var entryY=py(entry),tp1Y=py(tp1Price),tp2Y=py(tp2Price),tp3Y=py(tp3Price),slY=py(slPrice),liqY=py(liqPrice);
-  var levels=[
-    {y:tp3Y,label:'TP3',color:'#1b5e20',lineColor:'#43a047',pnl:'+'+fmtUSD(tp3Gain),pct:'+'+(slPct*5*100).toFixed(0)+'%',w:2,dash:'5,3'},
-    {y:tp2Y,label:'TP2',color:'#2e7d32',lineColor:'#66bb6a',pnl:'+'+fmtUSD(tp2Gain),pct:'+'+(slPct*3*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
-    {y:tp1Y,label:'TP1',color:'#388e3c',lineColor:'#a5d6a7',pnl:'+'+fmtUSD(tp1Gain),pct:'+'+(slPct*2*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
-    {y:entryY,label:'ENTRADA',color:'#F2561D',lineColor:'#F2561D',pnl:'$'+fmt(entry),pct:'',w:2,dash:'0'},
-    {y:slY,label:'SL',color:'#c62828',lineColor:'#ef5350',pnl:'-'+fmtUSD(slLoss),pct:'-'+(slPct*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
-    {y:liqY,label:'LIQ',color:'#7f0000',lineColor:'#b71c1c',pnl:'LIQUIDADO',pct:'-'+(1/cLev*100).toFixed(0)+'%',w:1,dash:'3,2'}
-  ];
-  var totalH=H+PAD*2;
-  var svg='<svg viewBox="0 0 '+W+' '+totalH+'" width="100%" xmlns="http://www.w3.org/2000/svg">';
-  svg+='<rect width="'+W+'" height="'+totalH+'" fill="#0d0d0d"/>';
-  // zones
-  svg+='<rect x="'+PL+'" y="'+tp3Y+'" width="'+CW+'" height="'+(entryY-tp3Y)+'" fill="rgba(76,175,80,0.07)"/>';
-  svg+='<rect x="'+PL+'" y="'+entryY+'" width="'+CW+'" height="'+(slY-entryY)+'" fill="rgba(244,67,54,0.07)"/>';
-  // vertical price spine
-  var midX=PL+CW/2;
-  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+slY+'" stroke="#222" stroke-width="1"/>';
-  // gain spine (entry→tp3)
-  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+entryY+'" stroke="rgba(76,175,80,0.4)" stroke-width="2"/>';
-  // loss spine (sl→entry)
-  svg+='<line x1="'+midX+'" y1="'+entryY+'" x2="'+midX+'" y2="'+slY+'" stroke="rgba(244,67,54,0.4)" stroke-width="2"/>';
-  // entry dot
-  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="6" fill="#F2561D" opacity="0.9"/>';
-  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="3" fill="#fff"/>';
-  // tp dots
-  [tp1Y,tp2Y,tp3Y].forEach(function(y,i){
-    svg+='<circle cx="'+midX+'" cy="'+y+'" r="4" fill="'+['#a5d6a7','#66bb6a','#43a047'][i]+'" opacity="0.85"/>';
-  });
-  // sl dot
-  svg+='<circle cx="'+midX+'" cy="'+slY+'" r="4" fill="#ef5350" opacity="0.85"/>';
-  // lines and labels
-  levels.forEach(function(lv){
-    var da=lv.dash==='0'?'':' stroke-dasharray="'+lv.dash+'"';
-    svg+='<line x1="'+PL+'" y1="'+lv.y+'" x2="'+(PL+CW)+'" y2="'+lv.y+'" stroke="'+lv.lineColor+'" stroke-width="'+lv.w+'"'+da+' opacity="0.8"/>';
-    // left label
-    svg+='<text x="'+(PL-5)+'" y="'+(lv.y+4)+'" text-anchor="end" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.label+'</text>';
-    // right: pnl
-    svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+1)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.pnl+'</text>';
-    if(lv.pct) svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+12)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="8" font-family="monospace" opacity="0.6">'+lv.pct+'</text>';
-  });
-  // ratio label
-  svg+='<text x="'+(PL+CW+4)+'" y="'+(totalH-5)+'" text-anchor="end" fill="#333" font-size="8" font-family="monospace">ratio 1:2 · 1:3 · 1:5</text>';
-  svg+='</svg>';
-  chartDiv.innerHTML=svg;
+let cRisk=2;
+function selectRisk(btn){
+  document.querySelectorAll('.calc-risk-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  cRisk=parseFloat(btn.dataset.risk);
+  calcUpdate();
 }
-
 function calcUpdate(){
   const capital=parseFloat(document.getElementById('c-capital').value);
   const entry=parseFloat(document.getElementById('c-entry').value);
+  const slInput=parseFloat(document.getElementById('c-sl').value);
   const res=document.getElementById('c-results');
-  if(!capital||!entry||capital<=0||entry<=0){res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div>';return;}
+  const chartDiv=document.getElementById('c-chart');
+  if(!capital||!entry||capital<=0||entry<=0){
+    res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada</div>';
+    if(chartDiv)chartDiv.innerHTML='';
+    return;
+  }
+  const slPctRaw=(isNaN(slInput)||slInput<=0)?3:slInput;
+  const slPct=slPctRaw/100;
   const pos=capital*cLev;
   const liqPct=1/cLev;
   const liqPrice=entry*(1-liqPct);
-  const slPct=0.03;
-  const slPrice=entry*(1-slPct);const slLoss=capital*slPct*cLev;
+  // VALIDATE: SL must be inside the liquidation range
+  if(slPct>=liqPct){
+    res.innerHTML='<div class="calc-error-card"><strong>🚨 SL imposible con este apalancamiento</strong>Con '+cLev+'x, tu liquidación ocurre a −'+(liqPct*100).toFixed(1)+'%. Tu SL en −'+slPctRaw+'% está fuera de ese rango — el exchange te liquidaría antes de ejecutarlo.<br><br>Reduce el SL% o el apalancamiento.</div>';
+    if(chartDiv)chartDiv.innerHTML='';
+    return;
+  }
+  const slPrice=entry*(1-slPct);
+  const slLoss=capital*slPct*cLev;
+  const slLossPct=slPct*cLev*100;
   const tp1Pct=slPct*2;const tp1Price=entry*(1+tp1Pct);const tp1Gain=capital*tp1Pct*cLev;
   const tp2Pct=slPct*3;const tp2Price=entry*(1+tp2Pct);const tp2Gain=capital*tp2Pct*cLev;
   const tp3Pct=slPct*5;const tp3Price=entry*(1+tp3Pct);const tp3Gain=capital*tp3Pct*cLev;
-  res.innerHTML=`<div class="calc-results">
-    <div class="calc-result-card pos-card">
-      <div class="crc-label">📊 Tamaño de Posición</div>
-      <div class="crc-price">${fmtUSD(pos)}</div>
-      <div class="crc-pct">${capital} USD × ${cLev}x · Liquidación: $${fmt(liqPrice)} (-${(liqPct*100).toFixed(0)}%)</div>
-    </div>
-    <div class="calc-row-group">
-      <div class="calc-result-card sl-card">
-        <div class="crc-label">🛑 Stop Loss (−3%)</div>
-        <div class="crc-price">$${fmt(slPrice)}</div>
-        <div class="crc-pnl loss">−${fmtUSD(slLoss)}</div>
-        <div class="crc-pct">Precio baja 3% desde entrada</div>
-      </div>
-      <div class="calc-result-card tp1-card">
-        <div class="crc-label">🎯 TP1 · Ratio 1:2</div>
-        <div class="crc-price">$${fmt(tp1Price)}</div>
-        <div class="crc-pnl gain">+${fmtUSD(tp1Gain)}</div>
-        <div class="crc-pct">+${(tp1Pct*100).toFixed(0)}% desde entrada</div>
-      </div>
-    </div>
-    <div class="calc-row-group">
-      <div class="calc-result-card tp2-card">
-        <div class="crc-label">🎯 TP2 · Ratio 1:3</div>
-        <div class="crc-price">$${fmt(tp2Price)}</div>
-        <div class="crc-pnl gain">+${fmtUSD(tp2Gain)}</div>
-        <div class="crc-pct">+${(tp2Pct*100).toFixed(0)}% desde entrada</div>
-      </div>
-      <div class="calc-result-card tp3-card">
-        <div class="crc-label">🏆 TP3 · Ratio 1:5</div>
-        <div class="crc-price">$${fmt(tp3Price)}</div>
-        <div class="crc-pnl gain">+${fmtUSD(tp3Gain)}</div>
-        <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
-      </div>
-    </div>
-  </div>
-  <div class="calc-lev-compare">
-    <div class="clc-title">📊 Comparativa: movimiento de mercado vs tu capital (${cLev}x apalancamiento)</div>
-    <div class="clc-table-wrap">
-      <table class="clc-table">
-        <thead>
-          <tr>
-            <th>Movimiento</th>
-            <th class="gain-col">Ganancia</th>
-            <th class="gain-col">% de tu capital</th>
-            <th class="loss-col">Pérdida</th>
-            <th class="loss-col">% de tu capital</th>
-          </tr>
-        </thead>
-        <tbody id="clc-tbody"></tbody>
-      </table>
-    </div>
-    <div class="clc-note">⚠️ El apalancamiento multiplica ganancias y pérdidas por igual. Un movimiento adverso de -${((1/cLev)*100).toFixed(0)}% liquida toda tu posición.</div>
-  </div>`;
+  // Recommended position size (1-2% rule)
+  const riskAmt=capital*(cRisk/100);
+  const recPos=riskAmt/slPct;
+  const recLev=recPos/capital;
+  const overLev=cLev>recLev*1.05;
+  // Capital at risk %
+  function cpBadge(pct){
+    const cls=pct<=5?'cpb-ok':pct<=20?'cpb-warn':'cpb-danger';
+    return '<span class="capital-pct-badge '+cls+'">'+pct.toFixed(0)+'% de tu capital</span>';
+  }
+  res.innerHTML='<div class="calc-results">'
+    +'<div class="calc-result-card pos-card">'
+    +'<div class="crc-label">📊 Tamaño de Posición</div>'
+    +'<div class="crc-price">'+fmtUSD(pos)+'</div>'
+    +'<div class="crc-pct">'+capital+' USD × '+cLev+'x · Liquidación: $'+fmt(liqPrice)+' (−'+(liqPct*100).toFixed(0)+'%)</div>'
+    +'</div>'
+    +'<div class="rec-pos-card">'
+    +'<div class="rec-pos-label">📐 Posición recomendada<br>(Regla '+cRisk+'% · SL '+slPctRaw+'%)</div>'
+    +'<div class="rec-pos-val'+(overLev?' rec-pos-warn':'')+'">'+fmtUSD(recPos)+'<br><span style="font-size:0.7rem;opacity:0.7">≈ '+recLev.toFixed(1)+'x implied'+(overLev?' ⚠️':' ✓')+'</span></div>'
+    +'</div>'
+    +'<div class="calc-row-group">'
+    +'<div class="calc-result-card sl-card">'
+    +'<div class="crc-label">🛑 Stop Loss (−'+slPctRaw+'%)</div>'
+    +'<div class="crc-price">$'+fmt(slPrice)+'</div>'
+    +'<div class="crc-pnl loss">−'+fmtUSD(slLoss)+cpBadge(slLossPct)+'</div>'
+    +'<div class="crc-pct">Precio baja '+slPctRaw+'% desde entrada</div>'
+    +'</div>'
+    +'<div class="calc-result-card tp1-card">'
+    +'<div class="crc-label">🎯 TP1 · Ratio 1:2</div>'
+    +'<div class="crc-price">$'+fmt(tp1Price)+'</div>'
+    +'<div class="crc-pnl gain">+'+fmtUSD(tp1Gain)+cpBadge(tp1Pct*cLev*100)+'</div>'
+    +'<div class="crc-pct">+'+((tp1Pct*100).toFixed(0))+'% desde entrada</div>'
+    +'</div>'
+    +'</div>'
+    +'<div class="calc-row-group">'
+    +'<div class="calc-result-card tp2-card">'
+    +'<div class="crc-label">🎯 TP2 · Ratio 1:3</div>'
+    +'<div class="crc-price">$'+fmt(tp2Price)+'</div>'
+    +'<div class="crc-pnl gain">+'+fmtUSD(tp2Gain)+cpBadge(tp2Pct*cLev*100)+'</div>'
+    +'<div class="crc-pct">+'+((tp2Pct*100).toFixed(0))+'% desde entrada</div>'
+    +'</div>'
+    +'<div class="calc-result-card tp3-card">'
+    +'<div class="crc-label">🏆 TP3 · Ratio 1:5</div>'
+    +'<div class="crc-price">$'+fmt(tp3Price)+'</div>'
+    +'<div class="crc-pnl gain">+'+fmtUSD(tp3Gain)+cpBadge(tp3Pct*cLev*100)+'</div>'
+    +'<div class="crc-pct">+'+((tp3Pct*100).toFixed(0))+'% desde entrada</div>'
+    +'</div>'
+    +'</div>'
+    +'<div class="calc-lev-compare">'
+    +'<div class="clc-title">📊 Comparativa: movimiento de mercado vs tu capital ('+cLev+'x apalancamiento)</div>'
+    +'<div class="clc-table-wrap"><table class="clc-table"><thead><tr>'
+    +'<th>Movimiento</th><th class="gain-col">Ganancia</th><th class="gain-col">% capital</th>'
+    +'<th class="loss-col">Pérdida</th><th class="loss-col">% capital</th>'
+    +'</tr></thead><tbody id="clc-tbody"></tbody></table></div>'
+    +'<div class="clc-note">⚠️ El apalancamiento multiplica ganancias y pérdidas por igual. Un movimiento adverso de −'+(liqPct*100).toFixed(0)+'% liquida toda tu posición.</div>'
+    +'</div>'
+    +'</div>';
   renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain);
   const moves=[1,2,3,5,10,15,20];
   let rows='';
