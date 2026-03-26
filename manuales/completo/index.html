@@ -297,6 +297,52 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .wr-val{font-size:0.75rem;font-weight:800;width:60px;text-align:right;flex-shrink:0;}
 .wr-note{font-size:0.78rem;color:#666;line-height:1.65;font-style:italic;}
 
+function cpBadge(pct){
+  var cls=pct<=5?'cpb-ok':pct<=20?'cpb-warn':'cpb-danger';
+  return '<span class="capital-pct-badge '+cls+'">'+(pct.toFixed(0))+'% de tu capital</span>';
+}
+function renderChart(capital,entry,cLev,slPrice,slLoss,liqPrice,slPct,tp1Price,tp1Gain,tp2Price,tp2Gain,tp3Price,tp3Gain){
+  var chartDiv=document.getElementById('c-chart');
+  if(!chartDiv)return;
+  var W=360,H=260,PL=52,PR=120,CW=W-PL-PR,PAD=18;
+  var minP=liqPrice*0.997,maxP=tp3Price*1.003,range=maxP-minP;
+  function py(p){return PAD+((maxP-p)/range)*H;}
+  var entryY=py(entry),tp1Y=py(tp1Price),tp2Y=py(tp2Price),tp3Y=py(tp3Price),slY=py(slPrice),liqY=py(liqPrice);
+  var slPctLabel=(slPct*100).toFixed(1);
+  var liqPctLabel=(1/cLev*100).toFixed(0);
+  var levels=[
+    {y:tp3Y,label:'TP3',lineColor:'#43a047',pnl:'+'+fmtUSD(tp3Gain),pct:'+'+(slPct*5*100).toFixed(0)+'%',w:2,dash:'5,3'},
+    {y:tp2Y,label:'TP2',lineColor:'#66bb6a',pnl:'+'+fmtUSD(tp2Gain),pct:'+'+(slPct*3*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
+    {y:tp1Y,label:'TP1',lineColor:'#a5d6a7',pnl:'+'+fmtUSD(tp1Gain),pct:'+'+(slPct*2*100).toFixed(0)+'%',w:1.5,dash:'5,3'},
+    {y:entryY,label:'ENTRADA',lineColor:'#F2561D',pnl:'$'+fmt(entry),pct:'',w:2,dash:'0'},
+    {y:slY,label:'SL',lineColor:'#ef5350',pnl:'-'+fmtUSD(slLoss),pct:'-'+slPctLabel+'%',w:1.5,dash:'5,3'},
+    {y:liqY,label:'LIQ',lineColor:'#b71c1c',pnl:'LIQUIDADO',pct:'-'+liqPctLabel+'%',w:1,dash:'3,2'}
+  ];
+  var totalH=H+PAD*2;
+  var midX=PL+CW/2;
+  var svg='<svg viewBox="0 0 '+W+' '+totalH+'" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  svg+='<rect width="'+W+'" height="'+totalH+'" fill="#0d0d0d"/>';
+  svg+='<rect x="'+PL+'" y="'+tp3Y+'" width="'+CW+'" height="'+(entryY-tp3Y)+'" fill="rgba(76,175,80,0.07)"/>';
+  svg+='<rect x="'+PL+'" y="'+entryY+'" width="'+CW+'" height="'+(slY-entryY)+'" fill="rgba(244,67,54,0.07)"/>';
+  svg+='<line x1="'+midX+'" y1="'+tp3Y+'" x2="'+midX+'" y2="'+entryY+'" stroke="rgba(76,175,80,0.4)" stroke-width="2"/>';
+  svg+='<line x1="'+midX+'" y1="'+entryY+'" x2="'+midX+'" y2="'+slY+'" stroke="rgba(244,67,54,0.4)" stroke-width="2"/>';
+  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="6" fill="#F2561D" opacity="0.9"/>';
+  svg+='<circle cx="'+midX+'" cy="'+entryY+'" r="3" fill="#fff"/>';
+  [{y:tp1Y,c:'#a5d6a7'},{y:tp2Y,c:'#66bb6a'},{y:tp3Y,c:'#43a047'}].forEach(function(d){
+    svg+='<circle cx="'+midX+'" cy="'+d.y+'" r="4" fill="'+d.c+'" opacity="0.85"/>';
+  });
+  svg+='<circle cx="'+midX+'" cy="'+slY+'" r="4" fill="#ef5350" opacity="0.85"/>';
+  levels.forEach(function(lv){
+    var da=lv.dash==='0'?'':' stroke-dasharray="'+lv.dash+'"';
+    svg+='<line x1="'+PL+'" y1="'+lv.y+'" x2="'+(PL+CW)+'" y2="'+lv.y+'" stroke="'+lv.lineColor+'" stroke-width="'+lv.w+'"'+da+' opacity="0.85"/>';
+    svg+='<text x="'+(PL-5)+'" y="'+(lv.y+4)+'" text-anchor="end" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.label+'</text>';
+    svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+1)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="9" font-family="monospace" font-weight="700">'+lv.pnl+'</text>';
+    if(lv.pct) svg+='<text x="'+(PL+CW+8)+'" y="'+(lv.y+12)+'" text-anchor="start" fill="'+lv.lineColor+'" font-size="8" font-family="monospace" opacity="0.6">'+lv.pct+'</text>';
+  });
+  svg+='</svg>';
+  chartDiv.innerHTML=svg;
+}
+
 /* ── CALCULADORA ── */
 .calc-box{background:var(--dark-3);border:1px solid #222;border-radius:18px;padding:24px 22px;margin-bottom:16px;}
 .calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
@@ -1204,11 +1250,6 @@ function calcUpdate(){
   const recPos=riskAmt/slPct;
   const recLev=recPos/capital;
   const overLev=cLev>recLev*1.05;
-  // Capital at risk %
-  function cpBadge(pct){
-    const cls=pct<=5?'cpb-ok':pct<=20?'cpb-warn':'cpb-danger';
-    return '<span class="capital-pct-badge '+cls+'">'+pct.toFixed(0)+'% de tu capital</span>';
-  }
   res.innerHTML='<div class="calc-results">'
     +'<div class="calc-result-card pos-card">'
     +'<div class="crc-label">📊 Tamaño de Posición</div>'
