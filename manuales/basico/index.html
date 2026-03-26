@@ -244,13 +244,92 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
   <!-- APALANCAMIENTO -->
   <div class="section">
     <div class="section-tag">El arma de doble filo</div>
-    <div class="section-title">Tabla de <span>Apalancamiento</span></div>
-    <p class="section-intro">Esta tabla muestra cuánto margen tiene el mercado para moverte en tu contra antes de liquidarte completamente. Memorízala.</p>
-    <div class="lev-table-wrap" style="margin-bottom:20px;">
-      <table>
-        <thead>
-          <tr><th>Apalancamiento</th><th>Te liquida con</th><th>Nivel</th></tr>
-        </thead>
+    <div class="section-title">Calculadora de <span>Apalancamiento</span></div>
+    <p class="section-intro">Ingresa tu capital y precio de entrada — calcula al instante tu Stop Loss, tus 3 niveles de Take Profit y cuánto puedes ganar o perder.</p>
+
+    <style>
+    .calc-box{background:var(--dark-3);border:1px solid #222;border-radius:18px;padding:24px 22px;margin-bottom:16px;}
+    .calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+    @media(max-width:480px){.calc-inputs{grid-template-columns:1fr;}}
+    .calc-field{display:flex;flex-direction:column;gap:6px;}
+    .calc-field.full{grid-column:1/-1;}
+    .calc-label{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);}
+    .calc-input{background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:11px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:600;outline:none;transition:border-color 0.2s;width:100%;}
+    .calc-input:focus{border-color:rgba(242,86,29,0.5);}
+    .calc-input::placeholder{color:#444;}
+    .calc-lev-group{display:flex;gap:8px;flex-wrap:wrap;}
+    .calc-lev-btn{flex:1;min-width:48px;padding:10px 6px;border-radius:9px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+    .calc-lev-btn:hover{border-color:#444;color:#ccc;}
+    .calc-lev-btn.active{background:rgba(242,86,29,0.12);border-color:rgba(242,86,29,0.5);color:#F2561D;}
+    .calc-lev-btn.warn{color:#FF9800;}
+    .calc-lev-btn.danger{color:#f44336;}
+    .calc-lev-btn.warn.active{background:rgba(255,152,0,0.1);border-color:rgba(255,152,0,0.4);color:#FF9800;}
+    .calc-lev-btn.danger.active{background:rgba(244,67,54,0.1);border-color:rgba(244,67,54,0.4);color:#f44336;}
+    .calc-divider{height:1px;background:#1a1a1a;margin-bottom:18px;}
+    .calc-results{display:flex;flex-direction:column;gap:10px;}
+    .calc-row-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    @media(max-width:480px){.calc-row-group{grid-template-columns:1fr;}}
+    .calc-result-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 16px;}
+    .calc-result-card.sl-card{border-color:rgba(244,67,54,0.2);}
+    .calc-result-card.tp1-card{border-color:rgba(255,193,7,0.15);}
+    .calc-result-card.tp2-card{border-color:rgba(255,152,0,0.2);}
+    .calc-result-card.tp3-card{border-color:rgba(76,175,80,0.2);}
+    .calc-result-card.pos-card{border-color:rgba(66,165,245,0.2);grid-column:1/-1;}
+    .calc-result-card.liq-card{border-color:rgba(156,39,176,0.2);}
+    .crc-label{font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+    .sl-card .crc-label{color:#f44336;}
+    .tp1-card .crc-label{color:#FFC107;}
+    .tp2-card .crc-label{color:#FF9800;}
+    .tp3-card .crc-label{color:#4CAF50;}
+    .pos-card .crc-label{color:#42a5f5;}
+    .liq-card .crc-label{color:#CE93D8;}
+    .crc-price{font-size:1.05rem;font-weight:900;color:#fff;margin-bottom:2px;}
+    .crc-pnl{font-size:0.78rem;font-weight:700;}
+    .crc-pnl.loss{color:#f44336;}.crc-pnl.gain{color:#4CAF50;}
+    .crc-pct{font-size:0.7rem;color:var(--gray);margin-top:2px;}
+    .calc-empty{text-align:center;padding:28px 0;font-size:0.82rem;color:#444;}
+    .calc-warn-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(244,67,54,0.08);border:1px solid rgba(244,67,54,0.2);border-radius:8px;padding:8px 12px;font-size:0.75rem;color:#f44336;font-weight:600;margin-top:10px;display:none;}
+    .calc-cta{display:flex;align-items:center;justify-content:center;gap:10px;background:#F2561D;color:#fff;font-size:0.9rem;font-weight:800;padding:15px 24px;border-radius:12px;text-decoration:none;margin-top:16px;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 20px rgba(242,86,29,0.25);}
+    .calc-cta:hover{opacity:0.9;transform:translateY(-2px);}
+    .lev-ref-table{width:100%;border-collapse:collapse;margin-top:16px;}
+    .lev-ref-table th{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);padding:10px 14px;text-align:left;border-bottom:1px solid #1a1a1a;}
+    .lev-ref-table td{padding:10px 14px;font-size:0.8rem;border-bottom:1px solid #111;}
+    .lev-ref-table tr:last-child td{border-bottom:none;}
+    </style>
+
+    <div class="calc-box">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <div class="calc-label">💰 Capital a invertir (USD)</div>
+          <input class="calc-input" id="c-capital" type="number" placeholder="Ej: 500" min="1" oninput="calcUpdate()">
+        </div>
+        <div class="calc-field">
+          <div class="calc-label">📈 Precio de entrada (USD)</div>
+          <input class="calc-input" id="c-entry" type="number" placeholder="Ej: 130" min="0.00001" step="any" oninput="calcUpdate()">
+        </div>
+        <div class="calc-field full">
+          <div class="calc-label">⚡ Apalancamiento</div>
+          <div class="calc-lev-group" id="c-lev-group">
+            <div class="calc-lev-btn active" data-lev="2" onclick="selectLev(this)">2x</div>
+            <div class="calc-lev-btn" data-lev="3" onclick="selectLev(this)">3x</div>
+            <div class="calc-lev-btn" data-lev="5" onclick="selectLev(this)">5x</div>
+            <div class="calc-lev-btn warn" data-lev="10" onclick="selectLev(this)">10x ⚠️</div>
+            <div class="calc-lev-btn danger" data-lev="20" onclick="selectLev(this)">20x 🔴</div>
+            <div class="calc-lev-btn danger" data-lev="50" onclick="selectLev(this)">50x 💀</div>
+          </div>
+        </div>
+      </div>
+      <div class="calc-divider"></div>
+      <div id="c-results">
+        <div class="calc-empty">👆 Ingresa tu capital y precio de entrada para calcular</div>
+      </div>
+      <div class="calc-warn-badge" id="c-warn">⚠️ Apalancamiento alto — riesgo de liquidación con movimientos mínimos</div>
+      <a href="https://www.weex.com/en/register?vipCode=fzog" target="_blank" class="calc-cta">🚀 Empieza a Operar en WEEX →</a>
+    </div>
+
+    <div class="lev-table-wrap">
+      <table class="lev-ref-table">
+        <thead><tr><th>Apalancamiento</th><th>Te liquida con</th><th>Nivel</th></tr></thead>
         <tbody>
           <tr><td class="lev-x">2x</td><td><span class="move-safe">-50%</span></td><td><span class="tag-safe">Recomendado</span></td></tr>
           <tr><td class="lev-x">3x</td><td><span class="move-safe">-33%</span></td><td><span class="tag-safe">Recomendado</span></td></tr>
@@ -261,23 +340,72 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
         </tbody>
       </table>
     </div>
-    <div class="examples">
-      <div class="ex-card">
-        <div class="ex-label">Ejemplo — Long en SOL</div>
-        <div class="ex-row"><span class="ex-row-label">Entrada</span><span class="ex-row-val">$130</span></div>
-        <div class="ex-row"><span class="ex-row-label">Stop loss</span><span class="ex-row-val red">$118 (-9.2%)</span></div>
-        <div class="ex-row"><span class="ex-row-label">Riesgo máx (2%)</span><span class="ex-row-val">$20 de $1,000</span></div>
-        <div class="ex-row"><span class="ex-row-label">Posición</span><span class="ex-row-val green">1.67 SOL</span></div>
-      </div>
-      <div class="ex-card">
-        <div class="ex-label">Ejemplo — Long en ETH</div>
-        <div class="ex-row"><span class="ex-row-label">Entrada</span><span class="ex-row-val">$2,000</span></div>
-        <div class="ex-row"><span class="ex-row-label">Stop loss</span><span class="ex-row-val red">$1,900 (-5%)</span></div>
-        <div class="ex-row"><span class="ex-row-label">Take profit</span><span class="ex-row-val green">$2,200 (+10%)</span></div>
-        <div class="ex-row"><span class="ex-row-label">Ratio</span><span class="ex-row-val green">1:2 ✓</span></div>
-      </div>
-    </div>
   </div>
+
+  <script>
+  let cLev = 2;
+  function selectLev(btn){
+    document.querySelectorAll('.calc-lev-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    cLev = parseInt(btn.dataset.lev);
+    const warn = document.getElementById('c-warn');
+    warn.style.display = cLev >= 10 ? 'flex' : 'none';
+    calcUpdate();
+  }
+  function fmt(n){ return n >= 1000 ? n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : n.toFixed(n < 1 ? 6 : 2); }
+  function fmtUSD(n){ return '$' + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function calcUpdate(){
+    const capital = parseFloat(document.getElementById('c-capital').value);
+    const entry   = parseFloat(document.getElementById('c-entry').value);
+    const res     = document.getElementById('c-results');
+    if(!capital || !entry || capital <= 0 || entry <= 0){ res.innerHTML='<div class="calc-empty">👆 Ingresa tu capital y precio de entrada para calcular</div>'; return; }
+    const pos   = capital * cLev;
+    const liqPct = 1 / cLev;
+    const liqPrice = entry * (1 - liqPct);
+    const slPct  = 0.03; // 3% SL recomendado
+    const slPrice = entry * (1 - slPct);
+    const slLoss  = capital * slPct * cLev;
+    const tp1Pct = slPct * 2;  const tp1Price = entry*(1+tp1Pct); const tp1Gain = capital*tp1Pct*cLev;
+    const tp2Pct = slPct * 3;  const tp2Price = entry*(1+tp2Pct); const tp2Gain = capital*tp2Pct*cLev;
+    const tp3Pct = slPct * 5;  const tp3Price = entry*(1+tp3Pct); const tp3Gain = capital*tp3Pct*cLev;
+    res.innerHTML = `
+      <div class="calc-results">
+        <div class="calc-result-card pos-card">
+          <div class="crc-label">📊 Tamaño de Posición</div>
+          <div class="crc-price">${fmtUSD(pos)}</div>
+          <div class="crc-pct">${capital} USD × ${cLev}x apalancamiento · Liquidación: $${fmt(liqPrice)} (-${(liqPct*100).toFixed(0)}%)</div>
+        </div>
+        <div class="calc-row-group">
+          <div class="calc-result-card sl-card">
+            <div class="crc-label">🛑 Stop Loss (−3%)</div>
+            <div class="crc-price">$${fmt(slPrice)}</div>
+            <div class="crc-pnl loss">−${fmtUSD(slLoss)}</div>
+            <div class="crc-pct">Precio baja ${(slPct*100).toFixed(0)}% desde entrada</div>
+          </div>
+          <div class="calc-result-card tp1-card">
+            <div class="crc-label">🎯 TP1 · Ratio 1:2</div>
+            <div class="crc-price">$${fmt(tp1Price)}</div>
+            <div class="crc-pnl gain">+${fmtUSD(tp1Gain)}</div>
+            <div class="crc-pct">+${(tp1Pct*100).toFixed(0)}% desde entrada</div>
+          </div>
+        </div>
+        <div class="calc-row-group">
+          <div class="calc-result-card tp2-card">
+            <div class="crc-label">🎯 TP2 · Ratio 1:3</div>
+            <div class="crc-price">$${fmt(tp2Price)}</div>
+            <div class="crc-pnl gain">+${fmtUSD(tp2Gain)}</div>
+            <div class="crc-pct">+${(tp2Pct*100).toFixed(0)}% desde entrada</div>
+          </div>
+          <div class="calc-result-card tp3-card">
+            <div class="crc-label">🏆 TP3 · Ratio 1:5</div>
+            <div class="crc-price">$${fmt(tp3Price)}</div>
+            <div class="crc-pnl gain">+${fmtUSD(tp3Gain)}</div>
+            <div class="crc-pct">+${(tp3Pct*100).toFixed(0)}% desde entrada</div>
+          </div>
+        </div>
+      </div>`;
+  }
+  </script>
 
   <!-- CHECKLIST -->
   <div class="section">
