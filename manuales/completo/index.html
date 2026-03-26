@@ -203,11 +203,17 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;min-height
 .err-fix{margin-top:10px;font-size:0.75rem;font-weight:700;color:#4CAF50;}
 
 /* ── RESUMEN FINAL ── */
-.final-rules{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
-.final-rule{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#1a120a,#141414);border:1px solid rgba(242,86,29,0.2);border-radius:14px;padding:18px 20px;}
-.final-rule-num{width:36px;height:36px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;}
-.final-rule-text{font-size:0.9rem;font-weight:700;color:#fff;line-height:1.4;}
-.final-rule-text span{color:var(--orange);}
+.final-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px;}
+@media(max-width:520px){.final-rules{grid-template-columns:1fr;}}
+.final-rule{position:relative;background:var(--dark-3);border:1px solid #1e1e1e;border-radius:18px;padding:24px 20px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
+.final-rule:hover{border-color:rgba(242,86,29,0.35);transform:translateY(-2px);}
+.final-rule.full{grid-column:1/-1;}
+.final-rule-glow{position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.08),transparent 65%);pointer-events:none;}
+.final-rule-num{font-size:3.5rem;font-weight:900;color:rgba(242,86,29,0.08);line-height:1;margin-bottom:12px;}
+.final-rule-icon{font-size:1.4rem;margin-bottom:10px;display:block;}
+.final-rule-title{font-size:0.92rem;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.3;}
+.final-rule-title span{color:var(--orange);}
+.final-rule-desc{font-size:0.78rem;color:#777;line-height:1.65;}
 .final-cta-box{background:var(--dark-2);border:1.5px solid rgba(242,86,29,0.25);border-radius:20px;padding:36px 28px;text-align:center;position:relative;overflow:hidden;}
 .final-cta-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(242,86,29,0.08),transparent 65%);pointer-events:none;}
 .final-cta-tag{display:inline-block;background:rgba(242,86,29,0.1);border:1px solid rgba(242,86,29,0.3);color:var(--orange);font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
@@ -1039,16 +1045,19 @@ function buildFinalRules(){
   const el=document.getElementById('final-rules');
   if(!el)return;
   const rules=[
-    'Nunca arriesgues más del <span>2%</span> de tu capital por operación',
-    'Siempre pon <span>stop loss técnico</span> antes de entrar — nunca lo muevas en tu contra',
-    'Solo entres a trades con ratio mínimo <span>1:2</span> riesgo/recompensa',
-    'Usa máximo <span>5x de apalancamiento</span> como principiante',
-    'Si pierdes <span>2 operaciones seguidas</span>, para el día — el mercado siempre estará mañana',
+    {icon:'💰',title:'Regla del <span>2%</span>',desc:'Nunca arriesgues más del 2% de tu capital por operación. Con $1,000, tu pérdida máxima por trade es $20. Puedes perder 50 seguidas y aún operar.'},
+    {icon:'🛑',title:'Stop Loss <span>siempre</span>',desc:'Colócalo en un nivel técnico real antes de abrir. Nunca en números redondos, nunca lo muevas en tu contra. Es tu única protección ante el mercado.'},
+    {icon:'🎯',title:'Ratio mínimo <span>1:2</span>',desc:'Si arriesgas $20, solo entras donde puedes ganar $40. Con este ratio ganas dinero incluso perdiendo el 60% de tus operaciones.'},
+    {icon:'⚡',title:'Máximo <span>5x</span> de apalancamiento',desc:'Las altcoins se mueven 10-20% en un día. Con 10x o más, una corrección normal te liquida antes de que el precio rebote.'},
+    {icon:'🧠',title:'<span>2 pérdidas</span> = para el día',desc:'Después de 2 operaciones perdedoras seguidas, cierra la plataforma. El mercado siempre estará mañana. Las decisiones desde el enojo destruyen cuentas.',full:true},
   ];
   el.innerHTML=rules.map((r,i)=>`
-    <div class="final-rule">
-      <div class="final-rule-num">${i+1}</div>
-      <div class="final-rule-text">${r}</div>
+    <div class="final-rule${r.full?' full':''}">
+      <div class="final-rule-glow"></div>
+      <div class="final-rule-num">0${i+1}</div>
+      <span class="final-rule-icon">${r.icon}</span>
+      <div class="final-rule-title">${r.title}</div>
+      <div class="final-rule-desc">${r.desc}</div>
     </div>`).join('');
 }
 buildFinalRules();
