@@ -223,7 +223,8 @@ tr:nth-child(even) td{background:rgba(255,255,255,0.015);}
   .lvl-medio{background:rgba(255,152,0,0.12);color:#FF9800;}
   .lvl-variable{background:rgba(156,39,176,0.12);color:#CE93D8;}
   .risk-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
-  .risk-card.open .risk-body{max-height:120px;}
+  .risk-card.open .risk-body{max-height:180px;}
+  @media(max-width:520px){.risk-card.open .risk-body{max-height:260px;}.risk-def{font-size:0.84rem;}}
   .risk-def{font-size:0.8rem;color:#999;line-height:1.7;padding-top:12px;border-top:1px solid #1a1a1a;margin-top:12px;}
   .risk-tip{font-size:0.75rem;font-weight:700;margin-top:6px;}
   </style>
