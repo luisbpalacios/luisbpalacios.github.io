@@ -558,6 +558,156 @@
       .plans-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── FRÍO ── */
+    .frio-mindset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .mindset-item {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .mindset-item strong { color: #ddd; display: block; margin-bottom: 4px; }
+    .mindset-icon { font-size: 18px; margin-bottom: 8px; }
+
+    .script-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .script-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 10px;
+    }
+
+    .script-body {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.65;
+      background: var(--dark-2);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .script-why {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .script-why::before { content: '→ '; color: var(--green); font-weight: 700; font-style: normal; }
+
+    .sequence-list { display: flex; flex-direction: column; gap: 0; }
+
+    .seq-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .seq-item:last-child { border-bottom: none; }
+
+    .seq-day {
+      min-width: 58px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border-radius: 6px;
+      padding: 4px 8px;
+      text-align: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .seq-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ddd;
+      margin-bottom: 4px;
+    }
+
+    .seq-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .aida-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .aida-item {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .aida-letter {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--blue);
+      opacity: 0.4;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .aida-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ddd;
+      margin-bottom: 6px;
+    }
+
+    .aida-desc {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.55;
+    }
+
+    .tips-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .tip-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      color: #888;
+      padding: 10px 12px;
+      background: var(--dark-4);
+      border-radius: 8px;
+      border: 1px solid var(--border-2);
+    }
+
+    .tip-item > span { line-height: 1.5; }
+    .tip-item::first-child { color: var(--green); font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .aida-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ── OBJECTIONS ── */
     .objection-card {
       background: var(--dark-2);
@@ -798,11 +948,142 @@
 
       <!-- FRÍO -->
       <div class="section" id="sec-frio">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🧊</div>
-          <h3>Abordaje en Frío</h3>
-          <p>Contenido en construcción. Próxima actualización.</p>
+
+        <div class="section-header" style="margin-bottom:28px;">
+          <div class="section-eyebrow">Técnica de Ventas</div>
+          <h2 class="section-title">Abordaje en Frío</h2>
+          <p class="section-sub">El prospecto no te conoce, no conoce AgentBase y no estaba esperando tu mensaje. Aquí es donde empieza todo.</p>
         </div>
+
+        <!-- Mindset -->
+        <div class="info-block" style="border-color: var(--blue-border); background: rgba(29,161,242,0.03);">
+          <div class="info-block-title">🧠 Mentalidad antes de contactar</div>
+          <div class="frio-mindset-grid">
+            <div class="mindset-item">
+              <div class="mindset-icon">🎯</div>
+              <div><strong>No vendas, genera curiosidad</strong><br>Tu objetivo en el primer contacto NO es cerrar. Es conseguir que quieran saber más.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🔍</div>
+              <div><strong>Investiga antes de hablar</strong><br>¿Tienen WhatsApp Business? ¿Atienden por mensaje? ¿En qué industria están? 5 minutos de investigación valen más que 10 mensajes genéricos.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">💬</div>
+              <div><strong>Personaliza el primer mensaje</strong><br>Mencionauna cosa específica de su negocio. Eso separa tu mensaje de todos los demás.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">📅</div>
+              <div><strong>El seguimiento cierra ventas</strong><br>El 80% de los cierres pasan después del 5to contacto. No abandones después del primer "no contesta".</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scripts WhatsApp -->
+        <div class="info-block">
+          <div class="info-block-title">📱 Scripts de Primer Contacto — WhatsApp / DM</div>
+
+          <div class="script-card">
+            <div class="script-label">Script A — Directo al dolor</div>
+            <div class="script-body">Hola [Nombre], vi que tienen [negocio/industria] en [ciudad]. Una pregunta rápida: ¿cuántos mensajes de clientes se les van sin responder fuera de horario? Pregunto porque trabajamos con negocios como el tuyo que automatizaron su atención con IA y aumentaron sus conversiones sin contratar más personal. ¿Te cuento cómo en 2 minutos?</div>
+            <div class="script-why">Por qué funciona: abre con una pregunta que genera reflexión sobre un dolor real antes de mencionar el producto.</div>
+          </div>
+
+          <div class="script-card">
+            <div class="script-label">Script B — Referencia a su industria</div>
+            <div class="script-body">Hola [Nombre], estoy trabajando con [clínicas / inmobiliarias / restaurantes] en [ciudad] ayudándoles a automatizar su atención al cliente con IA. En [Empresa Similar] redujeron su tiempo de respuesta a segundos y triplicaron sus citas agendadas. ¿Estarías abierto a ver si tiene sentido para [su negocio]?</div>
+            <div class="script-why">Por qué funciona: usar su industria específica y un resultado concreto genera credibilidad instantánea.</div>
+          </div>
+
+          <div class="script-card">
+            <div class="script-label">Script C — Corto y curioso</div>
+            <div class="script-body">Hola [Nombre], ¿tu equipo puede atender clientes por WhatsApp a las 2 AM? El de AgentBase sí. ¿Te interesa saber cómo?</div>
+            <div class="script-why">Por qué funciona: pregunta simple, impacto directo, fácil de responder. Ideal para frío en redes sociales.</div>
+          </div>
+        </div>
+
+        <!-- Secuencia de seguimiento -->
+        <div class="info-block">
+          <div class="info-block-title">📅 Secuencia de Seguimiento (si no responde)</div>
+          <div class="sequence-list">
+            <div class="seq-item">
+              <div class="seq-day">Día 1</div>
+              <div class="seq-content">
+                <div class="seq-title">Primer contacto</div>
+                <div class="seq-desc">Usa uno de los scripts de arriba. Personalizado, breve, con pregunta al final.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day">Día 3</div>
+              <div class="seq-content">
+                <div class="seq-title">Valor sin venta</div>
+                <div class="seq-desc">"Hola [Nombre], te comparto esto por si te es útil — [dato relevante de su industria, caso de uso, stat]. Sin compromiso, solo por si te sirve."</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day">Día 7</div>
+              <div class="seq-content">
+                <div class="seq-title">Oferta de llamada corta</div>
+                <div class="seq-desc">"¿Tienes 15 minutos esta semana para que te muestre exactamente cómo funcionaría para [su tipo de negocio]? Sin presión, si no es para ti te lo digo directo."</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day">Día 14</div>
+              <div class="seq-content">
+                <div class="seq-title">Cierre del ciclo</div>
+                <div class="seq-desc">"[Nombre], último mensaje de mi parte. Si en algún momento quieres explorar automatizar tu atención, aquí estoy. Mucho éxito con [negocio]." — Este mensaje a veces reactiva conversaciones dormidas.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Framework AIDA -->
+        <div class="info-block">
+          <div class="info-block-title">🎯 Framework AIDA aplicado a AgentBase</div>
+          <div class="aida-grid">
+            <div class="aida-item">
+              <div class="aida-letter">A</div>
+              <div class="aida-content">
+                <div class="aida-title">Atención</div>
+                <div class="aida-desc">Dato impactante o pregunta sobre su dolor. "¿Sabías que el 60% de prospectos no compra porque no recibió respuesta a tiempo?"</div>
+              </div>
+            </div>
+            <div class="aida-item">
+              <div class="aida-letter">I</div>
+              <div class="aida-content">
+                <div class="aida-title">Interés</div>
+                <div class="aida-desc">Conecta el dolor con la solución. "Trabajamos con negocios como el tuyo — les instalamos un agente de IA que responde 24/7 en WhatsApp."</div>
+              </div>
+            </div>
+            <div class="aida-item">
+              <div class="aida-letter">D</div>
+              <div class="aida-content">
+                <div class="aida-title">Deseo</div>
+                <div class="aida-desc">Resultado concreto y beneficio personal. "En 48 horas operando. Sin contratos. El hardware es tuyo desde el primer día."</div>
+              </div>
+            </div>
+            <div class="aida-item">
+              <div class="aida-letter">A</div>
+              <div class="aida-content">
+                <div class="aida-title">Acción</div>
+                <div class="aida-desc">Un solo paso claro y sin fricción. "¿Te va bien el martes o jueves para una llamada rápida de 15 minutos?"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips rápidos -->
+        <div class="info-block">
+          <div class="info-block-title">⚡ Tips Rápidos</div>
+          <div class="tips-list">
+            <div class="tip-item">✓ <span>Nunca empieces con "Hola, ¿cómo estás?" — ve directo al punto.</span></div>
+            <div class="tip-item">✓ <span>Un solo CTA por mensaje. No des opciones, da una acción clara.</span></div>
+            <div class="tip-item">✓ <span>Mensajes cortos en frío. Máximo 3-4 líneas en el primer contacto.</span></div>
+            <div class="tip-item">✓ <span>Si te dejan en visto, no preguntes "¿viste mi mensaje?". Envía valor nuevo.</span></div>
+            <div class="tip-item">✓ <span>El mejor horario para contactar: martes a jueves, 9-11 AM y 3-5 PM.</span></div>
+            <div class="tip-item">✓ <span>Usa notas de voz para el seguimiento — rompen el patrón y son más personales.</span></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- CALIENTE -->
