@@ -343,6 +343,221 @@
     .coming-soon h3 { font-size: 16px; font-weight: 700; color: #444; margin-bottom: 6px; }
     .coming-soon p { font-size: 13px; }
 
+    /* ── INFO BLOCKS ── */
+    .info-block {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .info-block-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 16px;
+    }
+
+    .info-body {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .info-body strong { color: #fff; }
+
+    .highlight-pill {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      color: var(--blue);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Compare table */
+    .compare-table {
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .compare-row > div {
+      padding: 11px 16px;
+      font-size: 13px;
+      color: #888;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-row:last-child > div { border-bottom: none; }
+
+    .compare-header {
+      background: var(--dark-4);
+    }
+
+    .compare-header > div {
+      font-size: 12px;
+      font-weight: 700;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .compare-row > div:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .compare-row .pro {
+      color: #ccc;
+    }
+
+    .compare-row .pro::before {
+      content: '✓ ';
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Capabilities grid */
+    .caps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .cap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .cap-item strong { color: #ddd; display: block; margin-bottom: 2px; }
+    .cap-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Industry grid */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .industry-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      font-size: 13px;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .industry-item span { font-size: 18px; flex-shrink: 0; }
+    .industry-item strong { color: #ccc; display: block; margin-bottom: 2px; }
+
+    /* Plans */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .plan-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .plan-card.featured {
+      border-color: var(--blue);
+      background: rgba(29,161,242,0.04);
+    }
+
+    .plan-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border-radius: 20px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .plan-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 4px 0 12px;
+    }
+
+    .plan-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .plan-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .plan-features {
+      list-style: none;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .plan-features li {
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-features li::before {
+      content: '✓ ';
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .plan-features li:last-child { border-bottom: none; }
+
+    @media (max-width: 900px) {
+      .plans-grid { grid-template-columns: 1fr; }
+    }
+
     /* Mobile */
     .mobile-menu-btn {
       display: none;
@@ -536,11 +751,131 @@
 
       <!-- AGENTBASE -->
       <div class="section" id="sec-agentbase">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🤖</div>
-          <h3>Info de Producto</h3>
-          <p>Contenido en construcción. Próxima actualización.</p>
+
+        <div class="section-header" style="margin-bottom:28px;">
+          <div class="section-eyebrow">Conoce el Producto</div>
+          <h2 class="section-title">Info de AgentBase</h2>
+          <p class="section-sub">Todo lo que necesitas para hablar del producto con autoridad.</p>
         </div>
+
+        <!-- Qué es -->
+        <div class="info-block">
+          <div class="info-block-title">¿Qué es AgentBase?</div>
+          <div class="info-body">
+            <p>AgentBase es una plataforma de <strong>inteligencia artificial dedicada para negocios</strong>. A diferencia de un chatbot, un agente de AgentBase entiende el negocio del cliente, aprende su catálogo, maneja su CRM y toma acciones reales: agenda citas, envía cotizaciones, da seguimiento.</p>
+            <p style="margin-top:10px;">Viene en un <strong>AgentBox</strong> — hardware dedicado que se instala en el negocio o se hospeda en sus servidores. Los datos nunca salen de la infraestructura del cliente.</p>
+            <div class="highlight-pill">⚡ Deploy en 48 horas desde la primera llamada</div>
+          </div>
+        </div>
+
+        <!-- Agente vs Chatbot -->
+        <div class="info-block">
+          <div class="info-block-title">Agente de IA vs Chatbot — La diferencia clave</div>
+          <div class="compare-table">
+            <div class="compare-row compare-header">
+              <div>Chatbot</div>
+              <div>Agente AgentBase</div>
+            </div>
+            <div class="compare-row">
+              <div>Repite scripts fijos</div>
+              <div class="pro">Entiende contexto y responde inteligente</div>
+            </div>
+            <div class="compare-row">
+              <div>Solo responde preguntas</div>
+              <div class="pro">Toma acciones: agenda, cotiza, da seguimiento</div>
+            </div>
+            <div class="compare-row">
+              <div>Configuración genérica</div>
+              <div class="pro">Módulos 100% personalizados por negocio</div>
+            </div>
+            <div class="compare-row">
+              <div>Datos en servidores de terceros</div>
+              <div class="pro">Hardware dedicado — privacidad total</div>
+            </div>
+            <div class="compare-row">
+              <div>Sin CRM ni integraciones reales</div>
+              <div class="pro">CRM integrado, multicanal, API personalizada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capacidades -->
+        <div class="info-block">
+          <div class="info-block-title">¿Qué puede hacer el agente?</div>
+          <div class="caps-grid">
+            <div class="cap-item"><span class="cap-icon">💬</span><div><strong>WhatsApp 24/7</strong><br>Atiende clientes a cualquier hora, sin demoras.</div></div>
+            <div class="cap-item"><span class="cap-icon">⚡</span><div><strong>Automatización</strong><br>Cotizaciones, facturas, recordatorios, seguimiento.</div></div>
+            <div class="cap-item"><span class="cap-icon">📊</span><div><strong>Dashboard</strong><br>Métricas en tiempo real: conversaciones, conversiones.</div></div>
+            <div class="cap-item"><span class="cap-icon">🌐</span><div><strong>Multilingüe</strong><br>Español, inglés y más. Habla el idioma del cliente.</div></div>
+            <div class="cap-item"><span class="cap-icon">🔒</span><div><strong>Privado y Seguro</strong><br>Hardware dedicado. Los datos nunca salen.</div></div>
+            <div class="cap-item"><span class="cap-icon">🚀</span><div><strong>Módulos Custom</strong><br>Configurado para cada negocio. No es genérico.</div></div>
+          </div>
+        </div>
+
+        <!-- Industrias -->
+        <div class="info-block">
+          <div class="info-block-title">Industrias donde funciona</div>
+          <div class="industry-grid">
+            <div class="industry-item"><span>🏢</span><div><strong>Inmobiliarias</strong><br>Atiende prospectos 24/7, agenda visitas, da seguimiento a compradores.</div></div>
+            <div class="industry-item"><span>🦷</span><div><strong>Clínicas y Dental</strong><br>Agenda citas, envía recordatorios, gestiona reviews.</div></div>
+            <div class="industry-item"><span>✈️</span><div><strong>Turismo</strong><br>Vende tours en múltiples idiomas, reserva al instante.</div></div>
+            <div class="industry-item"><span>📈</span><div><strong>Contabilidad</strong><br>Automatiza SAT, facturas, declaraciones.</div></div>
+            <div class="industry-item"><span>🚚</span><div><strong>Logística</strong><br>Cotiza fletes, rastrea envíos, coordina transportistas.</div></div>
+            <div class="industry-item"><span>🍕</span><div><strong>Restaurantes</strong><br>Toma pedidos por WhatsApp, gestiona menú.</div></div>
+            <div class="industry-item"><span>🛒</span><div><strong>Retail</strong><br>Muestra catálogo, procesa ventas, gestiona inventario.</div></div>
+            <div class="industry-item"><span>🎓</span><div><strong>Educación</strong><br>Informa sobre programas, inscribe alumnos, gestiona pagos.</div></div>
+          </div>
+        </div>
+
+        <!-- Planes -->
+        <div class="info-block">
+          <div class="info-block-title">Planes y Precios</div>
+          <div class="plans-grid">
+            <div class="plan-card">
+              <div class="plan-name">BASE</div>
+              <div class="plan-desc">1 módulo · 1 canal</div>
+              <div class="plan-price">$9,990 <span>MXN/mes</span></div>
+              <ul class="plan-features">
+                <li>AgentBox dedicado (hardware incluido)</li>
+                <li>1 módulo de IA personalizado</li>
+                <li>WhatsApp o Web</li>
+                <li>Dashboard de métricas</li>
+                <li>Soporte por WhatsApp</li>
+              </ul>
+            </div>
+            <div class="plan-card featured">
+              <div class="plan-badge">RECOMENDADO</div>
+              <div class="plan-name">PREMIUM</div>
+              <div class="plan-desc">3 módulos · Multicanal</div>
+              <div class="plan-price">$14,990 <span>MXN/mes</span></div>
+              <ul class="plan-features">
+                <li>AgentBox dedicado (hardware incluido)</li>
+                <li>3 módulos de IA personalizados</li>
+                <li>WhatsApp + Web + Redes</li>
+                <li>CRM integrado</li>
+                <li>Dashboard avanzado</li>
+                <li>Soporte prioritario</li>
+                <li>Reportes mensuales</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <div class="plan-name">ENTERPRISE</div>
+              <div class="plan-desc">Módulos ilimitados · Multi-proyecto</div>
+              <div class="plan-price">$39,990 <span>MXN/mes</span></div>
+              <ul class="plan-features">
+                <li>AgentBox dedicado (hardware incluido)</li>
+                <li>Módulos ilimitados</li>
+                <li>Todos los canales</li>
+                <li>Multi-proyecto / Multi-sucursal</li>
+                <li>API personalizada</li>
+                <li>Soporte dedicado 24/7</li>
+                <li>Gerente de cuenta</li>
+                <li>Integraciones a medida</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- OBJECIONES -->
