@@ -558,6 +558,80 @@
       .plans-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── OBJECTIONS ── */
+    .objection-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .objection-card:hover { border-color: var(--blue-border); }
+
+    .obj-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 22px;
+      cursor: pointer;
+      background: var(--dark-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .obj-icon { font-size: 22px; flex-shrink: 0; }
+
+    .obj-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+
+    .obj-quote {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .obj-body {
+      padding: 20px 22px;
+    }
+
+    .obj-reframe {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      background: var(--green-dim);
+      border-radius: 6px;
+      padding: 7px 12px;
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .obj-response {
+      font-size: 14px;
+      color: #bbb;
+      line-height: 1.65;
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .obj-tip {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+    }
+
     /* Mobile */
     .mobile-menu-btn {
       display: none;
@@ -880,11 +954,157 @@
 
       <!-- OBJECIONES -->
       <div class="section" id="sec-objeciones">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🛡️</div>
-          <h3>Manejo de Objeciones</h3>
-          <p>Contenido en construcción. Próxima actualización.</p>
+
+        <div class="section-header" style="margin-bottom:28px;">
+          <div class="section-eyebrow">Técnica de Ventas</div>
+          <h2 class="section-title">Manejo de Objeciones</h2>
+          <p class="section-sub">Respuestas preparadas para los bloqueos más comunes. Úsalas como guía, no como script.</p>
         </div>
+
+        <!-- Objeción 1 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">💸</span>
+            <div>
+              <div class="obj-tag">Precio</div>
+              <div class="obj-quote">"Es muy caro"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: No es un gasto, es reemplazar a un empleado.</div>
+            <div class="obj-response">
+              <p>"Entiendo. Déjame preguntarte algo: ¿cuánto pagas mensualmente en atención a clientes — ya sea tiempo de tu equipo o personal dedicado? Un agente de AgentBase trabaja 24/7, nunca falla, nunca se va de vacaciones, y cuesta menos que un empleado de medio tiempo. La pregunta no es si es caro, es si te cuesta más no tenerlo."</p>
+            </div>
+            <div class="obj-tip">💡 Si sigue resistiendo: ofrece empezar con el plan Base ($9,990) y escalar cuando vean resultados.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 2 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">📱</span>
+            <div>
+              <div class="obj-tag">Competencia percibida</div>
+              <div class="obj-quote">"Ya tenemos WhatsApp Business / ya tenemos un chatbot"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: Lo que tienen es un FAQ glorificado, no un agente.</div>
+            <div class="obj-response">
+              <p>"WhatsApp Business y los chatbots responden preguntas. Un agente de AgentBase toma acciones: agenda una cita, genera una cotización, actualiza su CRM, da seguimiento días después. ¿Tu chatbot actual puede agendar una cita en tu calendario sin que tú toques nada? El de AgentBase sí."</p>
+            </div>
+            <div class="obj-tip">💡 Pídele que te cuente qué hace su solución actual — casi siempre es solo respuestas automáticas básicas. Eso abre la brecha.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 3 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">⏱️</span>
+            <div>
+              <div class="obj-tag">Tiempo</div>
+              <div class="obj-quote">"No tenemos tiempo para implementarlo"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: El tiempo lo pone AgentBase, no el cliente.</div>
+            <div class="obj-response">
+              <p>"Eso es exactamente lo que soluciona AgentBase. Nosotros configuramos todo — tú solo nos cuentas cómo funciona tu negocio. En 48 horas tu agente está operando. Tu equipo no tiene que aprender nada nuevo ni tocar código. Solo supervisar desde el dashboard."</p>
+            </div>
+            <div class="obj-tip">💡 Enfatiza las 48 horas. Es un diferenciador enorme vs implementaciones de meses.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 4 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">🔒</span>
+            <div>
+              <div class="obj-tag">Privacidad / Seguridad</div>
+              <div class="obj-quote">"¿Y los datos de mis clientes?"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: Es el único producto donde los datos son 100% tuyos.</div>
+            <div class="obj-response">
+              <p>"Esta es exactamente la razón por la que usamos hardware dedicado. Tu AgentBox se instala en tu negocio o en tu servidor. Los datos de tus clientes nunca pasan por nuestros servidores ni por la nube de un tercero. Es tu hardware, tu IA, tus datos. Total y completamente tuyo."</p>
+            </div>
+            <div class="obj-tip">💡 Esto es un diferenciador enorme vs soluciones SaaS en la nube. Úsalo como ventaja, especialmente con clínicas, despachos y negocios que manejan información sensible.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 5 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">🤔</span>
+            <div>
+              <div class="obj-tag">Desconfianza / Escepticismo</div>
+              <div class="obj-quote">"No sé si la IA pueda manejar mi negocio"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: No es IA genérica — es un agente entrenado en su negocio.</div>
+            <div class="obj-response">
+              <p>"Es válida la duda. La clave es que no le estamos metiendo IA genérica — configuramos el agente específicamente para tu operación: tu catálogo, tu forma de cotizar, tus preguntas frecuentes, tus procesos. El agente aprende cómo tú atiendes. Y si algo no está bien, lo ajustamos. Tienes control total desde el dashboard."</p>
+            </div>
+            <div class="obj-tip">💡 Si puedes, muéstrale un demo o caso de uso de su misma industria. La prueba visual rompe el escepticismo más rápido que cualquier argumento.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 6 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">🔄</span>
+            <div>
+              <div class="obj-tag">Compromiso</div>
+              <div class="obj-quote">"¿Y si no funciona? ¿Hay contrato?"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: Sin contratos. Si no funciona, cancelas y te quedas con el hardware.</div>
+            <div class="obj-response">
+              <p>"No hay contrato de permanencia. Cancelas cuando quieras — sin penalizaciones. Y el AgentBox es tuyo, te lo quedas. Pero honestamente, no hemos tenido clientes que quieran cancelar una vez que ven sus métricas de atención mejorar. El riesgo real es seguir operando sin él."</p>
+            </div>
+            <div class="obj-tip">💡 La frase "el riesgo real es seguir sin él" invierte la ecuación del riesgo. Úsala con confianza.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 7 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">💭</span>
+            <div>
+              <div class="obj-tag">Indecisión</div>
+              <div class="obj-quote">"Déjame pensarlo / consultarlo"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: Descubre qué falta para tomar la decisión.</div>
+            <div class="obj-response">
+              <p>"Claro, tiene sentido. Para ayudarte a pensar mejor — ¿qué es lo que te genera más duda: el precio, si va a funcionar para tu tipo de negocio, o algo más? Así te puedo dar exactamente la información que necesitas y no te hago perder el tiempo."</p>
+            </div>
+            <div class="obj-tip">💡 Nunca dejes un "lo pienso" sin descubrir la objeción real detrás. Esto te lleva directo a ella.</div>
+          </div>
+        </div>
+
+        <!-- Objeción 8 -->
+        <div class="objection-card">
+          <div class="obj-header">
+            <span class="obj-icon">🏢</span>
+            <div>
+              <div class="obj-tag">Tamaño</div>
+              <div class="obj-quote">"Somos muy pequeños para esto"</div>
+            </div>
+          </div>
+          <div class="obj-body">
+            <div class="obj-reframe">Reencuadre: Los negocios pequeños son los que más se benefician.</div>
+            <div class="obj-response">
+              <p>"Al contrario — los negocios pequeños son los que más ventaja sacan porque no tienen un equipo grande de atención al cliente. Un agente te da la capacidad de responder como empresa grande sin el costo. Tus competidores de mayor tamaño ya están pensando en esto. El plan Base está diseñado exactamente para negocios en tu etapa."</p>
+            </div>
+            <div class="obj-tip">💡 Usa el miedo competitivo con cuidado — es efectivo pero no abuses.</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- RECURSOS -->
