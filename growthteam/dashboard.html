@@ -558,6 +558,76 @@
       .plans-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── CIERRE ── */
+    .cierre-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .cierre-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--dark-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cierre-num {
+      font-size: 22px;
+      font-weight: 900;
+      color: #a78bfa;
+      opacity: 0.5;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .cierre-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .cierre-when {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .cierre-body {
+      padding: 16px 18px;
+    }
+
+    .cierre-note {
+      font-size: 12px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .cierre-note::before { content: '→ '; color: #a78bfa; font-weight: 700; }
+
+    .frases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .frase-item {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-left: 3px solid #a78bfa;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #ccc;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
     /* ── FRÍO ── */
     .frio-mindset-grid {
       display: grid;
@@ -1221,11 +1291,174 @@
 
       <!-- CIERRE -->
       <div class="section" id="sec-cierre">
-        <div class="coming-soon">
-          <div class="coming-soon-icon">🎯</div>
-          <h3>Técnicas de Cierre</h3>
-          <p>Contenido en construcción. Próxima actualización.</p>
+
+        <div class="section-header" style="margin-bottom:28px;">
+          <div class="section-eyebrow">Técnica de Ventas</div>
+          <h2 class="section-title">Técnicas de Cierre</h2>
+          <p class="section-sub">El cierre no es un momento, es un proceso. Estas técnicas funcionan cuando el trabajo previo estuvo bien hecho.</p>
         </div>
+
+        <!-- Mentalidad -->
+        <div class="info-block" style="border-color:rgba(167,139,250,0.3); background:rgba(167,139,250,0.03);">
+          <div class="info-block-title" style="color:#a78bfa;">🧠 Mentalidad del Closer</div>
+          <div class="frio-mindset-grid">
+            <div class="mindset-item">
+              <div class="mindset-icon">🤝</div>
+              <div><strong>Cierra con confianza, no con presión</strong><br>La presión genera arrepentimiento. La confianza genera referidos. Cierra como si ya supieras que va a decir que sí.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🔇</div>
+              <div><strong>Después del cierre, silencio</strong><br>Cuando hagas la pregunta de cierre, cállate. El primero que habla, pierde. Deja que el silencio trabaje.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🔁</div>
+              <div><strong>Cada "no" es una objeción disfrazada</strong><br>Rara vez el "no" es definitivo. Descubre qué hay detrás y trátalo como una objeción más.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">📍</div>
+              <div><strong>Siempre define el siguiente paso</strong><br>Si no cierras hoy, cierra la fecha del próximo contacto. Nunca termines una conversación sin un compromiso.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Técnicas -->
+        <div class="info-block">
+          <div class="info-block-title">🎯 Técnicas de Cierre Probadas</div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">01</span>
+              <div>
+                <div class="cierre-name">Cierre Directo</div>
+                <div class="cierre-when">Úsalo cuando: el prospecto ya resolvió sus dudas y muestra señales de compra.</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"Perfecto, ya tienes toda la info. ¿Arrancamos esta semana o la siguiente para que en 48 horas tengas tu agente operando?"</div>
+              <div class="cierre-note">Da dos opciones de sí. Nunca preguntes "¿qué decides?" — eso abre la puerta al "necesito pensarlo".</div>
+            </div>
+          </div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">02</span>
+              <div>
+                <div class="cierre-name">Cierre por Urgencia Real</div>
+                <div class="cierre-when">Úsalo cuando: hay una razón genuina para actuar pronto (capacidad limitada, temporada alta del cliente, etc.)</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"Te comento que ahorita tenemos [X] slots disponibles para onboarding esta quincena. Si arrancamos hoy, garantizo que tu agente está listo antes de [fecha relevante para su negocio]. Si lo dejamos para después, el siguiente espacio es en [fecha más lejana]."</div>
+              <div class="cierre-note">Solo úsalo si es verdad. La urgencia falsa destruye confianza cuando el cliente la detecta.</div>
+            </div>
+          </div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">03</span>
+              <div>
+                <div class="cierre-name">Cierre por Resumen (El Recap)</div>
+                <div class="cierre-when">Úsalo cuando: la conversación ha sido larga y quieres traerlo de vuelta al punto de decisión.</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"Perfecto, entonces déjame resumir: tienes [problema X], necesitas [solución Y], y el plan [Base/Premium] te da exactamente eso por $[precio] al mes, con el hardware incluido y sin contrato de permanencia. ¿Hay algo más que necesites para tomar la decisión?"</div>
+              <div class="cierre-note">Si dice "no", la siguiente frase es: "Entonces, ¿arrancamos?" — sin más argumentos.</div>
+            </div>
+          </div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">04</span>
+              <div>
+                <div class="cierre-name">Cierre por Inversión vs Costo</div>
+                <div class="cierre-when">Úsalo cuando: el precio es la objeción principal y el prospecto es analítico / financiero.</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"Entiendo. Míralo así: si tu agente cierra un solo cliente extra al mes que normalmente se iba sin respuesta, ¿cuánto vale eso para tu negocio? [Espera su respuesta.] Entonces el agente se paga solo con ese cliente. Todo lo demás es ganancia."</div>
+              <div class="cierre-note">Hazlo calcular en voz alta. Cuando el cliente hace el cálculo, se convence a sí mismo.</div>
+            </div>
+          </div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">05</span>
+              <div>
+                <div class="cierre-name">Cierre por Eliminación de Riesgo</div>
+                <div class="cierre-when">Úsalo cuando: el cliente quiere pero tiene miedo a equivocarse.</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"Entiendo que quieres estar seguro. Por eso te digo: no hay contrato de permanencia, cancelas cuando quieras. El AgentBox es tuyo desde el día uno. Y en 48 horas ya lo estás viendo funcionar en tu negocio real. ¿Cuál es el peor escenario? Que en un mes decides que no es para ti — y ya tienes el hardware. ¿Cuál es el mejor? Que automatizas tu atención y liberas a tu equipo. El riesgo real es no probarlo."</div>
+              <div class="cierre-note">Usa "el riesgo real es no probarlo" — invierte la ecuación del miedo.</div>
+            </div>
+          </div>
+
+          <div class="cierre-card">
+            <div class="cierre-header">
+              <span class="cierre-num">06</span>
+              <div>
+                <div class="cierre-name">Cierre del Cachorro (Prueba)</div>
+                <div class="cierre-when">Úsalo cuando: el cliente duda pero estaría dispuesto a "ver cómo va".</div>
+              </div>
+            </div>
+            <div class="cierre-body">
+              <div class="script-body">"¿Qué tal si lo pruebas un mes? Configuramos tu agente, lo pones a trabajar 30 días y tú decides. Si en ese mes no ves valor, me lo dices y cancelas. Sin letras chicas. Pero te prometo que después de ver las métricas del primer mes, no vas a querer que pare."</div>
+              <div class="cierre-note">El nombre viene de "si dejas al cachorro en casa un fin de semana, ya no lo devuelves". Una vez que lo usan, no quieren parar.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Frases de cierre rápido -->
+        <div class="info-block">
+          <div class="info-block-title">⚡ Frases de Cierre Rápido</div>
+          <div class="frases-grid">
+            <div class="frase-item">"¿Qué falta para que arranquemos hoy?"</div>
+            <div class="frase-item">"¿Martes o jueves para la instalación?"</div>
+            <div class="frase-item">"¿Lo hacemos con el plan Base para empezar?"</div>
+            <div class="frase-item">"¿A nombre de quién va la factura?"</div>
+            <div class="frase-item">"Tu competencia ya está pensando en esto. ¿Quién llega primero?"</div>
+            <div class="frase-item">"Un cliente más al mes lo paga solo. ¿Arrancamos?"</div>
+          </div>
+        </div>
+
+        <!-- Qué hacer si dice no -->
+        <div class="info-block">
+          <div class="info-block-title">🔄 Si dice "no" — Protocolo de rescate</div>
+          <div class="sequence-list">
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(248,113,113,0.1);color:#f87171;">Paso 1</div>
+              <div class="seq-content">
+                <div class="seq-title">No te defiendas, pregunta</div>
+                <div class="seq-desc">"Entiendo. ¿Puedo preguntarte qué es lo que no te convence? Quiero asegurarme de no haberte explicado algo mal."</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(248,113,113,0.1);color:#f87171;">Paso 2</div>
+              <div class="seq-content">
+                <div class="seq-title">Identifica la objeción real</div>
+                <div class="seq-desc">¿Es precio? ¿Timing? ¿Desconfianza? ¿Necesita convencer a alguien más? Cada una tiene su respuesta. Busca en la sección de Objeciones.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(248,113,113,0.1);color:#f87171;">Paso 3</div>
+              <div class="seq-content">
+                <div class="seq-title">Trata la objeción y vuelve a pedir</div>
+                <div class="seq-desc">Después de responder la objeción: "¿Eso resuelve tu duda? Entonces, ¿arrancamos?" — siempre vuelve a pedir el cierre.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(248,113,113,0.1);color:#f87171;">Paso 4</div>
+              <div class="seq-content">
+                <div class="seq-title">Si el no es definitivo — cierra el ciclo con elegancia</div>
+                <div class="seq-desc">"Sin problema, [Nombre]. Si en algún momento cambia la situación, aquí estoy. ¿Puedo escribirte en [1 mes] para ver cómo van las cosas?" — El 20% de los "no definitivos" se convierten en clientes con seguimiento.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- AGENTBASE -->
