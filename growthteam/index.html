@@ -8,11 +8,13 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
     :root {
-      --orange: #F2561D;
-      --dark: #0D0D0D;
-      --dark-2: #141414;
-      --dark-3: #1A1A1A;
-      --dark-4: #222222;
+      --blue: #1DA1F2;
+      --blue-hover: #4DB5F5;
+      --green: #22c55e;
+      --dark: #0a0a0f;
+      --dark-2: #0e0e16;
+      --dark-3: #111118;
+      --dark-4: #151520;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,7 +22,7 @@
     body {
       font-family: 'Inter', sans-serif;
       background: var(--dark);
-      color: #fff;
+      color: #e0e0e0;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -43,29 +45,29 @@
       align-items: center;
       gap: 10px;
       background: var(--dark-3);
-      border: 1px solid #333;
+      border: 1px solid #1a1a25;
       border-radius: 12px;
       padding: 10px 18px;
       margin-bottom: 20px;
     }
 
     .logo-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--orange);
+      width: 9px;
+      height: 9px;
+      background: var(--green);
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+      50% { opacity: 0.7; box-shadow: 0 0 8px 2px rgba(34,197,94,0.2); }
     }
 
     .logo-text {
       font-size: 13px;
       font-weight: 600;
-      color: #ccc;
+      color: #888;
       letter-spacing: 0.5px;
     }
 
@@ -74,18 +76,19 @@
       font-weight: 800;
       color: #fff;
       margin-bottom: 8px;
+      letter-spacing: -0.02em;
     }
 
-    .login-title span { color: var(--orange); }
+    .login-title span { color: var(--blue); }
 
     .login-subtitle {
       font-size: 14px;
-      color: #666;
+      color: #555;
     }
 
     .login-card {
-      background: var(--dark-3);
-      border: 1px solid #2a2a2a;
+      background: var(--dark-2);
+      border: 1px solid #151520;
       border-radius: 16px;
       padding: 32px;
     }
@@ -98,7 +101,7 @@
       display: block;
       font-size: 12px;
       font-weight: 600;
-      color: #888;
+      color: #555;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       margin-bottom: 8px;
@@ -107,22 +110,22 @@
     .input-field {
       width: 100%;
       background: var(--dark-4);
-      border: 1px solid #333;
+      border: 1px solid #1e1e2a;
       border-radius: 10px;
       padding: 14px 16px;
-      color: #fff;
+      color: #e0e0e0;
       font-family: 'Inter', sans-serif;
       font-size: 15px;
       outline: none;
       transition: border-color 0.2s;
     }
 
-    .input-field:focus { border-color: var(--orange); }
-    .input-field::placeholder { color: #444; }
+    .input-field:focus { border-color: var(--blue); }
+    .input-field::placeholder { color: #333; }
 
     .btn-login {
       width: 100%;
-      background: var(--orange);
+      background: var(--blue);
       color: #fff;
       border: none;
       border-radius: 10px;
@@ -132,20 +135,21 @@
       font-weight: 700;
       cursor: pointer;
       margin-top: 8px;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: -0.01em;
     }
 
-    .btn-login:hover { opacity: 0.9; }
+    .btn-login:hover { background: var(--blue-hover); }
     .btn-login:active { transform: scale(0.98); }
 
     .error-msg {
       display: none;
-      background: rgba(242, 86, 29, 0.12);
-      border: 1px solid rgba(242, 86, 29, 0.3);
+      background: rgba(248, 113, 113, 0.06);
+      border: 1px solid rgba(248, 113, 113, 0.25);
       border-radius: 8px;
       padding: 10px 14px;
       font-size: 13px;
-      color: var(--orange);
+      color: #f87171;
       margin-top: 12px;
       text-align: center;
     }
@@ -153,7 +157,7 @@
     .footer-note {
       text-align: center;
       font-size: 12px;
-      color: #444;
+      color: #2a2a35;
       margin-top: 24px;
     }
   </style>
@@ -164,7 +168,7 @@
     <div class="logo-area">
       <div class="logo-badge">
         <div class="logo-dot"></div>
-        <span class="logo-text">AgentBase Growth Team</span>
+        <span class="logo-text">AgentBase · Growth Team</span>
       </div>
       <h1 class="login-title">Portal de <span>Ventas</span></h1>
       <p class="login-subtitle">Acceso exclusivo para el equipo</p>
