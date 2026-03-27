@@ -918,6 +918,13 @@
     </nav>
 
     <nav class="nav-section">
+      <div class="nav-section-label">Herramientas</div>
+      <button class="nav-item" onclick="showSection('demo')">
+        <span class="nav-icon">🎬</span> La Demo
+      </button>
+    </nav>
+
+    <nav class="nav-section">
       <div class="nav-section-label">Recursos</div>
       <button class="nav-item" onclick="showSection('recursos')">
         <span class="nav-icon">📥</span> Descargas
@@ -1006,6 +1013,12 @@
             <div class="card-title">Manejo de Objeciones</div>
             <div class="card-desc">Respuestas preparadas para las objeciones más comunes: precio, tiempo, "ya tenemos algo", y más.</div>
             <span class="card-tag">Ver objeciones →</span>
+          </div>
+          <div class="card" onclick="showSection('demo')">
+            <div class="card-icon">🎬</div>
+            <div class="card-title">La Demo</div>
+            <div class="card-desc">Cómo presentar AgentBase en vivo. El cierre más poderoso que existe — bien ejecutado, convierte en el momento.</div>
+            <span class="card-tag">Ver guía →</span>
           </div>
           <div class="card" onclick="showSection('recursos')">
             <div class="card-icon">📥</div>
@@ -1745,6 +1758,155 @@
 
       </div>
 
+      <!-- DEMO -->
+      <div class="section" id="sec-demo">
+
+        <div class="section-header" style="margin-bottom:28px;">
+          <div class="section-eyebrow">Herramienta de Ventas</div>
+          <h2 class="section-title">La Demo</h2>
+          <p class="section-sub">Ver es creer. Una demo bien ejecutada vale más que 10 llamadas de seguimiento.</p>
+        </div>
+
+        <!-- Por qué la demo cierra -->
+        <div class="info-block" style="border-color:rgba(251,191,36,0.3); background:rgba(251,191,36,0.03);">
+          <div class="info-block-title" style="color:#fbbf24;">⚡ Por qué la demo es tu arma más poderosa</div>
+          <div class="obj-response" style="border-left-color:#fbbf24; font-style:normal;">
+            <p style="color:#fff; font-weight:700; margin-bottom:8px;">El prospecto puede dudar de tus palabras. No puede dudar de lo que ve con sus propios ojos.</p>
+            <p>Cuando un prospecto ve al agente responder en tiempo real, usando el nombre de su negocio, contestando preguntas reales de sus clientes — deja de ser una promesa y se convierte en una realidad. Ahí es cuando el precio deja de ser el tema.</p>
+          </div>
+          <div class="frio-mindset-grid" style="margin-top:16px;">
+            <div class="mindset-item">
+              <div class="mindset-icon">🧠</div>
+              <div><strong>Activa la imaginación</strong><br>El prospecto empieza a verse usando el producto. Eso es lo más cercano a una compra.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🔇</div>
+              <div><strong>Mata objeciones sin discutir</strong><br>"¿Puede manejar preguntas complejas?" — Se lo muestras. No lo argumentas.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🎯</div>
+              <div><strong>Crea urgencia natural</strong><br>Cuando lo ve funcionar, el prospecto siente que ya lo quiere. Tú solo necesitas pedir el cierre.</div>
+            </div>
+            <div class="mindset-item">
+              <div class="mindset-icon">🤝</div>
+              <div><strong>Genera confianza inmediata</strong><br>Mostrar el producto en vivo dice más de tu seguridad como vendedor que cualquier presentación.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cuándo pedir la demo -->
+        <div class="info-block">
+          <div class="info-block-title">📅 ¿Cuándo pedir la demo?</div>
+          <div class="tips-list">
+            <div class="tip-item">✓ <span><strong style="color:#ddd;">Después del primer contacto exitoso</strong> — cuando el prospecto mostró interés pero no está listo para decidir.</span></div>
+            <div class="tip-item">✓ <span><strong style="color:#ddd;">Cuando dice "es que no entiendo bien cómo funciona"</strong> — la demo responde eso mejor que cualquier explicación.</span></div>
+            <div class="tip-item">✓ <span><strong style="color:#ddd;">Cuando el precio es objeción</strong> — ver el valor en vivo cambia la perspectiva del costo.</span></div>
+            <div class="tip-item">✓ <span><strong style="color:#ddd;">Cuando hay más de un tomador de decisión</strong> — "¿Podemos meterle a tu socio/equipo a la demo?" — cierra a todos a la vez.</span></div>
+          </div>
+          <div class="script-card" style="margin-top:16px;">
+            <div class="script-label">Cómo pedir la demo</div>
+            <div class="script-body">"Oye [Nombre], en vez de seguir explicándote, ¿qué tal si te lo muestro en vivo? Son 20 minutos, usamos tu tipo de negocio como ejemplo y ves exactamente cómo respondería el agente a tus clientes reales. ¿Tienes tiempo el martes o el jueves?"</div>
+            <div class="script-why">Usa su negocio específico — no una demo genérica. Eso personaliza y genera impacto.</div>
+          </div>
+        </div>
+
+        <!-- Preparación -->
+        <div class="info-block">
+          <div class="info-block-title">🛠️ Preparación antes de la demo</div>
+          <div class="sequence-list">
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Antes</div>
+              <div class="seq-content">
+                <div class="seq-title">Investiga su negocio</div>
+                <div class="seq-desc">¿Cómo se llama? ¿Qué venden? ¿Cómo atienden? Entre más personalizada sea la demo, más impacto tiene. Si puedes, menciona algo específico que viste en su Instagram o sitio web.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Antes</div>
+              <div class="seq-content">
+                <div class="seq-title">Prepara 3 preguntas tipo de su industria</div>
+                <div class="seq-desc">Ejemplos para clínica: "¿Tienen cita disponible el jueves?", "¿Cuánto cuesta una limpieza dental?", "¿Aceptan seguros?". Para demo en vivo, el agente responde estas preguntas reales.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Antes</div>
+              <div class="seq-content">
+                <div class="seq-title">Confirma la cita 1 hora antes</div>
+                <div class="seq-desc">"Hola [Nombre], confirmando nuestra llamada de demo a las [hora]. Voy a mostrarles cómo funcionaría para [su negocio]. Nos vemos en un rato." — Reduce las cancelaciones de último minuto.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flujo de la demo -->
+        <div class="info-block">
+          <div class="info-block-title">🎬 Flujo de la Demo — 20 minutos</div>
+          <div class="sequence-list">
+            <div class="seq-item">
+              <div class="seq-day" style="background:var(--blue-dim);color:var(--blue);">Min 1-3</div>
+              <div class="seq-content">
+                <div class="seq-title">Contexto rápido</div>
+                <div class="seq-desc">"Antes de mostrarte, cuéntame: ¿cuál es el mayor cuello de botella en tu atención al cliente hoy?" — Escucha. Esto te da el ángulo exacto para personalizar la demo en vivo.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:var(--blue-dim);color:var(--blue);">Min 4-8</div>
+              <div class="seq-content">
+                <div class="seq-title">La demo en vivo</div>
+                <div class="seq-desc">Muestra el agente respondiendo preguntas reales de su industria. Empieza con algo simple (horarios, precios) y escala a algo complejo (cotización, agenda de cita). Deja que el prospecto haga una pregunta él mismo — eso lo involucra.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:var(--blue-dim);color:var(--blue);">Min 9-14</div>
+              <div class="seq-content">
+                <div class="seq-title">Conecta con su dolor</div>
+                <div class="seq-desc">"Lo que acabas de ver — respuesta en segundos, 24/7 — ¿cuántas ventas crees que recuperarías si tus prospectos recibieran esto en vez de esperar horas?" — Deja que haga el cálculo mentalmente.</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:var(--blue-dim);color:var(--blue);">Min 15-17</div>
+              <div class="seq-content">
+                <div class="seq-title">Precios y plan recomendado</div>
+                <div class="seq-desc">No des los tres planes — recomienda uno específico. "Para lo que me contaste, el plan Premium hace más sentido porque necesitas [razón específica]. Está en $14,990 al mes con hardware incluido."</div>
+              </div>
+            </div>
+            <div class="seq-item">
+              <div class="seq-day" style="background:var(--blue-dim);color:var(--blue);">Min 18-20</div>
+              <div class="seq-content">
+                <div class="seq-title">Cierre o siguiente paso</div>
+                <div class="seq-desc">"¿Qué dudas tienes?" → Resuelve → "¿Arrancamos esta semana?" Si no cierra hoy: "¿Cuándo puedo darte seguimiento para ver si tienes respuesta?" — nunca termines sin una fecha.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frases durante la demo -->
+        <div class="info-block">
+          <div class="info-block-title">💬 Frases clave durante la demo</div>
+          <div class="frases-grid">
+            <div class="frase-item">"¿Ves cómo respondió sin que nadie en tu equipo tuviera que hacer nada?"</div>
+            <div class="frase-item">"Eso que acaba de pasar — pasa así a las 2 AM también."</div>
+            <div class="frase-item">"Hazle una pregunta difícil, la que más te preocupa que no sepa responder."</div>
+            <div class="frase-item">"Imagina esto configurado con tu catálogo y el nombre de tu negocio."</div>
+            <div class="frase-item">"¿Cuántos prospectos como este se te van sin respuesta cada semana?"</div>
+            <div class="frase-item">"En 48 horas esto ya estaría respondiendo por ti."</div>
+          </div>
+        </div>
+
+        <!-- Errores en demo -->
+        <div class="info-block">
+          <div class="info-block-title">❌ Errores que arruinan una demo</div>
+          <div class="tips-list">
+            <div class="tip-item" style="border-color:rgba(248,113,113,0.2);">❌ <span>Hacer una demo genérica sin personalizar para su negocio. El prospecto no se ve en ella.</span></div>
+            <div class="tip-item" style="border-color:rgba(248,113,113,0.2);">❌ <span>Hablar demasiado durante la demo. Déjala correr — el silencio mientras el agente responde es poderoso.</span></div>
+            <div class="tip-item" style="border-color:rgba(248,113,113,0.2);">❌ <span>No pedir el cierre al final. Terminar con "¿Qué te pareció?" en vez de "¿Arrancamos?"</span></div>
+            <div class="tip-item" style="border-color:rgba(248,113,113,0.2);">❌ <span>No tener listo el entorno de demo. Problemas técnicos en vivo destruyen la confianza.</span></div>
+            <div class="tip-item" style="border-color:rgba(248,113,113,0.2);">❌ <span>Dar los tres planes sin recomendar uno. La indecisión del vendedor genera indecisión en el cliente.</span></div>
+          </div>
+        </div>
+
+      </div>
+
       <!-- RECURSOS -->
       <div class="section" id="sec-recursos">
         <div class="coming-soon">
@@ -1770,6 +1932,7 @@
       cierre: 'Técnicas <span style="color:#1DA1F2">→ Cierre</span>',
       agentbase: 'Producto <span style="color:#1DA1F2">→ Info AgentBase</span>',
       objeciones: 'Producto <span style="color:#1DA1F2">→ Objeciones</span>',
+      demo: 'Herramientas <span style="color:#1DA1F2">→ La Demo</span>',
       recursos: 'Recursos <span style="color:#1DA1F2">→ Descargas</span>',
     };
 
