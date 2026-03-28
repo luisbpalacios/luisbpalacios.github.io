@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Marzo 2026 — David Palacios</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --blue: #1DA1F2;
+      --blue-dim: rgba(29,161,242,0.1);
+      --blue-border: rgba(29,161,242,0.2);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.08);
+      --green-border: rgba(34,197,94,0.2);
+      --gold: #f59e0b;
+      --gold-dim: rgba(245,158,11,0.08);
+      --dark: #0a0a0f;
+      --dark-2: #0e0e16;
+      --dark-3: #111118;
+      --dark-4: #151520;
+      --dark-5: #1a1a28;
+      --border: #151520;
+      --border-2: #1e1e2a;
+      --text: #e0e0e0;
+      --muted: #555;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--dark-2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-left { display: flex; align-items: center; gap: 14px; }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 8px;
+      padding: 7px 12px;
+    }
+
+    .logo-dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+    .logo-text { font-size: 12px; font-weight: 600; color: #888; }
+
+    .report-title { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+    .report-title span { color: var(--blue); }
+
+    .top-right { display: flex; align-items: center; gap: 10px; }
+
+    .period-pill {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* MAIN */
+    .main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
+
+    /* CLIENT HEADER */
+    .client-header {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .client-info { display: flex; align-items: center; gap: 16px; }
+
+    .client-avatar {
+      width: 52px; height: 52px;
+      background: var(--blue-dim);
+      border: 2px solid var(--blue-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .client-name { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .client-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+    .report-badge {
+      text-align: right;
+    }
+
+    .report-num { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .report-period { font-size: 15px; font-weight: 700; color: #fff; }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .stat-card.highlight {
+      border-color: var(--green-border);
+      background: rgba(34,197,94,0.04);
+    }
+
+    .stat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+    .stat-value { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.blue { color: var(--blue); }
+    .stat-sub { font-size: 12px; color: #444; margin-top: 6px; }
+    .stat-sub.up { color: var(--green); }
+
+    /* CHARTS ROW */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .chart-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
+
+    .chart-wrap { position: relative; height: 220px; }
+
+    /* ALLOCATION */
+    .alloc-wrap { display: flex; flex-direction: column; justify-content: center; }
+    .alloc-chart-wrap { position: relative; height: 180px; margin-bottom: 16px; }
+
+    .alloc-legend { display: flex; flex-direction: column; gap: 10px; }
+
+    .legend-item { display: flex; align-items: center; gap: 10px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-label { font-size: 13px; color: #aaa; flex: 1; }
+    .legend-pct { font-size: 13px; font-weight: 700; color: #fff; }
+
+    /* TIMELINE */
+    .timeline-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    .timeline-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
+
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .month-item {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    .month-item.active {
+      border-color: var(--green-border);
+      background: var(--green-dim);
+    }
+
+    .month-item.locked {
+      opacity: 0.4;
+    }
+
+    .month-name { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .month-item.active .month-name { color: var(--green); }
+
+    .month-status { font-size: 10px; color: #444; }
+    .month-item.active .month-status { color: var(--green); font-weight: 700; }
+
+    .lock-icon { font-size: 14px; margin-bottom: 4px; }
+
+    /* DETAILS */
+    .details-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .detail-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .detail-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px; }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .detail-row:last-child { border-bottom: none; }
+
+    .detail-key { color: #666; }
+    .detail-val { color: #ddd; font-weight: 600; }
+    .detail-val.green { color: var(--green); }
+    .detail-val.blue { color: var(--blue); }
+
+    /* FOOTER */
+    .report-footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: #2a2a35;
+    }
+
+    .report-footer span { color: #333; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-row { grid-template-columns: 1fr; }
+      .months-grid { grid-template-columns: repeat(3, 1fr); }
+      .details-row { grid-template-columns: 1fr; }
+      .topbar { padding: 14px 16px; }
+      .main { padding: 20px 16px; }
+      .client-header { flex-direction: column; align-items: flex-start; }
+      .report-badge { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="top-left">
+      <div class="logo-badge">
+        <div class="logo-dot"></div>
+        <span class="logo-text">Web3 Collective</span>
+      </div>
+      <div class="report-title">Reporte <span>Mensual</span></div>
+    </div>
+    <div class="top-right">
+      <div class="period-pill">Marzo 2026</div>
+      <div class="status-pill"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;"></div> Activo</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- CLIENT HEADER -->
+    <div class="client-header">
+      <div class="client-info">
+        <div class="client-avatar">DP</div>
+        <div>
+          <div class="client-name">David Palacios</div>
+          <div class="client-sub">Portafolio de inversión · Reporte confidencial</div>
+        </div>
+      </div>
+      <div class="report-badge">
+        <div class="report-num">Reporte #001</div>
+        <div class="report-period">01 Mar — 31 Mar 2026</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Capital Inicial</div>
+        <div class="stat-value blue">$5,556</div>
+        <div class="stat-sub">USD · ≈ $100,000 MXN</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-label">Valor Actual</div>
+        <div class="stat-value green">$6,095</div>
+        <div class="stat-sub up">↑ +$539 USD este mes</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-label">Rendimiento Mensual</div>
+        <div class="stat-value green">+9.7%</div>
+        <div class="stat-sub up">↑ Marzo 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ganancia Neta</div>
+        <div class="stat-value">$539</div>
+        <div class="stat-sub up">USD generados</div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-title">Crecimiento acumulado — Marzo 2026</div>
+        <div class="chart-wrap">
+          <canvas id="growthChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card alloc-wrap">
+        <div class="chart-title">Distribución del portafolio</div>
+        <div class="alloc-chart-wrap">
+          <canvas id="allocChart"></canvas>
+        </div>
+        <div class="alloc-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#1DA1F2;"></div>
+            <div class="legend-label">Pools de Liquidez</div>
+            <div class="legend-pct">40%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#22c55e;"></div>
+            <div class="legend-label">Inversión Spot</div>
+            <div class="legend-pct">60%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline-card">
+      <div class="timeline-title">Reportes mensuales 2026</div>
+      <div class="months-grid">
+        <div class="month-item locked">
+          <div class="month-name">Ene</div>
+          <div class="month-status">—</div>
+        </div>
+        <div class="month-item locked">
+          <div class="month-name">Feb</div>
+          <div class="month-status">—</div>
+        </div>
+        <div class="month-item active">
+          <div class="month-name">Mar</div>
+          <div class="month-status">✓ Disponible</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Abr</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">May</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Jun</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Jul</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Ago</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Sep</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Oct</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Nov</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+        <div class="month-item locked">
+          <div class="lock-icon">🔒</div>
+          <div class="month-name">Dic</div>
+          <div class="month-status">Próximamente</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="details-row">
+      <div class="detail-card">
+        <div class="detail-title">Desglose del mes</div>
+        <div class="detail-row">
+          <span class="detail-key">Período</span>
+          <span class="detail-val">01 Mar — 31 Mar 2026</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Capital inicial</span>
+          <span class="detail-val blue">$5,556 USD</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Rendimiento generado</span>
+          <span class="detail-val green">+9.7%</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Ganancia neta</span>
+          <span class="detail-val green">+$539 USD</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Valor al cierre</span>
+          <span class="detail-val">$6,095 USD</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Próximo reporte</span>
+          <span class="detail-val">30 Abril 2026</span>
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-title">Estrategia aplicada</div>
+        <div class="detail-row">
+          <span class="detail-key">Pools de Liquidez</span>
+          <span class="detail-val blue">40% — $2,222 USD</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Inversión Spot</span>
+          <span class="detail-val green">60% — $3,334 USD</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Operaciones ejecutadas</span>
+          <span class="detail-val">Activas todo el mes</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Rebalanceos</span>
+          <span class="detail-val">Automáticos</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Nivel de riesgo</span>
+          <span class="detail-val">Moderado</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Gestor</span>
+          <span class="detail-val">Web3 Collective</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTA -->
+    <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:24px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">Nota del gestor</div>
+      <p style="font-size:14px;color:#888;line-height:1.7;">Marzo fue un mes de rendimiento sólido. La estrategia combinada de Pools de Liquidez y posición Spot permitió capturar el movimiento del mercado manteniendo el riesgo bajo control. El portafolio cerró el mes con un rendimiento del <strong style="color:var(--green)">9.7%</strong>, superando el objetivo mensual establecido.</p>
+      <p style="font-size:14px;color:#888;line-height:1.7;margin-top:10px;">Para Abril mantendremos la misma estructura de distribución con ajustes menores según las condiciones del mercado. El reporte del siguiente mes estará disponible el <strong style="color:#ddd;">30 de Abril de 2026</strong>.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Reporte generado por <span>Web3 Collective</span> · Información confidencial exclusiva para <span>David Palacios</span> · Marzo 2026
+  </div>
+
+  <script>
+    if (!sessionStorage.getItem('dp_auth')) location.href = 'index.html';
+
+    // Growth Chart
+    const labels = ['1 Mar','5 Mar','8 Mar','11 Mar','14 Mar','17 Mar','20 Mar','23 Mar','26 Mar','31 Mar'];
+    const data = [5556, 5612, 5648, 5690, 5730, 5778, 5820, 5869, 5940, 6095];
+
+    new Chart(document.getElementById('growthChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Valor del portafolio (USD)',
+          data,
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34,197,94,0.06)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#22c55e',
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.4,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#111118',
+            borderColor: '#1e1e2a',
+            borderWidth: 1,
+            titleColor: '#888',
+            bodyColor: '#22c55e',
+            bodyFont: { weight: '700', size: 14 },
+            callbacks: {
+              label: ctx => ` $${ctx.parsed.y.toLocaleString()} USD`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.03)' },
+            ticks: { color: '#444', font: { size: 11 } }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.03)' },
+            ticks: {
+              color: '#444',
+              font: { size: 11 },
+              callback: v => '$' + v.toLocaleString()
+            },
+            min: 5400,
+          }
+        }
+      }
+    });
+
+    // Allocation Chart
+    new Chart(document.getElementById('allocChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Pools de Liquidez', 'Inversión Spot'],
+        datasets: [{
+          data: [40, 60],
+          backgroundColor: ['#1DA1F2', '#22c55e'],
+          borderColor: '#0e0e16',
+          borderWidth: 3,
+          hoverOffset: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '72%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#111118',
+            borderColor: '#1e1e2a',
+            borderWidth: 1,
+            titleColor: '#888',
+            bodyColor: '#fff',
+            callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

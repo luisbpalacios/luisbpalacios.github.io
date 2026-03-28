@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Mensual — David Palacios</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    :root {
+      --blue: #1DA1F2;
+      --blue-hover: #4DB5F5;
+      --green: #22c55e;
+      --dark: #0a0a0f;
+      --dark-2: #0e0e16;
+      --dark-3: #111118;
+      --dark-4: #151520;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: #e0e0e0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .wrap { width: 100%; max-width: 420px; padding: 24px; }
+    .logo-area { text-align: center; margin-bottom: 36px; }
+    .logo-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--dark-3); border: 1px solid #1a1a25; border-radius: 12px; padding: 10px 18px; margin-bottom: 18px; }
+    .logo-dot { width: 9px; height: 9px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+    .logo-text { font-size: 13px; font-weight: 600; color: #888; }
+    .login-title { font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .login-title span { color: var(--blue); }
+    .login-sub { font-size: 13px; color: #555; }
+    .card { background: var(--dark-2); border: 1px solid #151520; border-radius: 16px; padding: 28px; }
+    .label { display: block; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+    .input { width: 100%; background: var(--dark-4); border: 1px solid #1e1e2a; border-radius: 10px; padding: 14px 16px; color: #e0e0e0; font-family: 'Inter',sans-serif; font-size: 15px; outline: none; transition: border-color .2s; }
+    .input:focus { border-color: var(--blue); }
+    .input::placeholder { color: #333; }
+    .btn { width: 100%; background: var(--blue); color: #fff; border: none; border-radius: 10px; padding: 15px; font-family: 'Inter',sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 14px; transition: background .2s, transform .1s; }
+    .btn:hover { background: var(--blue-hover); }
+    .btn:active { transform: scale(.98); }
+    .err { display: none; background: rgba(248,113,113,.06); border: 1px solid rgba(248,113,113,.25); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #f87171; margin-top: 12px; text-align: center; }
+    .foot { text-align: center; font-size: 11px; color: #2a2a35; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo-area">
+      <div class="logo-badge">
+        <div class="logo-dot"></div>
+        <span class="logo-text">Web3 Collective · Reporte Privado</span>
+      </div>
+      <h1 class="login-title">Reporte <span>Mensual</span></h1>
+      <p class="login-sub">Acceso exclusivo — David Palacios</p>
+    </div>
+    <div class="card">
+      <label class="label">Contraseña de acceso</label>
+      <input type="password" id="pw" class="input" placeholder="••••••••••" autocomplete="current-password" />
+      <button class="btn" onclick="check()">Ver mi reporte →</button>
+      <div class="err" id="err">Contraseña incorrecta.</div>
+    </div>
+    <p class="foot">Documento confidencial · Solo para uso del titular</p>
+  </div>
+  <script>
+    const H = "39262ee75a382d49bc6207310ca0848e7d2e7ef3e8e5be7b3887e6a13190bdd2";
+    async function sha256(m){ const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(m)); return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''); }
+    async function check(){ const v=document.getElementById('pw').value; if(await sha256(v)===H){ sessionStorage.setItem('dp_auth','1'); location.href='reporte.html'; }else{ document.getElementById('err').style.display='block'; document.getElementById('pw').value=''; document.getElementById('pw').focus(); } }
+    document.getElementById('pw').addEventListener('keypress',e=>{ if(e.key==='Enter') check(); });
+  </script>
+</body>
+</html>
