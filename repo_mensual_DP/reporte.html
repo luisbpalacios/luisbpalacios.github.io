@@ -336,13 +336,13 @@
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Capital Inicial</div>
-        <div class="stat-value blue">$5,556</div>
-        <div class="stat-sub">USD · ≈ $100,000 MXN</div>
+        <div class="stat-value blue">$5,807</div>
+        <div class="stat-sub">USD · ≈ $100,000 MXN · TC $17.22</div>
       </div>
       <div class="stat-card highlight">
         <div class="stat-label">Valor Actual</div>
-        <div class="stat-value green">$6,095</div>
-        <div class="stat-sub up">↑ +$539 USD este mes</div>
+        <div class="stat-value green">$6,370</div>
+        <div class="stat-sub up">↑ +$563 USD este mes</div>
       </div>
       <div class="stat-card highlight">
         <div class="stat-label">Rendimiento Mensual</div>
@@ -351,7 +351,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-label">Ganancia Neta</div>
-        <div class="stat-value">$539</div>
+        <div class="stat-value">$563</div>
         <div class="stat-sub up">USD generados</div>
       </div>
     </div>
@@ -458,7 +458,7 @@
         </div>
         <div class="detail-row">
           <span class="detail-key">Capital inicial</span>
-          <span class="detail-val blue">$5,556 USD</span>
+          <span class="detail-val blue">$5,807 USD</span>
         </div>
         <div class="detail-row">
           <span class="detail-key">Rendimiento generado</span>
@@ -466,11 +466,11 @@
         </div>
         <div class="detail-row">
           <span class="detail-key">Ganancia neta</span>
-          <span class="detail-val green">+$539 USD</span>
+          <span class="detail-val green">+$563 USD</span>
         </div>
         <div class="detail-row">
           <span class="detail-key">Valor al cierre</span>
-          <span class="detail-val">$6,095 USD</span>
+          <span class="detail-val">$6,370 USD</span>
         </div>
         <div class="detail-row">
           <span class="detail-key">Próximo reporte</span>
@@ -482,11 +482,11 @@
         <div class="detail-title">Estrategia aplicada</div>
         <div class="detail-row">
           <span class="detail-key">Pools de Liquidez</span>
-          <span class="detail-val blue">40% — $2,222 USD</span>
+          <span class="detail-val blue">40% — $2,323 USD</span>
         </div>
         <div class="detail-row">
           <span class="detail-key">Inversión Spot</span>
-          <span class="detail-val green">60% — $3,334 USD</span>
+          <span class="detail-val green">60% — $3,484 USD</span>
         </div>
         <div class="detail-row">
           <span class="detail-key">Operaciones ejecutadas</span>
@@ -526,7 +526,7 @@
 
     // Growth Chart
     const labels = ['1 Mar','5 Mar','8 Mar','11 Mar','14 Mar','17 Mar','20 Mar','23 Mar','26 Mar','31 Mar'];
-    const data = [5556, 5612, 5648, 5690, 5730, 5778, 5820, 5869, 5940, 6095];
+    const data = [5807, 5865, 5902, 5948, 5991, 6042, 6088, 6141, 6220, 6370];
 
     new Chart(document.getElementById('growthChart'), {
       type: 'line',
@@ -574,7 +574,7 @@
               font: { size: 11 },
               callback: v => '$' + v.toLocaleString()
             },
-            min: 5400,
+            min: 5650,
           }
         }
       }
