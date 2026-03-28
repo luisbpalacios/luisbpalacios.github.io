@@ -9,21 +9,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
     :root {
-      --blue: #1DA1F2;
-      --blue-dim: rgba(29,161,242,0.1);
-      --blue-border: rgba(29,161,242,0.2);
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.08);
-      --green-border: rgba(34,197,94,0.2);
+      --blue: #F2561D;
+      --blue-dim: rgba(242,86,29,0.1);
+      --blue-border: rgba(242,86,29,0.2);
+      --green: #F2561D;
+      --green-dim: rgba(242,86,29,0.08);
+      --green-border: rgba(242,86,29,0.2);
       --gold: #f59e0b;
       --gold-dim: rgba(245,158,11,0.08);
-      --dark: #0a0a0f;
-      --dark-2: #0e0e16;
-      --dark-3: #111118;
-      --dark-4: #151520;
+      --dark: #0D0D0D;
+      --dark-2: #141414;
+      --dark-3: #1A1A1A;
+      --dark-4: #222222;
       --dark-5: #1a1a28;
-      --border: #151520;
-      --border-2: #1e1e2a;
+      --border: #1e1e1e;
+      --border-2: #2a2a2a;
       --text: #e0e0e0;
       --muted: #555;
     }
@@ -89,13 +89,13 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: var(--green-dim);
-      border: 1px solid var(--green-border);
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
       border-radius: 20px;
       padding: 6px 14px;
       font-size: 12px;
       font-weight: 700;
-      color: var(--green);
+      color: var(--blue);
     }
 
     /* MAIN */
@@ -156,16 +156,16 @@
     }
 
     .stat-card.highlight {
-      border-color: var(--green-border);
+      border-color: var(--blue-border);
       background: rgba(34,197,94,0.04);
     }
 
     .stat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
     .stat-value { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1; }
-    .stat-value.green { color: var(--green); }
+    .stat-value.green { color: var(--blue); }
     .stat-value.blue { color: var(--blue); }
     .stat-sub { font-size: 12px; color: #444; margin-top: 6px; }
-    .stat-sub.up { color: var(--green); }
+    .stat-sub.up { color: var(--blue); }
 
     /* CHARTS ROW */
     .charts-row {
@@ -224,8 +224,8 @@
     }
 
     .month-item.active {
-      border-color: var(--green-border);
-      background: var(--green-dim);
+      border-color: var(--blue-border);
+      background: var(--blue-dim);
     }
 
     .month-item.locked {
@@ -233,10 +233,10 @@
     }
 
     .month-name { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .month-item.active .month-name { color: var(--green); }
+    .month-item.active .month-name { color: var(--blue); }
 
     .month-status { font-size: 10px; color: #444; }
-    .month-item.active .month-status { color: var(--green); font-weight: 700; }
+    .month-item.active .month-status { color: var(--blue); font-weight: 700; }
 
     .lock-icon { font-size: 14px; margin-bottom: 4px; }
 
@@ -270,7 +270,7 @@
 
     .detail-key { color: #666; }
     .detail-val { color: #ddd; font-weight: 600; }
-    .detail-val.green { color: var(--green); }
+    .detail-val.green { color: var(--blue); }
     .detail-val.blue { color: var(--blue); }
 
     /* FOOTER */
@@ -310,7 +310,7 @@
     </div>
     <div class="top-right">
       <div class="period-pill">Marzo 2026</div>
-      <div class="status-pill"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;"></div> Activo</div>
+      <div class="status-pill"><div style="width:6px;height:6px;background:var(--blue);border-radius:50%;"></div> Activo</div>
     </div>
   </div>
 
@@ -371,12 +371,12 @@
         </div>
         <div class="alloc-legend">
           <div class="legend-item">
-            <div class="legend-dot" style="background:#1DA1F2;"></div>
+            <div class="legend-dot" style="background:#F2561D;"></div>
             <div class="legend-label">Pools de Liquidez</div>
             <div class="legend-pct">40%</div>
           </div>
           <div class="legend-item">
-            <div class="legend-dot" style="background:#22c55e;"></div>
+            <div class="legend-dot" style="background:#F2561D;"></div>
             <div class="legend-label">Inversión Spot</div>
             <div class="legend-pct">60%</div>
           </div>
@@ -510,7 +510,7 @@
     <!-- NOTA -->
     <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:24px;">
       <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">Nota del gestor</div>
-      <p style="font-size:14px;color:#888;line-height:1.7;">Marzo fue un mes de rendimiento sólido. La estrategia combinada de Pools de Liquidez y posición Spot permitió capturar el movimiento del mercado manteniendo el riesgo bajo control. El portafolio cerró el mes con un rendimiento del <strong style="color:var(--green)">9.7%</strong>, superando el objetivo mensual establecido.</p>
+      <p style="font-size:14px;color:#888;line-height:1.7;">Marzo fue un mes de rendimiento sólido. La estrategia combinada de Pools de Liquidez y posición Spot permitió capturar el movimiento del mercado manteniendo el riesgo bajo control. El portafolio cerró el mes con un rendimiento del <strong style="color:var(--blue)">9.7%</strong>, superando el objetivo mensual establecido.</p>
       <p style="font-size:14px;color:#888;line-height:1.7;margin-top:10px;">Para Abril mantendremos la misma estructura de distribución con ajustes menores según las condiciones del mercado. El reporte del siguiente mes estará disponible el <strong style="color:#ddd;">30 de Abril de 2026</strong>.</p>
     </div>
 
@@ -535,10 +535,10 @@
         datasets: [{
           label: 'Valor del portafolio (USD)',
           data,
-          borderColor: '#22c55e',
-          backgroundColor: 'rgba(34,197,94,0.06)',
+          borderColor: '#F2561D',
+          backgroundColor: 'rgba(242,86,29,0.06)',
           borderWidth: 2.5,
-          pointBackgroundColor: '#22c55e',
+          pointBackgroundColor: '#F2561D',
           pointRadius: 4,
           pointHoverRadius: 6,
           fill: true,
@@ -555,7 +555,7 @@
             borderColor: '#1e1e2a',
             borderWidth: 1,
             titleColor: '#888',
-            bodyColor: '#22c55e',
+            bodyColor: '#F2561D',
             bodyFont: { weight: '700', size: 14 },
             callbacks: {
               label: ctx => ` $${ctx.parsed.y.toLocaleString()} USD`
@@ -587,7 +587,7 @@
         labels: ['Pools de Liquidez', 'Inversión Spot'],
         datasets: [{
           data: [40, 60],
-          backgroundColor: ['#1DA1F2', '#22c55e'],
+          backgroundColor: ['#F2561D', '#D9704A'],
           borderColor: '#0e0e16',
           borderWidth: 3,
           hoverOffset: 6,
