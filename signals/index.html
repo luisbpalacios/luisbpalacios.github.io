@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vera Signals — Crypto Futures</title>
+<title>Luis B. Palacios — Signals</title>
 <style>
   :root {
-    --bg: #060b18;
-    --card: #0d1426;
-    --card2: #111a2e;
-    --border: #1e2d4a;
-    --accent: #3b82f6;
+    --bg: #0D0D0D;
+    --card: #141414;
+    --card2: #1A1A1A;
+    --border: #2a2a2a;
+    --accent: #F2561D;
+    --accent2: #D9704A;
     --green: #22c55e;
     --red: #ef4444;
     --amber: #f59e0b;
-    --text: #e2e8f0;
-    --muted: #64748b;
+    --text: #F4F4F4;
+    --muted: #8C8C8C;
     --long: #16a34a;
     --short: #dc2626;
   }
@@ -60,8 +61,8 @@
   .score-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
   .score-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .score-fill { height: 100%; border-radius: 2px; transition: width .5s; }
-  .score-fill.high   { background: linear-gradient(90deg, #22c55e, #86efac); }
-  .score-fill.medium { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+  .score-fill.high   { background: linear-gradient(90deg, #F2561D, #D9704A); }
+  .score-fill.medium { background: linear-gradient(90deg, #D9704A, #f59e0b); }
   .score-fill.low    { background: linear-gradient(90deg, #ef4444, #fca5a5); }
 
   .levels { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
@@ -106,7 +107,7 @@
   .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
   .empty-state p { font-size: 14px; }
 
-  .rr-badge { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2); color: #93c5fd; border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+  .rr-badge { background: rgba(242,86,29,.1); border: 1px solid rgba(242,86,29,.2); color: #F2561D; border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
 
   @media (max-width: 600px) {
     .container { padding: 12px; }
@@ -127,7 +128,7 @@
       <div class="sub">Crypto Futures · Binance</div>
     </div>
   </div>
-  <nav class="nav-links" style="display:flex;gap:16px;margin-right:16px"><a href="index.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px;background:rgba(59,130,246,.1);color:#93c5fd">🎯 Señales</a><a href="history.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px">📈 Historial</a></nav><div class="last-update">
+  <nav class="nav-links" style="display:flex;gap:16px;margin-right:16px"><a href="index.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px;background:rgba(242,86,29,.1);color:#F2561D">🎯 Señales</a><a href="history.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px">📈 Historial</a></nav><a href="/" style="color:var(--muted);text-decoration:none;font-size:12px;margin-left:8px">← luisbpalacios.github.io</a><div class="last-update">
     <div id="updateTime">Cargando...</div>
     <div style="font-size:10px;color:#334155">Actualiza cada 5 min</div>
   </div>
