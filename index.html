@@ -1274,6 +1274,205 @@ body.light .card-qr-btn:hover { border-color: #F2561D; background: #fde8e0; }
   </div>
 </div>
 
+
+<!-- ═══════════════════════════════════════════════════════
+     SEÑALES EN VIVO
+     ═══════════════════════════════════════════════════ -->
+<style>
+  /* ── Signals embed ── */
+  .signals-section { margin: 0 auto 32px; max-width: 1100px; padding: 0 16px; }
+  .signals-section .sec-hdr {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .signals-section .sec-hdr h2 {
+    font-size: 13px; font-weight: 700; color: var(--gray);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .signals-section .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e; display: inline-block; margin-right: 6px;
+    box-shadow: 0 0 7px #22c55e; animation: pulse2 2s infinite;
+  }
+  @keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .sig-mkt-bar {
+    background: #141414; border: 1px solid #2a2a2a; border-radius: 10px;
+    padding: 10px 16px; display: flex; gap: 20px; overflow-x: auto;
+    margin-bottom: 14px; white-space: nowrap; scrollbar-width: none;
+  }
+  .sig-mkt-bar::-webkit-scrollbar { display: none; }
+  .sig-mkt-item { display: flex; flex-direction: column; gap: 2px; min-width: 70px; }
+  .sig-mkt-item .lbl { font-size: 10px; color: #8C8C8C; text-transform: uppercase; letter-spacing: .5px; }
+  .sig-mkt-item .val { font-size: 13px; font-weight: 700; color: #F4F4F4; }
+  .sig-mkt-item .chg { font-size: 11px; }
+  .sig-up { color: #22c55e; } .sig-dn { color: #ef4444; } .sig-nt { color: #8C8C8C; }
+  .sig-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 12px; }
+  .sig-card {
+    background: #141414; border: 1px solid #2a2a2a; border-radius: 10px;
+    padding: 16px; transition: transform .15s, box-shadow .15s;
+  }
+  .sig-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+  .sig-card.long  { border-top: 3px solid #16a34a; }
+  .sig-card.short { border-top: 3px solid #dc2626; }
+  .sig-card-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .sig-pair { font-size: 18px; font-weight: 800; color: #F4F4F4; }
+  .sig-dir { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+  .sig-dir.long  { background: rgba(22,163,74,.2); color: #4ade80; }
+  .sig-dir.short { background: rgba(220,38,38,.2); color: #f87171; }
+  .sig-score-wrap { margin-bottom: 10px; }
+  .sig-score-lbl { display: flex; justify-content: space-between; font-size: 10px; color: #8C8C8C; margin-bottom: 4px; }
+  .sig-score-bar { height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
+  .sig-score-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg,#F2561D,#D9704A); transition: width .5s; }
+  .sig-tps { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+  .sig-tp-chip {
+    background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);
+    color: #4ade80; border-radius: 5px; padding: 3px 7px; font-size: 10px; font-family: monospace;
+  }
+  .sig-sl-chip {
+    background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.2);
+    color: #f87171; border-radius: 5px; padding: 3px 7px; font-size: 10px; font-family: monospace;
+  }
+  .sig-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 11px;
+    padding-top: 10px; border-top: 1px solid #2a2a2a; }
+  .sig-meta-row { display: flex; justify-content: space-between; }
+  .sig-meta-row .k { color: #8C8C8C; }
+  .sig-meta-row .v { font-weight: 600; color: #F4F4F4; }
+  .sig-rr { background: rgba(242,86,29,.1); border: 1px solid rgba(242,86,29,.25); color: #F2561D;
+    border-radius: 5px; padding: 2px 7px; font-size: 10px; font-weight: 700; }
+  .sig-entry-row { font-size: 12px; color: #8C8C8C; margin-bottom: 8px; }
+  .sig-entry-row strong { color: #F4F4F4; }
+  .sig-empty { text-align: center; padding: 40px; color: #8C8C8C; font-size: 13px;
+    background: #141414; border: 1px solid #2a2a2a; border-radius: 10px; }
+  .sig-update { font-size: 10px; color: #8C8C8C; margin-left: 6px; }
+  .sig-view-all {
+    display: inline-block; margin-top: 14px; font-size: 12px; color: #F2561D;
+    text-decoration: none; border: 1px solid rgba(242,86,29,.3); padding: 6px 14px;
+    border-radius: 6px; transition: background .15s;
+  }
+  .sig-view-all:hover { background: rgba(242,86,29,.1); }
+
+  /* History table (compact) */
+  .sig-hist-table { background: #141414; border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; margin-top: 14px; }
+  .sig-hist-row { display: grid; grid-template-columns: 70px 50px 90px 60px 60px 70px 80px; align-items: center;
+    padding: 10px 14px; border-bottom: 1px solid #1e1e1e; font-size: 12px; }
+  .sig-hist-row:last-child { border-bottom: none; }
+  .sig-hist-row.hdr { background: #1a1a1a; font-size: 10px; color: #8C8C8C; text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
+  .sig-badge { display: inline-block; padding: 2px 7px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+  .sig-badge.long  { background: rgba(34,197,94,.15); color: #4ade80; }
+  .sig-badge.short { background: rgba(239,68,68,.15); color: #f87171; }
+  .sig-badge.open  { background: rgba(242,86,29,.15);  color: #F2561D; }
+  .sig-badge.tp1,.sig-badge.tp2,.sig-badge.tp3 { background: rgba(34,197,94,.15); color: #4ade80; }
+  .sig-badge.sl    { background: rgba(239,68,68,.15); color: #f87171; }
+  .sig-pnl-pos { color: #22c55e; font-weight: 700; }
+  .sig-pnl-neg { color: #ef4444; font-weight: 700; }
+</style>
+
+<div class="signals-section">
+  <div class="sec-hdr">
+    <h2><span class="live-dot"></span>Señales en Vivo <span class="sig-update" id="sigUpdateTime"></span></h2>
+    <a href="signals/" class="sig-view-all">Ver dashboard completo →</a>
+  </div>
+
+  <!-- Market bar -->
+  <div class="sig-mkt-bar" id="sigMktBar">
+    <div class="sig-mkt-item"><div class="lbl">Cargando...</div></div>
+  </div>
+
+  <!-- Signal cards -->
+  <div class="sig-cards" id="sigCards">
+    <div class="sig-empty">Analizando mercado...</div>
+  </div>
+
+  <!-- History table -->
+  <div style="margin-top:20px">
+    <h2 style="font-size:13px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Historial de Señales</h2>
+    <div class="sig-hist-table">
+      <div class="sig-hist-row hdr"><div>Par</div><div>Dir</div><div>Entrada</div><div>TP1</div><div>SL</div><div>Estado</div><div>P&L</div></div>
+      <div id="sigHistBody"><div style="padding:20px;text-align:center;color:#555;font-size:12px">Cargando historial...</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const FPAIRS=["BTCUSDT","ETHUSDT","SOLUSDT","BNBUSDT","DOGEUSDT","NEARUSDT","AAVEUSDT","SUIUSDT","RENDERUSDT","TAOUSDT","ZECUSDT","XMRUSDT","WIFUSDT","PENGUUSDT","AEROUSDT","HYPEUSDT","BASEDUSDT"];
+const FB="https://fapi.binance.com";
+function ema(v,p){const k=2/(p+1);let e=v[0];const r=[e];for(let i=1;i<v.length;i++){e=v[i]*k+e*(1-k);r.push(e);}return r;}
+function calcRSI(c,p=14){let g=0,l=0;for(let i=1;i<=p;i++){const d=c[i]-c[i-1];d>0?g+=d:l-=d;}let ag=g/p,al=l/p;for(let i=p+1;i<c.length;i++){const d=c[i]-c[i-1];ag=(ag*(p-1)+Math.max(d,0))/p;al=(al*(p-1)+Math.max(-d,0))/p;}return al===0?100:+(100-100/(1+ag/al)).toFixed(1);}
+function calcATR(k,p=14){const t=[];for(let i=1;i<k.length;i++){const h=+k[i][2],l=+k[i][3],pc=+k[i-1][4];t.push(Math.max(h-l,Math.abs(h-pc),Math.abs(l-pc)));}return t.slice(-p).reduce((a,b)=>a+b,0)/p;}
+function calcMACD(c){const e12=ema(c,12),e26=ema(c,26),ml=e12.map((v,i)=>v-e26[i]),sig=ema(ml,9);return ml.map((v,i)=>v-sig[i]);}
+function fP(p){if(!p&&p!==0)return"—";if(p>=1000)return"$"+p.toLocaleString("en",{minimumFractionDigits:2,maximumFractionDigits:2});if(p>=1)return"$"+p.toFixed(4);return"$"+p.toFixed(6);}
+function fC(c){const cl=c>0?"sig-up":c<0?"sig-dn":"sig-nt";return`<span class="${cl}">${c>0?"+":""}${(+c).toFixed(2)}%</span>`;}
+function fPnl(p){if(p==null)return`<span style="color:#555">—</span>`;return`<span class="${p>0?"sig-pnl-pos":"sig-pnl-neg"}">${p>0?"+":""}${p}%</span>`;}
+async function gK(s,iv="4h",l=100){try{const r=await fetch(`${FB}/fapi/v1/klines?symbol=${s}&interval=${iv}&limit=${l}`);return r.ok?r.json():null;}catch{return null;}}
+async function gFund(s){try{const r=await fetch(`${FB}/fapi/v1/fundingRate?symbol=${s}&limit=1`);const d=await r.json();return Array.isArray(d)&&d.length?+(+d[d.length-1].fundingRate*100).toFixed(5):0;}catch{return 0;}}
+async function gOI(s){try{const r=await fetch(`${FB}/futures/data/openInterestHist?symbol=${s}&period=4h&limit=4`);const d=await r.json();if(Array.isArray(d)&&d.length>=2){const n=+d[d.length-1].sumOpenInterest,o=+d[0].sumOpenInterest;return+((n-o)/o*100).toFixed(2);}return 0;}catch{return 0;}}
+async function gLS(s){try{const r=await fetch(`${FB}/futures/data/globalLongShortAccountRatio?symbol=${s}&period=4h&limit=1`);const d=await r.json();return Array.isArray(d)&&d.length?{long:+(+d[0].longAccount*100).toFixed(1),short:+(+d[0].shortAccount*100).toFixed(1)}:{long:50,short:50};}catch{return{long:50,short:50};}}
+async function gTick(s){try{const r=await fetch(`${FB}/fapi/v1/ticker/24hr?symbol=${s}`);return r.ok?r.json():null;}catch{return null;}}
+function scoreK(k){const c=k.map(x=>+x[4]),v=k.map(x=>+x[5]),p=c[c.length-1];const e21=ema(c,21).slice(-1)[0],e50=ema(c,50).slice(-1)[0],r=calcRSI(c),h=calcMACD(c),va=v.slice(-20).reduce((a,b)=>a+b,0)/20,vr=v[v.length-1]/va;let ls=0,ss=0;if(r<35)ls+=30;else if(r<45)ls+=18;else if(r<50)ls+=8;if(r>65)ss+=30;else if(r>55)ss+=18;else if(r>50)ss+=8;if(p>e21)ls+=15;else ss+=15;if(e21>e50)ls+=10;else ss+=10;const hl=h[h.length-1],hp=h[h.length-2];if(hl>0&&hp<=0)ls+=25;else if(hl>0)ls+=12;if(hl<0&&hp>=0)ss+=25;else if(hl<0)ss+=12;if(vr>2){ls+=20;ss+=20;}else if(vr>1.5){ls+=12;ss+=12;}return{ls,ss,p,r,e21,e50,vr:+vr.toFixed(2),atr:calcATR(k)};}
+async function analyze(sym){
+  const[k4,k1,kd,f,oi,ls]=await Promise.all([gK(sym,"4h",100),gK(sym,"1h",100),gK(sym,"1d",60),gFund(sym),gOI(sym),gLS(sym)]);
+  if(!k4)return null;
+  const s4=scoreK(k4),s1=k1?scoreK(k1):{ls:0,ss:0},sd=kd?scoreK(kd):{ls:0,ss:0};
+  let l4=s4.ls,sh4=s4.ss;
+  if(f>0.05){sh4+=15;l4-=10;}else if(f>0.02){sh4+=7;l4-=5;}else if(f<-0.02){l4+=15;sh4-=10;}else if(f<-0.01){l4+=7;sh4-=5;}
+  if(oi>3&&s4.p>s4.e21)l4+=10;else if(oi<-3&&s4.p<s4.e21)sh4+=10;else if(oi<-3)l4-=8;
+  const lf=Math.min(Math.round(l4*.5+s1.ls*.3+sd.ls*.2),100),sf=Math.min(Math.round(sh4*.5+s1.ss*.3+sd.ss*.2),100);
+  let dir=null,sc=0;if(lf>=55&&lf>sf){dir="LONG";sc=lf;}else if(sf>=55&&sf>lf){dir="SHORT";sc=sf;}
+  const atr=s4.atr,p=s4.p;
+  const tp1=dir==="LONG"?+(p+1.5*atr).toFixed(6):+(p-1.5*atr).toFixed(6);
+  const tp2=dir==="LONG"?+(p+2.5*atr).toFixed(6):+(p-2.5*atr).toFixed(6);
+  const tp3=dir==="LONG"?+(p+4.0*atr).toFixed(6):+(p-4.0*atr).toFixed(6);
+  const sl=dir==="LONG"?+(p-1.2*atr).toFixed(6):+(p+1.2*atr).toFixed(6);
+  return{symbol:sym,direction:dir,score:sc,price:p,tp1,tp2,tp3,sl,rr:+(Math.abs(tp2-p)/Math.abs(p-sl)).toFixed(2),rsi:s4.r,funding:f,oi,ls,volRatio:s4.vr,lScore:lf,sScore:sf};
+}
+async function loadMktBar(){
+  const[bt,et,st]=await Promise.all([gTick("BTCUSDT"),gTick("ETHUSDT"),gTick("SOLUSDT")]);
+  const[fb,fe]=await Promise.all([gFund("BTCUSDT"),gFund("ETHUSDT")]);
+  const fcol=f=>f>0.03?"#ef4444":f>0.01?"#f59e0b":f<-0.01?"#22c55e":"#8C8C8C";
+  const items=[
+    {l:"BTC",v:+bt.lastPrice,c:+bt.priceChangePercent},
+    {l:"ETH",v:+et.lastPrice,c:+et.priceChangePercent},
+    {l:"SOL",v:+st.lastPrice,c:+st.priceChangePercent},
+    {l:"Fund BTC",raw:`<span style="color:${fcol(fb)}">${fb>0?"+":""}${fb.toFixed(4)}%</span>`},
+    {l:"Fund ETH",raw:`<span style="color:${fcol(fe)}">${fe>0?"+":""}${fe.toFixed(4)}%</span>`},
+  ];
+  document.getElementById("sigMktBar").innerHTML=items.map(i=>
+    i.raw?`<div class="sig-mkt-item"><div class="lbl">${i.l}</div><div class="val">${i.raw}</div></div>`
+         :`<div class="sig-mkt-item"><div class="lbl">${i.l}</div><div class="val">${fP(i.v)}</div><div class="chg">${fC(i.c)}</div></div>`
+  ).join("");
+}
+async function loadHistory(){
+  try{
+    const r=await fetch("signals/log.json?t="+Date.now());
+    if(!r.ok)return;
+    const data=await r.json();
+    const sigs=(data.signals||[]).slice(0,8);
+    if(!sigs.length){document.getElementById("sigHistBody").innerHTML='<div style="padding:20px;text-align:center;color:#555;font-size:12px">Sin señales registradas aún</div>';return;}
+    document.getElementById("sigHistBody").innerHTML=sigs.map(s=>{
+      const dt=s.timestamp?new Date(s.timestamp).toLocaleDateString("es-MX",{month:"short",day:"numeric"}):"—";
+      return`<div class="sig-hist-row"><div style="font-weight:700">${s.symbol.replace("USDT","")}</div><div><span class="sig-badge ${s.direction.toLowerCase()}">${s.direction}</span></div><div style="font-family:monospace;font-size:11px">${fP(s.entry)}</div><div style="font-family:monospace;font-size:11px;color:#4ade80">${fP(s.tp1)}</div><div style="font-family:monospace;font-size:11px;color:#f87171">${fP(s.sl)}</div><div><span class="sig-badge ${s.status}">${s.status.toUpperCase()}</span></div><div>${fPnl(s.result_pct)}</div></div>`;
+    }).join("");
+  }catch(e){console.error(e);}
+}
+async function runScan(){
+  const results=await Promise.allSettled(FPAIRS.map(analyze));
+  const all=results.filter(r=>r.status==="fulfilled"&&r.value).map(r=>r.value);
+  const signals=all.filter(d=>d.direction&&d.score>=55).sort((a,b)=>b.score-a.score);
+  const el=document.getElementById("sigCards");
+  if(!signals.length){el.innerHTML='<div class="sig-empty">Sin setups activos · Mercado en zona neutral</div>';return;}
+  el.innerHTML=signals.map(d=>{
+    const dir=d.direction.toLowerCase();
+    return`<div class="sig-card ${dir}"><div class="sig-card-hdr"><div class="sig-pair">${d.symbol.replace("USDT","")}</div><div class="sig-dir ${dir}">${d.direction==="LONG"?"↑ LONG":"↓ SHORT"}</div></div><div class="sig-score-wrap"><div class="sig-score-lbl"><span>Score</span><span>${d.score}/100</span></div><div class="sig-score-bar"><div class="sig-score-fill" style="width:${d.score}%"></div></div></div><div class="sig-entry-row">Entrada: <strong>${fP(d.price)}</strong> &nbsp;·&nbsp; <span class="sig-rr">R:R 1:${d.rr}</span></div><div class="sig-tps"><span class="sig-tp-chip">TP1 ${fP(d.tp1)}</span><span class="sig-tp-chip">TP2 ${fP(d.tp2)}</span><span class="sig-tp-chip">TP3 ${fP(d.tp3)}</span><span class="sig-sl-chip">SL ${fP(d.sl)}</span></div><div class="sig-meta"><div class="sig-meta-row"><span class="k">RSI 4H</span><span class="v">${d.rsi}</span></div><div class="sig-meta-row"><span class="k">OI</span><span class="v ${d.oi>0?"sig-up":"sig-dn"}">${d.oi>0?"+":""}${d.oi}%</span></div><div class="sig-meta-row"><span class="k">L/S</span><span class="v">${d.ls.long}/${d.ls.short}%</span></div><div class="sig-meta-row"><span class="k">Vol</span><span class="v">${d.volRatio}x</span></div></div></div>`;
+  }).join("");
+  document.getElementById("sigUpdateTime").textContent="· "+new Date().toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"});
+}
+async function init(){await Promise.all([loadMktBar(),runScan(),loadHistory()]);}
+init();
+setInterval(()=>Promise.all([loadMktBar(),runScan()]),5*60*1000);
+})();
+</script>
+
 <div class="disclaimer" data-i18n="disclaimer">
   ⚠️ Nada en esta página es asesoría financiera. El trading y DeFi implican riesgo significativo — puedes perder tu inversión. Haz siempre tu propia investigación (DYOR).
 </div>
