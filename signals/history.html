@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vera Signals — Historial</title>
+<style>
+  :root {
+    --bg:#060b18;--card:#0d1426;--card2:#111a2e;--border:#1e2d4a;
+    --accent:#3b82f6;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;
+    --text:#e2e8f0;--muted:#64748b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;min-height:100vh;}
+
+  .header{background:var(--card);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .logo span{font-size:18px;font-weight:700;}
+  .logo .sub{font-size:12px;color:var(--muted);}
+  .nav-links{display:flex;gap:16px;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px;transition:all .15s;}
+  .nav-links a:hover,.nav-links a.active{background:rgba(59,130,246,.1);color:var(--accent);}
+
+  .container{max-width:1100px;margin:0 auto;padding:24px;}
+
+  /* Stats row */
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+  .stat-card .val{font-size:28px;font-weight:700;margin-bottom:4px;}
+  .stat-card .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+  .stat-card.win .val{color:var(--green);}
+  .stat-card.loss .val{color:var(--red);}
+  .stat-card.rate .val{color:var(--accent);}
+
+  /* Table */
+  .section-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .signals-table{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;width:100%;}
+  .table-header,.table-row{display:grid;grid-template-columns:90px 60px 80px 80px 80px 80px 70px 80px 90px;align-items:center;padding:12px 16px;gap:4px;}
+  .table-header{background:var(--card2);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;border-bottom:1px solid var(--border);}
+  .table-row{border-bottom:1px solid var(--border);font-size:12px;transition:background .1s;}
+  .table-row:last-child{border-bottom:none;}
+  .table-row:hover{background:var(--card2);}
+
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.5px;}
+  .badge.long{background:rgba(34,197,94,.15);color:#4ade80;}
+  .badge.short{background:rgba(239,68,68,.15);color:#f87171;}
+  .badge.open{background:rgba(59,130,246,.15);color:#93c5fd;}
+  .badge.tp1,.badge.tp2,.badge.tp3{background:rgba(34,197,94,.15);color:#4ade80;}
+  .badge.sl{background:rgba(239,68,68,.15);color:#f87171;}
+
+  .pnl.pos{color:var(--green);}
+  .pnl.neg{color:var(--red);}
+  .pnl.neutral{color:var(--muted);}
+
+  .empty{text-align:center;padding:60px;color:var(--muted);}
+  .empty .icon{font-size:36px;margin-bottom:12px;}
+
+  /* Equity curve placeholder */
+  .chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:24px;min-height:180px;display:flex;align-items:center;justify-content:center;}
+  canvas{width:100%;height:140px;}
+
+  @media(max-width:700px){
+    .table-header,.table-row{grid-template-columns:80px 50px 70px 70px 60px 50px 70px;font-size:11px;}
+    .col-sl,.col-rr{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo"><span>Vera Signals</span><div class="sub">Historial & Performance</div></div>
+  <nav class="nav-links">
+    <a href="index.html">🎯 Señales</a>
+    <a href="history.html" class="active">📈 Historial</a>
+  </nav>
+</div>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card"><div class="val" id="statTotal">—</div><div class="lbl">Total señales</div></div>
+    <div class="stat-card win"><div class="val" id="statWins">—</div><div class="lbl">Wins</div></div>
+    <div class="stat-card loss"><div class="val" id="statLosses">—</div><div class="lbl">Losses</div></div>
+    <div class="stat-card rate"><div class="val" id="statRate">—</div><div class="lbl">Win Rate</div></div>
+    <div class="stat-card"><div class="val" id="statOpen">—</div><div class="lbl">Abiertas</div></div>
+    <div class="stat-card"><div class="val" id="statRR">—</div><div class="lbl">R:R Prom.</div></div>
+  </div>
+
+  <!-- Equity curve -->
+  <div class="section-title">Curva de resultados</div>
+  <div class="chart-wrap">
+    <canvas id="equityChart"></canvas>
+  </div>
+
+  <!-- Signal log table -->
+  <div class="section-title">Registro de señales</div>
+  <div class="signals-table">
+    <div class="table-header">
+      <div>Par</div>
+      <div>Dir.</div>
+      <div>Entrada</div>
+      <div>TP1</div>
+      <div>TP2</div>
+      <div class="col-sl">SL</div>
+      <div>Estado</div>
+      <div>P&L</div>
+      <div>Fecha</div>
+    </div>
+    <div id="tableBody">
+      <div class="empty"><div class="icon">📡</div><p>Cargando historial...</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function fmtPrice(p){
+  if(!p&&p!==0)return"—";
+  if(p>=1000)return"$"+p.toLocaleString("en",{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(p>=1)return"$"+p.toFixed(4);
+  return"$"+p.toFixed(6);
+}
+function fmtDate(iso){
+  if(!iso)return"—";
+  const d=new Date(iso);
+  return d.toLocaleDateString("es-MX",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"});
+}
+
+async function loadLog(){
+  try{
+    const r=await fetch("log.json?t="+Date.now());
+    return r.ok?r.json():{signals:[],stats:{}};
+  }catch{return{signals:[],stats:{}};}
+}
+
+function drawEquity(signals){
+  const canvas=document.getElementById("equityChart");
+  const ctx=canvas.getContext("2d");
+  canvas.width=canvas.offsetWidth||800;
+  canvas.height=140;
+  const closed=signals.filter(s=>s.status!=="open"&&s.result_pct!=null).reverse();
+  if(closed.length<2){
+    ctx.fillStyle="#334155";ctx.font="13px Inter";
+    ctx.fillText("Se necesitan más señales cerradas para mostrar la curva",20,70);
+    return;
+  }
+  let equity=100;
+  const points=[{x:0,y:equity}];
+  closed.forEach((s,i)=>{
+    equity+=s.status==="sl"?-2:s.result_pct*0.5;
+    points.push({x:i+1,y:equity});
+  });
+  const minY=Math.min(...points.map(p=>p.y));
+  const maxY=Math.max(...points.map(p=>p.y));
+  const rangeY=maxY-minY||10;
+  const W=canvas.width-40,H=canvas.height-20;
+  const toX=i=>20+i/(points.length-1)*W;
+  const toY=y=>10+H-(y-minY)/rangeY*H;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // Grid
+  ctx.strokeStyle="#1e2d4a";ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=10+H/4*i;
+    ctx.beginPath();ctx.moveTo(20,y);ctx.lineTo(20+W,y);ctx.stroke();
+  }
+  // Line
+  const gradient=ctx.createLinearGradient(0,0,0,H);
+  const lastY=points[points.length-1].y;
+  gradient.addColorStop(0,lastY>=100?"rgba(34,197,94,.6)":"rgba(239,68,68,.6)");
+  gradient.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.beginPath();ctx.moveTo(toX(0),toY(points[0].y));
+  points.forEach((p,i)=>{if(i>0)ctx.lineTo(toX(i),toY(p.y));});
+  ctx.lineTo(toX(points.length-1),H+10);ctx.lineTo(20,H+10);ctx.closePath();
+  ctx.fillStyle=gradient;ctx.fill();
+  ctx.beginPath();ctx.moveTo(toX(0),toY(points[0].y));
+  points.forEach((p,i)=>{if(i>0)ctx.lineTo(toX(i),toY(p.y));});
+  ctx.strokeStyle=lastY>=100?"#22c55e":"#ef4444";ctx.lineWidth=2;ctx.stroke();
+  // Dots
+  points.forEach((p,i)=>{
+    ctx.beginPath();ctx.arc(toX(i),toY(p.y),3,0,Math.PI*2);
+    ctx.fillStyle=lastY>=100?"#22c55e":"#ef4444";ctx.fill();
+  });
+}
+
+function renderRow(s){
+  const pnl=s.result_pct;
+  const pnlStr=pnl!=null?`<span class="pnl ${pnl>0?"pos":pnl<0?"neg":"neutral"}">${pnl>0?"+":""}${pnl}%</span>`:`<span class="pnl neutral">—</span>`;
+  return`<div class="table-row">
+    <div><strong>${s.symbol.replace("USDT","")}</strong></div>
+    <div><span class="badge ${s.direction.toLowerCase()}">${s.direction}</span></div>
+    <div style="font-family:monospace">${fmtPrice(s.entry)}</div>
+    <div style="font-family:monospace;color:#4ade80">${fmtPrice(s.tp1)}</div>
+    <div style="font-family:monospace;color:#4ade80">${fmtPrice(s.tp2)}</div>
+    <div class="col-sl" style="font-family:monospace;color:#f87171">${fmtPrice(s.sl)}</div>
+    <div><span class="badge ${s.status}">${s.status.toUpperCase()}</span></div>
+    <div>${pnlStr}</div>
+    <div style="color:var(--muted);font-size:11px">${fmtDate(s.timestamp)}</div>
+  </div>`;
+}
+
+async function init(){
+  const data=await loadLog();
+  const st=data.stats||{};
+  document.getElementById("statTotal").textContent=st.total||0;
+  document.getElementById("statWins").textContent=st.wins||0;
+  document.getElementById("statLosses").textContent=st.losses||0;
+  document.getElementById("statRate").textContent=(st.winRate||0)+"%";
+  document.getElementById("statOpen").textContent=st.open||0;
+  document.getElementById("statRR").textContent=st.avgRR||"—";
+  const sigs=data.signals||[];
+  if(sigs.length===0){
+    document.getElementById("tableBody").innerHTML=`<div class="empty"><div class="icon">📡</div><p>Sin señales registradas aún.<br/>Se irán guardando automáticamente.</p></div>`;
+  }else{
+    document.getElementById("tableBody").innerHTML=sigs.map(renderRow).join("");
+  }
+  drawEquity(sigs);
+}
+init();
+</script>
+</body>
+</html>
