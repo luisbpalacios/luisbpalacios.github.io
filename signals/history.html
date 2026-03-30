@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Luis B. Palacios — Historial</title>
+<title>Vera Signals — Historial</title>
 <style>
   :root {
     --bg: #0D0D0D;
@@ -72,15 +72,23 @@
     .table-header,.table-row{grid-template-columns:80px 50px 70px 70px 60px 50px 70px;font-size:11px;}
     .col-sl,.col-rr{display:none;}
   }
+
+  /* ── Tab bar ── */
+  .tab-bar { background: var(--card2); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; }
+  .tab-bar a { display: inline-flex; align-items: center; gap: 6px; padding: 12px 16px; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; transition: all .15s; }
+  .tab-bar a:hover { color: var(--text); }
+  .tab-bar a.active { color: var(--accent); border-bottom-color: var(--accent); }
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="logo"><span style="color:var(--accent)">LBP</span><span style="margin-left:4px">Signals</span><div class="sub">Historial & Performance</div></div>
-  <nav class="nav-links">
-    <a href="index.html">🎯 Señales</a>
-    <a href="history.html" class="active">📈 Historial</a>
-  </nav><a href="/" style="color:var(--muted);text-decoration:none;font-size:12px;margin-left:8px">← luisbpalacios.github.io</a>
+  <div class="logo"><span>Vera</span><span style="color:var(--accent)"> Signals</span><div class="sub">Historial & Performance</div></div>
+  <a href="/" style="color:var(--muted);text-decoration:none;font-size:12px;margin-left:8px">← luisbpalacios.github.io</a>
+</div>
+
+<div class="tab-bar">
+  <a href="index.html" >🎯 Señales</a>
+  <a href="history.html" class="active">📈 Historial</a>
 </div>
 
 <div class="container">

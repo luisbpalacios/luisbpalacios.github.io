@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Luis B. Palacios — Signals</title>
+<title>Vera Signals — Crypto Futures</title>
 <style>
   :root {
     --bg: #0D0D0D;
@@ -116,6 +116,12 @@
     .watch-row { grid-template-columns: 90px 1fr 70px 60px; font-size: 12px; }
     .watch-row .rsi-col, .watch-row .funding-col { display: none; }
   }
+
+  /* ── Tab bar ── */
+  .tab-bar { background: var(--card2); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; }
+  .tab-bar a { display: inline-flex; align-items: center; gap: 6px; padding: 12px 16px; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; transition: all .15s; }
+  .tab-bar a:hover { color: var(--text); }
+  .tab-bar a.active { color: var(--accent); border-bottom-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -128,7 +134,7 @@
       <div class="sub">Crypto Futures · Binance</div>
     </div>
   </div>
-  <nav class="nav-links" style="display:flex;gap:16px;margin-right:16px"><a href="index.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px;background:rgba(242,86,29,.1);color:#F2561D">🎯 Señales</a><a href="history.html" style="color:#94a3b8;text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px">📈 Historial</a></nav><a href="/" style="color:var(--muted);text-decoration:none;font-size:12px;margin-left:8px">← luisbpalacios.github.io</a><div class="last-update">
+  <a href="/" style="color:var(--muted);text-decoration:none;font-size:12px;margin-left:8px">← luisbpalacios.github.io</a><div class="last-update">
     <div id="updateTime">Cargando...</div>
     <div style="font-size:10px;color:#334155">Actualiza cada 5 min</div>
   </div>
@@ -137,6 +143,11 @@
 <!-- Market bar -->
 <div class="market-bar" id="marketBar">
   <div class="loading"><div class="spinner"></div></div>
+</div>
+
+<div class="tab-bar">
+  <a href="index.html" class="active">🎯 Señales</a>
+  <a href="history.html" >📈 Historial</a>
 </div>
 
 <div class="container">
