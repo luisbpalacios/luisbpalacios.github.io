@@ -1009,14 +1009,15 @@ async function validateTx(){
 
 // Generate QR
 (function initQR(){
-  if(typeof QRCode === 'undefined'){ 
-    const s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-    s.onload=()=>new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
-    document.head.appendChild(s);
-  } else {
-    new QRCode(document.getElementById('gate-qr'),{text:SOL_WALLET,width:160,height:160,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
-  }
+  const el = document.getElementById('gate-qr');
+  if(!el) return;
+  const img = document.createElement('img');
+  img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(SOL_WALLET) + '&margin=0';
+  img.width = 160;
+  img.height = 160;
+  img.alt = 'QR wallet';
+  img.style.display = 'block';
+  el.appendChild(img);
 })();
 
 /* ── RIESGOS PREMIUM ── */
