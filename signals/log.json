@@ -12,8 +12,8 @@
       "score": 82,
       "timestamp": "2026-03-27T14:32:11+00:00",
       "status": "tp2_hit",
-      "funding": null,
-      "rsi_4h": null
+      "session": null,
+      "position_size": null
     },
     {
       "symbol": "ETHUSDT",
@@ -27,8 +27,8 @@
       "score": 74,
       "timestamp": "2026-03-28T08:05:33+00:00",
       "status": "sl_hit",
-      "funding": null,
-      "rsi_4h": null
+      "session": null,
+      "position_size": null
     },
     {
       "symbol": "BNBUSDT",
@@ -42,8 +42,8 @@
       "score": 79,
       "timestamp": "2026-03-29T02:11:07+00:00",
       "status": "tp1_hit",
-      "funding": null,
-      "rsi_4h": null
+      "session": null,
+      "position_size": null
     },
     {
       "symbol": "BTCUSDT",
@@ -57,8 +57,8 @@
       "score": 88,
       "timestamp": "2026-03-29T19:45:22+00:00",
       "status": "tp3_hit",
-      "funding": null,
-      "rsi_4h": null
+      "session": null,
+      "position_size": null
     },
     {
       "symbol": "LINKUSDT",
@@ -72,17 +72,17 @@
       "score": 71,
       "timestamp": "2026-03-31T01:00:00+00:00",
       "status": "sl_hit",
-      "funding": null,
-      "rsi_4h": null
+      "session": null,
+      "position_size": null
     }
   ],
   "stats": {
     "total": 5,
     "wins": 0,
     "losses": 0,
-    "open": 0,
+    "open": 5,
     "winRate": 0,
-    "avgRR": 0.0
+    "avgRR": 0
   },
-  "lastUpdated": "2026-04-01T05:34:29.156210Z"
+  "lastUpdated": "2026-04-01T06:00:30.035686+00:00"
 }
