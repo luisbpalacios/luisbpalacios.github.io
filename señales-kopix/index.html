@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vera Signals — Web3 Collective</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --card: #161922;
+      --border: #252836;
+      --accent: #f5c842;
+      --green: #22c55e;
+      --red: #ef4444;
+      --muted: #6b7280;
+      --text: #e5e7eb;
+      --text2: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding: 20px 16px 40px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-dot {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+    .logo-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .last-update { font-size: 11px; color: var(--muted); text-align: right; }
+
+    /* Stats row */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .stat-value { font-size: 22px; font-weight: 700; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.yellow { color: var(--accent); }
+    .stat-value.red { color: var(--red); }
+
+    /* Section title */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    /* Signal cards */
+    .signals-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .signal-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .signal-card.long { border-left: 3px solid var(--green); }
+    .signal-card.short { border-left: 3px solid var(--red); }
+
+    .signal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .signal-pair { font-size: 17px; font-weight: 700; }
+    .signal-dir {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .signal-dir.long { background: rgba(34,197,94,0.15); color: var(--green); }
+    .signal-dir.short { background: rgba(239,68,68,0.15); color: var(--red); }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .sig-item { }
+    .sig-item-label { font-size: 10px; color: var(--muted); margin-bottom: 2px; text-transform: uppercase; }
+    .sig-item-val { font-size: 13px; font-weight: 600; }
+    .sig-item-val.green { color: var(--green); }
+    .sig-item-val.red { color: var(--red); }
+    .sig-item-val.yellow { color: var(--accent); }
+
+    .signal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .score-bar-wrap { flex: 1; margin-right: 12px; }
+    .score-label { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+    .score-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .score-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      transition: width 0.6s ease;
+    }
+    .score-val { font-size: 12px; font-weight: 700; color: var(--accent); }
+    .signal-time { font-size: 11px; color: var(--muted); }
+
+    /* History table */
+    .history-table {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .htable-header {
+      display: grid;
+      grid-template-columns: 90px 55px 80px 80px 55px 60px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .htable-row {
+      display: grid;
+      grid-template-columns: 90px 55px 80px 80px 55px 60px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      align-items: center;
+    }
+    .htable-row:last-child { border-bottom: none; }
+    .htable-row:hover { background: rgba(255,255,255,0.02); }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .badge.long { background: rgba(34,197,94,0.15); color: var(--green); }
+    .badge.short { background: rgba(239,68,68,0.15); color: var(--red); }
+    .badge.win { background: rgba(34,197,94,0.12); color: var(--green); }
+    .badge.loss { background: rgba(239,68,68,0.12); color: var(--red); }
+    .badge.open { background: rgba(245,200,66,0.12); color: var(--accent); }
+
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+    /* Refresh btn */
+    .refresh-btn {
+      background: rgba(245,200,66,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(245,200,66,0.2);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .refresh-btn:hover { background: rgba(245,200,66,0.2); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <div>
+      <div class="logo-text">Vera Signals</div>
+      <div class="logo-sub">Web3 Collective · Futures</div>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <button class="refresh-btn" onclick="loadData()">↻ Actualizar</button>
+    <div class="last-update" id="lastUpdate">Cargando...</div>
+  </div>
+</header>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Señales hoy</div>
+    <div class="stat-value yellow" id="statToday">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Winrate</div>
+    <div class="stat-value green" id="statWinrate">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total señales</div>
+    <div class="stat-value" id="statTotal">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Score prom.</div>
+    <div class="stat-value yellow" id="statAvgScore">—</div>
+  </div>
+</div>
+
+<!-- Active signals -->
+<div class="section-title">Señales activas</div>
+<div class="signals-list" id="activeSignals">
+  <div class="empty"><div class="empty-icon">📡</div>Cargando señales...</div>
+</div>
+
+<!-- History -->
+<div class="section-title">Historial</div>
+<div class="history-table">
+  <div class="htable-header">
+    <span>Par</span>
+    <span>Dir.</span>
+    <span>Entrada</span>
+    <span>TP1</span>
+    <span>Score</span>
+    <span>Estado</span>
+  </div>
+  <div id="historyRows">
+    <div class="empty">Cargando...</div>
+  </div>
+</div>
+
+<script>
+const DATA_URL = './signals.json';
+
+function timeAgo(ts) {
+  const d = new Date(ts);
+  const diff = Math.floor((Date.now() - d) / 1000);
+  if (diff < 60) return 'hace ' + diff + 's';
+  if (diff < 3600) return 'hace ' + Math.floor(diff/60) + 'min';
+  if (diff < 86400) return 'hace ' + Math.floor(diff/3600) + 'h';
+  return 'hace ' + Math.floor(diff/86400) + 'd';
+}
+
+function fmtPrice(p) {
+  if (!p) return '—';
+  const n = parseFloat(p);
+  if (n >= 100) return '$' + n.toFixed(2);
+  if (n >= 1) return '$' + n.toFixed(3);
+  return '$' + n.toFixed(4);
+}
+
+function renderActiveSignals(signals) {
+  const el = document.getElementById('activeSignals');
+  const active = signals.filter(s => s.status === 'open' || !s.status);
+  if (!active.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">🔍</div>Sin señales activas en este momento</div>';
+    return;
+  }
+  el.innerHTML = active.slice(0, 10).map(s => {
+    const dir = (s.direction || 'long').toLowerCase();
+    const score = s.score || 0;
+    return `
+    <div class="signal-card ${dir}">
+      <div class="signal-header">
+        <div class="signal-pair">${s.symbol || s.pair || '—'}</div>
+        <span class="signal-dir ${dir}">${dir === 'long' ? '▲ Long' : '▼ Short'}</span>
+      </div>
+      <div class="signal-grid">
+        <div class="sig-item">
+          <div class="sig-item-label">Entrada</div>
+          <div class="sig-item-val yellow">${fmtPrice(s.entry)}</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-item-label">TP1</div>
+          <div class="sig-item-val green">${fmtPrice(s.tp1 || s.tp)}</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-item-label">SL</div>
+          <div class="sig-item-val red">${fmtPrice(s.sl || s.stop_loss)}</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-item-label">TP2</div>
+          <div class="sig-item-val green">${fmtPrice(s.tp2) || '—'}</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-item-label">TP3</div>
+          <div class="sig-item-val green">${fmtPrice(s.tp3) || '—'}</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-item-label">R:R</div>
+          <div class="sig-item-val">${s.rr || s.risk_reward || '—'}</div>
+        </div>
+      </div>
+      <div class="signal-footer">
+        <div class="score-bar-wrap">
+          <div class="score-label">Score</div>
+          <div class="score-bar"><div class="score-fill" style="width:${score}%"></div></div>
+        </div>
+        <div class="score-val">${score}/100</div>
+        <div class="signal-time" style="margin-left:12px">${s.timestamp ? timeAgo(s.timestamp) : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderHistory(signals) {
+  const el = document.getElementById('historyRows');
+  const history = [...signals].reverse().slice(0, 20);
+  if (!history.length) {
+    el.innerHTML = '<div class="empty">Sin historial aún</div>';
+    return;
+  }
+  el.innerHTML = history.map(s => {
+    const dir = (s.direction || 'long').toLowerCase();
+    const status = s.status || 'open';
+    return `
+    <div class="htable-row">
+      <span style="font-weight:600">${s.symbol || s.pair || '—'}</span>
+      <span><span class="badge ${dir}">${dir === 'long' ? '▲ L' : '▼ S'}</span></span>
+      <span style="color:var(--accent)">${fmtPrice(s.entry)}</span>
+      <span style="color:var(--green)">${fmtPrice(s.tp1 || s.tp)}</span>
+      <span>${s.score || '—'}</span>
+      <span><span class="badge ${status === 'win' ? 'win' : status === 'loss' ? 'loss' : 'open'}">${status === 'win' ? '✓ Win' : status === 'loss' ? '✗ Loss' : '● Open'}</span></span>
+    </div>`;
+  }).join('');
+}
+
+function renderStats(signals) {
+  const today = new Date().toISOString().slice(0, 10);
+  const todayCount = signals.filter(s => s.timestamp && s.timestamp.slice(0, 10) === today).length;
+  const closed = signals.filter(s => s.status === 'win' || s.status === 'loss');
+  const wins = signals.filter(s => s.status === 'win').length;
+  const winrate = closed.length ? Math.round((wins / closed.length) * 100) : null;
+  const avgScore = signals.length ? Math.round(signals.reduce((a, s) => a + (s.score || 0), 0) / signals.length) : null;
+
+  document.getElementById('statToday').textContent = todayCount;
+  document.getElementById('statWinrate').textContent = winrate !== null ? winrate + '%' : '—';
+  document.getElementById('statTotal').textContent = signals.length;
+  document.getElementById('statAvgScore').textContent = avgScore !== null ? avgScore : '—';
+}
+
+async function loadData() {
+  try {
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
+    const data = await res.json();
+    const signals = Array.isArray(data) ? data : (data.signals || []);
+    renderStats(signals);
+    renderActiveSignals(signals);
+    renderHistory(signals);
+    document.getElementById('lastUpdate').textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-MX');
+  } catch (e) {
+    document.getElementById('lastUpdate').textContent = 'Error al cargar datos';
+    document.getElementById('activeSignals').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div>No se pudo cargar signals.json</div>';
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
