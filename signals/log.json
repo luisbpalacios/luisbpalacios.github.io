@@ -1,5 +1,35 @@
 [
   {
+    "symbol": "ZECUSDT",
+    "direction": "short",
+    "entry": 234.89,
+    "tp1": 218.351429,
+    "tp2": 205.07,
+    "tp3": 179.761429,
+    "sl": 260.2548,
+    "rr": 0.65,
+    "score": 58,
+    "timestamp": 1775138629.77516,
+    "status": "open",
+    "funding": 0.0068,
+    "rsi_4h": 52.56
+  },
+  {
+    "symbol": "RUNEUSDT",
+    "direction": "short",
+    "entry": 0.3928,
+    "tp1": 0.382246,
+    "tp2": 0.3854,
+    "tp3": 0.357621,
+    "sl": 0.419788,
+    "rr": 0.39,
+    "score": 58,
+    "timestamp": 1775138629.774486,
+    "status": "open",
+    "funding": 0.0014,
+    "rsi_4h": 40.54
+  },
+  {
     "symbol": "RUNEUSDT",
     "direction": "short",
     "entry": 0.4014,
