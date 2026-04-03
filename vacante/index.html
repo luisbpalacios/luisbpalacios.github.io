@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sales Closer — AgentBase.mx × Luis Palacios</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #8B5CF6;
+      --coral: #7C3AED;
+      --gray-light: #BFBFBF;
+      --gray: #8C8C8C;
+      --dark: #0A0A14;
+      --dark-2: #0f0f1e;
+      --dark-3: #13132a;
+      --dark-4: #1a1a35;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 24px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1A1A1A;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--gray-light);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge span {
+      width: 7px;
+      height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .title em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      max-width: 360px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .card {
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #2a2a2a;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .item-text {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .item-text strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .income-note {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 14px;
+      line-height: 1.6;
+      padding-top: 12px;
+      border-top: 1px solid #222;
+    }
+
+    .income-note strong {
+      color: #ccc;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #10103a 0%, #13132a 100%);
+      border: 1px solid #3a2a6a;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cta-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .cta-desc {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .cta-email {
+      font-size: 13px;
+      color: var(--gray-light);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .cta-email a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .tag {
+      background: #1A1A1A;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 12px;
+      color: #444;
+    }
+
+    .footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    @media (max-width: 380px) {
+      .title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="badge">
+      <span></span>
+      Vacante Abierta · Modalidad Híbrida
+    </div>
+    <h1 class="title">🚀 <em>AI Sales Closer</em><br>AgentBase.mx</h1>
+    <p class="subtitle">Buscamos personas con mentalidad comercial que quieran vender soluciones reales que generan impacto en empresas de cualquier industria.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="card-label">💡 Qué vas a hacer</div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Vender servicios de <strong>agentes de inteligencia artificial</strong> a empresas</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Detectar oportunidades donde la <strong>automatización genere eficiencia</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Prospectar (outbound) y gestionar leads (inbound)</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Cerrar ventas y construir <strong>relaciones a largo plazo</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">🎯 Perfil ideal</div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text"><strong>Mentalidad de ventas</strong> y enfoque en resultados</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Experiencia en <strong>ventas consultivas</strong> (ideal, no obligatorio)</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Interés en <strong>tecnología, AI o innovación</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Capacidad de <strong>comunicar valor</strong> (no solo vender)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">💰 Esquema de ingresos</div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text"><strong>10% por cada cierre</strong> (one-time)</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text"><strong>10% mensual recurrente</strong> (escalable hasta 18%)</div>
+      </div>
+      <div class="income-note">
+        Aquí no hay techo de ingresos. <strong>Tu crecimiento depende directamente de tu capacidad de cerrar.</strong>
+      </div>
+    </div>
+
+    <div class="cta-card">
+      <div class="cta-title">¿Listo para aplicar? 🌎</div>
+      <div class="cta-desc">Si te interesa vender algo que realmente está transformando industrias, este es el momento.</div>
+      <div class="cta-email">
+        Escríbenos a <a href="mailto:luis.b.palacios@outlook.com?subject=AI SALES CLOSER">luis.b.palacios@outlook.com</a>
+      </div>
+      <a class="btn" href="mailto:luis.b.palacios@outlook.com?subject=AI SALES CLOSER">Aplicar ahora</a>
+    </div>
+
+    <div class="tags">
+      <span class="tag">#AISaleser</span>
+      <span class="tag">#AgentBase</span>
+      <span class="tag">#Ventas</span>
+      <span class="tag">#Comisiones</span>
+      <span class="tag">#Remoto</span>
+      <span class="tag">#Mexico</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <a href="https://luisbpalacios.github.io">← luisbpalacios.github.io</a>
+    &nbsp;·&nbsp;
+    <a href="https://agentbase.mx" target="_blank">agentbase.mx</a>
+  </div>
+
+</body>
+</html>
