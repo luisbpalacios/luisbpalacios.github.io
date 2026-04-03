@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Becarios — AgentBase.mx × Luis Palacios</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #F2561D;
+      --gray-light: #BFBFBF;
+      --gray: #8C8C8C;
+      --dark: #0D0D0D;
+      --dark-2: #141414;
+      --dark-3: #1A1A1A;
+      --dark-4: #222222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 24px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1A1A1A;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--gray-light);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge span {
+      width: 7px;
+      height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .title em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      max-width: 340px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .card {
+      background: var(--dark-3);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #2a2a2a;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .item-text {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .item-text strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #1a0f0a 0%, #1A1A1A 100%);
+      border: 1px solid #3a2010;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cta-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .cta-desc {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .cta-email {
+      font-size: 13px;
+      color: var(--gray-light);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .cta-email a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .tag {
+      background: #1A1A1A;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 12px;
+      color: #444;
+    }
+
+    .footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    @media (max-width: 380px) {
+      .title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="badge">
+      <span></span>
+      Prácticas Profesionales · Soporte Técnico
+    </div>
+    <h1 class="title">Únete a<br><em>AgentBase.mx</em></h1>
+    <p class="subtitle">Buscamos becarios de ingeniería en sistemas / TI con ganas de trabajar con IA real.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="card-label">Qué ofrecemos</div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text"><strong>$4,000 / mes</strong> de beca</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Horario flexible — <strong>20-25h por semana</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text"><strong>100% remoto</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Capacitación en <strong>Inteligencia Artificial</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Experiencia real en <strong>startup tech</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Qué buscamos</div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Estudiante activo (<strong>3er semestre en adelante</strong>)</div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Conocimientos básicos de <strong>redes / APIs</strong></div>
+      </div>
+      <div class="item">
+        <div class="item-dot"></div>
+        <div class="item-text">Muchas <strong>ganas de aprender</strong></div>
+      </div>
+    </div>
+
+    <div class="cta-card">
+      <div class="cta-title">¿Listo para aplicar? 🚀</div>
+      <div class="cta-desc">Envía tu CV con el asunto <strong>"BECARIO TECH"</strong></div>
+      <div class="cta-email">
+        Escríbenos a <a href="mailto:luis.b.palacios@outlook.com?subject=BECARIO TECH">luis.b.palacios@outlook.com</a>
+      </div>
+      <a class="btn" href="mailto:luis.b.palacios@outlook.com?subject=BECARIO TECH">Enviar CV ahora</a>
+    </div>
+
+    <div class="tags">
+      <span class="tag">#PracticasProfesionales</span>
+      <span class="tag">#SoporteTecnico</span>
+      <span class="tag">#Internship</span>
+      <span class="tag">#Mexico</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <a href="https://luisbpalacios.github.io">← luisbpalacios.github.io</a>
+    &nbsp;·&nbsp;
+    <a href="https://agentbase.mx" target="_blank">agentbase.mx</a>
+  </div>
+
+</body>
+</html>
