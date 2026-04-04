@@ -529,3 +529,245 @@
           <p>Selecciona un día disponible<br>para ver los horarios</p>
         </div>
         <!-- slots view -->
+        <div id="slotsView" style="display:none">
+          <div class="slots-title">Horarios disponibles</div>
+          <div class="slots-date" id="slotsDateLabel"></div>
+          <div class="slots-grid" id="slotsGrid"></div>
+          <div id="bookForm" style="display:none">
+            <div class="form-title">Tus datos</div>
+            <div class="form-subtitle" id="selectedSlotLabel"></div>
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" id="bNombre" placeholder="Ej. María García" />
+            </div>
+            <div class="form-group">
+              <label>Teléfono / WhatsApp</label>
+              <input type="tel" id="bTel" placeholder="+52 1 xxx xxx xxxx" />
+            </div>
+            <div class="form-group">
+              <label>Motivo de consulta</label>
+              <select id="bMotivo">
+                <option value="">Selecciona...</option>
+                <option>Revisión preventiva</option>
+                <option>Lesión o úlcera en boca</option>
+                <option>Dolor orofacial</option>
+                <option>Segunda opinión</option>
+                <option>Cáncer oral — detección</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <button class="btn-confirm" onclick="confirmBooking()">Confirmar cita por WhatsApp →</button>
+          </div>
+        </div>
+        <!-- confirm view -->
+        <div id="confirmView" style="display:none">
+          <div class="confirm-screen">
+            <div class="confirm-icon">✅</div>
+            <h3>¡Cita solicitada!</h3>
+            <p>Te redirigimos a WhatsApp para confirmar tu reserva. El consultorio te responderá en menos de 2 horas.</p>
+            <div class="confirm-summary" id="confirmSummary"></div>
+            <button class="btn-reset" onclick="resetCal()">Agendar otra cita</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-label">Preguntas frecuentes</div>
+    <h2 class="section-title">Lo que más nos preguntan</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Necesito referencia médica para agendar? <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a"><p>No. Puedes acudir directamente a tu consulta sin necesitar referencia de otro médico o dentista. Cualquier persona puede agendar su cita de forma directa.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto tiempo dura la primera consulta? <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a"><p>La consulta inicial dura entre 45 y 60 minutos. Necesitamos conocer tu historia clínica completa para hacer un diagnóstico integral con el Modelo 8S.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Se realizan biopsias en el consultorio? <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a"><p>Sí. Realizamos biopsias incisionales y excisionales en el consultorio bajo anestesia local. El procedimiento es rápido y los resultados se envían al laboratorio para su análisis histopatológico.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Trabajan con seguros médicos? <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a"><p>Actualmente trabajamos principalmente con pago directo. Si tienes seguro médico, te orientamos sobre cómo tramitar el reembolso dependiendo de tu póliza.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué debo llevar a mi primera cita? <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a"><p>Lleva identificación oficial, lista de medicamentos que tomas actualmente (si aplica), estudios previos o notas médicas relacionadas con tu motivo de consulta. Si tienes fotografías de la lesión tomadas con el tiempo, también son útiles.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <h2>¿Listo para cuidar tu salud oral?</h2>
+  <p class="cta-sub">Agenda hoy. La primera consulta puede cambiar todo.</p>
+  <a href="https://wa.me/521XXXXXXXXXX?text=Hola%2C%20quiero%20agendar%20una%20consulta%20en%208S%20Medicina%20Oral." class="btn-whatsapp" target="_blank">
+    💬 Escribir por WhatsApp
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>8S Medicina Oral</strong> · Patología y Medicina Bucal · Todos los derechos reservados</p>
+</footer>
+
+<script>
+  // ── CONFIG ──
+  const WA_NUMBER = '521XXXXXXXXXX'; // reemplazar con número real
+  const SCHEDULE = {
+    0: [], // domingo: cerrado
+    1: ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','16:00','16:30','17:00','17:30','18:00'],
+    2: ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','16:00','16:30','17:00','17:30','18:00'],
+    3: ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','16:00','16:30','17:00','17:30','18:00'],
+    4: ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','16:00','16:30','17:00','17:30','18:00'],
+    5: ['9:00','9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','16:00','16:30','17:00','17:30','18:00'],
+    6: ['9:00','9:30','10:00','10:30','11:00','12:00','13:00'], // sábado: horario reducido
+  };
+
+  let calDate = new Date();
+  calDate.setDate(1);
+  let selectedDate = null;
+  let selectedSlot = null;
+
+  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+  function renderCal() {
+    const y = calDate.getFullYear();
+    const m = calDate.getMonth();
+    document.getElementById('calMonthLabel').textContent = MONTHS[m] + ' ' + y;
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const firstDay = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m+1, 0).getDate();
+
+    let html = '';
+    for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(y, m, d);
+      const dow = date.getDay();
+      const isToday = date.getTime() === today.getTime();
+      const isPast = date < today;
+      const hasSlots = SCHEDULE[dow] && SCHEDULE[dow].length > 0;
+      const isSel = selectedDate && date.getTime() === selectedDate.getTime();
+      let cls = 'cal-day';
+      if (!hasSlots || isPast) cls += ' disabled';
+      else cls += ' available';
+      if (isToday) cls += ' today';
+      if (isSel) cls += ' selected';
+      const onclick = (!hasSlots || isPast) ? '' : `onclick="selectDay(${y},${m},${d})"`;
+      html += `<div class="${cls}" ${onclick}>${d}</div>`;
+    }
+    document.getElementById('calDays').innerHTML = html;
+
+    // nav buttons
+    const prevDate = new Date(y, m-1, 1);
+    const todayStart = new Date(); todayStart.setDate(1); todayStart.setHours(0,0,0,0);
+    document.getElementById('prevMonth').disabled = prevDate < todayStart;
+    document.getElementById('prevMonth').style.opacity = prevDate < todayStart ? '0.3' : '1';
+  }
+
+  function calNav(dir) {
+    calDate.setMonth(calDate.getMonth() + dir);
+    renderCal();
+  }
+
+  function selectDay(y, m, d) {
+    selectedDate = new Date(y, m, d);
+    selectedSlot = null;
+    renderCal();
+    showSlots();
+  }
+
+  function showSlots() {
+    const dow = selectedDate.getDay();
+    const slots = SCHEDULE[dow] || [];
+    const opts = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+    const label = opts[dow === 0 ? 6 : dow - 1] + ' ' + selectedDate.getDate() + ' de ' + MONTHS[selectedDate.getMonth()];
+    document.getElementById('slotsDateLabel').textContent = label;
+
+    let html = '';
+    slots.forEach(s => {
+      html += `<button class="slot-btn" onclick="selectSlot(this,'${s}')">${s}</button>`;
+    });
+    document.getElementById('slotsGrid').innerHTML = html;
+    document.getElementById('bookForm').style.display = 'none';
+
+    document.getElementById('panelPlaceholder').style.display = 'none';
+    document.getElementById('confirmView').style.display = 'none';
+    document.getElementById('slotsView').style.display = 'block';
+  }
+
+  function selectSlot(btn, slot) {
+    selectedSlot = slot;
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const dow = selectedDate.getDay();
+    const opts = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+    const dayName = opts[dow === 0 ? 6 : dow - 1];
+    document.getElementById('selectedSlotLabel').textContent = dayName + ' ' + selectedDate.getDate() + ' de ' + MONTHS[selectedDate.getMonth()] + ' · ' + slot + ' hrs';
+    document.getElementById('bookForm').style.display = 'block';
+    document.getElementById('bookForm').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function confirmBooking() {
+    const nombre = document.getElementById('bNombre').value.trim();
+    const tel = document.getElementById('bTel').value.trim();
+    const motivo = document.getElementById('bMotivo').value;
+    if (!nombre || !tel) { alert('Por favor completa tu nombre y teléfono.'); return; }
+    const dow = selectedDate.getDay();
+    const opts = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+    const dayName = opts[dow === 0 ? 6 : dow - 1];
+    const dateStr = dayName + ' ' + selectedDate.getDate() + ' de ' + MONTHS[selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
+
+    const msg = `Hola, quiero agendar una cita en 8S Medicina Oral.\n\n📅 Fecha: ${dateStr}\n🕐 Horario: ${selectedSlot} hrs\n👤 Nombre: ${nombre}\n📱 Teléfono: ${tel}\n🦷 Motivo: ${motivo || 'No especificado'}`;
+    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+    // show confirm
+    document.getElementById('slotsView').style.display = 'none';
+    document.getElementById('confirmView').style.display = 'block';
+    document.getElementById('confirmSummary').innerHTML = `
+      <div class="confirm-summary-row"><span>Fecha</span><span>${dateStr}</span></div>
+      <div class="confirm-summary-row"><span>Horario</span><span>${selectedSlot} hrs</span></div>
+      <div class="confirm-summary-row"><span>Nombre</span><span>${nombre}</span></div>
+      <div class="confirm-summary-row"><span>Motivo</span><span>${motivo || 'No especificado'}</span></div>
+    `;
+    window.open(waUrl, '_blank');
+  }
+
+  function resetCal() {
+    selectedDate = null;
+    selectedSlot = null;
+    renderCal();
+    document.getElementById('panelPlaceholder').style.display = 'flex';
+    document.getElementById('slotsView').style.display = 'none';
+    document.getElementById('confirmView').style.display = 'none';
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  // Init
+  renderCal();
+</script>
+</body>
+</html>
