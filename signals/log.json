@@ -1,6 +1,222 @@
 {
   "signals": [
     {
+      "id": "AVAXUSDT_1775304272",
+      "symbol": "AVAXUSDT",
+      "direction": "short",
+      "grade": "C",
+      "score": 65,
+      "entry": 8.877,
+      "tp1": 8.705571,
+      "tp2": 8.365,
+      "tp3": 8.305571,
+      "sl": 9.5274,
+      "rr": 0.26,
+      "status": "open",
+      "timestamp": 1775304272.455413,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.832) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (60.78)",
+        "\u2705 Precio en POC ($8.9001) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($8.8770) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.005,
+      "rsi_4h": 60.78,
+      "oi_m": 69.22
+    },
+    {
+      "id": "SEIUSDT_1775304272",
+      "symbol": "SEIUSDT",
+      "direction": "short",
+      "grade": "C",
+      "score": 67,
+      "entry": 0.05401,
+      "tp1": 0.052335,
+      "tp2": 0.04836,
+      "tp3": 0.048428,
+      "sl": 0.057285,
+      "rr": 0.51,
+      "status": "open",
+      "timestamp": 1775304272.45362,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +0.9% vs +0.2% (+8)",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (63.73)",
+        "\u2705 Precio en POC ($0.0541) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($0.0540) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Precio sobre EMA21 4H (contra-tendencia)",
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0008,
+      "rsi_4h": 63.73,
+      "oi_m": 12.11
+    },
+    {
+      "id": "SEIUSDT_1775304272",
+      "symbol": "SEIUSDT",
+      "direction": "long",
+      "grade": "C",
+      "score": 67,
+      "entry": 0.05401,
+      "tp1": 0.055685,
+      "tp2": 0.057,
+      "tp3": 0.059592,
+      "sl": 0.048118,
+      "rr": 0.28,
+      "status": "open",
+      "timestamp": 1775304272.451833,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\u2705 BTC sobre EMA21 4H ($67,090)",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +0.9% vs +0.2% (+8)",
+        "\u2705 Precio sobre EMA21 4H ($0.0534)",
+        "\u26a0\ufe0f RSI 4H elevado (63.73), momentum aceptable",
+        "\u2705 Funding negativo (-0.0008%) \u2014 favorable para long",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u2705 Precio en POC ($0.0541) \u2014 zona de equilibrio de volumen (+10)",
+        "\u2705 Precio en HVN soporte ($0.0540) \u2014 zona de alta liquidez, buen long (+12)"
+      ],
+      "warnings": [
+        "\u274c Estructura 1D bajista",
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0008,
+      "rsi_4h": 63.73,
+      "oi_m": 12.11
+    },
+    {
+      "id": "ZECUSDT_1775304272",
+      "symbol": "ZECUSDT",
+      "direction": "long",
+      "grade": "B",
+      "score": 70,
+      "entry": 244.37,
+      "tp1": 252.813929,
+      "tp2": 258.96,
+      "tp3": 272.516429,
+      "sl": 204.04465,
+      "rr": 0.21,
+      "status": "open",
+      "timestamp": 1775304272.450165,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\u26a0\ufe0f Estructura 1D neutral",
+        "\u2705 BTC sobre EMA21 4H ($67,090)",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +2.5% vs +0.2% (+8)",
+        "\u2705 Precio sobre EMA21 4H ($238.5245)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H elevado (55.8), momentum aceptable",
+        "\u2705 Funding negativo (-0.0044%) \u2014 favorable para long"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0044,
+      "rsi_4h": 55.8,
+      "oi_m": 122.74
+    },
+    {
+      "id": "SOLUSDT_1775304272",
+      "symbol": "SOLUSDT",
+      "direction": "short",
+      "grade": "B",
+      "score": 70,
+      "entry": 80.19,
+      "tp1": 78.632143,
+      "tp2": 76.63,
+      "tp3": 74.997143,
+      "sl": 87.02295,
+      "rr": 0.23,
+      "status": "open",
+      "timestamp": 1775304272.448464,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.866) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (56.79)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0073,
+      "rsi_4h": 56.79,
+      "oi_m": 794.23
+    },
+    {
+      "id": "SUIUSDT_1775304272",
+      "symbol": "SUIUSDT",
+      "direction": "short",
+      "grade": "B",
+      "score": 73,
+      "entry": 0.8711,
+      "tp1": 0.853582,
+      "tp2": 0.8188,
+      "tp3": 0.812707,
+      "sl": 0.918771,
+      "rr": 0.37,
+      "status": "open",
+      "timestamp": 1775304272.434765,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.836) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (56.67)",
+        "\u2705 Precio en POC ($0.8775) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($0.8711) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0048,
+      "rsi_4h": 56.67,
+      "oi_m": 77.25
+    },
+    {
+      "id": "XRPUSDT_1775304272",
+      "symbol": "XRPUSDT",
+      "direction": "short",
+      "grade": "A",
+      "score": 80,
+      "entry": 1.3106,
+      "tp1": 1.290211,
+      "tp2": 1.2791,
+      "tp3": 1.242636,
+      "sl": 1.374739,
+      "rr": 0.32,
+      "status": "open",
+      "timestamp": 1775304272.432614,
+      "date": "2026-04-04 12:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.807) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u26a0\ufe0f RSI 4H bajo (44.42)",
+        "\u2705 \u00daltimas 3 velas 4H en tendencia bajista",
+        "\u2705 Precio en POC ($1.3211) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($1.3106) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0092,
+      "rsi_4h": 44.42,
+      "oi_m": 342.99
+    },
+    {
       "id": "ARBUSDT_1775293445",
       "symbol": "ARBUSDT",
       "direction": "short",
@@ -587,7 +803,7 @@
       "tp3": 1.084714,
       "sl": 1.235145,
       "rr": 1.43,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.469418,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -602,7 +818,10 @@
       ],
       "funding": 0.0034,
       "rsi_4h": 49.11,
-      "oi_m": 67.17
+      "oi_m": 67.17,
+      "close_price": 1.243,
+      "closed_at": "2026-04-04T14:02:54.190410+00:00",
+      "close_pnl_pct": -2.81
     },
     {
       "id": "SUIUSDT_1775234816",
@@ -1243,7 +1462,7 @@
       "tp3": 0.357621,
       "sl": 0.419788,
       "rr": 0.39,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775138629.774486,
       "date": "2026-04-02 14:03 UTC",
       "factors": [
@@ -1253,7 +1472,10 @@
       "warnings": [],
       "funding": 0.0014,
       "rsi_4h": 40.54,
-      "oi_m": 2.75
+      "oi_m": 2.75,
+      "close_price": 0.3821,
+      "closed_at": "2026-04-04T14:02:59.823450+00:00",
+      "close_pnl_pct": 2.72
     },
     {
       "id": "RUNEUSDT_1775110469",
@@ -1506,12 +1728,12 @@
     }
   ],
   "stats": {
-    "total": 53,
-    "wins": 5,
-    "losses": 0,
-    "open": 48,
-    "winRate": 100.0,
+    "total": 60,
+    "wins": 6,
+    "losses": 1,
+    "open": 53,
+    "winRate": 85.7,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-04T10:01:51.946180+00:00"
+  "lastUpdated": "2026-04-04T14:03:01.733883+00:00"
 }
