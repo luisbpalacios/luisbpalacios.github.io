@@ -416,9 +416,10 @@
       text-decoration: none;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .card-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 20px; }
+      .pricing-grid { grid-template-columns: 1fr !important; }
     }
 
     /* ── MODULE NAV ── */
@@ -1490,7 +1491,7 @@
             </div>
           </div>
           <p>Si tienes 15 citas al día y solo el 15% son no-shows, eso es <strong>~2 no-shows diarios × $800 = $1,600 pesos perdidos cada día</strong>. En un mes de 22 días laborales: <strong>$35,200 pesos en ingresos que no entraron</strong>.</p>
-          <p>El agente cuesta $2,500/mes y puede reducir los no-shows un 35–40%. El ROI es inmediato.</p>
+          <p>El agente cuesta $9,990 (implementación) y puede reducir los no-shows un 35–40%. El ROI es inmediato.</p>
         </div>
       </div>
 
@@ -1926,7 +1927,7 @@
               <tr>
                 <td>AgentBase.mx</td>
                 <td>Plataforma de agentes IA para consultorios</td>
-                <td><span class="price">Desde $2,500/mes</span></td>
+                <td><span class="price">Desde $9,990 (pago único)</span></td>
               </tr>
               <tr>
                 <td>WhatsApp Business API</td>
@@ -2085,7 +2086,7 @@
           <tr>
             <td style="padding:14px 18px; color:#ccc;">Costo mensual aprox.</td>
             <td style="padding:14px 12px; text-align:center; color:#aaa;">$500–$1,500</td>
-            <td style="padding:14px 12px; text-align:center; background:rgba(139,92,246,0.04); color:#8B5CF6; font-weight:600;">$2,500–$8,000</td>
+            <td style="padding:14px 12px; text-align:center; background:rgba(139,92,246,0.04); color:#8B5CF6; font-weight:600;">$9,990–$39,990</td>
             <td style="padding:14px 12px; text-align:center; color:#666;">$8,000–$20,000+</td>
           </tr>
         </tbody>
@@ -2108,7 +2109,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">¿Cuánto cuesta implementar un agente IA en mi consultorio?</div>
-        <div class="faq-a">Los costos varían según el alcance, pero existen soluciones desde $2,500 pesos al mes que cubren automatización de citas, recordatorios y atención básica. En el taller veremos opciones para diferentes presupuestos.</div>
+        <div class="faq-a">Los costos varían según el alcance. AgentBase ofrece soluciones desde $9,990 (plan básico) hasta $39,990 (plan enterprise), pago único de implementación. En el taller veremos opciones para diferentes presupuestos.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">¿Cuánto tiempo tarda la implementación?</div>
@@ -2143,6 +2144,74 @@
         <span class="pill active">✅ Cobranza sin perseguir pacientes</span>
         <span class="pill active">✅ Plan de implementación en mano al salir</span>
       </div>
+    </div>
+
+    <!-- ── PRECIOS ── -->
+    <div class="divider"></div>
+    <div class="section-title">Inversión</div>
+    <div class="section-heading">Planes AgentBase para Consultorios</div>
+    <div class="section-sub">Implementación hecha por expertos. Pago único, sin mensualidades ocultas. Incluye configuración, capacitación y soporte.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+
+      <!-- Plan Básico -->
+      <div class="card" style="padding:24px; position:relative;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--text-muted); text-transform:uppercase; margin-bottom:12px;">Básico</div>
+        <div style="font-size:30px; font-weight:900; color:#fff; line-height:1; margin-bottom:4px;">$9,990</div>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">pago único</div>
+        <div style="height:1px; background:var(--border); margin-bottom:16px;"></div>
+        <ul style="list-style:none; font-size:13px; color:#bbb; line-height:1; display:flex; flex-direction:column; gap:10px;">
+          <li>✅ Agente por WhatsApp</li>
+          <li>✅ Agenda automática</li>
+          <li>✅ Recordatorios de citas</li>
+          <li>✅ FAQ del consultorio</li>
+          <li>✅ 1 canal de comunicación</li>
+          <li style="color:#444;">— Dashboard</li>
+          <li style="color:#444;">— Cobranza automática</li>
+          <li style="color:#444;">— Multi-canal</li>
+        </ul>
+      </div>
+
+      <!-- Plan Pro -->
+      <div style="background:linear-gradient(135deg,#0e0e2a,#131326); border:1px solid var(--purple-border); border-radius:16px; padding:24px; position:relative;">
+        <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--purple); color:#fff; font-size:10px; font-weight:700; letter-spacing:1px; padding:3px 12px; border-radius:20px; white-space:nowrap; text-transform:uppercase;">Más popular</div>
+        <div style="font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--purple); text-transform:uppercase; margin-bottom:12px;">Pro</div>
+        <div style="font-size:30px; font-weight:900; color:#fff; line-height:1; margin-bottom:4px;">$14,990</div>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">pago único</div>
+        <div style="height:1px; background:var(--purple-border); margin-bottom:16px;"></div>
+        <ul style="list-style:none; font-size:13px; color:#bbb; line-height:1; display:flex; flex-direction:column; gap:10px;">
+          <li>✅ Todo lo del Básico</li>
+          <li>✅ Dashboard de gestión</li>
+          <li>✅ Cobranza automatizada</li>
+          <li>✅ Seguimiento post-consulta</li>
+          <li>✅ Reportes semanales</li>
+          <li>✅ Integración Google Calendar</li>
+          <li>✅ 2 canales (WA + email)</li>
+          <li style="color:#444;">— Multi-consultorio</li>
+        </ul>
+      </div>
+
+      <!-- Plan Enterprise -->
+      <div class="card" style="padding:24px; position:relative;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--teal); text-transform:uppercase; margin-bottom:12px;">Enterprise</div>
+        <div style="font-size:30px; font-weight:900; color:#fff; line-height:1; margin-bottom:4px;">$39,990</div>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">pago único</div>
+        <div style="height:1px; background:var(--border); margin-bottom:16px;"></div>
+        <ul style="list-style:none; font-size:13px; color:#bbb; line-height:1; display:flex; flex-direction:column; gap:10px;">
+          <li>✅ Todo lo del Pro</li>
+          <li>✅ Multi-consultorio</li>
+          <li>✅ Integración SAT / CFDI</li>
+          <li>✅ Agente de inventario</li>
+          <li>✅ IA para triaje básico</li>
+          <li>✅ Onboarding dedicado</li>
+          <li>✅ Soporte prioritario 6 meses</li>
+          <li>✅ Personalización total</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--dark-4); text-align:center; padding:18px;">
+      <span style="font-size:13px; color:var(--text-muted);">Todos los planes incluyen <strong style="color:#ccc;">capacitación del equipo</strong> y <strong style="color:#ccc;">3 meses de soporte</strong> post-implementación. &nbsp;·&nbsp; <a href="mailto:luis.b.palacios@outlook.com?subject=Cotización AgentBase Consultorios" style="color:var(--purple); text-decoration:none; font-weight:600;">Solicitar cotización personalizada →</a></span>
     </div>
 
     <!-- ── CTA ── -->
