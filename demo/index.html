@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica de Patología y Medicina Bucal</title>
+  <meta name="description" content="Especialistas en patología y medicina bucal. Diagnóstico temprano, tratamiento preciso y atención personalizada. Agenda tu cita hoy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d2c4e;
+      --teal: #1a7a8a;
+      --teal-light: #2da0b4;
+      --gold: #c8a96e;
+      --white: #ffffff;
+      --off-white: #f8f9fb;
+      --gray: #6b7280;
+      --light-gray: #e5e7eb;
+      --text: #1f2937;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,44,78,0.95);
+      backdrop-filter: blur(10px);
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: #e0be82 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, #0a3d55 60%, var(--teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-content { max-width: 760px; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200,169,110,0.15);
+      border: 1px solid rgba(200,169,110,0.4);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      font-weight: 700;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(200,169,110,0.35);
+    }
+    .btn-primary:hover {
+      background: #e0be82;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(200,169,110,0.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--gray);
+      max-width: 580px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--off-white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 2rem;
+      border: 1px solid var(--light-gray);
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.5rem;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image {
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      border-radius: 20px;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; right: -30px;
+      width: 160px; height: 160px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+    .about-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .about-feature {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .feature-dot {
+      width: 8px; height: 8px;
+      background: var(--teal);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .about-feature h4 { font-weight: 600; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.2rem; }
+    .about-feature p { font-size: 0.875rem; color: var(--gray); }
+
+    /* ── PROCESO ── */
+    #proceso { background: var(--navy); }
+    #proceso .section-title { color: var(--white); }
+    #proceso .section-badge { color: var(--gold); }
+    #proceso .section-subtitle { color: rgba(255,255,255,0.6); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .step-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .step-number {
+      width: 48px; height: 48px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0 auto 1rem;
+    }
+    .step-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .step-card p { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+
+    /* ── CITA (Fase 2 placeholder) ── */
+    #cita { background: var(--off-white); }
+    .calendar-placeholder {
+      background: var(--white);
+      border: 2px dashed var(--light-gray);
+      border-radius: 16px;
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .calendar-placeholder .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .calendar-placeholder h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .calendar-placeholder p { color: var(--gray); margin-bottom: 1.5rem; }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--white); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item h4 { font-weight: 600; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.2rem; }
+    .contact-item p { font-size: 0.875rem; color: var(--gray); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    label { font-size: 0.85rem; font-weight: 500; color: var(--navy); }
+    input, select, textarea {
+      border: 1.5px solid var(--light-gray);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: var(--white);
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(26,122,138,0.12);
+    }
+    textarea { resize: vertical; min-height: 110px; }
+    .btn-form {
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      color: var(--white);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-form:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26,122,138,0.4);
+    }
+
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 200;
+      background: #25d366;
+      color: var(--white);
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: all 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.7); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-image { aspect-ratio: 16/9; font-size: 4rem; }
+      .stats-bar { gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Clínica <span>Bucal</span></div>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#about">Especialista</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#cita" class="nav-cta">Agendar Cita</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Patología & Medicina Bucal</div>
+      <h1>Tu salud bucal<br/>en manos <em>expertas</em></h1>
+      <p>Diagnóstico temprano, tratamiento preciso y atención personalizada. Especialistas en enfermedades de la boca con enfoque preventivo y curativo.</p>
+      <div class="hero-btns">
+        <a href="#cita" class="btn-primary">Agendar mi cita</a>
+        <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">+10</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">+2,000</div>
+      <div class="stat-label">Pacientes atendidos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Satisfacción</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">5★</div>
+      <div class="stat-label">Calificación</div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="section-badge">Especialidades</div>
+      <h2 class="section-title">Tratamientos que ofrecemos</h2>
+      <p class="section-subtitle">Atención integral en patología oral, diagnóstico de lesiones y medicina bucal con la tecnología más avanzada.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔬</div>
+          <h3>Diagnóstico de Lesiones Bucales</h3>
+          <p>Evaluación clínica especializada de úlceras, manchas y lesiones en mucosa oral con biopsia cuando se requiere.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🦷</div>
+          <h3>Cáncer Oral — Detección Temprana</h3>
+          <p>Revisión preventiva y detección temprana de lesiones precancerosas y cáncer de boca para mejorar el pronóstico.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💊</div>
+          <h3>Enfermedades Sistémicas con Manifestación Bucal</h3>
+          <p>Manejo de condiciones como liquen plano, pénfigo, eritema multiforme y otras enfermedades autoinmunes orales.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">😣</div>
+          <h3>Dolor Orofacial y DTM</h3>
+          <p>Evaluación y tratamiento de disfunción temporomandibular, bruxismo y dolor orofacial crónico o agudo.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💧</div>
+          <h3>Patología de Glándulas Salivales</h3>
+          <p>Diagnóstico y tratamiento de mucoceles, ránulas, xerostomía y otras alteraciones de las glándulas salivales.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3>Pacientes con Enfermedades Crónicas</h3>
+          <p>Atención especializada para pacientes diabéticos, oncológicos o con tratamientos que afectan la salud bucal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-image">🦷</div>
+        <div>
+          <div class="section-badge">Tu especialista</div>
+          <h2 class="section-title">Cuidado experto con enfoque humano</h2>
+          <p style="color:var(--gray); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.7;">
+            Contamos con especialistas certificados en Patología y Medicina Bucal, con formación en instituciones de prestigio y actualización constante en los avances diagnósticos y terapéuticos más recientes.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="feature-dot"></div>
+              <div>
+                <h4>Certificación y Experiencia</h4>
+                <p>Especialistas con posgrado en Patología Bucal y miembros activos de asociaciones nacionales e internacionales.</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-dot"></div>
+              <div>
+                <h4>Tecnología de Diagnóstico</h4>
+                <p>Equipos de última generación para diagnóstico preciso: VELscope, fotografía clínica y estudio histopatológico.</p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-dot"></div>
+              <div>
+                <h4>Atención Personalizada</h4>
+                <p>Cada paciente es único. Elaboramos un plan de tratamiento adaptado a tu situación específica.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="container">
+      <div class="section-badge">¿Cómo funciona?</div>
+      <h2 class="section-title">Tu primera visita, paso a paso</h2>
+      <p class="section-subtitle">Un proceso claro y sin complicaciones para que llegues tranquilo a tu cita.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Agenda en línea</h3>
+          <p>Selecciona día y hora disponible directamente desde nuestro calendario.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Confirmación inmediata</h3>
+          <p>Recibes confirmación por WhatsApp con recordatorio 24h antes.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Consulta especializada</h3>
+          <p>Evaluación completa, diagnóstico y plan de tratamiento personalizado.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Seguimiento continuo</h3>
+          <p>Acompañamiento durante todo tu tratamiento hasta tu recuperación total.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITA (Fase 2) -->
+  <section id="cita">
+    <div class="container">
+      <div style="text-align:center;">
+        <div class="section-badge">Agenda tu cita</div>
+        <h2 class="section-title">¿Cuándo te acomodamos?</h2>
+        <p class="section-subtitle" style="margin: 0 auto 2rem;">Elige el día y hora que mejor te convenga. Confirmamos al instante.</p>
+      </div>
+      <div class="calendar-placeholder">
+        <div class="icon">📅</div>
+        <h3>Calendario de citas en línea</h3>
+        <p>Próximamente podrás agendar directamente aquí. Por ahora, contáctanos por WhatsApp o el formulario y te asignamos cita en menos de 24h.</p>
+        <a href="https://wa.me/521XXXXXXXXXX?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20la%20cl%C3%ADnica." class="btn-primary" target="_blank" rel="noopener">Agendar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="section-badge">Contáctanos</div>
+      <h2 class="section-title">Estamos para ayudarte</h2>
+      <div class="contact-inner">
+        <div class="contact-info">
+          <p style="color:var(--gray); font-size:0.95rem; line-height:1.7; margin-bottom:1rem;">Responderemos en menos de 2 horas en horario de atención. Si es urgente, escríbenos por WhatsApp.</p>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Ubicación</h4>
+              <p>San Luis Potosí, SLP, México</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <h4>Horario de atención</h4>
+              <p>Lunes – Viernes: 9:00 am – 7:00 pm<br/>Sábado: 9:00 am – 2:00 pm</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p>+52 1 (XXX) XXX-XXXX</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>Correo electrónico</h4>
+              <p>contacto@clinicabucal.mx</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="handleForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" placeholder="+52 1 xxx xxx xxxx" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" placeholder="tu@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="motivo">Motivo de consulta</label>
+            <select id="motivo">
+              <option value="">Selecciona una opción</option>
+              <option>Revisión preventiva</option>
+              <option>Lesión o úlcera en boca</option>
+              <option>Dolor orofacial</option>
+              <option>Segunda opinión</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje (opcional)</label>
+            <textarea id="mensaje" placeholder="Cuéntanos brevemente tu caso..."></textarea>
+          </div>
+          <button type="submit" class="btn-form">Enviar mensaje →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Clínica de <span>Patología y Medicina Bucal</span> · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/521XXXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20sus%20servicios." class="whatsapp-float" target="_blank" rel="noopener" title="Escríbenos por WhatsApp">💬</a>
+
+  <script>
+    function handleForm(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const telefono = document.getElementById('telefono').value;
+      const motivo = document.getElementById('motivo').value || 'No especificado';
+      const mensaje = document.getElementById('mensaje').value || '';
+      const text = encodeURIComponent(`Hola, soy ${nombre}. Quiero agendar una cita.\nTeléfono: ${telefono}\nMotivo: ${motivo}\n${mensaje ? 'Nota: ' + mensaje : ''}`);
+      window.open(`https://wa.me/521XXXXXXXXXX?text=${text}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
