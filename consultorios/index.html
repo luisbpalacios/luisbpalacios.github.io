@@ -420,6 +420,626 @@
       .card-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 20px; }
     }
+
+    /* ── MODULE NAV ── */
+    .mod-nav {
+      background: var(--dark-2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mod-nav-inner {
+      max-width: 860px;
+      width: 100%;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .mod-nav-inner::-webkit-scrollbar { display: none; }
+
+    .mod-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .mod-nav-link:hover {
+      color: var(--purple);
+      border-bottom-color: var(--purple-border);
+    }
+
+    .mod-nav-num {
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 5px;
+    }
+
+    /* ── MODULE SECTIONS ── */
+    .module-section {
+      margin-bottom: 64px;
+      scroll-margin-top: 56px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .module-badge {
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--purple);
+      letter-spacing: 1px;
+      flex-shrink: 0;
+    }
+
+    .module-header-text {}
+
+    .module-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .module-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── CONTENT BLOCKS ── */
+    .content-block {
+      background: var(--dark-3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+
+    .content-block-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-block-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .content-block-body p { margin-bottom: 10px; }
+    .content-block-body p:last-child { margin-bottom: 0; }
+
+    .content-block-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── EXERCISE CARD ── */
+    .exercise-card {
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+
+    .exercise-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .exercise-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .exercise-body {
+      font-size: 13px;
+      color: #b0a8d8;
+      line-height: 1.7;
+    }
+
+    /* ── FLOW DIAGRAM ── */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .flow-step {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 10px;
+      padding: 10px 16px;
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .flow-step-icon { font-size: 20px; margin-bottom: 4px; }
+    .flow-step-label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+
+    .flow-arrow {
+      font-size: 18px;
+      color: var(--purple);
+      padding: 0 6px;
+    }
+
+    /* ── COMPONENT CARDS ── */
+    .component-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .component-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .component-icon { font-size: 28px; margin-bottom: 8px; }
+    .component-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .component-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+    /* ── CASE CARDS ── */
+    .case-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-left: 3px solid var(--teal);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+    }
+
+    .case-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .case-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .case-metric {
+      display: inline-block;
+      background: rgba(20,184,166,0.12);
+      border: 1px solid rgba(20,184,166,0.25);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    /* ── WHATSAPP CHAT ── */
+    .wa-chat {
+      background: #0a1929;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    .wa-chat-header {
+      background: #1a2f45;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wa-avatar {
+      width: 36px; height: 36px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .wa-contact {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .wa-status {
+      font-size: 11px;
+      color: var(--teal);
+    }
+
+    .wa-messages {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wa-msg {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .wa-msg-time {
+      font-size: 10px;
+      margin-top: 4px;
+      opacity: 0.6;
+      text-align: right;
+    }
+
+    .wa-msg.patient {
+      background: #1f5c30;
+      color: #e2f5e9;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px;
+    }
+
+    .wa-msg.agent {
+      background: #1e2f3f;
+      color: #d0e8f5;
+      align-self: flex-start;
+      border-bottom-left-radius: 3px;
+    }
+
+    /* ── METRIC HIGHLIGHT ── */
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .metric-card {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .metric-num {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--purple);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .metric-card.danger .metric-num { color: #ef4444; }
+    .metric-card.success .metric-num { color: var(--green); }
+
+    /* ── CHECKLIST ── */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .checklist li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 800;
+      font-size: 12px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .checklist li strong { color: var(--text); }
+
+    /* ── STEP FLOW ── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px; height: 32px;
+      background: var(--purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .step-content {}
+    .step-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── TOOLS TABLE ── */
+    .tools-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 14px 0;
+    }
+
+    .tools-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--dark-4);
+    }
+
+    .tools-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .tools-table tr:last-child td { border-bottom: none; }
+
+    .tools-table td:first-child { color: #fff; font-weight: 600; }
+
+    .tools-table td .price {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ── URGENCY FLOW ── */
+    .urgency-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 14px 0;
+    }
+
+    .urgency-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .urgency-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .urgency-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--purple);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .urgency-connector {
+      width: 2px;
+      flex: 1;
+      min-height: 24px;
+      background: var(--border-2);
+      margin: 4px 0;
+    }
+
+    .urgency-content {
+      padding-bottom: 16px;
+      flex: 1;
+    }
+
+    .urgency-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--purple);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .urgency-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── ROADMAP ── */
+    .roadmap {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .roadmap-week {
+      background: var(--dark-4);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .roadmap-week-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 10px;
+    }
+
+    .roadmap-week ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .roadmap-week ul li {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.4;
+    }
+
+    .roadmap-week ul li:last-child { border-bottom: none; }
+
+    /* ── ERROR CARD ── */
+    .error-card {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .error-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    .error-title { font-size: 13px; font-weight: 700; color: #fca5a5; margin-bottom: 3px; }
+    .error-desc { font-size: 12px; color: #9ca3af; line-height: 1.5; }
+
+    /* ── TRIAGE TABLE ── */
+    .triage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .triage-col {
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .triage-col.agent-col {
+      background: rgba(139,92,246,0.07);
+      border: 1px solid var(--purple-border);
+    }
+
+    .triage-col.human-col {
+      background: rgba(20,184,166,0.07);
+      border: 1px solid rgba(20,184,166,0.25);
+    }
+
+    .triage-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .triage-col.agent-col .triage-col-title { color: var(--purple); }
+    .triage-col.human-col .triage-col-title { color: var(--teal); }
+
+    .triage-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .triage-col ul li {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      line-height: 1.4;
+    }
+
+    .triage-col ul li:last-child { border-bottom: none; }
+
+    @media (max-width: 600px) {
+      .component-grid { grid-template-columns: 1fr 1fr; }
+      .roadmap { grid-template-columns: 1fr; }
+      .triage-grid { grid-template-columns: 1fr; }
+      .flow-diagram { gap: 4px; }
+    }
+
+    @media (max-width: 400px) {
+      .component-grid { grid-template-columns: 1fr; }
+      .metric-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -455,6 +1075,17 @@
     </div>
     <a class="hero-cta" href="mailto:luis.b.palacios@outlook.com?subject=Taller IA Consultorios">Reservar mi lugar</a>
   </div>
+
+  <!-- ── MODULE NAV ── -->
+  <nav class="mod-nav">
+    <div class="mod-nav-inner">
+      <a class="mod-nav-link" href="#modulo-01"><span class="mod-nav-num">01</span> Fundamentos</a>
+      <a class="mod-nav-link" href="#modulo-02"><span class="mod-nav-num">02</span> Agenda</a>
+      <a class="mod-nav-link" href="#modulo-03"><span class="mod-nav-num">03</span> Atención 24/7</a>
+      <a class="mod-nav-link" href="#modulo-04"><span class="mod-nav-num">04</span> Administrativo</a>
+      <a class="mod-nav-link" href="#modulo-05"><span class="mod-nav-num">05</span> Implementación</a>
+    </div>
+  </nav>
 
   <div class="container">
 
@@ -575,6 +1206,814 @@
         <div class="card-icon">😰</div>
         <div class="card-title">Miedo a la tecnología</div>
         <div class="card-desc">No saber por dónde empezar ni qué herramientas son confiables para el sector salud.</div>
+      </div>
+    </div>
+
+    <!-- ── MÓDULOS DEL TALLER ── -->
+    <div class="divider"></div>
+    <div class="section-title">Contenido del Taller</div>
+    <div class="section-heading">Material didáctico completo</div>
+    <div class="section-sub">Cada módulo incluye teoría, ejemplos reales y un ejercicio práctico que puedes aplicar en tu consultorio.</div>
+
+    <!-- ══════════════════════════════════════════
+         MÓDULO 01 — Fundamentos
+    ══════════════════════════════════════════ -->
+    <div class="module-section" id="modulo-01">
+      <div class="module-header">
+        <div class="module-badge">01</div>
+        <div class="module-header-text">
+          <div class="module-title">Fundamentos de Agentes IA en Salud</div>
+          <div class="module-sub">Qué son, cómo funcionan y por qué cambian todo</div>
+        </div>
+      </div>
+
+      <!-- Qué es un agente IA -->
+      <div class="content-block">
+        <div class="content-block-title">🤖 ¿Qué es un agente de IA?</div>
+        <div class="content-block-body">
+          <p>Imagina que contratas a un asistente que <strong>nunca duerme, nunca olvida una cita y responde al mismo tiempo a 100 pacientes diferentes</strong>. Ese asistente no es humano — es un agente de IA.</p>
+          <p><strong>Analogía médica:</strong> Piénsalo como el sistema nervioso autónomo de tu cuerpo. No tienes que pensar para que tu corazón lata o tus pulmones respiren — sucede automáticamente, con inteligencia, todo el tiempo. Un agente IA hace lo mismo con las tareas repetitivas de tu consultorio.</p>
+          <p>Un agente IA es un programa que puede <strong>percibir información</strong> (mensajes de pacientes), <strong>razonar sobre ella</strong> (¿qué quiere el paciente?) y <strong>tomar acciones concretas</strong> (agendar la cita, enviar recordatorio, escalar al médico).</p>
+        </div>
+      </div>
+
+      <!-- Diferencias -->
+      <div class="content-block">
+        <div class="content-block-title">🔍 Chatbot vs IA Generativa vs Agente IA</div>
+        <div class="content-block-body">
+          <p><strong>Chatbot tradicional:</strong> Sigue un árbol de decisiones fijo. "Presiona 1 para citas, 2 para información..." Solo puede hacer lo que fue programado específicamente. Sin flexibilidad.</p>
+          <p><strong>IA Generativa (ej. ChatGPT):</strong> Puede conversar de forma natural e inteligente, pero no tiene acceso a tus sistemas. No puede agendar una cita real, no sabe tu disponibilidad, no envía recordatorios.</p>
+          <p><strong>Agente IA:</strong> Combina lo mejor de ambos. Tiene la inteligencia conversacional de la IA generativa <em>más</em> la capacidad de conectarse a tus sistemas y ejecutar acciones reales. Puede revisar tu calendario, confirmar una cita Y enviarle el recordatorio al paciente, todo en una sola conversación.</p>
+        </div>
+      </div>
+
+      <!-- Diagrama de flujo -->
+      <div class="content-block">
+        <div class="content-block-title">⚡ Cómo funciona un agente IA — Diagrama de flujo</div>
+        <div class="content-block-body">
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <div class="flow-step-icon">👤</div>
+              <div class="flow-step-label">Paciente</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-step-icon">💬</div>
+              <div class="flow-step-label">Mensaje</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-step-icon">🤖</div>
+              <div class="flow-step-label">Agente</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-step-icon">⚙️</div>
+              <div class="flow-step-label">Acción</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-step-icon">✅</div>
+              <div class="flow-step-label">Respuesta</div>
+            </div>
+          </div>
+          <p>El paciente manda un mensaje por WhatsApp. El agente lo lee, entiende la intención, consulta el calendario, ejecuta la acción (agenda la cita) y le responde al paciente con la confirmación — todo en segundos, sin intervención humana.</p>
+        </div>
+      </div>
+
+      <!-- Los 3 componentes -->
+      <div class="content-block">
+        <div class="content-block-title">🧩 Los 3 componentes de un agente IA</div>
+        <div class="content-block-body">
+          <div class="component-grid">
+            <div class="component-card">
+              <div class="component-icon">🧠</div>
+              <div class="component-name">Cerebro</div>
+              <div class="component-desc">El LLM (modelo de lenguaje) que entiende y genera respuestas naturales</div>
+            </div>
+            <div class="component-card">
+              <div class="component-icon">💾</div>
+              <div class="component-name">Memoria</div>
+              <div class="component-desc">El contexto de la conversación y el historial del paciente</div>
+            </div>
+            <div class="component-card">
+              <div class="component-icon">🔧</div>
+              <div class="component-name">Herramientas</div>
+              <div class="component-desc">Las acciones que puede ejecutar: calendar, WhatsApp, cobros, etc.</div>
+            </div>
+          </div>
+          <p>Estos tres elementos trabajan juntos. El <strong>cerebro</strong> decide qué hacer, la <strong>memoria</strong> le da contexto ("este paciente tiene alergia a la penicilina") y las <strong>herramientas</strong> ejecutan la acción real en el mundo.</p>
+        </div>
+      </div>
+
+      <!-- Casos reales -->
+      <div class="content-block">
+        <div class="content-block-title">📊 Casos reales de éxito</div>
+        <div class="content-block-body">
+          <div class="case-card">
+            <div class="case-title">🦷 Clínica Dental — CDMX</div>
+            <div class="case-body">Una clínica dental con 3 consultorios implementó un agente IA para confirmación de citas por WhatsApp. Los pacientes recibían un mensaje 48h antes y podían confirmar, cancelar o reagendar sin llamar a nadie.</div>
+            <span class="case-metric">📉 No-shows reducidos 38%</span>
+          </div>
+          <div class="case-card">
+            <div class="case-title">🩺 Consultorio Médico — San Luis Potosí</div>
+            <div class="case-body">Un médico internista configuró un agente para enviar indicaciones post-consulta personalizadas y hacer seguimiento a los 3 días. Pacientes con mejores resultados y más recomendaciones de boca en boca.</div>
+            <span class="case-metric">📈 Seguimiento post-consulta ×3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 1 -->
+      <div class="exercise-card">
+        <div class="exercise-label">✏️ Ejercicio 01</div>
+        <div class="exercise-title">"Identifica 3 tareas repetitivas en tu consultorio"</div>
+        <div class="exercise-body">
+          <p>Piensa en tu semana típica de trabajo. ¿Qué actividades haces (o tu recepcionista hace) que se repiten exactamente igual todos los días?</p>
+          <p><strong>Ejemplos comunes:</strong> Confirmar citas por WhatsApp, responder "¿cuánto cuesta X?", recordar a pacientes que tienen cita mañana, enviar indicaciones de ayuno, cobrar por transferencia y confirmar el pago.</p>
+          <p><strong>Tu tarea:</strong> Anota 3 tareas repetitivas que tomarían menos de 2 minutos de explicar y que suceden al menos 5 veces por semana. Esas son exactamente las que un agente IA puede automatizar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         MÓDULO 02 — Agenda
+    ══════════════════════════════════════════ -->
+    <div class="module-section" id="modulo-02">
+      <div class="module-header">
+        <div class="module-badge">02</div>
+        <div class="module-header-text">
+          <div class="module-title">Automatización de Agenda y Citas</div>
+          <div class="module-sub">De llamadas manuales a WhatsApp inteligente</div>
+        </div>
+      </div>
+
+      <!-- El problema -->
+      <div class="content-block">
+        <div class="content-block-title">😩 El problema actual: el costo oculto de agendar manualmente</div>
+        <div class="content-block-body">
+          <p>En un consultorio típico, <strong>agendar una cita toma entre 3 y 7 minutos</strong> entre llamada, verificar disponibilidad, confirmar datos y actualizar la agenda. Con 15 citas por día, eso es casi 2 horas diarias solo en administración de agenda.</p>
+          <p>Y eso sin contar los <strong>no-shows</strong>: pacientes que no llegan y no avisaron. Cada no-show no es solo tiempo perdido — es ingreso que no entra, y un hueco que no pudiste llenar con otro paciente.</p>
+          <div class="metric-row">
+            <div class="metric-card danger">
+              <div class="metric-num">15–25%</div>
+              <div class="metric-label">Tasa promedio de no-shows en consultorios sin recordatorios</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-num">~2 hrs</div>
+              <div class="metric-label">Tiempo diario en gestión manual de agenda (15 citas)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cómo funciona -->
+      <div class="content-block">
+        <div class="content-block-title">⚙️ Cómo funciona la agenda automática vía WhatsApp</div>
+        <div class="content-block-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Paciente inicia contacto</div>
+                <div class="step-desc">El paciente escribe a tu número de WhatsApp Business. El agente detecta la intención ("quiero una cita") y responde inmediatamente.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Recopilación de datos</div>
+                <div class="step-desc">El agente pide nombre, tipo de consulta y preferencias de horario de forma conversacional, sin formularios.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Verificación de disponibilidad</div>
+                <div class="step-desc">El agente consulta en tiempo real tu Google Calendar (u otro sistema) y ofrece 2–3 opciones disponibles.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Confirmación y registro</div>
+                <div class="step-desc">El paciente elige, el agente confirma el slot, crea el evento en el calendario y envía la confirmación con todos los datos.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-title">Recordatorios automáticos</div>
+                <div class="step-desc">48h y 2h antes de la cita, el agente envía recordatorio. El paciente puede confirmar, cancelar o reagendar con un solo mensaje.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Integraciones -->
+      <div class="content-block">
+        <div class="content-block-title">🔌 Integración con tus sistemas actuales</div>
+        <div class="content-block-body">
+          <ul class="checklist">
+            <li><strong>Google Calendar</strong> — Sincronización bidireccional en tiempo real. Lo que el agente agenda aparece en tu calendario al instante.</li>
+            <li><strong>Agenda en papel o Excel</strong> — También hay solución: el agente puede funcionar con un Google Sheet como base de datos simple si no tienes sistema digital.</li>
+            <li><strong>Software de consultorio (Doctolib, Medilink, etc.)</strong> — Integración vía API según el sistema. En el taller vemos cuáles son compatibles.</li>
+            <li><strong>WhatsApp Business API</strong> — Número dedicado para tu consultorio, separado de tu WhatsApp personal.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Chat simulado -->
+      <div class="content-block">
+        <div class="content-block-title">💬 Conversación real: agente y paciente</div>
+        <div class="content-block-body">
+          <p>Así se ve una conversación típica de agendamiento:</p>
+          <div class="wa-chat">
+            <div class="wa-chat-header">
+              <div class="wa-avatar">🤖</div>
+              <div>
+                <div class="wa-contact">Consultorio Dra. Martínez</div>
+                <div class="wa-status">● En línea</div>
+              </div>
+            </div>
+            <div class="wa-messages">
+              <div class="wa-msg patient">
+                Hola, quisiera hacer una cita con la doctora para revisión dental
+                <div class="wa-msg-time">10:23 ✓✓</div>
+              </div>
+              <div class="wa-msg agent">
+                ¡Hola! Con gusto te ayudo a agendar 😊 ¿Me podrías decir tu nombre completo y si eres paciente nuevo o ya te has atendido con nosotros?
+                <div class="wa-msg-time">10:23</div>
+              </div>
+              <div class="wa-msg patient">
+                Soy paciente nueva, me llamo Laura Sánchez
+                <div class="wa-msg-time">10:24 ✓✓</div>
+              </div>
+              <div class="wa-msg agent">
+                ¡Bienvenida, Laura! 🎉 Tenemos disponibilidad esta semana. ¿Tienes preferencia de horario? Te muestro opciones disponibles:<br><br>📅 <strong>Miércoles 9 Abr</strong> — 10:00 AM o 4:30 PM<br>📅 <strong>Jueves 10 Abr</strong> — 11:00 AM o 6:00 PM<br>📅 <strong>Viernes 11 Abr</strong> — 9:00 AM
+                <div class="wa-msg-time">10:24</div>
+              </div>
+              <div class="wa-msg patient">
+                El miércoles a las 4:30 me viene bien
+                <div class="wa-msg-time">10:25 ✓✓</div>
+              </div>
+              <div class="wa-msg agent">
+                ¡Perfecto! Tu cita está confirmada ✅<br><br>📋 <strong>Resumen:</strong><br>👤 Laura Sánchez<br>📅 Miércoles 9 de Abril, 4:30 PM<br>🏥 Consultorio Dra. Martínez<br>📍 Av. Juárez 445, Col. Centro<br><br>Te enviaré un recordatorio el día anterior. ¿Necesitas algo más?
+                <div class="wa-msg-time">10:25</div>
+              </div>
+              <div class="wa-msg patient">
+                No, muchas gracias!
+                <div class="wa-msg-time">10:26 ✓✓</div>
+              </div>
+              <div class="wa-msg agent">
+                ¡Con gusto, Laura! Hasta el miércoles 😊
+                <div class="wa-msg-time">10:26</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top:12px;">Toda esta conversación sucedió <strong>sin que nadie en el consultorio interviniera</strong>. La cita ya está en el calendario de la doctora.</p>
+        </div>
+      </div>
+
+      <!-- Métricas de costo -->
+      <div class="content-block">
+        <div class="content-block-title">💰 El costo de un no-show vs el costo del agente</div>
+        <div class="content-block-body">
+          <div class="metric-row">
+            <div class="metric-card danger">
+              <div class="metric-num">$800</div>
+              <div class="metric-label">Ingreso perdido por no-show (consulta promedio México)</div>
+            </div>
+            <div class="metric-card success">
+              <div class="metric-num">$2,500</div>
+              <div class="metric-label">Costo mensual del agente (básico, todo incluido)</div>
+            </div>
+          </div>
+          <p>Si tienes 15 citas al día y solo el 15% son no-shows, eso es <strong>~2 no-shows diarios × $800 = $1,600 pesos perdidos cada día</strong>. En un mes de 22 días laborales: <strong>$35,200 pesos en ingresos que no entraron</strong>.</p>
+          <p>El agente cuesta $2,500/mes y puede reducir los no-shows un 35–40%. El ROI es inmediato.</p>
+        </div>
+      </div>
+
+      <!-- Ejercicio 2 -->
+      <div class="exercise-card">
+        <div class="exercise-label">✏️ Ejercicio 02</div>
+        <div class="exercise-title">"Calcula cuánto te cuesta un mes de no-shows"</div>
+        <div class="exercise-body">
+          <p>Usa la fórmula siguiente para calcular el impacto real en tu consultorio:</p>
+          <p><strong>Fórmula:</strong><br>
+          (Citas por día) × (% no-show estimado) × (Costo consulta promedio) × (Días laborales por mes)</p>
+          <p><strong>Ejemplo:</strong> 12 citas/día × 15% no-show × $700 × 22 días = <strong>$27,720/mes</strong></p>
+          <p>Anota tu número real. Ese es el dinero que ya estás dejando de ganar — y que el agente recupera parcialmente desde el primer mes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         MÓDULO 03 — Atención 24/7
+    ══════════════════════════════════════════ -->
+    <div class="module-section" id="modulo-03">
+      <div class="module-header">
+        <div class="module-badge">03</div>
+        <div class="module-header-text">
+          <div class="module-title">Atención al Paciente 24/7</div>
+          <div class="module-sub">Que nunca más un paciente se quede sin respuesta</div>
+        </div>
+      </div>
+
+      <!-- Preguntas frecuentes -->
+      <div class="content-block">
+        <div class="content-block-title">❓ Preguntas frecuentes que el agente puede responder solo</div>
+        <div class="content-block-body">
+          <p>El 80% de los mensajes que recibe un consultorio son siempre las mismas preguntas. El agente las responde al instante, a cualquier hora:</p>
+          <ul class="checklist">
+            <li>¿Cuál es el costo de una consulta / procedimiento X?</li>
+            <li>¿Dónde están ubicados? ¿Tienen estacionamiento?</li>
+            <li>¿Qué horarios tienen disponibles?</li>
+            <li>¿Aceptan tal seguro médico o servicio?</li>
+            <li>¿Necesito ayunar para mi cita?</li>
+            <li>¿Qué debo traer a mi primera consulta?</li>
+            <li>¿Cuánto dura la recuperación de X procedimiento?</li>
+            <li>¿Pueden atender a menores de edad?</li>
+            <li>¿Tienen servicio de urgencias?</li>
+            <li>¿Cómo cancelo o reagendo mi cita?</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Post-tratamiento -->
+      <div class="content-block">
+        <div class="content-block-title">💊 Indicaciones post-tratamiento automatizadas</div>
+        <div class="content-block-body">
+          <p>Después de cada consulta, el agente puede enviar automáticamente las indicaciones específicas del procedimiento realizado. No más papelitos que se pierden.</p>
+          <p><strong>Ejemplo — Post extracción dental:</strong> El agente envía: cuidados las primeras 24h, qué alimentos evitar, cuándo tomar el medicamento, señales de alarma que requieren llamar al consultorio, y recordatorio para revisión a los 7 días.</p>
+          <p>Esto mejora los resultados clínicos y <strong>reduce las llamadas de pánico</strong> de pacientes que no recuerdan las instrucciones.</p>
+        </div>
+      </div>
+
+      <!-- Triaje -->
+      <div class="content-block">
+        <div class="content-block-title">🚦 Triaje básico: agente vs escalación al médico</div>
+        <div class="content-block-body">
+          <p>El agente sabe cuándo puede responder solo y cuándo tiene que involucrar a un humano:</p>
+          <div class="triage-grid">
+            <div class="triage-col agent-col">
+              <div class="triage-col-title">🤖 Agente resuelve</div>
+              <ul>
+                <li>Agendar / reagendar citas</li>
+                <li>Preguntas de costo e info</li>
+                <li>Indicaciones post-tratamiento</li>
+                <li>Recordatorios de medicamentos</li>
+                <li>Confirmación de pagos</li>
+                <li>Envío de recibos</li>
+                <li>Preguntas sobre ubicación</li>
+                <li>Seguimiento de rutina</li>
+              </ul>
+            </div>
+            <div class="triage-col human-col">
+              <div class="triage-col-title">👨‍⚕️ Escala al médico</div>
+              <ul>
+                <li>Síntomas de urgencia</li>
+                <li>Dolor intenso o sangrado</li>
+                <li>Dudas sobre diagnóstico</li>
+                <li>Pacientes angustiados</li>
+                <li>Quejas o insatisfacción</li>
+                <li>Situaciones no previstas</li>
+                <li>Preguntas médicas específicas</li>
+                <li>Solicitudes fuera de protocolo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tono y personalidad -->
+      <div class="content-block">
+        <div class="content-block-title">🎭 Cómo configurar el tono y personalidad de tu agente</div>
+        <div class="content-block-body">
+          <p>El agente habla con la voz de tu consultorio. Tú defines cómo suena:</p>
+          <ul class="checklist">
+            <li><strong>Nombre del agente:</strong> "Soy Sofía, asistente del consultorio del Dr. García" — crea confianza y cercanía.</li>
+            <li><strong>Formalidad:</strong> Puedes elegir tutear o tratar de usted según tu clientela.</li>
+            <li><strong>Especialidad:</strong> El agente conoce los procedimientos y términos específicos de tu práctica.</li>
+            <li><strong>Límites claros:</strong> Configuras exactamente de qué puede hablar y de qué no — no improvisa en temas clínicos sensibles.</li>
+            <li><strong>Emojis y tono:</strong> Formal y frío para especialistas, cálido y cercano para pediatras o dentistas infantiles.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Urgencia nocturna -->
+      <div class="content-block">
+        <div class="content-block-title">🌙 Ejemplo de flujo de urgencia nocturna</div>
+        <div class="content-block-body">
+          <p>Son las 2 AM. Un paciente tiene dolor intenso post-extracción y escribe al WhatsApp del consultorio. Sin agente, el mensaje queda sin leer hasta el día siguiente.</p>
+          <div class="urgency-flow">
+            <div class="urgency-step">
+              <div class="urgency-line"><div class="urgency-dot"></div><div class="urgency-connector"></div></div>
+              <div class="urgency-content">
+                <div class="urgency-label">2:14 AM — Paciente escribe</div>
+                <div class="urgency-text">"Tengo mucho dolor desde la extracción, no puedo dormir, hay algo de sangrado"</div>
+              </div>
+            </div>
+            <div class="urgency-step">
+              <div class="urgency-line"><div class="urgency-dot"></div><div class="urgency-connector"></div></div>
+              <div class="urgency-content">
+                <div class="urgency-label">2:14 AM — Agente evalúa</div>
+                <div class="urgency-text">Detecta palabras clave de urgencia: "dolor intenso", "sangrado". Activa protocolo de urgencia.</div>
+              </div>
+            </div>
+            <div class="urgency-step">
+              <div class="urgency-line"><div class="urgency-dot"></div><div class="urgency-connector"></div></div>
+              <div class="urgency-content">
+                <div class="urgency-label">2:14 AM — Respuesta inmediata</div>
+                <div class="urgency-text">Envía instrucciones de primeros auxilios (morder gasa, no enjuagarse), calma al paciente, informa que notificará al médico.</div>
+              </div>
+            </div>
+            <div class="urgency-step">
+              <div class="urgency-line"><div class="urgency-dot"></div><div class="urgency-connector"></div></div>
+              <div class="urgency-content">
+                <div class="urgency-label">2:14 AM — Alerta al médico</div>
+                <div class="urgency-text">Envía notificación push / WhatsApp al doctor de guardia con resumen de la situación.</div>
+              </div>
+            </div>
+            <div class="urgency-step">
+              <div class="urgency-line"><div class="urgency-dot"></div></div>
+              <div class="urgency-content">
+                <div class="urgency-label">2:15 AM — Médico responde</div>
+                <div class="urgency-text">El doctor toma control de la conversación si lo considera necesario, o el agente transmite sus indicaciones.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 3 -->
+      <div class="exercise-card">
+        <div class="exercise-label">✏️ Ejercicio 03</div>
+        <div class="exercise-title">"Las 10 preguntas más frecuentes de tus pacientes"</div>
+        <div class="exercise-body">
+          <p>Estas preguntas van a ser la base de conocimiento de tu agente. Cuanto mejor documentadas estén, mejor responderá.</p>
+          <p><strong>Tu tarea:</strong> Escribe las 10 preguntas que más te hacen tus pacientes (o que más recibe tu recepcionista). Para cada una, escribe también la respuesta ideal — la que siempre das, en tu propio tono.</p>
+          <p>Este documento será el primer archivo que cargaremos en tu agente durante la implementación. Tienes 15 minutos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         MÓDULO 04 — Gestión Administrativa
+    ══════════════════════════════════════════ -->
+    <div class="module-section" id="modulo-04">
+      <div class="module-header">
+        <div class="module-badge">04</div>
+        <div class="module-header-text">
+          <div class="module-title">Gestión Administrativa con IA</div>
+          <div class="module-sub">Cobranza, reportes y más — sin trabajo manual</div>
+        </div>
+      </div>
+
+      <!-- Cobranza -->
+      <div class="content-block">
+        <div class="content-block-title">💳 Cobranza automatizada por WhatsApp</div>
+        <div class="content-block-body">
+          <p>Perseguir pacientes para que paguen es incómodo y consume tiempo. El agente lo hace automáticamente, con el tono adecuado:</p>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Recordatorio preventivo (día de la cita)</div>
+                <div class="step-desc">"Hola [nombre], te recordamos que tu consulta de hoy tiene un costo de $[monto]. Puedes pagar en efectivo, transferencia o tarjeta."</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Post-consulta (mismo día)</div>
+                <div class="step-desc">Si el cobro quedó pendiente, el agente envía el monto total con datos de transferencia o liga de pago en línea.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Seguimiento a 3 días</div>
+                <div class="step-desc">Si no hay confirmación de pago, el agente envía un segundo recordatorio amable. Después escala al equipo humano.</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top:8px;">El agente puede verificar automáticamente cuando el pago por transferencia llega y confirmar con el paciente — cerrando el ciclo sin intervención humana.</p>
+        </div>
+      </div>
+
+      <!-- Recibos -->
+      <div class="content-block">
+        <div class="content-block-title">🧾 Generación y envío de recibos</div>
+        <div class="content-block-body">
+          <p>Una vez confirmado el pago, el agente genera y envía el recibo automáticamente al paciente vía WhatsApp o correo. El recibo incluye: nombre del paciente, fecha, servicio, monto y datos del prestador.</p>
+          <ul class="checklist">
+            <li><strong>PDF automático</strong> — Generado con la plantilla de tu consultorio, enviado al instante.</li>
+            <li><strong>Recibos simples o CFDI</strong> — Para pacientes que necesitan factura electrónica, el agente puede solicitar los datos fiscales y transferirlos a tu proceso de facturación.</li>
+            <li><strong>Historial digital</strong> — Todos los recibos quedan registrados en un Google Sheet o base de datos accesible para el equipo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reportes -->
+      <div class="content-block">
+        <div class="content-block-title">📊 Reportes semanales automáticos</div>
+        <div class="content-block-body">
+          <p>Cada lunes a las 8 AM, recibes en tu WhatsApp o correo un resumen de la semana anterior:</p>
+          <ul class="checklist">
+            <li>Número de citas atendidas vs canceladas vs no-shows</li>
+            <li>Ingresos del período y comparativa vs semana anterior</li>
+            <li>Cuentas pendientes de cobro</li>
+            <li>Pacientes sin reagendar (oportunidades de seguimiento)</li>
+            <li>Preguntas más frecuentes que llegaron al agente</li>
+          </ul>
+          <p style="margin-top:10px;">Sin tocar Excel. Sin compilar datos a mano. El agente lo genera y te lo manda.</p>
+        </div>
+      </div>
+
+      <!-- Inventario -->
+      <div class="content-block">
+        <div class="content-block-title">🦷 Control de inventario básico (para dentistas)</div>
+        <div class="content-block-body">
+          <p>Para consultorios dentales, el agente puede llevar un control básico de materiales de uso frecuente:</p>
+          <ul class="checklist">
+            <li>Registro de salida de materiales por procedimiento</li>
+            <li>Alerta cuando un insumo baja del mínimo configurado</li>
+            <li>Listado de pedidos sugeridos por semana</li>
+            <li>Integración con Google Sheets para seguimiento visual</li>
+          </ul>
+          <p style="margin-top:10px;">No reemplaza un sistema ERP, pero para consultorios medianos es suficiente para evitar quedarse sin materiales críticos.</p>
+        </div>
+      </div>
+
+      <!-- SAT -->
+      <div class="content-block">
+        <div class="content-block-title">🏛️ Integración con facturación SAT (México)</div>
+        <div class="content-block-body">
+          <p>Para profesionales que emiten CFDIs a sus pacientes:</p>
+          <ul class="checklist">
+            <li><strong>Captura de datos fiscales</strong> — El agente pide RFC, régimen fiscal y datos de facturación al paciente vía WhatsApp antes de la cita.</li>
+            <li><strong>Generación automatizada</strong> — Integración con tu proveedor de timbrado (Facturama, SW Sapien, etc.) para generar el CFDI automáticamente.</li>
+            <li><strong>Envío al paciente</strong> — El XML y PDF del CFDI se mandan por correo y WhatsApp al instante.</li>
+            <li><strong>Notas de crédito</strong> — Si hay cancelación, el agente gestiona la nota de crédito en el mismo flujo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Ejercicio 4 -->
+      <div class="exercise-card">
+        <div class="exercise-label">✏️ Ejercicio 04</div>
+        <div class="exercise-title">"Mapea tu flujo de cobranza actual"</div>
+        <div class="exercise-body">
+          <p>Dibuja (o describe en texto) el proceso que sigues hoy desde que el paciente termina su consulta hasta que el pago está registrado y el recibo enviado.</p>
+          <p><strong>Preguntas guía:</strong><br>
+          — ¿Quién cobra? ¿El médico, la recepcionista, ambos?<br>
+          — ¿Cómo registran el pago? ¿Cuaderno, Excel, app?<br>
+          — ¿Qué pasa si el paciente no paga ese día?<br>
+          — ¿Quién da seguimiento? ¿Con qué herramienta?<br>
+          — ¿Cuántos pasos tiene el proceso hasta llegar al CFDI?</p>
+          <p>Identifica los 2–3 momentos donde más tiempo se pierde o donde más errores ocurren. Esos son los cuellos de botella que el agente puede resolver primero.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         MÓDULO 05 — Implementación
+    ══════════════════════════════════════════ -->
+    <div class="module-section" id="modulo-05">
+      <div class="module-header">
+        <div class="module-badge">05</div>
+        <div class="module-header-text">
+          <div class="module-title">Tu Plan de Implementación</div>
+          <div class="module-sub">De este taller a tu consultorio funcionando con IA</div>
+        </div>
+      </div>
+
+      <!-- Los 4 pasos -->
+      <div class="content-block">
+        <div class="content-block-title">🗺️ Los 4 pasos para implementar en tu consultorio</div>
+        <div class="content-block-body">
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Mapeo de procesos</div>
+                <div class="step-desc">Identificas cuáles son las 3–5 tareas prioritarias a automatizar. No intentes hacerlo todo de golpe. Empieza con la agenda y los recordatorios — el ROI más rápido.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Configuración del agente</div>
+                <div class="step-desc">Cargas la información de tu consultorio: horarios, servicios, precios, respuestas frecuentes. Configuras el tono y las reglas de escalación. Esto toma 1–2 días.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Prueba controlada</div>
+                <div class="step-desc">El agente opera en paralelo con tu proceso actual durante 1 semana. Tú o tu recepcionista revisan las conversaciones y ajustan respuestas. Es el período de aprendizaje.</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Despliegue completo y medición</div>
+                <div class="step-desc">El agente toma el control de los canales configurados. Empiezas a medir: tasa de no-shows, tiempo de respuesta, satisfacción de pacientes. Ajuste continuo.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist -->
+      <div class="content-block">
+        <div class="content-block-title">✅ Checklist de requisitos mínimos</div>
+        <div class="content-block-body">
+          <p>Para implementar un agente básico en tu consultorio necesitas:</p>
+          <ul class="checklist">
+            <li><strong>WhatsApp Business</strong> — Número de teléfono dedicado (puede ser el que ya tienes)</li>
+            <li><strong>Google Calendar o agenda digital</strong> — Para la sincronización de citas</li>
+            <li><strong>Conexión a internet estable</strong> — El agente vive en la nube, no en tu computadora</li>
+            <li><strong>Documento de FAQ</strong> — Las preguntas frecuentes con sus respuestas (ejercicio del módulo 3)</li>
+            <li><strong>Información básica del consultorio</strong> — Horarios, ubicación, servicios y precios</li>
+            <li><strong>Alguien de guardia</strong> — Una persona que reciba las escalaciones del agente (puede ser tú)</li>
+          </ul>
+          <p style="margin-top:10px;"><strong>No necesitas:</strong> Conocimientos técnicos, servidor propio, cambiar tus sistemas actuales ni contratar más personal.</p>
+        </div>
+      </div>
+
+      <!-- Errores comunes -->
+      <div class="content-block">
+        <div class="content-block-title">⚠️ Errores más comunes al implementar IA en consultorios</div>
+        <div class="content-block-body">
+          <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div>
+              <div class="error-title">Querer automatizar todo de golpe</div>
+              <div class="error-desc">Empieza con 1–2 procesos. Automatizar todo en semana 1 es abrumador y propenso a errores. El agente mejora iterativamente.</div>
+            </div>
+          </div>
+          <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div>
+              <div class="error-title">No entrenar al equipo humano</div>
+              <div class="error-desc">Tu recepcionista necesita entender cómo funciona el agente, cómo intervenir cuando sea necesario y cómo leer los reportes. Sin esto, hay fricción.</div>
+            </div>
+          </div>
+          <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div>
+              <div class="error-title">No definir las reglas de escalación</div>
+              <div class="error-desc">Si el agente no sabe cuándo escalar, puede responder cosas que no debería o, peor, ignorar una urgencia. Las reglas de escalación son lo más importante de configurar.</div>
+            </div>
+          </div>
+          <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div>
+              <div class="error-title">No medir después del lanzamiento</div>
+              <div class="error-desc">Sin métricas no sabes si está funcionando. Define tus KPIs antes de lanzar: tasa de no-shows, tiempo de respuesta, satisfacción de pacientes.</div>
+            </div>
+          </div>
+          <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div>
+              <div class="error-title">Esperar que sea perfecto desde el día 1</div>
+              <div class="error-desc">Los primeros 2 semanas son de ajuste. El agente puede cometer errores menores. Es normal. Se corrigen rápido y el sistema aprende.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI -->
+      <div class="content-block">
+        <div class="content-block-title">📈 Cómo medir el ROI de tu agente</div>
+        <div class="content-block-body">
+          <p>El retorno de inversión de un agente IA se mide en dos dimensiones: <strong>ingresos recuperados</strong> y <strong>tiempo liberado</strong>.</p>
+          <div class="metric-row">
+            <div class="metric-card success">
+              <div class="metric-num">+35%</div>
+              <div class="metric-label">Reducción promedio de no-shows con recordatorios automáticos</div>
+            </div>
+            <div class="metric-card success">
+              <div class="metric-num">-2 hrs</div>
+              <div class="metric-label">Tiempo diario liberado en gestión administrativa</div>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li><strong>Métrica 1 — Tasa de no-shows:</strong> Compara el mes anterior vs el mes post-implementación.</li>
+            <li><strong>Métrica 2 — Tiempo en agenda:</strong> Cuántos minutos por día se destinaban antes vs ahora.</li>
+            <li><strong>Métrica 3 — Tiempo de primera respuesta:</strong> De horas a segundos. Mide la satisfacción de pacientes.</li>
+            <li><strong>Métrica 4 — Cobros pendientes:</strong> Cuántas cuentas por cobrar tenías vs cuántas tienes 60 días después.</li>
+            <li><strong>Métrica 5 — NPS de pacientes:</strong> Encuesta simple post-consulta. ¿Te recomendarías?</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tabla de herramientas -->
+      <div class="content-block">
+        <div class="content-block-title">🧰 Recursos y herramientas recomendadas</div>
+        <div class="content-block-body">
+          <table class="tools-table">
+            <thead>
+              <tr>
+                <th>Herramienta</th>
+                <th>Uso</th>
+                <th>Precio aprox.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AgentBase.mx</td>
+                <td>Plataforma de agentes IA para consultorios</td>
+                <td><span class="price">Desde $2,500/mes</span></td>
+              </tr>
+              <tr>
+                <td>WhatsApp Business API</td>
+                <td>Canal de comunicación con pacientes</td>
+                <td><span class="price">~$0.06 por mensaje</span></td>
+              </tr>
+              <tr>
+                <td>Google Calendar</td>
+                <td>Agenda sincronizada con el agente</td>
+                <td><span class="price">Gratis</span></td>
+              </tr>
+              <tr>
+                <td>Facturama</td>
+                <td>Timbrado de CFDIs en México</td>
+                <td><span class="price">Desde $299/mes</span></td>
+              </tr>
+              <tr>
+                <td>Stripe / Clip</td>
+                <td>Cobros en línea y liga de pago</td>
+                <td><span class="price">2.9% + $3 por transacción</span></td>
+              </tr>
+              <tr>
+                <td>Google Sheets</td>
+                <td>Reportes y base de datos ligera</td>
+                <td><span class="price">Gratis</span></td>
+              </tr>
+              <tr>
+                <td>Notion / Obsidian</td>
+                <td>Documentación de procesos y FAQ</td>
+                <td><span class="price">Gratis / $8 USD/mes</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Hoja de ruta -->
+      <div class="content-block">
+        <div class="content-block-title">📅 Tu hoja de ruta: primeras 4 semanas</div>
+        <div class="content-block-body">
+          <div class="roadmap">
+            <div class="roadmap-week">
+              <div class="roadmap-week-label">Semana 1</div>
+              <ul>
+                <li>Mapeo de procesos prioritarios</li>
+                <li>Crear documento de FAQ</li>
+                <li>Configurar WhatsApp Business</li>
+                <li>Definir reglas de escalación</li>
+                <li>Primera sesión de configuración del agente</li>
+              </ul>
+            </div>
+            <div class="roadmap-week">
+              <div class="roadmap-week-label">Semana 2</div>
+              <ul>
+                <li>Prueba con pacientes reales (modo supervisado)</li>
+                <li>Revisar conversaciones diariamente</li>
+                <li>Ajustar respuestas y tono</li>
+                <li>Capacitar a recepcionista</li>
+                <li>Corregir errores menores</li>
+              </ul>
+            </div>
+            <div class="roadmap-week">
+              <div class="roadmap-week-label">Semanas 3–4</div>
+              <ul>
+                <li>Despliegue completo autónomo</li>
+                <li>Activar recordatorios automáticos</li>
+                <li>Activar cobranza automatizada</li>
+                <li>Primera medición de KPIs</li>
+                <li>Planear expansión a módulo siguiente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 5 -->
+      <div class="exercise-card">
+        <div class="exercise-label">✏️ Ejercicio 05 — Final</div>
+        <div class="exercise-title">"Tu Plan de Implementación Personal"</div>
+        <div class="exercise-body">
+          <p>Antes de salir del taller, completa estas 4 líneas:</p>
+          <p><strong>1.</strong> Mi mayor problema operativo hoy es: _______________<br>
+          <strong>2.</strong> La primera tarea que voy a automatizar es: _______________<br>
+          <strong>3.</strong> Mi métrica de éxito en 30 días será: _______________<br>
+          <strong>4.</strong> La persona en mi consultorio que va a ser el "dueño" del agente es: _______________</p>
+          <p style="margin-top:10px;">Guarda este papel. En 30 días, revisa si lo lograste. Si tienes dudas durante la implementación, escríbenos a <strong>luis.b.palacios@outlook.com</strong> — acompañamos a todos los participantes del taller.</p>
+        </div>
       </div>
     </div>
 
