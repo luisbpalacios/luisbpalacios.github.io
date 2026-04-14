@@ -1,6 +1,261 @@
 {
   "signals": [
     {
+      "id": "ZECUSDT_1775347455",
+      "symbol": "ZECUSDT",
+      "direction": "long",
+      "grade": "C",
+      "score": 68,
+      "entry": 251.06,
+      "tp1": 258.745357,
+      "tp2": 258.96,
+      "tp3": 276.677857,
+      "sl": 204.04465,
+      "rr": 0.16,
+      "status": "win",
+      "timestamp": 1775347455.032263,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u26a0\ufe0f Estructura 1D neutral",
+        "\u2705 BTC sobre EMA21 4H ($67,151)",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +7.2% vs +0.6% (+8)",
+        "\u2705 Precio sobre EMA21 4H ($241.9708)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H alto (67.76), precauci\u00f3n",
+        "\u27a1\ufe0f Funding neutral (0.0058%)",
+        "\u2705 \u00daltimas 3 velas 4H en tendencia alcista",
+        "\u27a1\ufe0f Precio en HVN ($251.0600) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0058,
+      "rsi_4h": 67.76,
+      "oi_m": 127.33,
+      "close_price": 362.31,
+      "closed_at": "2026-04-14T03:00:39.688624+00:00",
+      "close_pnl_pct": 44.31
+    },
+    {
+      "id": "ETHUSDT_1775347455",
+      "symbol": "ETHUSDT",
+      "direction": "long",
+      "grade": "C",
+      "score": 68,
+      "entry": 2064.06,
+      "tp1": 2090.8425,
+      "tp2": 2167.2,
+      "tp3": 2153.335,
+      "sl": 1926.8573,
+      "rr": 0.2,
+      "status": "win",
+      "timestamp": 1775347455.030098,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 BTC sobre EMA21 4H ($67,151)",
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.905) \u2014 movimiento muy dependiente de BTC",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +0.6% vs +0.6% (+8)",
+        "\u2705 Precio sobre EMA21 4H ($2,061.4767)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima long (49.75)",
+        "\u27a1\ufe0f Funding neutral (0.0024%)",
+        "\u2705 Precio en POC ($2,048.5572) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($2,064.0600) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u274c Estructura 1D bajista",
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0024,
+      "rsi_4h": 49.75,
+      "oi_m": 4436.57,
+      "close_price": 2365.83,
+      "closed_at": "2026-04-14T03:00:40.098362+00:00",
+      "close_pnl_pct": 14.62
+    },
+    {
+      "id": "UNIUSDT_1775347455",
+      "symbol": "UNIUSDT",
+      "direction": "short",
+      "grade": "B",
+      "score": 75,
+      "entry": 3.124,
+      "tp1": 3.051893,
+      "tp2": 3.093,
+      "tp3": 2.883643,
+      "sl": 3.68835,
+      "rr": 0.13,
+      "status": "open",
+      "timestamp": 1775347455.02798,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (49.18)",
+        "\u27a1\ufe0f Precio en HVN ($3.1240) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0051,
+      "rsi_4h": 49.18,
+      "oi_m": 59.08
+    },
+    {
+      "id": "RENDERUSDT_1775347455",
+      "symbol": "RENDERUSDT",
+      "direction": "long",
+      "grade": "B",
+      "score": 77,
+      "entry": 1.868,
+      "tp1": 1.935286,
+      "tp2": 1.963,
+      "tp3": 2.092286,
+      "sl": 1.59399,
+      "rr": 0.25,
+      "status": "open",
+      "timestamp": 1775347455.025903,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 BTC sobre EMA21 4H ($67,151)",
+        "\u2705 Precio sobre EMA21 4H ($1.8604)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H elevado (55.5), momentum aceptable",
+        "\u27a1\ufe0f Funding neutral (0.0024%)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0024,
+      "rsi_4h": 55.5,
+      "oi_m": 13.63
+    },
+    {
+      "id": "AAVEUSDT_1775347455",
+      "symbol": "AAVEUSDT",
+      "direction": "short",
+      "grade": "A",
+      "score": 78,
+      "entry": 94.47,
+      "tp1": 93.006429,
+      "tp2": 92.27,
+      "tp3": 89.591429,
+      "sl": 101.61555,
+      "rr": 0.2,
+      "status": "open",
+      "timestamp": 1775347455.023801,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.804) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (45.95)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0021,
+      "rsi_4h": 45.95,
+      "oi_m": 36.71
+    },
+    {
+      "id": "SUIUSDT_1775347455",
+      "symbol": "SUIUSDT",
+      "direction": "short",
+      "grade": "A",
+      "score": 80,
+      "entry": 0.8707,
+      "tp1": 0.855464,
+      "tp2": 0.8188,
+      "tp3": 0.819914,
+      "sl": 0.918771,
+      "rr": 0.32,
+      "status": "loss",
+      "timestamp": 1775347455.02171,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.847) \u2014 movimiento muy dependiente de BTC",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (62.65)",
+        "\u2705 Precio en POC ($0.8697) \u2014 zona de equilibrio de volumen (+10)",
+        "\u2705 Precio en HVN resistencia ($0.8707) \u2014 zona de alta liquidez, buen short (+12)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0067,
+      "rsi_4h": 62.65,
+      "oi_m": 75.24,
+      "close_price": 0.9496,
+      "closed_at": "2026-04-14T03:00:41.261852+00:00",
+      "close_pnl_pct": -9.06
+    },
+    {
+      "id": "BNBUSDT_1775347455",
+      "symbol": "BNBUSDT",
+      "direction": "short",
+      "grade": "A",
+      "score": 81,
+      "entry": 593.58,
+      "tp1": 588.006429,
+      "tp2": 570.71,
+      "tp3": 575.001429,
+      "sl": 625.7733,
+      "rr": 0.17,
+      "status": "open",
+      "timestamp": 1775347455.00742,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.841) \u2014 movimiento muy dependiente de BTC",
+        "\ud83d\udcaa Fuerza relativa vs BTC: +0.9% vs +0.6% (+8)",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H sobrecomprado (89.78) \u2014 ideal para short",
+        "\u26a1 Precio en LVN ($593.5800) \u2014 zona de bajo volumen, precio puede moverse r\u00e1pido (+8)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0,
+      "rsi_4h": 89.78,
+      "oi_m": 317.62
+    },
+    {
+      "id": "XRPUSDT_1775347455",
+      "symbol": "XRPUSDT",
+      "direction": "short",
+      "grade": "A+",
+      "score": 85,
+      "entry": 1.3133,
+      "tp1": 1.296114,
+      "tp2": 1.2791,
+      "tp3": 1.256014,
+      "sl": 1.374739,
+      "rr": 0.28,
+      "status": "open",
+      "timestamp": 1775347455.004936,
+      "date": "2026-04-05 00:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D bajista (LH+LL)",
+        "\u2705 Precio bajo EMA21 4H",
+        "\u2705 Precio bajo EMA50 4H",
+        "\u2705 RSI 4H zona \u00f3ptima short (57.99)",
+        "\u2705 Precio en POC ($1.3211) \u2014 zona de equilibrio de volumen (+10)",
+        "\u27a1\ufe0f Precio en HVN ($1.3133) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0112,
+      "rsi_4h": 57.99,
+      "oi_m": 348.08
+    },
+    {
       "id": "STXUSDT_1775325842",
       "symbol": "STXUSDT",
       "direction": "short",
@@ -42,7 +297,7 @@
       "tp3": 0.100907,
       "sl": 0.085073,
       "rr": 0.28,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775325842.240038,
       "date": "2026-04-04 18:04 UTC",
       "factors": [
@@ -62,7 +317,10 @@
       ],
       "funding": 0.01,
       "rsi_4h": 63.86,
-      "oi_m": 21.32
+      "oi_m": 21.32,
+      "close_price": 0.1127,
+      "closed_at": "2026-04-14T03:00:42.285644+00:00",
+      "close_pnl_pct": 20.79
     },
     {
       "id": "DOTUSDT_1775325842",
@@ -76,7 +334,7 @@
       "tp3": 1.170286,
       "sl": 1.307505,
       "rr": 0.59,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775325842.226232,
       "date": "2026-04-04 18:04 UTC",
       "factors": [
@@ -93,7 +351,10 @@
       ],
       "funding": 0.007,
       "rsi_4h": 75.28,
-      "oi_m": 42.27
+      "oi_m": 42.27,
+      "close_price": 1.205,
+      "closed_at": "2026-04-14T03:00:42.536531+00:00",
+      "close_pnl_pct": 4.44
     },
     {
       "id": "ETHUSDT_1775325842",
@@ -107,7 +368,7 @@
       "tp3": 1947.584286,
       "sl": 2178.036,
       "rr": 0.27,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775325842.2237,
       "date": "2026-04-04 18:04 UTC",
       "factors": [
@@ -124,7 +385,10 @@
       ],
       "funding": 0.0004,
       "rsi_4h": 63.99,
-      "oi_m": 4414.59
+      "oi_m": 4414.59,
+      "close_price": 2365.94,
+      "closed_at": "2026-04-14T03:00:42.787352+00:00",
+      "close_pnl_pct": -15.06
     },
     {
       "id": "RUNEUSDT_1775315045",
@@ -319,7 +583,7 @@
       "tp3": 0.059592,
       "sl": 0.048118,
       "rr": 0.28,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775304272.451833,
       "date": "2026-04-04 12:04 UTC",
       "factors": [
@@ -338,7 +602,10 @@
       ],
       "funding": -0.0008,
       "rsi_4h": 63.73,
-      "oi_m": 12.11
+      "oi_m": 12.11,
+      "close_price": 0.05569,
+      "closed_at": "2026-04-14T03:00:44.581457+00:00",
+      "close_pnl_pct": 3.11
     },
     {
       "id": "ZECUSDT_1775304272",
@@ -352,7 +619,7 @@
       "tp3": 272.516429,
       "sl": 204.04465,
       "rr": 0.21,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775304272.450165,
       "date": "2026-04-04 12:04 UTC",
       "factors": [
@@ -369,7 +636,10 @@
       ],
       "funding": -0.0044,
       "rsi_4h": 55.8,
-      "oi_m": 122.74
+      "oi_m": 122.74,
+      "close_price": 362.35,
+      "closed_at": "2026-04-14T03:00:44.834166+00:00",
+      "close_pnl_pct": 48.28
     },
     {
       "id": "SOLUSDT_1775304272",
@@ -412,7 +682,7 @@
       "tp3": 0.812707,
       "sl": 0.918771,
       "rr": 0.37,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775304272.434765,
       "date": "2026-04-04 12:04 UTC",
       "factors": [
@@ -428,7 +698,10 @@
       ],
       "funding": 0.0048,
       "rsi_4h": 56.67,
-      "oi_m": 77.25
+      "oi_m": 77.25,
+      "close_price": 0.9495,
+      "closed_at": "2026-04-14T03:00:45.336468+00:00",
+      "close_pnl_pct": -9.0
     },
     {
       "id": "XRPUSDT_1775304272",
@@ -474,7 +747,7 @@
       "tp3": 0.084064,
       "sl": 0.097384,
       "rr": 0.39,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775293445.269428,
       "date": "2026-04-04 09:04 UTC",
       "factors": [
@@ -489,7 +762,10 @@
       ],
       "funding": -0.038,
       "rsi_4h": 54.55,
-      "oi_m": 20.77
+      "oi_m": 20.77,
+      "close_price": 0.1127,
+      "closed_at": "2026-04-14T03:00:45.839239+00:00",
+      "close_pnl_pct": -23.03
     },
     {
       "id": "STXUSDT_1775293445",
@@ -533,7 +809,7 @@
       "tp3": 1932.589286,
       "sl": 2178.036,
       "rr": 0.27,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775293445.254132,
       "date": "2026-04-04 09:04 UTC",
       "factors": [
@@ -550,7 +826,10 @@
       ],
       "funding": 0.0032,
       "rsi_4h": 47.49,
-      "oi_m": 4411.54
+      "oi_m": 4411.54,
+      "close_price": 2365.84,
+      "closed_at": "2026-04-14T03:00:46.380203+00:00",
+      "close_pnl_pct": -15.43
     },
     {
       "id": "AAVEUSDT_1775282646",
@@ -622,7 +901,7 @@
       "tp3": 63230.178571,
       "sl": 69634.44,
       "rr": 0.4,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775282646.609211,
       "date": "2026-04-04 06:04 UTC",
       "factors": [
@@ -637,7 +916,10 @@
       ],
       "funding": 0.006,
       "rsi_4h": 37.58,
-      "oi_m": 6047.95
+      "oi_m": 6047.95,
+      "close_price": 74259.1,
+      "closed_at": "2026-04-14T03:00:47.148851+00:00",
+      "close_pnl_pct": -11.0
     },
     {
       "id": "LTCUSDT_1775282646",
@@ -863,7 +1145,7 @@
       "tp3": 0.0832,
       "sl": 0.097384,
       "rr": 0.52,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775261041.131875,
       "date": "2026-04-04 00:04 UTC",
       "factors": [
@@ -879,7 +1161,10 @@
       ],
       "funding": 0.01,
       "rsi_4h": 38.1,
-      "oi_m": 20.81
+      "oi_m": 20.81,
+      "close_price": 0.1127,
+      "closed_at": "2026-04-14T03:00:49.180791+00:00",
+      "close_pnl_pct": -22.23
     },
     {
       "id": "DOTUSDT_1775234816",
@@ -893,7 +1178,7 @@
       "tp3": 1.134,
       "sl": 1.311525,
       "rr": 0.55,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775234816.474753,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -909,7 +1194,10 @@
       ],
       "funding": 0.0053,
       "rsi_4h": 39.17,
-      "oi_m": 42.47
+      "oi_m": 42.47,
+      "close_price": 1.206,
+      "closed_at": "2026-04-14T03:00:49.429645+00:00",
+      "close_pnl_pct": 3.44
     },
     {
       "id": "ATOMUSDT_1775234816",
@@ -923,7 +1211,7 @@
       "tp3": 1.565214,
       "sl": 1.7487,
       "rr": 1.2,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.473618,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -938,7 +1226,10 @@
       ],
       "funding": 0.0055,
       "rsi_4h": 52.94,
-      "oi_m": 19.83
+      "oi_m": 19.83,
+      "close_price": 1.752,
+      "closed_at": "2026-04-14T03:00:49.679554+00:00",
+      "close_pnl_pct": -2.34
     },
     {
       "id": "JUPUSDT_1775234816",
@@ -1015,7 +1306,7 @@
       "tp3": 363.436429,
       "sl": 290.80865,
       "rr": 0.6,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.470421,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -1035,7 +1326,10 @@
       ],
       "funding": 0.0023,
       "rsi_4h": 52.9,
-      "oi_m": 94.2
+      "oi_m": 94.2,
+      "close_price": 255.07,
+      "closed_at": "2026-04-14T03:00:50.427566+00:00",
+      "close_pnl_pct": -19.05
     },
     {
       "id": "NEARUSDT_1775234816",
@@ -1081,7 +1375,7 @@
       "tp3": 0.787414,
       "sl": 0.918771,
       "rr": 0.56,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.468414,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -1099,7 +1393,10 @@
       ],
       "funding": 0.0082,
       "rsi_4h": 41.86,
-      "oi_m": 77.08
+      "oi_m": 77.08,
+      "close_price": 0.9496,
+      "closed_at": "2026-04-14T03:00:50.679242+00:00",
+      "close_pnl_pct": -8.75
     },
     {
       "id": "AAVEUSDT_1775234816",
@@ -1172,7 +1469,7 @@
       "tp3": 2.5275,
       "sl": 2.977815,
       "rr": 0.44,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.465258,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -1188,7 +1485,10 @@
       ],
       "funding": 0.0085,
       "rsi_4h": 30.64,
-      "oi_m": 10.96
+      "oi_m": 10.96,
+      "close_price": 3.031,
+      "closed_at": "2026-04-14T03:00:51.423847+00:00",
+      "close_pnl_pct": -8.44
     },
     {
       "id": "SOLUSDT_1775234816",
@@ -1264,7 +1564,7 @@
       "tp3": 62444.542857,
       "sl": 69634.44,
       "rr": 0.49,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.462488,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -1280,7 +1580,10 @@
       ],
       "funding": 0.0009,
       "rsi_4h": 34.16,
-      "oi_m": 6054.97
+      "oi_m": 6054.97,
+      "close_price": 74269.3,
+      "closed_at": "2026-04-14T03:00:52.171986+00:00",
+      "close_pnl_pct": -10.99
     },
     {
       "id": "RUNEUSDT_1775234816",
@@ -1389,7 +1692,7 @@
       "tp3": 1.132,
       "sl": 1.311525,
       "rr": 0.53,
-      "status": "open",
+      "status": "win",
       "timestamp": 1775233368.941093,
       "date": "2026-04-03 16:22 UTC",
       "factors": [
@@ -1403,7 +1706,10 @@
       ],
       "funding": 0.006,
       "rsi_4h": 38.33,
-      "oi_m": 42.35
+      "oi_m": 42.35,
+      "close_price": 1.205,
+      "closed_at": "2026-04-14T03:00:52.963581+00:00",
+      "close_pnl_pct": 3.37
     },
     {
       "id": "RUNEUSDT_1775233368",
@@ -1448,7 +1754,7 @@
       "tp3": 2.533929,
       "sl": 2.977815,
       "rr": 0.45,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775233368.939778,
       "date": "2026-04-03 16:22 UTC",
       "factors": [
@@ -1462,7 +1768,10 @@
       ],
       "funding": 0.0098,
       "rsi_4h": 31.61,
-      "oi_m": 10.98
+      "oi_m": 10.98,
+      "close_price": 3.031,
+      "closed_at": "2026-04-14T03:00:53.213672+00:00",
+      "close_pnl_pct": -8.25
     },
     {
       "id": "AAVEUSDT_1775233368",
@@ -1560,7 +1869,7 @@
       "tp3": 62469.178571,
       "sl": 69634.44,
       "rr": 0.49,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775233368.92442,
       "date": "2026-04-03 16:22 UTC",
       "factors": [
@@ -1574,7 +1883,10 @@
       ],
       "funding": 0.001,
       "rsi_4h": 34.14,
-      "oi_m": 6053.58
+      "oi_m": 6053.58,
+      "close_price": 74269.3,
+      "closed_at": "2026-04-14T03:00:54.242210+00:00",
+      "close_pnl_pct": -10.98
     },
     {
       "id": "STXUSDT_1775152543",
@@ -1612,7 +1924,7 @@
       "tp3": 0.0803,
       "sl": 0.097384,
       "rr": 0.54,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775152543.71212,
       "date": "2026-04-02 17:55 UTC",
       "factors": [
@@ -1622,7 +1934,10 @@
       "warnings": [],
       "funding": 0.0028,
       "rsi_4h": 45.38,
-      "oi_m": 20.06
+      "oi_m": 20.06,
+      "close_price": 0.1127,
+      "closed_at": "2026-04-14T03:00:54.749902+00:00",
+      "close_pnl_pct": -23.44
     },
     {
       "id": "NEARUSDT_1775152543",
@@ -1687,7 +2002,7 @@
       "tp3": 179.761429,
       "sl": 260.2548,
       "rr": 0.65,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775138629.77516,
       "date": "2026-04-02 14:03 UTC",
       "factors": [
@@ -1697,7 +2012,10 @@
       "warnings": [],
       "funding": 0.0068,
       "rsi_4h": 52.56,
-      "oi_m": 116.1
+      "oi_m": 116.1,
+      "close_price": 362.27,
+      "closed_at": "2026-04-14T03:00:55.252843+00:00",
+      "close_pnl_pct": -54.23
     },
     {
       "id": "RUNEUSDT_1775138629",
@@ -1765,7 +2083,7 @@
       "tp3": 0.080221,
       "sl": 0.097384,
       "rr": 0.56,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775110469.600324,
       "date": "2026-04-02 06:14 UTC",
       "factors": [
@@ -1775,7 +2093,10 @@
       "warnings": [],
       "funding": 0.01,
       "rsi_4h": 51.52,
-      "oi_m": 19.79
+      "oi_m": 19.79,
+      "close_price": 0.1128,
+      "closed_at": "2026-04-14T03:00:55.503786+00:00",
+      "close_pnl_pct": -23.41
     },
     {
       "id": "SUIUSDT_1775110469",
@@ -1789,7 +2110,7 @@
       "tp3": 0.759057,
       "sl": 0.937665,
       "rr": 0.4,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775110469.587695,
       "date": "2026-04-02 06:14 UTC",
       "factors": [
@@ -1799,7 +2120,10 @@
       "warnings": [],
       "funding": 0.0008,
       "rsi_4h": 49.06,
-      "oi_m": 77.44
+      "oi_m": 77.44,
+      "close_price": 0.9498,
+      "closed_at": "2026-04-14T03:00:55.765114+00:00",
+      "close_pnl_pct": -10.29
     },
     {
       "id": "NEARUSDT_1775110469",
@@ -1867,7 +2191,7 @@
       "tp3": 0.080043,
       "sl": 0.097384,
       "rr": 0.5,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775104598.628491,
       "date": "2026-04-02 04:36 UTC",
       "factors": [
@@ -1877,7 +2201,10 @@
       "warnings": [],
       "funding": 0.01,
       "rsi_4h": 49.21,
-      "oi_m": 19.7
+      "oi_m": 19.7,
+      "close_price": 0.1128,
+      "closed_at": "2026-04-14T03:00:56.014484+00:00",
+      "close_pnl_pct": -24.09
     },
     {
       "id": "SUIUSDT_1775104598",
@@ -1891,7 +2218,7 @@
       "tp3": 0.75945,
       "sl": 0.937665,
       "rr": 0.39,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775104598.628029,
       "date": "2026-04-02 04:36 UTC",
       "factors": [
@@ -1901,7 +2228,10 @@
       "warnings": [],
       "funding": 0.0008,
       "rsi_4h": 48.46,
-      "oi_m": 77.03
+      "oi_m": 77.03,
+      "close_price": 0.9497,
+      "closed_at": "2026-04-14T03:00:56.266932+00:00",
+      "close_pnl_pct": -10.47
     },
     {
       "id": "RUNEUSDT_1775103816",
@@ -1942,7 +2272,7 @@
       "tp3": 0.080143,
       "sl": 0.097384,
       "rr": 0.51,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775103816.948023,
       "date": "2026-04-02 04:23 UTC",
       "factors": [
@@ -1952,7 +2282,10 @@
       "warnings": [],
       "funding": 0.01,
       "rsi_4h": 49.61,
-      "oi_m": 19.72
+      "oi_m": 19.72,
+      "close_price": 0.1127,
+      "closed_at": "2026-04-14T03:00:56.522384+00:00",
+      "close_pnl_pct": -23.85
     },
     {
       "id": "SUIUSDT_1775103816",
@@ -1966,7 +2299,7 @@
       "tp3": 0.757957,
       "sl": 0.937665,
       "rr": 0.38,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775103816.947667,
       "date": "2026-04-02 04:23 UTC",
       "factors": [
@@ -1976,7 +2309,10 @@
       "warnings": [],
       "funding": 0.0013,
       "rsi_4h": 47.8,
-      "oi_m": 76.52
+      "oi_m": 76.52,
+      "close_price": 0.95,
+      "closed_at": "2026-04-14T03:00:56.768715+00:00",
+      "close_pnl_pct": -10.71
     },
     {
       "symbol": "ETHUSDT",
@@ -1989,23 +2325,26 @@
       "rr": 2.08,
       "score": 68,
       "timestamp": "2026-04-04T19:47:43.859449+00:00",
-      "status": "open",
+      "status": "loss",
       "session": "new_york",
       "position_size": {
         "kelly_size": 50.0,
         "atr_size": 590.79,
         "recommended": 50.0,
         "risk_pct": 0.07
-      }
+      },
+      "close_price": 2365.81,
+      "closed_at": "2026-04-14T03:00:57.020562+00:00",
+      "close_pnl_pct": -14.59
     }
   ],
   "stats": {
-    "total": 69,
-    "wins": 6,
-    "losses": 3,
-    "open": 60,
-    "winRate": 66.7,
+    "total": 77,
+    "wins": 14,
+    "losses": 26,
+    "open": 37,
+    "winRate": 35.0,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-04T20:01:43.182267+00:00"
+  "lastUpdated": "2026-04-14T03:00:57.024831+00:00"
 }
