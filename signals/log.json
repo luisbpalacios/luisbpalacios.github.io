@@ -1,6 +1,38 @@
 {
   "signals": [
     {
+      "id": "RENDERUSDT_1776157463",
+      "symbol": "RENDERUSDT",
+      "direction": "long",
+      "grade": "A",
+      "score": 79,
+      "entry": 1.888,
+      "tp1": 1.94725,
+      "tp2": 2.119,
+      "tp3": 2.0855,
+      "sl": 1.83677,
+      "rr": 1.16,
+      "status": "open",
+      "timestamp": 1776157463.400276,
+      "date": "2026-04-14 09:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 BTC sobre EMA21 4H ($72,571)",
+        "\u2705 RSI 4H zona \u00f3ptima long (42.36)",
+        "\u27a1\ufe0f Funding neutral (0.0007%)",
+        "\u2705 Precio en zona de liquidez/soporte ($1.8460)",
+        "\u2705 Precio en POC ($1.8948) \u2014 zona de equilibrio de volumen (+10)",
+        "\u2705 Precio en HVN soporte ($1.8880) \u2014 zona de alta liquidez, buen long (+12)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Precio bajo EMA21 4H ($1.9224)",
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0007,
+      "rsi_4h": 42.36,
+      "oi_m": 12.59
+    },
+    {
       "id": "APTUSDT_1776135871",
       "symbol": "APTUSDT",
       "direction": "short",
@@ -1830,7 +1862,7 @@
       "tp3": 0.137864,
       "sl": 0.170448,
       "rr": 1.0,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775234816.472514,
       "date": "2026-04-03 16:46 UTC",
       "factors": [
@@ -1845,7 +1877,10 @@
       ],
       "funding": 0.0016,
       "rsi_4h": 48.4,
-      "oi_m": 12.21
+      "oi_m": 12.21,
+      "close_price": 0.1712,
+      "closed_at": "2026-04-14T11:02:42.833918+00:00",
+      "close_pnl_pct": -5.1
     },
     {
       "id": "SEIUSDT_1775234816",
@@ -2926,12 +2961,12 @@
     }
   ],
   "stats": {
-    "total": 96,
+    "total": 97,
     "wins": 15,
-    "losses": 26,
+    "losses": 27,
     "open": 55,
-    "winRate": 36.6,
+    "winRate": 35.7,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-14T04:00:48.608039+00:00"
+  "lastUpdated": "2026-04-14T11:02:45.830432+00:00"
 }
