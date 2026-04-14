@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primeros Pasos — @lbpalacios_</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #F2561D;
+      --coral: #D9704A;
+      --gray-light: #BFBFBF;
+      --gray: #8C8C8C;
+      --dark: #0D0D0D;
+      --dark-2: #141414;
+      --dark-3: #1A1A1A;
+      --dark-4: #222222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: #fff; min-height: 100vh; }
+
+    /* NAV */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky; top: 0;
+      background: rgba(13,13,13,0.96); backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo { font-size: 0.85rem; font-weight: 800; color: var(--orange); letter-spacing: 0.04em; }
+    .nav-back { font-size: 0.75rem; color: #555; text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--orange); }
+
+    /* HERO */
+    .hero {
+      max-width: 720px; margin: 0 auto;
+      padding: 64px 24px 48px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(242,86,29,0.1); border: 1px solid rgba(242,86,29,0.25);
+      border-radius: 50px; padding: 6px 16px;
+      font-size: 0.72rem; font-weight: 700; color: var(--orange);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 14px; }
+    .hero h1 span { color: var(--orange); }
+    .hero-sub { font-size: 1rem; color: var(--gray); line-height: 1.7; max-width: 520px; margin: 0 auto 10px; }
+    .hero-note { font-size: 0.8rem; color: #444; margin-top: 8px; }
+
+    /* CTA BUTTON */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: #fff;
+      font-weight: 800; font-size: 0.95rem;
+      padding: 14px 28px; border-radius: 12px;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(242,86,29,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(242,86,29,0.4); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--orange);
+      font-weight: 700; font-size: 0.88rem;
+      padding: 12px 24px; border-radius: 12px;
+      border: 1.5px solid var(--orange);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(242,86,29,0.1); }
+
+    /* SECTIONS */
+    .section { max-width: 720px; margin: 0 auto; padding: 56px 24px; }
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(242,86,29,0.1), transparent); margin: 0 24px; }
+
+    /* STEP CARDS */
+    .steps { display: flex; flex-direction: column; gap: 20px; }
+    .step-card {
+      background: var(--dark-3); border: 1px solid var(--dark-4);
+      border-radius: 20px; padding: 28px 24px;
+      position: relative; overflow: hidden;
+    }
+    .step-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--coral));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .step-card:hover::before { opacity: 1; }
+    .step-card:hover { border-color: rgba(242,86,29,0.3); transform: translateY(-2px); }
+    .step-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+    .step-num {
+      min-width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(242,86,29,0.12); border: 1px solid rgba(242,86,29,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 900; color: var(--orange); flex-shrink: 0;
+    }
+    .step-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+    .step-sub { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+    .step-content { font-size: 0.88rem; color: var(--gray-light); line-height: 1.75; margin-bottom: 16px; }
+    .step-content strong { color: var(--orange); }
+    .step-tip {
+      margin-top: 14px; padding: 12px 16px;
+      background: rgba(242,86,29,0.06); border-left: 3px solid var(--orange);
+      border-radius: 0 10px 10px 0; font-size: 0.8rem; color: #888; line-height: 1.6;
+    }
+    .step-tip strong { color: var(--orange); }
+    .step-checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+    .step-checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: #bbb; }
+    .step-checklist li::before { content: '✅'; flex-shrink: 0; font-size: 0.9rem; }
+
+    /* REQ BOX */
+    .req-box {
+      background: var(--dark-3); border: 1px solid rgba(242,86,29,0.2);
+      border-radius: 16px; padding: 20px 22px; margin-top: 16px;
+    }
+    .req-box-title { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .req-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #ccc; margin-bottom: 8px; }
+    .req-item:last-child { margin-bottom: 0; }
+    .req-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+
+    /* LINK CARDS */
+    .link-cards { display: flex; flex-direction: column; gap: 12px; }
+    .link-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--dark-3); border: 1px solid var(--dark-4);
+      border-radius: 14px; padding: 18px 20px;
+      text-decoration: none; transition: all 0.2s;
+      gap: 16px;
+    }
+    .link-card:hover { border-color: rgba(242,86,29,0.4); transform: translateX(4px); }
+    .link-card-left { display: flex; align-items: center; gap: 14px; flex: 1; }
+    .link-card-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .link-card-info { flex: 1; }
+    .link-card-name { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .link-card-desc { font-size: 0.78rem; color: var(--gray); }
+    .link-card-arrow { font-size: 1.2rem; color: var(--orange); flex-shrink: 0; }
+    .kast-badge {
+      background: rgba(242,86,29,0.12); border: 1px solid rgba(242,86,29,0.3);
+      border-radius: 8px; padding: 3px 10px;
+      font-size: 0.68rem; font-weight: 700; color: var(--orange);
+      letter-spacing: 0.06em; margin-left: 8px;
+    }
+
+    /* FLOW DIAGRAM */
+    .flow { display: flex; flex-direction: column; gap: 0; }
+    .flow-item { display: flex; align-items: flex-start; gap: 16px; }
+    .flow-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(242,86,29,0.15); border: 2px solid var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; color: var(--orange); flex-shrink: 0;
+    }
+    .flow-content { flex: 1; padding-bottom: 24px; }
+    .flow-content:last-child { padding-bottom: 0; }
+    .flow-title { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .flow-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+    .flow-line { width: 2px; height: 20px; background: rgba(242,86,29,0.2); margin-left: 17px; }
+
+    /* IMPORTANT BOX */
+    .important-box {
+      background: rgba(242,86,29,0.08); border: 1.5px solid rgba(242,86,29,0.25);
+      border-radius: 16px; padding: 22px 24px; margin: 24px 0;
+    }
+    .important-box-title { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .important-box p { font-size: 0.88rem; color: var(--gray-light); line-height: 1.7; }
+    .important-box ol { margin: 10px 0 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .important-box ol li { font-size: 0.85rem; color: #bbb; line-height: 1.5; }
+
+    /* CONTACT CTA */
+    .contact-cta {
+      background: var(--dark-3); border: 1px solid rgba(242,86,29,0.2);
+      border-radius: 20px; padding: 28px 24px; text-align: center;
+    }
+    .contact-cta h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .contact-cta p { font-size: 0.85rem; color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
+    .contact-cta .btn-primary { margin-bottom: 12px; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 32px 24px; font-size: 0.75rem; color: #333; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <span class="nav-logo">🚀 Primeros Pasos</span>
+    <a href="https://lbpalacios.github.io" class="nav-back">← Volver al inicio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge"><span></span>Guía paso a paso</div>
+    <h1>Empieza hoy en <span>WEEX</span></h1>
+    <p class="hero-sub">，注册账户、Fondea con $25 USD, activa tu cashback del 4% con KAST y prepárate para operar con las mejores señales de trading.</p>
+    <p class="hero-note">⚠️ Lee cada paso con atención. Para acceder a nuestros grupos FREE y VIP, es obligatorio completar todos los pasos.</p>
+  </section>
+
+  <!-- SECTION: LINKS -->
+  <section class="section">
+    <div class="link-cards">
+      <a href="https://www.weex.com/es/register?vipCode=fzog" target="_blank" class="link-card">
+        <div class="link-card-left">
+          <div class="link-card-icon">⚡</div>
+          <div class="link-card-info">
+            <div class="link-card-name">WEEX Exchange<span class="kast-badge">4% Cashback</span></div>
+            <div class="link-card-desc">Registro con mi código VIP: fzog</div>
+          </div>
+        </div>
+        <div class="link-card-arrow">→</div>
+      </a>
+      <a href="https://go.kast.xyz/VqVO/3USIQ078" target="_blank" class="link-card">
+        <div class="link-card-left">
+          <div class="link-card-icon">💳</div>
+          <div class="link-card-info">
+            <div class="link-card-name">KAST<span class="kast-badge">4% Cashback</span></div>
+            <div class="link-card-desc">Activa cashback en todas tus compras MOVE</div>
+          </div>
+        </div>
+        <div class="link-card-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PASOS -->
+  <section class="section">
+    <div class="steps">
+
+      <!-- STEP 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Registra tu cuenta en WEEX</div>
+            <div class="step-sub">Accede con mi link de referido para activar beneficios exclusivos</div>
+          </div>
+        </div>
+        <div class="step-content">
+          Usa <strong>mi link de referido</strong> para registrarte. Esto activa tu código VIP <strong>fzog</strong> y garantiza acceso a beneficios futuros.
+        </div>
+        <ul class="step-checklist">
+          <li>Entra al link de registro</li>
+          <li>Ingresa tu correo o celular</li>
+          <li>Crea una contraseña segura</li>
+          <li>Verifica tu cuenta (correo/celular)</li>
+        </ul>
+        <a href="https://www.weex.com/es/register?vipCode=fzog" target="_blank" class="btn-secondary" style="margin-top:8px;">
+          📝 Registrarse en WEEX →
+        </a>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Fondea tu cuenta con $25 USD</div>
+            <div class="step-sub">Depósito mínimo para activar tu cuenta y operar</div>
+          </div>
+        </div>
+        <div class="step-content">
+          Una vez registrada tu cuenta, el depósito mínimo para activar tu cuenta y empezar a operar es de <strong>$25 USD</strong>. WEEX soporta múltiples métodos de fondeo.
+        </div>
+        <div class="step-tip">
+          💡 <strong>Métodos disponibles:</strong> Transferencia SEPA (Europa), Binance Pay, Paxful, oCompra de USDT en la app y transfiérelo a tu cuenta WEEX.
+        </div>
+        <div class="req-box">
+          <div class="req-box-title">📋 Requisitos para fondear</div>
+          <div class="req-item"><div class="req-dot"></div>Cuenta WEEX verificada</div>
+          <div class="req-item"><div class="req-dot"></div>Mínimo $25 USD o equivalente en USDT</div>
+          <div class="req-item"><div class="req-dot"></div>Red de depósito: TRC-20 (USDT) — comisión baja</div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Activa 4% de Cashback con KAST</div>
+            <div class="step-sub">Crea tu cuenta KAST y vincula tus compras MOVE</div>
+          </div>
+        </div>
+        <div class="step-content">
+          <strong>KAST</strong> es una tarjeta crypto que te devuelve <strong>4% de cashback</strong> en todas tus compras del token MOVE. Regístrate con mi link y activa tu cashback antes de hacer tu primer depósito en WEEX.
+        </div>
+        <ul class="step-checklist">
+          <li>Regístrate en KAST con mi link de referido</li>
+          <li>Completa la verificación KYC</li>
+          <li>Solicita la tarjeta virtual o física</li>
+          <li>Vincula tus compras MOVE para generar cashback</li>
+        </ul>
+        <a href="https://go.kast.xyz/VqVO/3USIQ078" target="_blank" class="btn-secondary" style="margin-top:8px;">
+          💳 Registrarse en KAST →
+        </a>
+        <div class="step-tip" style="margin-top:12px;">
+          ⚡ <strong>Tip:</strong> El cashback de KAST aplica en compras MOVE. Esto significa que mientras aprendes a operar, ya estás generando rendimientos adicionales con tu gasto diario.
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Envía tu UID de WEEX por DM</div>
+            <div class="step-sub">Tu identificador único para agregarte a los grupos</div>
+          </div>
+        </div>
+        <div class="step-content">
+          Una vez que tengas tu cuenta WEEX registrada y hayas hecho tu depósito de <strong>$25 USD</strong>, envía tu <strong>UID de WEEX</strong> por mensaje directo (DM) a <strong>@lbpalacios_</strong>.
+        </div>
+        <div class="step-tip">
+          📱 <strong>¿Cómo encontrar tu UID en WEEX?</strong> Ve a Perfil → Configuración → Tu UID (es un número de 8+ dígitos). También puedes compartir tu enlace de referido como comprobante.
+        </div>
+        <div class="req-box">
+          <div class="req-box-title">✅ Para que te agreguen, necesitas:</div>
+          <div class="req-item"><div class="req-dot"></div>Cuenta WEEX registrada con código VIP fzog</div>
+          <div class="req-item"><div class="req-dot"></div>Depósito de al menos $25 USD confirmado</div>
+          <div class="req-item"><div class="req-dot"></div>Enviar tu UID por DM a @lbpalacios_</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- IMPORTANTE -->
+  <section class="section">
+    <div class="important-box">
+      <div class="important-box-title">⚠️ Requisito obligatorio</div>
+      <p>Para acceder a los <strong>grupos FREE y VIP</strong> donde compartimos señales de trading del bot IA, análisis diario y oportunidades de inversión, es <strong>imprescindible</strong> cumplir todos los pasos:</p>
+      <ol>
+        <li>Registro en WEEX con mi link y código VIP fzog</li>
+        <li>Depósito mínimo de $25 USD</li>
+        <li>Registro en KAST para activar el 4% de cashback</li>
+        <li>Enviar tu UID de WEEX por DM a @lbpalacios_</li>
+      </ol>
+    </div>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-title">Registrar cuenta WEEX + KAST</div>
+          <div class="flow-desc">Usa los links de referido arriba</div>
+        </div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-item">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-title">Fondear con $25 USD</div>
+          <div class="flow-desc">Deposita mínimo $25 USD en tu cuenta WEEX</div>
+        </div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-item">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-title">Activar KAST (4% cashback)</div>
+          <div class="flow-desc">Vincula tus compras MOVE para generar cashback</div>
+        </div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-item">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <div class="flow-title">Enviar UID por DM</div>
+          <div class="flow-desc">Manda tu UID a @lbpalacios_ en Instagram o Telegram</div>
+        </div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-item">
+        <div class="flow-num">✅</div>
+        <div class="flow-content">
+          <div class="flow-title">Acceso a grupos FREE y VIP</div>
+          <div class="flow-desc">Señales del bot IA, análisis y oportunidades</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA FINAL -->
+  <section class="section" id="contacto">
+    <div class="contact-cta">
+      <h3>¿Ya completaste todos los pasos?</h3>
+      <p>Envía tu UID de WEEX y comprobante de depósito por DM a <strong>@lbpalacios_</strong> para que te agregue a los grupos.</p>
+      <a href="https://www.weex.com/es/register?vipCode=fzog" target="_blank" class="btn-primary">
+        ⚡ Empezar en WEEX →
+      </a>
+      <div style="margin-top: 12px;">
+        <a href="https://go.kast.xyz/VqVO/3USIQ078" target="_blank" class="btn-secondary">
+          💳 Activar cashback KAST →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    ⚠️ Ninguna información en esta página es asesoría financiera. El trading y las inversiones crypto implican riesgo significativo. DYOR.
+  </div>
+
+</body>
+</html>
