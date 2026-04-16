@@ -181,7 +181,7 @@
       "tp3": 1.453879,
       "sl": 1.31151,
       "rr": 0.53,
-      "status": "open",
+      "status": "win",
       "timestamp": 1776254665.556638,
       "date": "2026-04-15 12:04 UTC",
       "factors": [
@@ -200,7 +200,10 @@
       ],
       "funding": -0.0005,
       "rsi_4h": 68.78,
-      "oi_m": 366.19
+      "oi_m": 366.19,
+      "close_price": 1.401,
+      "closed_at": "2026-04-16T02:00:26.324680+00:00",
+      "close_pnl_pct": 2.77
     },
     {
       "id": "JUPUSDT_1776254665",
@@ -2120,7 +2123,7 @@
       "tp3": 1.458193,
       "sl": 1.28753,
       "rr": 0.35,
-      "status": "open",
+      "status": "win",
       "timestamp": 1776135871.060206,
       "date": "2026-04-14 03:04 UTC",
       "factors": [
@@ -2137,7 +2140,10 @@
       "warnings": [],
       "funding": 0.01,
       "rsi_4h": 48.54,
-      "oi_m": 382.72
+      "oi_m": 382.72,
+      "close_price": 1.4007,
+      "closed_at": "2026-04-16T02:00:40.403231+00:00",
+      "close_pnl_pct": 2.48
     },
     {
       "id": "JUPUSDT_1776135871",
@@ -3251,11 +3257,11 @@
   ],
   "stats": {
     "total": 100,
-    "wins": 20,
+    "wins": 22,
     "losses": 18,
-    "open": 62,
-    "winRate": 52.6,
+    "open": 60,
+    "winRate": 55.0,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-15T22:00:50.949753+00:00"
+  "lastUpdated": "2026-04-16T02:00:45.819757+00:00"
 }
