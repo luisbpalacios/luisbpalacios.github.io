@@ -1,6 +1,37 @@
 {
   "signals": [
     {
+      "id": "BTCUSDT_1776308658",
+      "symbol": "BTCUSDT",
+      "direction": "long",
+      "grade": "A+",
+      "score": 85,
+      "entry": 74929.6,
+      "tp1": 76502.575,
+      "tp2": 77551.225,
+      "tp3": 79124.2,
+      "sl": 73671.22,
+      "rr": 2.08,
+      "status": "open",
+      "timestamp": 1776308658.093698,
+      "date": "2026-04-16 03:04 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 Precio sobre EMA21 4H ($73,712.0580)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H elevado (62.53), momentum aceptable",
+        "\u2705 Funding negativo (-0.0021%) \u2014 favorable para long",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u26a1 Precio en LVN ($74,929.6000) \u2014 zona de bajo volumen, precio puede moverse r\u00e1pido (+8)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0021,
+      "rsi_4h": 62.53,
+      "oi_m": 7390.34
+    },
+    {
       "id": "UNIUSDT_1776254665",
       "symbol": "UNIUSDT",
       "direction": "long",
@@ -115,7 +146,7 @@
       "tp3": 1.032336,
       "sl": 0.891719,
       "rr": 0.5,
-      "status": "open",
+      "status": "win",
       "timestamp": 1776254665.56267,
       "date": "2026-04-15 12:04 UTC",
       "factors": [
@@ -134,7 +165,10 @@
       ],
       "funding": 0.003,
       "rsi_4h": 66.62,
-      "oi_m": 84.11
+      "oi_m": 84.11,
+      "close_price": 0.974,
+      "closed_at": "2026-04-16T04:02:35.546365+00:00",
+      "close_pnl_pct": 3.15
     },
     {
       "id": "LINKUSDT_1776254665",
@@ -217,7 +251,7 @@
       "tp3": 0.183164,
       "sl": 0.156613,
       "rr": 0.53,
-      "status": "open",
+      "status": "win",
       "timestamp": 1776254665.553601,
       "date": "2026-04-15 12:04 UTC",
       "factors": [
@@ -235,7 +269,10 @@
       ],
       "funding": -0.0033,
       "rsi_4h": 55.6,
-      "oi_m": 11.09
+      "oi_m": 11.09,
+      "close_price": 0.1718,
+      "closed_at": "2026-04-16T04:02:36.561788+00:00",
+      "close_pnl_pct": 3.37
     },
     {
       "id": "SEIUSDT_1776254665",
@@ -636,7 +673,7 @@
       "tp3": 1.871643,
       "sl": 1.696475,
       "rr": 0.74,
-      "status": "open",
+      "status": "win",
       "timestamp": 1776211450.951756,
       "date": "2026-04-15 00:04 UTC",
       "factors": [
@@ -653,7 +690,10 @@
       ],
       "funding": 0.0081,
       "rsi_4h": 53.79,
-      "oi_m": 18.33
+      "oi_m": 18.33,
+      "close_price": 1.787,
+      "closed_at": "2026-04-16T04:02:40.280910+00:00",
+      "close_pnl_pct": 2.29
     },
     {
       "id": "DOTUSDT_1776211450",
@@ -3228,46 +3268,15 @@
       "close_price": 2365.84,
       "closed_at": "2026-04-14T03:00:46.380203+00:00",
       "close_pnl_pct": -15.43
-    },
-    {
-      "id": "AAVEUSDT_1775282646",
-      "symbol": "AAVEUSDT",
-      "direction": "short",
-      "grade": "C",
-      "score": 68,
-      "entry": 94.4,
-      "tp1": 92.035357,
-      "tp2": 92.27,
-      "tp3": 86.517857,
-      "sl": 101.61555,
-      "rr": 0.33,
-      "status": "loss",
-      "timestamp": 1775282646.612141,
-      "date": "2026-04-04 06:04 UTC",
-      "factors": [
-        "\u2705 Estructura 1D bajista (LH+LL)",
-        "\u2705 Precio bajo EMA21 4H",
-        "\u2705 Precio bajo EMA50 4H",
-        "\u26a0\ufe0f RSI 4H bajo (32.19)"
-      ],
-      "warnings": [
-        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
-      ],
-      "funding": 0.0092,
-      "rsi_4h": 32.19,
-      "oi_m": 36.55,
-      "close_price": 105.88,
-      "closed_at": "2026-04-15T14:04:54.937183+00:00",
-      "close_pnl_pct": -12.16
     }
   ],
   "stats": {
     "total": 100,
-    "wins": 24,
-    "losses": 18,
-    "open": 58,
-    "winRate": 57.1,
+    "wins": 27,
+    "losses": 17,
+    "open": 56,
+    "winRate": 61.4,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-16T03:01:53.077836+00:00"
+  "lastUpdated": "2026-04-16T04:02:54.502106+00:00"
 }
