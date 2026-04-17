@@ -1,6 +1,37 @@
 {
   "signals": [
     {
+      "id": "BTCUSDT_1776405839",
+      "symbol": "BTCUSDT",
+      "direction": "long",
+      "grade": "B",
+      "score": 77,
+      "entry": 74615.6,
+      "tp1": 75961.753571,
+      "tp2": 76859.189286,
+      "tp3": 78205.342857,
+      "sl": 73538.677143,
+      "rr": 2.08,
+      "status": "open",
+      "timestamp": 1776405839.286331,
+      "date": "2026-04-17 06:03 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 Precio sobre EMA21 4H ($74,230.7883)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H elevado (55.22), momentum aceptable",
+        "\u27a1\ufe0f Funding neutral (0.0012%)",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u27a1\ufe0f Precio en HVN ($74,615.6000) \u2014 alta liquidez en zona"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": 0.0012,
+      "rsi_4h": 55.22,
+      "oi_m": 7294.85
+    },
+    {
       "id": "BTCUSDT_1776373437",
       "symbol": "BTCUSDT",
       "direction": "long",
@@ -2995,7 +3026,7 @@
       "tp3": 0.354979,
       "sl": 0.419788,
       "rr": 0.21,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1775315045.796597,
       "date": "2026-04-04 15:04 UTC",
       "factors": [
@@ -3012,7 +3043,10 @@
       ],
       "funding": -0.0156,
       "rsi_4h": 18.67,
-      "oi_m": 2.8
+      "oi_m": 2.8,
+      "close_price": 0.4209,
+      "closed_at": "2026-04-17T12:01:39.663115+00:00",
+      "close_pnl_pct": -10.39
     },
     {
       "id": "AAVEUSDT_1775315045",
@@ -3348,38 +3382,6 @@
       "close_price": 1.3896,
       "closed_at": "2026-04-14T14:04:39.928314+00:00",
       "close_pnl_pct": -6.03
-    },
-    {
-      "id": "ARBUSDT_1775293445",
-      "symbol": "ARBUSDT",
-      "direction": "short",
-      "grade": "C",
-      "score": 65,
-      "entry": 0.0916,
-      "tp1": 0.089339,
-      "tp2": 0.0855,
-      "tp3": 0.084064,
-      "sl": 0.097384,
-      "rr": 0.39,
-      "status": "loss",
-      "timestamp": 1775293445.269428,
-      "date": "2026-04-04 09:04 UTC",
-      "factors": [
-        "\u2705 Precio bajo EMA21 4H",
-        "\u2705 Precio bajo EMA50 4H",
-        "\u2705 RSI 4H zona \u00f3ptima short (54.55)",
-        "\u2705 Precio en POC ($0.0924) \u2014 zona de equilibrio de volumen (+10)",
-        "\u27a1\ufe0f Precio en HVN ($0.0916) \u2014 alta liquidez en zona"
-      ],
-      "warnings": [
-        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
-      ],
-      "funding": -0.038,
-      "rsi_4h": 54.55,
-      "oi_m": 20.77,
-      "close_price": 0.1127,
-      "closed_at": "2026-04-14T03:00:45.839239+00:00",
-      "close_pnl_pct": -23.03
     }
   ],
   "stats": {
@@ -3390,5 +3392,5 @@
     "winRate": 69.1,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-17T01:00:36.073073+00:00"
+  "lastUpdated": "2026-04-17T12:01:39.665947+00:00"
 }
