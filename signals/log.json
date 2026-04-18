@@ -1,6 +1,103 @@
 {
   "signals": [
     {
+      "id": "BTCUSDT_1776503024",
+      "symbol": "BTCUSDT",
+      "direction": "long",
+      "grade": "A+",
+      "score": 85,
+      "entry": 76578.6,
+      "tp1": 78057.203571,
+      "tp2": 79042.939286,
+      "tp3": 80521.542857,
+      "sl": 75395.717143,
+      "rr": 2.08,
+      "status": "open",
+      "timestamp": 1776503024.045183,
+      "date": "2026-04-18 09:03 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 Precio sobre EMA21 4H ($75,544.5343)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H elevado (64.06), momentum aceptable",
+        "\u2705 Funding negativo (-0.0062%) \u2014 favorable para long",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u26a1 Precio en LVN ($76,578.6000) \u2014 zona de bajo volumen, precio puede moverse r\u00e1pido (+8)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.0062,
+      "rsi_4h": 64.06,
+      "oi_m": 8058.61
+    },
+    {
+      "id": "BTCUSDT_1776470627",
+      "symbol": "BTCUSDT",
+      "direction": "long",
+      "grade": "A",
+      "score": 78,
+      "entry": 77135.1,
+      "tp1": 78669.460714,
+      "tp2": 79692.367857,
+      "tp3": 81226.728571,
+      "sl": 75907.611429,
+      "rr": 2.08,
+      "status": "open",
+      "timestamp": 1776470627.785345,
+      "date": "2026-04-18 00:03 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 Precio sobre EMA21 4H ($75,305.8569)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u26a0\ufe0f RSI 4H alto (67.99), precauci\u00f3n",
+        "\u2705 Funding negativo (-0.008%) \u2014 favorable para long",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u26a1 Precio en LVN ($77,135.1000) \u2014 zona de bajo volumen, precio puede moverse r\u00e1pido (+8)"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
+      ],
+      "funding": -0.008,
+      "rsi_4h": 67.99,
+      "oi_m": 8235.68
+    },
+    {
+      "id": "BTCUSDT_1776438236",
+      "symbol": "BTCUSDT",
+      "direction": "long",
+      "grade": "A",
+      "score": 81,
+      "entry": 77643.1,
+      "tp1": 79262.853571,
+      "tp2": 80342.689286,
+      "tp3": 81962.442857,
+      "sl": 76347.297143,
+      "rr": 2.08,
+      "status": "loss",
+      "timestamp": 1776438236.421837,
+      "date": "2026-04-17 15:03 UTC",
+      "factors": [
+        "\u2705 Estructura 1D alcista (HH+HL)",
+        "\u2705 Precio sobre EMA21 4H ($74,672.7849)",
+        "\u2705 Precio sobre EMA50 4H",
+        "\u2705 Funding negativo (-0.0092%) \u2014 favorable para long",
+        "\u2705 Equal lows detectados \u2014 im\u00e1n de liquidez abajo",
+        "\u2705 Volumen 2x sobre promedio \u2014 confirmaci\u00f3n muy fuerte",
+        "\u2705 \u00daltimas 3 velas 4H en tendencia alcista",
+        "\u26a1 Precio en LVN ($77,643.1000) \u2014 zona de bajo volumen, precio puede moverse r\u00e1pido (+8)"
+      ],
+      "warnings": [
+        "\u274c RSI 4H sobrecomprado (77.35) \u2014 alto riesgo reversal"
+      ],
+      "funding": -0.0092,
+      "rsi_4h": 77.35,
+      "oi_m": 8385.85,
+      "close_price": 76083.0,
+      "closed_at": "2026-04-18T14:04:35.893388+00:00",
+      "close_pnl_pct": -2.01
+    },
+    {
       "id": "BTCUSDT_1776405839",
       "symbol": "BTCUSDT",
       "direction": "long",
@@ -3315,115 +3412,15 @@
       "close_price": 362.35,
       "closed_at": "2026-04-14T03:00:44.834166+00:00",
       "close_pnl_pct": 48.28
-    },
-    {
-      "id": "SOLUSDT_1775304272",
-      "symbol": "SOLUSDT",
-      "direction": "short",
-      "grade": "B",
-      "score": 70,
-      "entry": 80.19,
-      "tp1": 78.632143,
-      "tp2": 76.63,
-      "tp3": 74.997143,
-      "sl": 87.02295,
-      "rr": 0.23,
-      "status": "loss",
-      "timestamp": 1775304272.448464,
-      "date": "2026-04-04 12:04 UTC",
-      "factors": [
-        "\u2705 Estructura 1D bajista (LH+LL)",
-        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.866) \u2014 movimiento muy dependiente de BTC",
-        "\u2705 Precio bajo EMA21 4H",
-        "\u2705 Precio bajo EMA50 4H",
-        "\u2705 RSI 4H zona \u00f3ptima short (56.79)"
-      ],
-      "warnings": [
-        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
-      ],
-      "funding": -0.0073,
-      "rsi_4h": 56.79,
-      "oi_m": 794.23,
-      "close_price": 87.06,
-      "closed_at": "2026-04-14T14:04:39.666305+00:00",
-      "close_pnl_pct": -8.57
-    },
-    {
-      "id": "SUIUSDT_1775304272",
-      "symbol": "SUIUSDT",
-      "direction": "short",
-      "grade": "B",
-      "score": 73,
-      "entry": 0.8711,
-      "tp1": 0.853582,
-      "tp2": 0.8188,
-      "tp3": 0.812707,
-      "sl": 0.918771,
-      "rr": 0.37,
-      "status": "loss",
-      "timestamp": 1775304272.434765,
-      "date": "2026-04-04 12:04 UTC",
-      "factors": [
-        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.836) \u2014 movimiento muy dependiente de BTC",
-        "\u2705 Precio bajo EMA21 4H",
-        "\u2705 Precio bajo EMA50 4H",
-        "\u2705 RSI 4H zona \u00f3ptima short (56.67)",
-        "\u2705 Precio en POC ($0.8775) \u2014 zona de equilibrio de volumen (+10)",
-        "\u27a1\ufe0f Precio en HVN ($0.8711) \u2014 alta liquidez en zona"
-      ],
-      "warnings": [
-        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
-      ],
-      "funding": 0.0048,
-      "rsi_4h": 56.67,
-      "oi_m": 77.25,
-      "close_price": 0.9495,
-      "closed_at": "2026-04-14T03:00:45.336468+00:00",
-      "close_pnl_pct": -9.0
-    },
-    {
-      "id": "XRPUSDT_1775304272",
-      "symbol": "XRPUSDT",
-      "direction": "short",
-      "grade": "A",
-      "score": 80,
-      "entry": 1.3106,
-      "tp1": 1.290211,
-      "tp2": 1.2791,
-      "tp3": 1.242636,
-      "sl": 1.374739,
-      "rr": 0.32,
-      "status": "loss",
-      "timestamp": 1775304272.432614,
-      "date": "2026-04-04 12:04 UTC",
-      "factors": [
-        "\u2705 Estructura 1D bajista (LH+LL)",
-        "\ud83d\udcce Alta correlaci\u00f3n BTC (0.807) \u2014 movimiento muy dependiente de BTC",
-        "\u2705 Precio bajo EMA21 4H",
-        "\u2705 Precio bajo EMA50 4H",
-        "\u26a0\ufe0f RSI 4H bajo (44.42)",
-        "\u2705 \u00daltimas 3 velas 4H en tendencia bajista",
-        "\u2705 Precio en POC ($1.3211) \u2014 zona de equilibrio de volumen (+10)",
-        "\u27a1\ufe0f Precio en HVN ($1.3106) \u2014 alta liquidez en zona"
-      ],
-      "warnings": [
-        "\u26a0\ufe0f Volumen muy bajo \u2014 se\u00f1al d\u00e9bil"
-      ],
-      "funding": -0.0092,
-      "rsi_4h": 44.42,
-      "oi_m": 342.99,
-      "close_price": 1.3896,
-      "closed_at": "2026-04-14T14:04:39.928314+00:00",
-      "close_pnl_pct": -6.03
     }
   ],
   "stats": {
     "total": 100,
     "wins": 67,
-    "losses": 25,
-    "open": 8,
-    "winRate": 72.8,
+    "losses": 23,
+    "open": 10,
+    "winRate": 74.4,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-17T15:00:37.122304+00:00"
+  "lastUpdated": "2026-04-18T14:04:38.592635+00:00"
 }
