@@ -73,7 +73,7 @@
       "tp3": 321.322857,
       "sl": 352.337143,
       "rr": 2.08,
-      "status": "open",
+      "status": "loss",
       "timestamp": 1776621854.723978,
       "date": "2026-04-19 18:04 UTC",
       "factors": [
@@ -88,7 +88,10 @@
       ],
       "funding": 0.01,
       "rsi_4h": 46.49,
-      "oi_m": 23.78
+      "oi_m": 23.78,
+      "close_price": 352.98,
+      "closed_at": "2026-04-20T03:00:28.813345+00:00",
+      "close_pnl_pct": -2.26
     },
     {
       "id": "BTCUSDT_1776600239",
@@ -3405,10 +3408,10 @@
   "stats": {
     "total": 100,
     "wins": 64,
-    "losses": 22,
-    "open": 14,
-    "winRate": 74.4,
+    "losses": 23,
+    "open": 13,
+    "winRate": 73.6,
     "avgRR": 0
   },
-  "lastUpdated": "2026-04-19T22:00:38.227659+00:00"
+  "lastUpdated": "2026-04-20T03:00:32.305523+00:00"
 }
