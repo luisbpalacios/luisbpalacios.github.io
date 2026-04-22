@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Vera Signals — Historial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0D0D0D;
@@ -26,9 +28,6 @@
   .header{background:var(--card);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
   .logo span{font-size:18px;font-weight:700;}
   .logo .sub{font-size:12px;color:var(--muted);}
-  .nav-links{display:flex;gap:16px;}
-  .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:6px;transition:all .15s;}
-  .nav-links a:hover,.nav-links a.active{background:rgba(242,86,29,.1);color:var(--accent);}
 
   .container{max-width:1100px;margin:0 auto;padding:24px;}
 
@@ -143,9 +142,10 @@ function fmtPrice(p){
   if(p>=1)return"$"+p.toFixed(4);
   return"$"+p.toFixed(6);
 }
-function fmtDate(iso){
-  if(!iso)return"—";
-  const d=new Date(iso);
+function toMs(ts){if(!ts)return 0;if(typeof ts==="string")return new Date(ts).getTime();return ts<1e12?ts*1000:ts;}
+function fmtDate(ts){
+  if(!ts)return"—";
+  const d=new Date(toMs(ts));
   return d.toLocaleDateString("es-MX",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"});
 }
 
@@ -161,7 +161,7 @@ function drawEquity(signals){
   const ctx=canvas.getContext("2d");
   canvas.width=canvas.offsetWidth||800;
   canvas.height=140;
-  const closed=signals.filter(s=>s.status!=="open"&&s.result_pct!=null).reverse();
+  const closed=signals.filter(s=>s.status!=="open"&&s.close_pnl_pct!=null).reverse();
   if(closed.length<2){
     ctx.fillStyle="#334155";ctx.font="13px Inter";
     ctx.fillText("Se necesitan más señales cerradas para mostrar la curva",20,70);
@@ -170,7 +170,7 @@ function drawEquity(signals){
   let equity=100;
   const points=[{x:0,y:equity}];
   closed.forEach((s,i)=>{
-    equity+=s.status==="sl"?-2:s.result_pct*0.5;
+    equity+=s.close_pnl_pct*0.5;
     points.push({x:i+1,y:equity});
   });
   const minY=Math.min(...points.map(p=>p.y));
@@ -206,7 +206,7 @@ function drawEquity(signals){
 }
 
 function renderRow(s){
-  const pnl=s.result_pct;
+  const pnl=s.close_pnl_pct;
   const pnlStr=pnl!=null?`<span class="pnl ${pnl>0?"pos":pnl<0?"neg":"neutral"}">${pnl>0?"+":""}${pnl}%</span>`:`<span class="pnl neutral">—</span>`;
   return`<div class="table-row">
     <div><strong>${s.symbol.replace("USDT","")}</strong></div>

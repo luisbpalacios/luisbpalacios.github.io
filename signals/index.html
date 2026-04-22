@@ -412,6 +412,28 @@
       color: #333;
       padding: 8px 0 16px;
     }
+
+    /* ── TAB BAR ── */
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      padding: 0 0 20px;
+    }
+    .tab-bar a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--gray);
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+    }
+    .tab-bar a:hover { color: #fff; }
+    .tab-bar a.active { color: var(--orange); border-bottom-color: var(--orange); }
   </style>
 </head>
 <body>
@@ -426,6 +448,12 @@
     </div>
     <div class="header-handle">@lbpalacios_</div>
     <div class="header-updated" id="lastUpdated">Cargando...</div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <a href="index.html" class="active">🎯 Señales</a>
+    <a href="history.html">📈 Historial</a>
   </div>
 
   <!-- STATS BAR -->
@@ -499,10 +527,16 @@
     return (+p).toFixed(2);
   }
 
+  function toMs(ts) {
+    if (!ts) return 0;
+    if (typeof ts === 'string') return new Date(ts).getTime();
+    return ts < 1e12 ? ts * 1000 : ts;
+  }
+
   function fDate(ts) {
     if (!ts) return '';
     try {
-      const d = new Date(ts);
+      const d = new Date(toMs(ts));
       return d.toLocaleDateString('es-MX', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     } catch { return ''; }
   }
@@ -510,7 +544,7 @@
   function fUpdated(ts) {
     if (!ts) return '';
     try {
-      const d = new Date(ts);
+      const d = new Date(toMs(ts));
       return 'Actualizado: ' + d.toLocaleString('es-MX', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     } catch { return ''; }
   }
@@ -595,7 +629,7 @@
       }
       bottomRow = `
         <div class="card-live">
-          <div><span class="live-price-label">Precio actual</span> &nbsp;<span class="live-price-val" id="lp-${symbol}">${priceStr}</span></div>
+          <div><span class="live-price-label">Precio actual</span> &nbsp;<span class="live-price-val" data-lp="${symbol}">${priceStr}</span></div>
           <div id="pnl-${symbol}-${s.timestamp || ''}" class="pnl-display">${pnlStr}</div>
         </div>`;
     } else if (status === 'win' || status === 'loss') {
@@ -665,9 +699,8 @@
       const cur = livePrice[symbol];
       if (!cur) return;
 
-      // Update price display
-      const lpEl = document.getElementById(`lp-${symbol}`);
-      if (lpEl) lpEl.textContent = fP(cur);
+      // Update price display (querySelectorAll handles duplicates for same symbol)
+      document.querySelectorAll(`[data-lp="${symbol}"]`).forEach(el => { el.textContent = fP(cur); });
 
       // Update PnL display
       const pnlId = `pnl-${symbol}-${s.timestamp || ''}`;
@@ -707,8 +740,8 @@
         const bOpen = (b.status || 'open') === 'open' ? 1 : 0;
         if (bOpen !== aOpen) return bOpen - aOpen;
         // Same status: sort by timestamp desc
-        const aTs = a.timestamp ? new Date(a.timestamp).getTime() : 0;
-        const bTs = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+        const aTs = a.timestamp ? toMs(a.timestamp) : 0;
+        const bTs = b.timestamp ? toMs(b.timestamp) : 0;
         return bTs - aTs;
       });
 

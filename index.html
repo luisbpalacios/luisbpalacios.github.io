@@ -1450,8 +1450,8 @@ async function loadHistory(){
     const sigs=(data.signals||[]).slice(0,8);
     if(!sigs.length){document.getElementById("sigHistBody").innerHTML='<div style="padding:20px;text-align:center;color:#555;font-size:12px">Sin señales registradas aún</div>';return;}
     document.getElementById("sigHistBody").innerHTML=sigs.map(s=>{
-      const dt=s.timestamp?new Date(s.timestamp).toLocaleDateString("es-MX",{month:"short",day:"numeric"}):"—";
-      return`<div class="sig-hist-row"><div style="font-weight:700">${s.symbol.replace("USDT","")}</div><div><span class="sig-badge ${s.direction.toLowerCase()}">${s.direction}</span></div><div style="font-family:monospace;font-size:11px">${fP(s.entry)}</div><div style="font-family:monospace;font-size:11px;color:#4ade80">${fP(s.tp1)}</div><div style="font-family:monospace;font-size:11px;color:#f87171">${fP(s.sl)}</div><div><span class="sig-badge ${s.status}">${s.status.toUpperCase()}</span></div><div>${fPnl(s.result_pct)}</div></div>`;
+      const dt=s.timestamp?new Date(s.timestamp<1e12?s.timestamp*1000:s.timestamp).toLocaleDateString("es-MX",{month:"short",day:"numeric"}):"—";
+      return`<div class="sig-hist-row"><div style="font-weight:700">${s.symbol.replace("USDT","")}</div><div><span class="sig-badge ${s.direction.toLowerCase()}">${s.direction}</span></div><div style="font-family:monospace;font-size:11px">${fP(s.entry)}</div><div style="font-family:monospace;font-size:11px;color:#4ade80">${fP(s.tp1)}</div><div style="font-family:monospace;font-size:11px;color:#f87171">${fP(s.sl)}</div><div><span class="sig-badge ${s.status}">${s.status.toUpperCase()}</span></div><div>${fPnl(s.close_pnl_pct)}</div></div>`;
     }).join("");
   }catch(e){console.error(e);}
 }
